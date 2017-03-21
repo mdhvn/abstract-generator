@@ -3,6 +3,8 @@ Computational Linguistics Course Project
 
 An automatic abstract generator for technical papers. 
 
+Report on Google Docs: https://docs.google.com/document/d/17n1qkNxBWTecJnK7sYgKGZlJyYB-iEzw07TU-qq9zcw/edit
+
 ## Introduction
 
 < some intro about how loads of technical papers are written every day and how the abstract is a key part of the paper, since it is meant to succinctly summarize the paper for the reader's convenience, and the abstract often comes in useful as a quick way to tell whether or not a paper is relevant to something someone may be searching for >
