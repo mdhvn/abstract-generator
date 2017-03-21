@@ -3,7 +3,31 @@ Computational Linguistics Course Project
 
 An automatic abstract generator for technical papers. 
 
-Readings and links:
+## Introduction
+
+< some intro about how loads of technical papers are written every day and how the abstract is a key part of the paper, since it is meant to succinctly summarize the paper for the reader's convenience, and the abstract often comes in useful as a quick way to tell whether or not a paper is relevant to something someone may be searching for >
+
+Hence, we decided to create a tool that takes a technical paper of any kind, and auto-generates an abstract < some details about the kind of abstract we will generate > using < some methods >.
+
+## Method and Tools
+
+< how we are doing it >
+
+## Initial Results
+
+lol
+
+## Other Ideas
+
+- Something that takes in a text and modifies it so that its meaning remains the same but a plagiarism detector would be unable to tell that it has been copied
+- Something that takes in a multilingual text and tags each individual language substring of the text
+- Classifying Movie Scripts (Genre)
+- Classifying Books (Genre)
+- Classifying article as written by Republican/Democrat
+- Generate Rap/Rhymes
+
+
+## Readings and links
   - https://arxiv.org/help/bulk_data_s3
   - http://cs.stanford.edu/people/widom/paper-writing.html#abstract
   - http://stackoverflow.com/questions/8897593/similarity-between-two-text-documents
