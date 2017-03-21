@@ -1,4 +1,4 @@
 # Abstract Generator
-Computational Linguistics: Final Project
+Computational Linguistics Course Project
 
 An automatic abstract generator for technical paper. 
