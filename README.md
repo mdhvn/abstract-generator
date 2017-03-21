@@ -1,2 +1,3 @@
 # Abstract Generator
-An automatic abstract generator for technical paper. Final project for Computational Linguistics.
+Computational Linguistics: Final Project
+An automatic abstract generator for technical paper. 
