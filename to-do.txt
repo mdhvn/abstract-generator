@@ -1,0 +1,15 @@
+* Accept a paper as a file from the user. 
+	- Worry about formats later. For now, just store the content of a paper in a text file. 
+          We can later  modify this to work with other formats (.tex, .pdf, .docx, etc.).
+
+* Get data from the text
+	- For now, we may assume that the text has clearly defined sections, i.e. the Introduction,
+          Past Work, Methods, etc. sections are all marked with headers. Our program should(?) later
+          be modified to not need to rely on these section headers. 
+
+        - Compute the tf-idf for every word:
+          	1) within the section it occurs in
+		2) within the entire document(?)
+
+        - Words with the highest tf-idfs(?) can (to some degree(?)) be determined important to the 
+          document. These are our keywords.
