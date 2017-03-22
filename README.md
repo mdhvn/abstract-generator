@@ -49,3 +49,10 @@ on our corpus and eliminating “stop” words (“and”, “or”, “not” e
   - https://research.googleblog.com/2016/08/text-summarization-with-tensorflow.html
   - http://www.aclweb.org/anthology/W/W04/W04-1013.pdf
   - http://research.nii.ac.jp/ntcir/workshop/OnlineProceedings3/NTCIR3-TSC-SekiY.pdf
+  - https://en.wikipedia.org/wiki/Automatic_summarization
+  - http://writingcenter.unc.edu/handouts/abstracts/
+  - https://en.wikipedia.org/wiki/Directory_of_Open_Access_Journals
+  - https://en.wikipedia.org/wiki/List_of_academic_databases_and_search_engines
+  - https://homes.cs.washington.edu/~mernst/advice/write-technical-paper.html
+  - https://kfarr.gcsu.edu/how%20to%20write%20a%20technical%20research%20paper.pdf
+  - https://users.ece.cmu.edu/~koopman/essays/abstract.html
