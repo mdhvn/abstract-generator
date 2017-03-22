@@ -21,6 +21,8 @@ lol
 
 ## Other Ideas
 
+on our corpus and eliminating “stop” words (“and”, “or”, “not” etc.) (sources from nltk) to find the most important words in a paper. We could then further eliminate words by checking which ones do/don’t occur in the abstract for the paper. This would give us a list of “keywords”, which are the basic building blocks of a paper, and in themselves a way to “identify” the contents of the paper.
+
 - Something that takes in a text and modifies it so that its meaning remains the same but a plagiarism detector would be unable to tell that it has been copied
 - Something that takes in a multilingual text and tags each individual language substring of the text
 - Classifying Movie Scripts (Genre)
