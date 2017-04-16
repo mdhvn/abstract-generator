@@ -56,3 +56,5 @@ on our corpus and eliminating “stop” words (“and”, “or”, “not” e
   - https://homes.cs.washington.edu/~mernst/advice/write-technical-paper.html
   - https://kfarr.gcsu.edu/how%20to%20write%20a%20technical%20research%20paper.pdf
   - https://users.ece.cmu.edu/~koopman/essays/abstract.html
+
+  - https://github.com/lukasschwab/arxiv.py (arXiv wrapper)
