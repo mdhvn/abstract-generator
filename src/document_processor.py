@@ -1,9 +1,10 @@
 import codecs
-import pickle
 from nltk import word_tokenize
 from nltk import FreqDist
 import os
+import pickle
 import string
+import textract
 from unidecode import unidecode
 
 DATA_DIRECTORY_PATH = "../data/"
@@ -24,8 +25,10 @@ class DocumentProcessor(object):
 
 		# Comment this back in!
 		# Remove both the .pdf and .txt versions of the file from disk
-		#os.remove(self.filename)
-		#os.remove(self.filename[:-len("txt")] + "pdf")
+		os.remove(self.filename)
+		os.remove(self.filename[:-len("txt")] + "pdf")
+
+		
 
 	def processText(self):
 		self.tokens = word_tokenize(self.documentContents)

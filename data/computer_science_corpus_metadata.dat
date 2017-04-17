@@ -1,0 +1,1586 @@
+(dp0
+Vhttp://arxiv.org/abs/0906.2824v1
+p1
+(dp2
+S'category'
+p3
+Vcs.AI
+p4
+sS'summary'
+p5
+VShort philosophical essay
+p6
+sS'title'
+p7
+VWhat Does Artificial Life Tell Us About Death?
+p8
+ssVhttp://arxiv.org/abs/cs/0603115v1
+p9
+(dp10
+S'category'
+p11
+Vcs.AR
+p12
+sS'summary'
+p13
+VThe Graphic Processing Unit (GPU) has evolved into a powerful and flexible\u000aprocessor. The latest graphic processors provide fully programmable vertex and\u000apixel processing units that support vector operations up to single\u000afloating-point precision. This computational power is now being used for\u000ageneral-purpose computations. However, some applications require higher\u000aprecision than single precision. This paper describes the emulation of a 44-bit\u000afloating-point number format and its corresponding operations. An\u000aimplementation is presented along with performance and accuracy results.
+p14
+sS'title'
+p15
+VImplementation of float-float operators on graphics hardware
+p16
+ssVhttp://arxiv.org/abs/1106.3588v1
+p17
+(dp18
+S'category'
+p19
+Vmath.CV
+p20
+sS'title'
+p21
+VSome Operators Associated to Rarita-Schwinger Type Operators
+p22
+sS'summary'
+p23
+VIn this paper we study some operators associated to the Rarita-Schwinger\u000aoperators. They arise from the difference between the Dirac operator and the\u000aRarita-Schwinger operators. These operators are called remaining operators.\u000aThey are based on the Dirac operator and projection operators $I-P_k.$ The\u000afundamental solutions of these operators are harmonic polynomials, homogeneous\u000aof degree $k$. First we study the remaining operators and their representation\u000atheory in Euclidean space. Second, we can extend the remaining operators in\u000aEuclidean space to the sphere under the Cayley transformation.
+p24
+ssVhttp://arxiv.org/abs/cs/0003024v1
+p25
+(dp26
+S'category'
+p27
+Vcs.AI
+p28
+sS'summary'
+p29
+VThis paper describes a system, called PLP, for compiling ordered logic\u000aprograms into standard logic programs under the answer set semantics. In an\u000aordered logic program, rules are named by unique terms, and preferences among\u000arules are given by a set of dedicated atoms. An ordered logic program is\u000atransformed into a second, regular, extended logic program wherein the\u000apreferences are respected, in that the answer sets obtained in the transformed\u000atheory correspond with the preferred answer sets of the original theory. Since\u000athe result of the translation is an extended logic program, existing logic\u000aprogramming systems can be used as underlying reasoning engine. In particular,\u000aPLP is conceived as a front-end to the logic programming systems dlv and\u000asmodels.
+p30
+sS'title'
+p31
+VA Compiler for Ordered Logic Programs
+p32
+ssVhttp://arxiv.org/abs/0902.2104v1
+p33
+(dp34
+S'category'
+p35
+Vcs.LO
+p36
+sS'title'
+p37
+VTableau-based decision procedure for full coalitional multiagent\u000a  temporal-epistemic logic of linear tim
+p38
+sS'summary'
+p39
+VWe develop a tableau-based decision procedure for the full coalitional\u000amultiagent temporal-epistemic logic of linear time CMATEL(CD+LT). It extends\u000aLTL with operators of common and distributed knowledge for all coalitions of\u000aagents. The tableau procedure runs in exponential time, matching the lower\u000abound obtained by Halpern and Vardi for a fragment of our logic, thus providing\u000aa complexity-optimal decision procedure for CMATEL(CD+LT).
+p40
+ssVhttp://arxiv.org/abs/cs/0006030v2
+p41
+(dp42
+g35
+Vcs.RO
+p43
+sg37
+VMultiagent Control of Self-reconfigurable Robots
+p44
+sg39
+VWe demonstrate how multiagent systems provide useful control techniques for\u000amodular self-reconfigurable (metamorphic) robots. Such robots consist of many\u000amodules that can move relative to each other, thereby changing the overall\u000ashape of the robot to suit different tasks. Multiagent control is particularly\u000awell-suited for tasks involving uncertain and changing environments. We\u000aillustrate this approach through simulation experiments of Proteo, a\u000ametamorphic robot system currently under development.
+p45
+ssVhttp://arxiv.org/abs/cs/0605038v1
+p46
+(dp47
+g27
+Vcs.SE
+p48
+sg29
+VThe paper presents two equivalent definitions of answer sets for logic\u000aprograms with aggregates. These definitions build on the notion of unfolding of\u000aaggregates, and they are aimed at creating methodologies to translate logic\u000aprograms with aggregates to normal logic programs or positive programs, whose\u000aanswer set semantics can be used to defined the semantics of the original\u000aprograms. The first definition provides an alternative view of the semantics\u000afor logic programming with aggregates described by Pelov et al.\u000a  The second definition is similar to the traditional answer set definition for\u000anormal logic programs, in that, given a logic program with aggregates and an\u000ainterpretation, the unfolding process produces a positive program. The paper\u000ashows how this definition can be extended to consider aggregates in the head of\u000athe rules.\u000a  The proposed views of logic programming with aggregates are simple and\u000acoincide with the ultimate stable model semantics, and with other semantic\u000acharacterizations for large classes of program (e.g., programs with monotone\u000aaggregates and programs that are aggregate-stratified).\u000a  Moreover, it can be directly employed to support an implementation using\u000aavailable answer set solvers. The paper describes a system, called ASP^A, that\u000ais capable of computing answer sets of programs with arbitrary (e.g.,\u000arecursively defined) aggregates.
+p49
+sg31
+VAn Unfolding-Based Semantics for Logic Programming with Aggregates
+p50
+ssVhttp://arxiv.org/abs/1501.03439v1
+p51
+(dp52
+g35
+Vmath.OC
+p53
+sg37
+VControl of Networked Multiagent Systems with Uncertain Graph Topologies
+p54
+sg39
+VMultiagent systems consist of agents that locally exchange information\u000athrough a physical network subject to a graph topology. Current control methods\u000afor networked multiagent systems assume the knowledge of graph topologies in\u000aorder to design distributed control laws for achieving desired global system\u000abehaviors. However, this assumption may not be valid for situations where graph\u000atopologies are subject to uncertainties either due to changes in the physical\u000anetwork or the presence of modeling errors especially for multiagent systems\u000ainvolving a large number of interacting agents. Motivating from this\u000astandpoint, this paper studies distributed control of networked multiagent\u000asystems with uncertain graph topologies. The proposed framework involves a\u000acontroller architecture that has an ability to adapt its feed- back gains in\u000aresponse to system variations. Specifically, we analytically show that the\u000aproposed controller drives the trajectories of a networked multiagent system\u000asubject to a graph topology with time-varying uncertainties to a close\u000aneighborhood of the trajectories of a given reference model having a desired\u000agraph topology. As a special case, we also show that a networked multi-agent\u000asystem subject to a graph topology with constant uncertainties asymptotically\u000aconverges to the trajectories of a given reference model. Although the main\u000aresult of this paper is presented in the context of average consensus problem,\u000athe proposed framework can be used for many other problems related to networked\u000amultiagent systems with uncertain graph topologies.
+p55
+ssVhttp://arxiv.org/abs/cs/0611089v1
+p56
+(dp57
+g11
+Vcs.IT
+p58
+sg13
+VTwo broad classes of graphical modeling problems for codes can be identified\u000ain the literature: constructive and extractive problems. The former class of\u000aproblems concern the construction of a graphical model in order to define a new\u000acode. The latter class of problems concern the extraction of a graphical model\u000afor a (fixed) given code. The design of a new low-density parity-check code for\u000asome given criteria (e.g. target block length and code rate) is an example of a\u000aconstructive problem. The determination of a graphical model for a classical\u000alinear block code which implies a decoding algorithm with desired performance\u000aand complexity characteristics is an example of an extractive problem. This\u000awork focuses on extractive graphical model problems and aims to lay out some of\u000athe foundations of the theory of such problems for linear codes.\u000a  The primary focus of this work is a study of the space of all graphical\u000amodels for a (fixed) given code. The tradeoff between cyclic topology and\u000acomplexity in this space is characterized via the introduction of a new bound:\u000athe tree-inducing cut-set bound. The proposed bound provides a more precise\u000acharacterization of this tradeoff than that which can be obtained using\u000aexisting tools (e.g. the Cut-Set Bound) and can be viewed as a generalization\u000aof the square-root bound for tail-biting trellises to graphical models with\u000aarbitrary cyclic topologies. Searching the space of graphical models for a\u000agiven code is then enabled by introducing a set of basic graphical model\u000atransformation operations which are shown to span this space. Finally,\u000aheuristics for extracting novel graphical models for linear block codes using\u000athese transformations are investigated.
+p59
+sg15
+VThe Extraction and Complexity Limits of Graphical Models for Linear\u000a  Codes
+p60
+ssVhttp://arxiv.org/abs/1404.6757v1
+p61
+(dp62
+g11
+Vcs.HC
+p63
+sg13
+VThe conventional GUI is more mechanical and does not recognize or communicate\u000aemotions. The modern GUIs are trying to infer the likely emotional state and\u000apersonality of the user and communicate through a corresponding emotional\u000astate.\u000a  Emotions are expressed in graphical icons, sounds, pictures and other means.\u000aThe emotions are found to be useful in especially in communication software,\u000ainteractive learning systems, robotics and other adaptive environments. Various\u000amechanisms have been developed to express emotions through graphical user\u000ainterfaces. This article illustrates some interesting inventions selected from\u000aUS patent database.
+p64
+sg15
+VInventions on expressing emotions In Graphical User Interface
+p65
+ssVhttp://arxiv.org/abs/1510.06727v2
+p66
+(dp67
+g11
+Vmath.CO
+p68
+sg13
+VIn this work we provide a decomposition theorem for the class of quaternary\u000aand non-binary signed-graphic matroids. This generalizes previous results for\u000abinary signed-graphic matroids and graphic matroids, and it provides the\u000atheoretical basis for a recognition algorithm.
+p69
+sg15
+VDecomposition of Quaternary Signed-Graphic Matroids
+p70
+ssVhttp://arxiv.org/abs/1311.4037v1
+p71
+(dp72
+g11
+Vcs.CR
+p73
+sg13
+VUser authentication is one of the most important part of information\u000asecurity. Computer security most commonly depends on passwords to authenticate\u000ahuman users. Password authentication systems will be either been usable but not\u000asecure, or secure but not usable. While there are different types of\u000aauthentication systems available alphanumeric password is the most commonly\u000aused authentication mechanism. But this method has significant drawbacks. An\u000aalternative solution to the text based authentication is Graphical User\u000aAuthentication based on the fact that humans tends to remember images better\u000athan text. Graphical password authentication systems provide passwords which\u000aare easy to be created and remembered by the user. However, the main issues of\u000asimple graphical password techniques are shoulder surfing attack and image\u000agallery attack. Studies reveals that most of the graphical passwords are either\u000asecure but not usable or usable but not secure. In this paper, a new technique\u000athat uses cued click point graphical password method along with the one-time\u000asession key is proposed. The goal is to propose a new authentication mechanism\u000ausing graphical password to achieve higher security and better usability\u000alevels. The result of the system testing is evaluated and it reveals that the\u000aproposed system ensures security and usability to a great extent.
+p74
+sg15
+VA Novel Multifactor Authentication System Ensuring Usability and\u000a  Security
+p75
+ssVhttp://arxiv.org/abs/1205.3915v1
+p76
+(dp77
+S'category'
+p78
+Vmath.GN
+p79
+sS'title'
+p80
+VOn generalized topological groups
+p81
+sS'summary'
+p82
+VIn this work, we will introduce the notion of generalized topological groups\u000ausing generalized topological structure and generalized continuity defined by\u000a?A. Cs?asz?ar [2]. We will discuss some basic properties of this kind of\u000astructures and connectedness properties of this structures are given. Keywords:\u000aGeneralized topology; generalized continuity; generalized topological groups;\u000ageneralized connectedness.
+p83
+ssVhttp://arxiv.org/abs/1507.06395v1
+p84
+(dp85
+g11
+Vquant-ph
+p86
+sg13
+VWigner's marginal probability theory is revisited, and systematically applied\u000ato n-particle correlation measurements. A set of Bell inequalities whose\u000acorollaries are Hardy contradiction and its generalisation are derived with\u000aintuitive graphical analysis.
+p87
+sg15
+VGraphical representation of marginal and underlying probabilities in\u000a  quantum mechanics
+p88
+ssVhttp://arxiv.org/abs/1309.5134v1
+p89
+(dp90
+S'category'
+p91
+Vcs.OH
+p92
+sS'summary'
+p93
+VFormal concept analysis (FCA) is built on a special type of Galois\u000aconnections called polarities. We present new results in formal concept\u000aanalysis and in Galois connections by presenting new Galois connection results\u000aand then applying these to formal concept analysis. We also approach FCA from\u000athe perspective of collections of formal contexts. Usually, when doing FCA, a\u000aformal context is fixed. We are interested in comparing formal contexts and\u000aasking what criteria should be used when determining when one formal context is\u000abetter than another formal context. Interestingly, we address this issue by\u000astudying sets of polarities.
+p94
+sS'title'
+p95
+VFormal Contexts, Formal Concept Analysis, and Galois Connections
+p96
+ssVhttp://arxiv.org/abs/0705.3601v1
+p97
+(dp98
+g91
+Vquant-ph
+p99
+sg93
+VThe spin can be described in the star product formalism by extending the\u000abosonic Moyal product in the fermionic sector. The fermionic star product is\u000athen the Clifford product of geometric algebra and it is possible to formulate\u000athe fermionic star product formalism in analogy to the bosonic star product\u000aformalism. For the fermionic star product description of spin, one can then\u000aestablish the relation to other approaches that describe spin with fermionic\u000avariables, i.e. the operator formalism and the path integral formalism. It is\u000ashown that the fermionic star product formalism and the fermionic path integral\u000aformalism are related in analogy to their bosonic counterparts.
+p100
+sg95
+VSpin Description in the Star Product and the Path Integral Formalism
+p101
+ssVhttp://arxiv.org/abs/hep-th/9905071v1
+p102
+(dp103
+g91
+Vhep-th
+p104
+sg93
+VWe compute part of the superfield in terms of the component fields of\u000a11-dimensional on-shell supergravity by using `Gauge completion' in 2nd-order\u000aformalism. The result is the same as was derived recently in 1.5-order\u000aformalism by B. de Wit, K. Peeters and J. Plefka. We use 2nd-order formalism\u000abecause in order to hold $\u005ckappa $-invariance generally 2nd-order formalism is\u000amore hopeful and simpler than 1.5-order formalism.
+p105
+sg95
+V11-dimensional curved backgrounds for supermembrane in superspace
+p106
+ssVhttp://arxiv.org/abs/1204.4057v1
+p107
+(dp108
+g11
+Vmath.DG
+p109
+sg13
+VIn this note we will prove that an $n$ dimensional graphic self-shrinker in\u000a$R^{n+m}$ with flat normal bundle is a linear subspace. This result is a\u000ageneralization of the corresponding result of Lu Wang in codimension one case.
+p110
+sg15
+VA Bernstein type theorem for graphic self-shrinkers with flat normal\u000a  bundle
+p111
+ssVhttp://arxiv.org/abs/1004.0766v1
+p112
+(dp113
+g11
+Vcs.GR
+p114
+sg13
+VSeparation of the text regions from background texture and graphics is an\u000aimportant step of any optical character recognition sytem for the images\u000acontaing both texts and graphics. In this paper, we have presented a novel\u000atext/graphics separation technique for business card images captured with a\u000acell-phone camera. At first, the background is eliminated at a coarse level\u000abased on intensity variance. This makes the foreground components distinct from\u000aeach other. Then the non-text components are removed using various\u000acharacteristic features of text and graphics. Finally, the text regions are\u000askew corrected and binarized for further processing. Experimenting with\u000abusiness card images of various resolutions, we have found an optimum\u000aperformance of 98.54% with 0.75 MP images, that takes 0.17 seconds processing\u000atime and 1.1 MB peak memory on a moderately powerful computer (DualCore 1.73\u000aGHz Processor, 1 GB RAM, 1 MB L2 Cache). The developed technique is\u000acomputationally efficient and consumes low memory so as to be applicable on\u000amobile devices.
+p115
+sg15
+VText/Graphics Separation for Business Card Images for Mobile Devices
+p116
+ssVhttp://arxiv.org/abs/0806.2651v2
+p117
+(dp118
+g11
+Vquant-ph
+p119
+sg13
+VWe use a graphical representation of stabilizer states to describe, simply\u000aand efficiently, the effect of measurements of Pauli products on stabilizer\u000astates. This work complements our earlier work [Phys. Rev. A 77, 042307\u000a(2008)], which described in graphical terms the action of Clifford operations\u000aon stabilizer states.
+p120
+sg15
+VGraphical description of Pauli measurements on stabilizer states
+p121
+ssVhttp://arxiv.org/abs/1506.04191v1
+p122
+(dp123
+g11
+Vcs.CV
+p124
+sg13
+VThis paper presents a deep neural-network-based hierarchical graphical model\u000afor individual and group activity recognition in surveillance scenes. Deep\u000anetworks are used to recognize the actions of individual people in a scene.\u000aNext, a neural-network-based hierarchical graphical model refines the predicted\u000alabels for each class by considering dependencies between the classes. This\u000arefinement step mimics a message-passing step similar to inference in a\u000aprobabilistic graphical model. We show that this approach can be effective in\u000agroup activity recognition, with the deep graphical model improving recognition\u000arates over baseline methods.
+p125
+sg15
+VDeep Structured Models For Group Activity Recognition
+p126
+ssVhttp://arxiv.org/abs/1005.3992v2
+p127
+(dp128
+g11
+Vcs.MS
+p129
+sg13
+VIn this paper we present a Java implementation of the algorithm that computes\u000aBuchbereger's and reduced Groebner's basis step by step. The Java application\u000aenables graphical representation of the intersection of two surfaces in\u000a3-dimensional space and determines conditions of existence and planarity of the\u000aintersection.
+p130
+sg15
+VGroebner bases in Java with applications in computer graphics
+p131
+ssVhttp://arxiv.org/abs/1703.04857v1
+p132
+(dp133
+g11
+Vmath.CO
+p134
+sg13
+VWe present infinite sequences of excluded minors for both the class of\u000alifted-graphic matroids and the class of frame matroids.
+p135
+sg15
+VInfinitly many excluded minors for frame matroids and for lifted-graphic\u000a  matroids
+p136
+ssVhttp://arxiv.org/abs/1407.5211v1
+p137
+(dp138
+g11
+Vq-bio.BM
+p139
+sg13
+VThe PyMOL molecular graphics program has been modified to introduce a new\u000a'putty' cartoon representation, akin to the 'sausage'-style representation of\u000athe MOLMOL molecular visualization (MolVis) software package. This document\u000aoutlines the development and implementation of the putty representation.
+p140
+sg15
+VDevelopment & Implementation of a PyMOL 'putty' Representation
+p141
+ssVhttp://arxiv.org/abs/math/0502551v1
+p142
+(dp143
+g11
+Vmath.DG
+p144
+sg13
+VIn this paper, we prove a generalization of Rado's Theorem, a fundamental\u000aresult of minimal surface theory, which says that minimal surfaces over a\u000aconvex domain with graphical boundaries must be disks which are themselves\u000agraphical. We will show that, for a minimal surface of any genus, whose\u000aboundary is "almost graphical" in some sense, that the surface must be\u000agraphical once we move sufficiently far from the boundary.
+p145
+sg15
+VA generalization of Rado's Theorem for almost graphical boundaries
+p146
+ssVhttp://arxiv.org/abs/1412.6703v2
+p147
+(dp148
+g3
+Vcs.AI
+p149
+sg5
+VOne of the most important aims of the fields of robotics, artificial\u000aintelligence and artificial life is the design and construction of systems and\u000amachines as versatile and as reliable as living organisms at performing high\u000alevel human-like tasks. But how are we to evaluate artificial systems if we are\u000anot certain how to measure these capacities in living systems, let alone how to\u000adefine life or intelligence? Here I survey a concrete metric towards measuring\u000aabstract properties of natural and artificial systems, such as the ability to\u000areact to the environment and to control one's own behaviour.
+p150
+sg7
+VQuantifying Natural and Artificial Intelligence in Robots and Natural\u000a  Systems with an Algorithmic Behavioural Test
+p151
+ssVhttp://arxiv.org/abs/1509.07076v1
+p152
+(dp153
+g11
+Vcs.DM
+p154
+sg13
+VIn this paper we introduce extensions and modifications of the classical\u000adegree sequence graphic realization problem studied by Erd\u005cH{o}s-Gallai and\u000aHavel-Hakimi, as well as of the corresponding connected graphic realization\u000aversion. We define the joint-degree matrix graphic (resp. connected graphic)\u000arealization problem, where in addition to the degree sequence, the exact number\u000aof desired edges between vertices of different degree classes is also\u000aspecified. We give necessary and sufficient conditions, and polynomial time\u000adecision and construction algorithms for the graphic and connected graphic\u000arealization problems. These problems arise naturally in the current topic of\u000agraph modeling for complex networks. From the technical point of view, the\u000ajoint-degree matrix realization algorithm is straightforward. However, the\u000aconnected joint-degree matrix realization algorithm involves a novel recursive\u000asearch of suitable local graph modifications. Also, we outline directions for\u000afurther work of both theoretical and practical interest. In particular, we give\u000aa Markov chain which converges to the uniform distribution over all\u000arealizations. We show that the underline state space is connected, and we leave\u000athe question of the mixing rate open.
+p155
+sg15
+VGraphic Realizations of Joint-Degree Matrices
+p156
+ssVhttp://arxiv.org/abs/1308.1806v1
+p157
+(dp158
+S'category'
+p159
+Vcs.DC
+p160
+sS'summary'
+p161
+VThrough the 1990s to 2012 the internet changed the world of computing\u000adrastically. It started its journey with parallel computing after it advanced\u000ato distributed computing and further to grid computing. And in present scenario\u000ait creates a new world which is pronounced as a Cloud Computing [1]. These all\u000athree terms have different meanings. Cloud computing is based on backward\u000acomputing schemes like cluster computing, distributed computing, grid computing\u000aand utility computing. The basic concept of cloud computing is virtualization.\u000aIt provides virtual hardware and software resources to various requesting\u000aprograms. This paper gives a detailed description about cluster computing, grid\u000acomputing and cloud computing and gives an insight of some implementations of\u000athe same. We try to list the inspirations for the advent of all these\u000atechnologies. We also account for some present scenario faults of grid\u000acomputing and also discuss new cloud computing projects which are being managed\u000aby the Government of India for learning. The paper also reviews the existing\u000awork and covers (analytically), to some extent, some innovative ideas that can\u000abe implemented.
+p162
+sS'title'
+p163
+VA Survey of Current Trends in Distributed, Grid and Cloud Computing
+p164
+ssVhttp://arxiv.org/abs/1611.00939v1
+p165
+(dp166
+g11
+Vcs.CV
+p167
+sg13
+VTransient imaging has recently made a huge impact in the computer graphics\u000aand computer vision fields. By capturing, reconstructing, or simulating light\u000atransport at extreme temporal resolutions, researchers have proposed novel\u000atechniques to show movies of light in motion, see around corners, detect\u000aobjects in highly-scattering media, or infer material properties from a\u000adistance, to name a few. The key idea is to leverage the wealth of information\u000ain the temporal domain at the pico or nanosecond resolution, information\u000ausually lost during the capture-time temporal integration. This paper presents\u000arecent advances in this field of transient imaging from a graphics and vision\u000aperspective, including capture techniques, analysis, applications and\u000asimulation.
+p168
+sg15
+VRecent Advances in Transient Imaging: A Computer Graphics and Vision\u000a  Perspective
+p169
+ssVhttp://arxiv.org/abs/0707.0246v1
+p170
+(dp171
+g11
+Vstat.ME
+p172
+sg13
+VWe present in this paper a new tool for outliers detection in the context of\u000amultiple regression models. This graphical tool is based on recursive\u000aestimation of the parameters. Simulations were carried out to illustrate the\u000aperformance of this graphical procedure. As a conclusion, this tool is applied\u000ato real data containing outliers according to the classical available tools.
+p173
+sg15
+VA new graphical tool of outliers detection in regression models based on\u000a  recursive estimation
+p174
+ssVhttp://arxiv.org/abs/1312.6948v1
+p175
+(dp176
+g91
+Vcs.CL
+p177
+sg93
+VThe problem of Natural Language Query Formalization (NLQF) is to translate a\u000agiven user query in natural language (NL) into a formal language so that the\u000asemantic interpretation has equivalence with the NL interpretation.\u000aFormalization of NL queries enables logic based reasoning during information\u000aretrieval, database query, question-answering, etc. Formalization also helps in\u000aWeb query normalization and indexing, query intent analysis, etc. In this paper\u000awe are proposing a Description Logics based formal methodology for wh-query\u000aintent (also called desire) identification and corresponding formal\u000atranslation. We evaluated the scalability of our proposed formalism using\u000aMicrosoft Encarta 98 query dataset and OWL-S TC v.4.0 dataset.
+p178
+sg95
+VDescription Logics based Formalization of Wh-Queries
+p179
+ssVhttp://arxiv.org/abs/cs/0603132v1
+p180
+(dp181
+g11
+Vcs.GR
+p182
+sg13
+VWe define a Graphics Turing Test to measure graphics performance in a similar\u000amanner to the definition of the traditional Turing Test. To pass the test one\u000aneeds to reach a computational scale, the Graphics Turing Scale, for which\u000aComputer Generated Imagery becomes comparatively indistinguishable from real\u000aimages while also being interactive. We derive an estimate for this\u000acomputational scale which, although large, is within reach of todays\u000asupercomputers. We consider advantages and disadvantages of various computer\u000asystems designed to pass the Graphics Turing Test. Finally we discuss\u000acommercial applications from the creation of such a system, in particular\u000aInteractive Cinema.
+p183
+sg15
+VGraphics Turing Test
+p184
+ssVhttp://arxiv.org/abs/1108.3462v1
+p185
+(dp186
+g35
+Vcs.MA
+p187
+sg37
+VA Multiagent Simulation for Traffic Flow Management with Evolutionary\u000a  Optimization
+p188
+sg39
+VA traffic flow is one of the main transportation issues in nowadays\u000aindustrialized agglomerations. Configuration of traffic lights is among the key\u000aaspects in traffic flow management. This paper proposes an evolutionary\u000aoptimization tool that utilizes multiagent simulator in order to obtain\u000aaccurate model. Even though more detailed studies are still necessary, a\u000apreliminary research gives an expectation for promising results.
+p189
+ssVhttp://arxiv.org/abs/1202.0949v1
+p190
+(dp191
+g78
+Vstat.ME
+p192
+sg80
+VBayesian filtering for multi-object systems with independently generated\u000a  observations
+p193
+sg82
+VA general approach for Bayesian filtering of multi-object systems is studied,\u000awith particular emphasis on the model where each object generates observations\u000aindependently of other objects. The approach is based on variational calculus\u000aapplied to generating functionals, using the general version of Faa di Bruno's\u000aformula for Gateaux differentials. This result enables us to determine some\u000ageneral formulae for the updated generating functional after the application of\u000aa multi-object analogue of Bayes' rule.
+p194
+ssVhttp://arxiv.org/abs/quant-ph/0604189v1
+p195
+(dp196
+g11
+Vquant-ph
+p197
+sg13
+VWe present graphical representation for genaralized quantum measurements\u000a(POVM). We represent POVM elements as Bloch vectors and find the conditions\u000athese vectors should satisfy in order to describe realizable physical\u000ameasurements. We show how to find probability of measurement outcome in a\u000agraphical way. The whole formalism is applied to unambigous discrimination of\u000anonorthogonal quantum states.
+p198
+sg15
+VGraphical representation of generalized quantum measurements
+p199
+ssVhttp://arxiv.org/abs/0901.0131v1
+p200
+(dp201
+g159
+Vcs.DC
+p202
+sg161
+VCloud Computing has become another buzzword after Web 2.0. However, there are\u000adozens of different definitions for Cloud Computing and there seems to be no\u000aconsensus on what a Cloud is. On the other hand, Cloud Computing is not a\u000acompletely new concept; it has intricate connection to the relatively new but\u000athirteen-year established Grid Computing paradigm, and other relevant\u000atechnologies such as utility computing, cluster computing, and distributed\u000asystems in general. This paper strives to compare and contrast Cloud Computing\u000awith Grid Computing from various angles and give insights into the essential\u000acharacteristics of both.
+p203
+sg163
+VCloud Computing and Grid Computing 360-Degree Compared
+p204
+ssVhttp://arxiv.org/abs/1105.2890v1
+p205
+(dp206
+g11
+Vcs.HC
+p207
+sg13
+VSpecifying and programming graphical interactions are difficult tasks,\u000anotably because designers have difficulties to express the dynamics of the\u000ainteraction. This paper shows how the MDPC architecture improves the usability\u000aof the specification and the implementation of graphical interaction. The\u000aarchitecture is based on the use of picking views and inverse transforms from\u000athe graphics to the data. With three examples of graphical interaction, we show\u000ahow to express them with the architecture, how to implement them, and how this\u000aimproves programming usability. Moreover, we show that it enables implementing\u000agraphical interaction without a scene graph. This kind of code prevents from\u000aerrors due to cache consistency management.
+p208
+sg15
+VImproving Usability of Interactive Graphics Specification and\u000a  Implementation with Picking Views and Inverse Transformations
+p209
+ssVhttp://arxiv.org/abs/1411.2565v1
+p210
+(dp211
+g11
+Vcs.CE
+p212
+sg13
+VA micromagnetic simulator running on graphics processing unit (GPU) is\u000apresented. It achieves significant performance boost as compared to previous\u000acentral processing unit (CPU) simulators, up to two orders of magnitude for\u000alarge input problems. Different from GPU implementations of other research\u000agroups, this simulator is developed with C++ Accelerated Massive Parallelism\u000a(C++ AMP) and is hardware platform compatible. It runs on GPU from venders\u000ainclude NVidia, AMD and Intel, which paved the way for fast micromagnetic\u000asimulation on both high-end workstations with dedicated graphics cards and\u000alow-end personal computers with integrated graphics card. A copy of the\u000asimulator software is publicly available.
+p213
+sg15
+VGrace: a Cross-platform Micromagnetic Simulator On Graphics Processing\u000a  Units
+p214
+ssVhttp://arxiv.org/abs/math/0605154v1
+p215
+(dp216
+g11
+Vmath.CO
+p217
+sg13
+VGraphical condensation is a technique used to prove combinatorial identities\u000aamong numbers of perfect matchings of plane graphs. Propp and Kuo first applied\u000athis technique to prove identities for bipartite graphs. Yan, Yeh, and Zhang\u000alater applied graphical condensation to nonbipartite graphs to prove more\u000acomplex identities. Here we generalize some of the identities of Yan, Yeh, and\u000aZhang. We also describe the latest generalization of graphical condensation in\u000awhich the number of perfect matchings of a plane graph is expressed as a\u000aPfaffian or a determinant where the entries are also numbers of perfect\u000amatchings of subgraphs.
+p218
+sg15
+VGraphical Condensation Generalizations Involving Pfaffians and\u000a  Determinants
+p219
+ssVhttp://arxiv.org/abs/1203.4667v2
+p220
+(dp221
+g159
+Vcs.CC
+p222
+sg161
+VThe Church-Turing thesis states that any sufficiently powerful computational\u000amodel which captures the notion of algorithm is computationally equivalent to\u000athe Turing machine. This equivalence usually holds both at a computability\u000alevel and at a computational complexity level modulo polynomial reductions.\u000aHowever, the situation is less clear in what concerns models of computation\u000ausing real numbers, and no analog of the Church-Turing thesis exists for this\u000acase. Recently it was shown that some models of computation with real numbers\u000awere equivalent from a computability perspective. In particular it was shown\u000athat Shannon's General Purpose Analog Computer (GPAC) is equivalent to\u000aComputable Analysis. However, little is known about what happens at a\u000acomputational complexity level. In this paper we shed some light on the\u000aconnections between this two models, from a computational complexity level, by\u000ashowing that, modulo polynomial reductions, computations of Turing machines can\u000abe simulated by GPACs, without the need of using more (space) resources than\u000athose used in the original Turing computation, as long as we are talking about\u000abounded computations. In other words, computations done by the GPAC are as\u000aspace-efficient as computations done in the context of Computable Analysis.
+p223
+sg163
+VTuring machines can be efficiently simulated by the General Purpose\u000a  Analog Computer
+p224
+ssVhttp://arxiv.org/abs/0906.4586v1
+p225
+(dp226
+g27
+Vquant-ph
+p227
+sg29
+VHoare logic is a foundation of axiomatic semantics of classical programs and\u000ait provides effective proof techniques for reasoning about correctness of\u000aclassical programs. To offer similar techniques for quantum program\u000averification and to build a logical foundation of programming methodology for\u000aquantum computers, we develop a full-fledged Hoare logic for both partial and\u000atotal correctness of quantum programs. It is proved that this logic is\u000a(relatively) complete by exploiting the power of weakest preconditions and\u000aweakest liberal preconditions for quantum programs.
+p228
+sg31
+VHoare Logic for Quantum Programs
+p229
+ssVhttp://arxiv.org/abs/0801.0249v1
+p230
+(dp231
+g35
+Vcs.MA
+p232
+sg37
+VA mathematical formalism for agent-based modeling
+p233
+sg39
+VMany complex systems can be modeled as multiagent systems in which the\u000aconstituent entities (agents) interact with each other. The global dynamics of\u000asuch a system is determined by the nature of the local interactions among the\u000aagents. Since it is difficult to formally analyze complex multiagent systems,\u000athey are often studied through computer simulations. While computer simulations\u000acan be very useful, results obtained through simulations do not formally\u000avalidate the observed behavior. Thus, there is a need for a mathematical\u000aframework which one can use to represent multiagent systems and formally\u000aestablish their properties. This work contains a brief exposition of some known\u000amathematical frameworks that can model multiagent systems. The focus is on one\u000asuch framework, namely that of finite dynamical systems. Both, deterministic\u000aand stochastic versions of this framework are discussed. The paper contains a\u000asampling of the mathematical results from the literature to show how finite\u000adynamical systems can be used to carry out a rigorous study of the properties\u000aof multiagent systems and it is shown how the framework can also serve as a\u000auniversal model for computation.
+p234
+ssVhttp://arxiv.org/abs/cs/9809032v1
+p235
+(dp236
+g27
+Vcs.LO
+p237
+sg29
+VIn this paper we reexamine the place and role of stable model semantics in\u000alogic programming and contrast it with a least Herbrand model approach to Horn\u000aprograms. We demonstrate that inherent features of stable model semantics\u000anaturally lead to a logic programming system that offers an interesting\u000aalternative to more traditional logic programming styles of Horn logic\u000aprogramming, stratified logic programming and logic programming with\u000awell-founded semantics. The proposed approach is based on the interpretation of\u000aprogram clauses as constraints. In this setting programs do not describe a\u000asingle intended model, but a family of stable models. These stable models\u000aencode solutions to the constraint satisfaction problem described by the\u000aprogram. Our approach imposes restrictions on the syntax of logic programs. In\u000aparticular, function symbols are eliminated from the language. We argue that\u000athe resulting logic programming system is well-attuned to problems in the class\u000aNP, has a well-defined domain of applications, and an emerging methodology of\u000aprogramming. We point out that what makes the whole approach viable is recent\u000aprogress in implementations of algorithms to compute stable models of\u000apropositional logic programs.
+p238
+sg31
+VStable models and an alternative logic programming paradigm
+p239
+ssVhttp://arxiv.org/abs/0804.1133v1
+p240
+(dp241
+g159
+Vcs.NE
+p242
+sg161
+VThis effort examines the intersection of the emerging field of quantum\u000acomputing and the more established field of evolutionary computation. The goal\u000ais to understand what benefits quantum computing might offer to computational\u000aintelligence and how computational intelligence paradigms might be implemented\u000aas quantum programs to be run on a future quantum computer. We critically\u000aexamine proposed algorithms and methods for implementing computational\u000aintelligence paradigms, primarily focused on heuristic optimization methods\u000aincluding and related to evolutionary computation, with particular regard for\u000atheir potential for eventual implementation on quantum computing hardware.
+p243
+sg163
+VProspective Algorithms for Quantum Evolutionary Computation
+p244
+ssVhttp://arxiv.org/abs/1601.01791v1
+p245
+(dp246
+g11
+Vmath.CO
+p247
+sg13
+VWe prove that there is no polynomial $p(\u005ccdot)$ with the property that a\u000amatroid $M$ can be determined to be either a lifted-graphic or frame matroid\u000ausing at most $p(|M|)$ rank evaluations. This resolves two conjectures of\u000aGeelen, Gerards and Whittle (Quasi-graphic matroids, arXiv:1512.03005v1).
+p248
+sg15
+VOn recognising frame and lifted-graphic matroids
+p249
+ssVhttp://arxiv.org/abs/0708.1986v1
+p250
+(dp251
+g159
+Vquant-ph
+p252
+sg161
+VQuantum computer possesses quantum parallelism and offers great computing\u000apower over classical computer \u005ccite{er1,er2}. As is well-know, a moving quantum\u000aobject passing through a double-slit exhibits particle wave duality. A quantum\u000acomputer is static and lacks this duality property. The recently proposed\u000aduality computer has exploited this particle wave duality property, and it may\u000aoffer additional computing power \u005ccite{r1}. Simply put it, a duality computer\u000ais a moving quantum computer passing through a double-slit. A duality computer\u000aoffers the capability to perform separate operations on the sub-waves coming\u000aout of the different slits, in the so-called duality parallelism. Here we show\u000athat an $n$-dubit duality computer can be modeled by an $(n+1)$-qubit quantum\u000acomputer. In a duality mode, computing operations are not necessarily unitary.\u000aA $n$-qubit quantum computer can be used as an $n$-bit reversible classical\u000acomputer and is energy efficient. Our result further enables a $(n+1)$-qubit\u000aquantum computer to run classical algorithms in a $O(2^n)$-bit classical\u000acomputer. The duality mode provides a natural link between classical computing\u000aand quantum computing. Here we also propose a recycling computing mode in which\u000aa quantum computer will continue to compute until the result is obtained. These\u000atwo modes provide new tool for algorithm design. A search algorithm for the\u000aunsorted database search problem is designed.
+p253
+sg163
+VDuality and Recycling Computing in Quantum Computers
+p254
+ssVhttp://arxiv.org/abs/1607.03836v2
+p255
+(dp256
+g11
+Vmath.CO
+p257
+sg13
+VWe give a sufficient condition for a degree sequence to be graphic based on\u000aits largest and smallest elements, length, and sum. This bound generalizes a\u000aresult of Zverovich and Zverovich.
+p258
+sg15
+VA Sufficient Condition for Graphic Sequences with Given Largest and\u000a  Smallest Entries, Length, and Sum
+p259
+ssVhttp://arxiv.org/abs/1509.01213v1
+p260
+(dp261
+g3
+Vq-fin.GN
+p262
+sg5
+VArtificial intelligence has impacted many aspects of human life. This paper\u000astudies the impact of artificial intelligence on economic theory. In particular\u000awe study the impact of artificial intelligence on the theory of bounded\u000arationality, efficient market hypothesis and prospect theory.
+p263
+sg7
+VImpact of Artificial Intelligence on Economic Theory
+p264
+ssVhttp://arxiv.org/abs/0710.2569v1
+p265
+(dp266
+g11
+Vhep-th
+p267
+sg13
+VWe present a graphical representation of the supersymmetry and the graphical\u000acalculation. Calculation is demonstrated for 4D Wess-Zumino model and for Super\u000aQED. The chiral operators are graphically expressed in an illuminating way. The\u000atedious part of SUSY calculation, due to manipulating chiral suffixes, reduces\u000aconsiderably. The application is diverse.
+p268
+sg15
+VGraphical Representation of SUSY and Application to QFT
+p269
+ssVhttp://arxiv.org/abs/math/0503179v2
+p270
+(dp271
+g78
+Vmath.GM
+p272
+sg80
+VOn a Possible Generalization of Fermats Last Theorem
+p273
+sg82
+VThis paper proposes a generalized ABC conjecture and assuming its validity\u000asettles a generalized version of Fermats last theorem.
+p274
+ssVhttp://arxiv.org/abs/cs/0308030v1
+p275
+(dp276
+g35
+Vcs.MA
+p277
+sg37
+VLearning in Multiagent Systems: An Introduction from a Game-Theoretic\u000a  Perspective
+p278
+sg39
+VWe introduce the topic of learning in multiagent systems. We first provide a\u000aquick introduction to the field of game theory, focusing on the equilibrium\u000aconcepts of iterated dominance, and Nash equilibrium. We show some of the most\u000arelevant findings in the theory of learning in games, including theorems on\u000afictitious play, replicator dynamics, and evolutionary stable strategies. The\u000aCLRI theory and n-level learning agents are introduced as attempts to apply\u000asome of these findings to the problem of engineering multiagent systems with\u000alearning agents. Finally, we summarize some of the remaining challenges in the\u000afield of learning in multiagent systems.
+p279
+ssVhttp://arxiv.org/abs/1603.03719v1
+p280
+(dp281
+g11
+Vstat.ME
+p282
+sg13
+VModel selection and learning the structure of graphical models from the data\u000asample constitutes an important field of probabilistic graphical model\u000aresearch, as in most of the situations the structure is unknown and has to be\u000alearnt from the given dataset. In this paper, we present a new forward model\u000aselection algorithm for graphical log-linear models. We use mutual conditional\u000aindependence check to reduce the search space which also takes care of the\u000aevaluation of the joint effects and chances of missing important interactions\u000aare eliminated. We illustrate our algorithm with a real dataset example.
+p283
+sg15
+VModel Selection for Graphical Log-linear Models: A Forward Model\u000a  Selection Algorithm based on Mutual Conditional Independence
+p284
+ssVhttp://arxiv.org/abs/1203.6253v1
+p285
+(dp286
+g11
+Vmath.CO
+p287
+sg13
+VThere are two oriented 4-valent graphical models for the Kauffman polynomial:\u000aone (HJ) is obtained by combining Jaeger's formula and Kauffman-Vogel model for\u000athe Homflypt polynomial; the other (WF) is obtained by combining Kauffman-Vogel\u000amodel for the Kauffman polynomial and Wu's formula. The main goal of this paper\u000ais to explore the relationship between the two models. We find that there is an\u000aone-to-many correspondence between the terms of HJ model and the terms of WF\u000amodel. In addition, we investigate the relation between trivalent graphical\u000amodels and 4-valent graphical models of both the Homflypt and Kauffman\u000apolynomials, and observe that there is a bijection between the terms of the two\u000amodels.
+p288
+sg15
+VA relationship between two graphical models of the Kauffman polynomial
+p289
+ssVhttp://arxiv.org/abs/1403.7733v1
+p290
+(dp291
+g11
+Vmath.CO
+p292
+sg13
+VA frame matroid M is graphic if there is a graph G with cycle matroid\u000aisomorphic to M. In general, if there is one such graph, there will be many.\u000aZaslavsky has shown that frame matroids are precisely those having a\u000arepresentation as a biased graph; this class includes graphic matroids,\u000abicircular matroids, and Dowling geometries. Whitney characterized which graphs\u000ahave isomorphic cycle matroids, and Matthews characterised which graphs have\u000aisomorphic graphic bicircular matroids. In this paper, we give a\u000acharacterization of which biased graphs give rise to isomorphic graphic frame\u000amatroids.
+p293
+sg15
+VGraphical representations of graphic frame matroids
+p294
+ssVhttp://arxiv.org/abs/1007.3023v2
+p295
+(dp296
+g27
+Vcs.PL
+p297
+sg29
+VThe idea of functional programming has played a big role in shaping today's\u000alandscape of mainstream programming languages. Another concept that dominates\u000athe current programming style is Dijkstra's structured programming. Both\u000aconcepts have been successfully married, for example in the programming\u000alanguage Scala. This paper proposes how the same can be achieved for structured\u000aprogramming and PURELY functional programming via the notion of LINEAR SCOPE.\u000aOne advantage of this proposal is that mainstream programmers can reap the\u000abenefits of purely functional programming like easily exploitable parallelism\u000awhile using familiar structured programming syntax and without knowing concepts\u000alike monads. A second advantage is that professional purely functional\u000aprogrammers can often avoid hard to read functional code by using structured\u000aprogramming syntax that is often easier to parse mentally.
+p298
+sg31
+VPurely Functional Structured Programming
+p299
+ssVhttp://arxiv.org/abs/1205.0914v1
+p300
+(dp301
+g11
+Vmath.CO
+p302
+sg13
+VAn excluded minor characterization for the class of binary signed-graphic\u000amatroids with graphic cocircuits is provided. In this report we present the\u000anecessary computations for the case analysis in the proof.
+p303
+sg15
+VBinary Matroids with Graphic Cocircuits
+p304
+ssVhttp://arxiv.org/abs/hep-th/9503177v1
+p305
+(dp306
+g91
+Vhep-th
+p307
+sg93
+VA canonical formalism for higher-derivative theories is presented on the\u000abasis of Dirac's method for constrained systems. It is shown that this\u000aformalism shares a path integral expression with Ostrogradski's canonical\u000aformalism.
+p308
+sg95
+VHigher Derivatives and Canonical Formalism
+p309
+ssVhttp://arxiv.org/abs/0907.4960v1
+p310
+(dp311
+g27
+Vcs.PL
+p312
+sg29
+VEzhil is a Tamil language based interpreted procedural programming language.\u000aTamil keywords and grammar are chosen to make the native Tamil speaker write\u000aprograms in the Ezhil system. Ezhil allows easy representation of computer\u000aprogram closer to the Tamil language logical constructs equivalent to the\u000aconditional, branch and loop statements in modern English based programming\u000alanguages. Ezhil is a compact programming language aimed towards Tamil speaking\u000anovice computer users. Grammar for Ezhil and a few example programs are\u000areported here, from the initial proof-of-concept implementation using the\u000aPython programming language1. To the best of our knowledge, Ezhil language is\u000athe first freely available Tamil programming language.
+p313
+sg31
+VEzhil: A Tamil Programming Language
+p314
+ssVhttp://arxiv.org/abs/1004.5424v1
+p315
+(dp316
+g11
+Vcs.CV
+p317
+sg13
+VWe present a new approach for recognition of complex graphic symbols in\u000atechnical documents. Graphic symbol recognition is a well known challenge in\u000athe field of document image analysis and is at heart of most graphic\u000arecognition systems. Our method uses structural approach for symbol\u000arepresentation and statistical classifier for symbol recognition. In our system\u000awe represent symbols by their graph based signatures: a graphic symbol is\u000avectorized and is converted to an attributed relational graph, which is used\u000afor computing a feature vector for the symbol. This signature corresponds to\u000ageometry and topology of the symbol. We learn a Bayesian network to encode\u000ajoint probability distribution of symbol signatures and use it in a supervised\u000alearning scenario for graphic symbol recognition. We have evaluated our method\u000aon synthetically deformed and degraded images of pre-segmented 2D architectural\u000aand electronic symbols from GREC databases and have obtained encouraging\u000arecognition rates.
+p318
+sg15
+VGraphic Symbol Recognition using Graph Based Signature and Bayesian\u000a  Network Classifier
+p319
+ssVhttp://arxiv.org/abs/1509.04681v2
+p320
+(dp321
+g11
+Vstat.ML
+p322
+sg13
+VThis paper addresses the problem of scalable optimization for L1-regularized\u000aconditional Gaussian graphical models. Conditional Gaussian graphical models\u000ageneralize the well-known Gaussian graphical models to conditional\u000adistributions to model the output network influenced by conditioning input\u000avariables. While highly scalable optimization methods exist for sparse Gaussian\u000agraphical model estimation, state-of-the-art methods for conditional Gaussian\u000agraphical models are not efficient enough and more importantly, fail due to\u000amemory constraints for very large problems. In this paper, we propose a new\u000aoptimization procedure based on a Newton method that efficiently iterates over\u000atwo sub-problems, leading to drastic improvement in computation time compared\u000ato the previous methods. We then extend our method to scale to large problems\u000aunder memory constraints, using block coordinate descent to limit memory usage\u000awhile achieving fast convergence. Using synthetic and genomic data, we show\u000athat our methods can solve one million dimensional problems to high accuracy in\u000aa little over a day on a single machine.
+p323
+sg15
+VLarge-Scale Optimization Algorithms for Sparse Conditional Gaussian\u000a  Graphical Models
+p324
+ssVhttp://arxiv.org/abs/cs/0107013v2
+p325
+(dp326
+g27
+Vcs.PL
+p327
+sg29
+VThis is a tutorial on logic programming and Prolog appropriate for a course\u000aon programming languages for students familiar with imperative programming.
+p328
+sg31
+VThe Logic Programming Paradigm and Prolog
+p329
+ssVhttp://arxiv.org/abs/1408.5701v1
+p330
+(dp331
+g19
+Vmath.FA
+p332
+sg21
+VPositivity, Betweenness and Strictness of Operator Means
+p333
+sg23
+VAn operator mean is a binary operation assigned to each pair of positive\u000aoperators satisfying monotonicity, continuity from above, the transformer\u000ainequality and the fixed-point property. It is well known that there are\u000aone-to-one correspondences between operator means, operator monotone functions\u000aand Borel measures. In this paper, we provide various characterizations for the\u000aconcepts of positivity, betweenness and strictness of operator means in terms\u000aof operator monotone functions, Borel measures and certain operator equations.
+p334
+ssVhttp://arxiv.org/abs/0712.3895v1
+p335
+(dp336
+g11
+Vmath.CO
+p337
+sg13
+VLet $\u005cPsi(t,k)$ denote the set of pairs $(v,\u005clambda)$ for which there exists\u000aa graphical $t$-$(v,k,\u005clambda)$ design. Most results on graphical designs have\u000agone to show the finiteness of $\u005cPsi(t,k)$ when $t$ and $k$ satisfy certain\u000aconditions. The exact determination of $\u005cPsi(t,k)$ for specified $t$ and $k$ is\u000aa hard problem and only $\u005cPsi(2,3)$, $\u005cPsi(2,4)$, $\u005cPsi(3,4)$, $\u005cPsi(4,5)$, and\u000a$\u005cPsi(5,6)$ have been determined. In this paper, we determine completely the\u000asets $\u005cPsi(2,5)$ and $\u005cPsi(3,5)$. As a result, we find more than 270000\u000ainequivalent graphical designs, and more than 8000 new parameter sets for which\u000athere exists a graphical design. Prior to this, graphical designs are known for\u000aonly 574 parameter sets.
+p338
+sg15
+VAn Enumeration of Graphical Designs
+p339
+ssVhttp://arxiv.org/abs/1304.6561v1
+p340
+(dp341
+g11
+Vmath.DG
+p342
+sg13
+VIn this paper, we prove a positive mass theorem and Penrose-type inequality\u000aof the Gauss-Bonnet-Chern mass $m_2$ for the graphic manifold with flat normal\u000abundle.
+p343
+sg15
+VThe Gauss-Bonnet-Chern mass for graphic manifolds
+p344
+ssVhttp://arxiv.org/abs/cs/9412102v1
+p345
+(dp346
+g11
+Vcs.AI
+p347
+sg13
+VThis paper is a multidisciplinary review of empirical, statistical learning\u000afrom a graphical model perspective. Well-known examples of graphical models\u000ainclude Bayesian networks, directed graphs representing a Markov chain, and\u000aundirected networks representing a Markov field. These graphical models are\u000aextended to model data analysis and empirical learning using the notation of\u000aplates. Graphical operations for simplifying and manipulating a problem are\u000aprovided including decomposition, differentiation, and the manipulation of\u000aprobability models from the exponential family. Two standard algorithm schemas\u000afor learning are reviewed in a graphical framework: Gibbs sampling and the\u000aexpectation maximization algorithm. Using these operations and schemas, some\u000apopular algorithms can be synthesized from their graphical specification. This\u000aincludes versions of linear regression, techniques for feed-forward networks,\u000aand learning Gaussian and discrete Bayesian networks from data. The paper\u000aconcludes by sketching some implications for data analysis and summarizing how\u000asome popular algorithms fall within the framework presented. The main original\u000acontributions here are the decomposition techniques and the demonstration that\u000agraphical models provide a framework for understanding and developing complex\u000alearning algorithms.
+p348
+sg15
+VOperations for Learning with Graphical Models
+p349
+ssVhttp://arxiv.org/abs/1211.1604v1
+p350
+(dp351
+g11
+Vmath.GT
+p352
+sg13
+VIn arXiv:1207.0332 [cs.LO] was proposed a graphic lambda calculus formalism,\u000awhich has sectors corresponding to untyped lambda calculus and emergent\u000aalgebras.\u000a  Here we explore the sector covering knot diagrams, which are constructed as\u000amacros over the graphic lambda calculus.
+p353
+sg15
+VGraphic lambda calculus and knot diagrams
+p354
+ssVhttp://arxiv.org/abs/1609.04039v1
+p355
+(dp356
+g19
+Vmath.FA
+p357
+sg21
+VAsymmetric truncated Toeplitz operators equal to the zero operator
+p358
+sg23
+VAsymmetric truncated Toeplitz operators are compressions of multiplication\u000aoperators acting between two model spaces. These operators are natural\u000ageneralizations of truncated Toeplitz operators. In this paper we describe\u000asymbols of asymmetric truncated Toeplitz operators equal to the zero operator.
+p359
+ssVhttp://arxiv.org/abs/0708.1813v1
+p360
+(dp361
+g19
+Vmath.FA
+p362
+sg21
+VOn Dissipative Quadratic Stochastic Operators
+p363
+sg23
+VIn present paper we introduce the notion of dissipative quadratic stochastic\u000aoperator and cubic stochastic operator. We prove necessary conditions for\u000adissipativity of quadratic stochastic operators. Besides, it is studied certain\u000alimit behavior of such operators. Finally we prove ergodic theorem for\u000adissipative operators.
+p364
+ssVhttp://arxiv.org/abs/1302.0778v1
+p365
+(dp366
+g11
+Vmath.GT
+p367
+sg13
+VThis is a short description of graphic lambda calculus, with special emphasis\u000aon a duality suggested by the two different appearances of knot diagrams, in\u000alambda calculus and emergent algebra sectors of the graphic lambda calculus\u000arespectively. This duality leads to the introduction of the dual of the graphic\u000abeta move. While the graphic beta move corresponds to beta reduction in untyped\u000alambda calculus, the dual graphic beta move appears in relation to emergent\u000aalgebras.
+p368
+sg15
+VOn graphic lambda calculus and the dual of the graphic beta move
+p369
+ssVhttp://arxiv.org/abs/1002.4006v1
+p370
+(dp371
+g11
+Vcs.GR
+p372
+sg13
+VSeparation of the text regions from background texture and graphics is an\u000aimportant step of any optical character recognition system for the images\u000acontaining both texts and graphics. In this paper, we have presented a novel\u000atext/graphics separation technique and a method for skew correction of text\u000aregions extracted from business card images captured with a cell-phone camera.\u000aAt first, the background is eliminated at a coarse level based on intensity\u000avariance. This makes the foreground components distinct from each other. Then\u000athe non-text components are removed using various characteristic features of\u000atext and graphics. Finally, the text regions are skew corrected for further\u000aprocessing. Experimenting with business card images of various resolutions, we\u000ahave found an optimum performance of 98.25% (recall) with 0.75 MP images, that\u000atakes 0.17 seconds processing time and 1.1 MB peak memory on a moderately\u000apowerful computer (DualCore 1.73 GHz Processor, 1 GB RAM, 1 MB L2 Cache). The\u000adeveloped technique is computationally efficient and consumes low memory so as\u000ato be applicable on mobile devices.
+p373
+sg15
+VText/Graphics Separation and Skew Correction of Text Regions of Business\u000a  Card Images for Mobile Devices
+p374
+ssVhttp://arxiv.org/abs/1011.6497v2
+p375
+(dp376
+g11
+Vmath.CO
+p377
+sg13
+VIn this paper we employ Tutte's theory of bridges to derive a decomposition\u000atheorem for binary matroids arising from signed graphs. The proposed\u000adecomposition differs from previous decomposition results on matroids that have\u000aappeared in the literature in the sense that it is not based on $k$-sums, but\u000arather on the operation of deletion of a cocircuit. Specifically, it is shown\u000athat certain minors resulting from the deletion of a cocircuit of a binary\u000amatroid will be graphic matroids apart from exactly one that will be\u000asigned-graphic, if and only if the matroid is signed-graphic.
+p378
+sg15
+VDecomposition of Binary Signed-Graphic Matroids
+p379
+ssVhttp://arxiv.org/abs/1407.6850v1
+p380
+(dp381
+g11
+Vmath.GR
+p382
+sg13
+VWe construct torsion-free hyperbolic groups without unique product whose\u000asubgroups up to some given finite index are themselves non-unique product\u000agroups. This is achieved by generalising a construction of Comerford to\u000agraphical small cancellation presentations, showing that for every subgroup $H$\u000aof a graphical small cancellation group there exists a free group $F$ such that\u000a$H*F$ admits a graphical small cancellation presentation.
+p383
+sg15
+VFinite index subgroups without unique product in graphical small\u000a  cancellation groups
+p384
+ssVhttp://arxiv.org/abs/quant-ph/0303117v1
+p385
+(dp386
+g19
+Vquant-ph
+p387
+sg21
+VAccessible Information and Quantum operations
+p388
+sg23
+VThe accessible information decreases under quantum operations. We analyzed\u000athe connection between quantum operations and accessible information. We show\u000athat a general quantum process cannot be operated accurately. Futhermore, an\u000aunknown state of a closed quantum system can not be operated arbitrarily by a\u000aunitary quantum operation.
+p389
+ssVhttp://arxiv.org/abs/1703.04075v2
+p390
+(dp391
+g159
+Vcs.LO
+p392
+sg161
+VWe propose a definition of computable manifold by introducing computability\u000aas a structure that we impose to a given topological manifold, just in the same\u000away as differentiability or piecewise linearity are defined for smooth and PL\u000amanifolds respectively. Using the framework of computable topology and Type-2\u000atheory of effectivity, we develop computable versions of all the basic concepts\u000aneeded to define manifolds, like computable atlases and (computably) compatible\u000acomputable atlases. We prove that given a computable atlas $\u005cPhi$ defined on a\u000aset $M$, we can construct a computable topological space $(M, \u005ctau_\u005cPhi,\u000a\u005cbeta_\u005cPhi, \u005cnu_\u005cPhi)$, where $\u005ctau_\u005cPhi$ is the topology on $M$ induced by\u000a$\u005cPhi$ and that the equivalence class of this computable space characterizes\u000athe computable structure determined by $\u005cPhi$. The concept of computable\u000asubmanifold is also investigated. We show that any compact computable manifold\u000awhich satisfies a computable version of the $T_2$-separation axiom, can be\u000aembedded as a computable submanifold of some euclidean space $\u005cmathbb{R}^{q}$,\u000awith a computable embedding, where $\u005cmathbb{R}^{q}$ is equipped with its usual\u000atopology and some canonical computable encoding of all open rational balls.
+p393
+sg163
+VComputable structures on topological manifolds
+p394
+ssVhttp://arxiv.org/abs/1510.02740v4
+p395
+(dp396
+g11
+Vmath.GR
+p397
+sg13
+VWe study cubic graphical regular representations of the finite simple groups\u000a$PSL_2(q)$. It is shown that such graphical regular representations exist if\u000aand only if $q\u005cneq7$, and the generating set must consist of three involutions.
+p398
+sg15
+VCubic graphical regular representations of $PSL_2(q)$
+p399
+ssVhttp://arxiv.org/abs/1703.06340v1
+p400
+(dp401
+g78
+Vmath.CA
+p402
+sg80
+VWeighted spherical means generated by generalized translation and\u000a  general Euler-Poisson-Darboux equation
+p403
+sg82
+VWe consider the spherical mean generated by a multidimensional generalized\u000atranslation and general Euler-Poisson-Darboux equation corresponding to this\u000amean. The Asgeirsson property of solutions of the ultrahyperbolic equation that\u000aincludes singular differential Bessel operators acting by each variable is\u000aprovided.
+p404
+ssVhttp://arxiv.org/abs/1511.02411v2
+p405
+(dp406
+g11
+Vmath.CO
+p407
+sg13
+VThere are a variety of existing conditions for a degree sequence to be\u000agraphic. When a degree sequence satisfies any of these conditions, there exists\u000aa graph that realizes the sequence. We formulate several novel sufficient\u000agraphicality criteria that depend on the number of elements in the sequence,\u000acorresponding to the number of nodes in an associated graph, and the mean\u000adegree of the sequence. These conditions, which are stated in terms of bidegree\u000asequences for directed graphs, are easier to apply than classic necessary and\u000asufficient graphicality conditions involving multiple inequalities. They are\u000aalso more flexible than more recent graphicality conditions, in that they imply\u000agraphicality of some degree sequences not covered by those conditions. The form\u000aof our results will allow them to be easily used for the generation of graphs\u000awith particular degree sequences for applications.
+p408
+sg15
+VSufficient Conditions for Graphicality of Bidegree Sequences
+p409
+ssVhttp://arxiv.org/abs/1111.4065v1
+p410
+(dp411
+g78
+Vmath.NT
+p412
+sg80
+Vk Sequences of Generalized Van der Laan and Generalized Perrin\u000a  Polynomials
+p413
+sg82
+VIn this paper, we present k sequences of Generalized Van der Laan Polynomials\u000aand Generalized Perrin Polynomials using Genaralized Fibonacci and Lucas\u000aPolynomials. We give some properties of these polynomials. We also obtain\u000ageneralized order-k Van der Laan Numbers, k sequences of generalized order-k\u000aVan der Laan Numbers, generalized order-k Perrin Numbers and k sequences of\u000ageneralized order-k Perrin Numbers. In addition, we examine the relationship\u000abetween them.
+p414
+ssVhttp://arxiv.org/abs/1701.02071v1
+p415
+(dp416
+g11
+Vstat.ML
+p417
+sg13
+VGaussian graphical model is a graphical representation of the dependence\u000astructure for a Gaussian random vector. It is recognized as a powerful tool in\u000adifferent applied fields such as bioinformatics, error-control codes, speech\u000alanguage, information retrieval and others. Gaussian graphical model selection\u000ais a statistical problem to identify the Gaussian graphical model from a sample\u000aof a given size. Different approaches for Gaussian graphical model selection\u000aare suggested in the literature. One of them is based on considering the family\u000aof individual conditional independence tests. The application of this approach\u000aleads to the construction of a variety of multiple testing statistical\u000aprocedures for Gaussian graphical model selection. An important characteristic\u000aof these procedures is its error rate for a given sample size. In existing\u000aliterature great attention is paid to the control of error rates for incorrect\u000aedge inclusion (Type I error). However, in graphical model selection it is also\u000aimportant to take into account error rates for incorrect edge exclusion (Type\u000aII error). To deal with this issue we consider the graphical model selection\u000aproblem in the framework of the multiple decision theory. The quality of\u000astatistical procedures is measured by a risk function with additive losses.\u000aAdditive losses allow both types of errors to be taken into account. We\u000aconstruct the tests of a Neyman structure for individual hypotheses and combine\u000athem to obtain a multiple decision statistical procedure. We show that the\u000aobtained procedure is optimal in the sense that it minimizes the linear\u000acombination of expected numbers of Type I and Type II errors in the class of\u000aunbiased multiple decision procedures.
+p418
+sg15
+VOptimal statistical decision for Gaussian graphical model selection
+p419
+ssVhttp://arxiv.org/abs/1005.1036v3
+p420
+(dp421
+g11
+Vstat.ML
+p422
+sg13
+VThe aim of this chapter is twofold. In the first part we will provide a brief\u000aoverview of the mathematical and statistical foundations of graphical models,\u000aalong with their fundamental properties, estimation and basic inference\u000aprocedures. In particular we will develop Markov networks (also known as Markov\u000arandom fields) and Bayesian networks, which comprise most past and current\u000aliterature on graphical models. In the second part we will review some\u000aapplications of graphical models in systems biology.
+p423
+sg15
+VIntroduction to Graphical Modelling
+p424
+ssVhttp://arxiv.org/abs/0807.3410v1
+p425
+(dp426
+g11
+Vmath.ST
+p427
+sg13
+VGraphical models are used to describe the conditional independence relations\u000ain multivariate data. They have been used for a variety of problems, including\u000alog-linear models (Liu and Massam, 2006), network analysis (Holland and\u000aLeinhardt, 1981; Strauss and Ikeda, 1990; Wasserman and Pattison, 1996;\u000aPattison and Wasserman, 1999; Robins et al., 1999);, graphical Gaussian models\u000a(Roverato and Whittaker, 1998; Giudici and Green, 1999; Marrelec and Benali,\u000a2006), and genetics (Dobra et al., 2004). A distribution that satisfies the\u000aconditional independence structure of a graph is Markov. A graphical model is a\u000afamily of distributions that is restricted to be Markov with respect to a\u000acertain graph. In a Bayesian problem, one may specify a prior over the\u000agraphical model. Such a prior is called a hyper Markov law if the random\u000amarginals also satisfy the independence constraints. Previous work in this area\u000aincludes (Dempster, 1972; Dawid and Lauritzen, 1993; Giudici and Green, 1999;\u000aLetac and Massam, 2007). We explore graphical models based on a non-parametric\u000afamily of distributions, developed from Dirichlet processes.
+p428
+sg15
+VBuilding Hyper Dirichlet Processes for Graphical Models
+p429
+ssVhttp://arxiv.org/abs/1703.02197v1
+p430
+(dp431
+g11
+Vcs.LO
+p432
+sg13
+VThe syntax of modal graphs is defined in terms of the continuous cut and\u000abroken cut following Charles Peirce's notation in the gamma part of his\u000agraphical logic of existential graphs. Graphical calculi for normal modal\u000alogics are developed based on a reformulation of the graphical calculus for\u000aclassical propositional logic. These graphical calculi are of the nature of\u000adeep inference. The relationship between graphical calculi and sequent calculi\u000afor modal logics is shown by translations between graphs and modal formulas.
+p433
+sg15
+VGraphical Sequent Calculi for Modal Logics
+p434
+ssVhttp://arxiv.org/abs/1509.07296v1
+p435
+(dp436
+g11
+Vmath-ph
+p437
+sg13
+VGraphical functions are positive functions on the punctured complex plane\u000a$\u005cmathbb{C}\u005csetminus\u005c{0,1\u005c}$ which arise in quantum field theory. We generalize\u000aa parametric integral representation for graphical functions due to Lam, Lebrun\u000aand Nakanishi, which implies the real analyticity of graphical functions.\u000aMoreover we prove a formula that relates graphical functions of planar dual\u000agraphs.
+p438
+sg15
+VGraphical functions in parametric space
+p439
+ssVhttp://arxiv.org/abs/1009.4602v1
+p440
+(dp441
+g11
+Vcs.GR
+p442
+sg13
+VThe paper proposes an ancient landscape design as an example of graphic\u000adesign for an age and place where no written documents existed. It is created\u000aby a network of earthworks, which constitute the remains of an extensive\u000aancient agricultural system. It can be seen by means of the Google satellite\u000aimagery on the Peruvian region near the Titicaca Lake, as a texture\u000asuperimposed to the background landform. In this texture, many drawings\u000a(geoglyphs) can be observed.
+p443
+sg15
+VGeoglyphs of Titicaca as an ancient example of graphic design
+p444
+ssVhttp://arxiv.org/abs/1212.5683v1
+p445
+(dp446
+g91
+Vmath.PR
+p447
+sg93
+VWe introduce a mixed generalized multifractal formalism which extends the\u000amixed multifractal formalism introduced by L. Olsen based on generalizations of\u000athe Hausdorff and packing measures. The validity of such a formalism is proved\u000ain some special cases.
+p448
+sg95
+VA Mixed Generalized Multifractal Formalism For Vector Valued Measures
+p449
+ssVhttp://arxiv.org/abs/1312.2447v1
+p450
+(dp451
+g159
+Vcs.GL
+p452
+sg161
+VWe need much better understanding of information processing and computation\u000aas its primary form. Future progress of new computational devices capable of\u000adealing with problems of big data, internet of things, semantic web, cognitive\u000arobotics and neuroinformatics depends on the adequate models of computation. In\u000athis article we first present the current state of the art through\u000asystematization of existing models and mechanisms, and outline basic structural\u000aframework of computation. We argue that defining computation as information\u000aprocessing, and given that there is no information without (physical)\u000arepresentation, the dynamics of information on the fundamental level is\u000aphysical/ intrinsic/ natural computation. As a special case, intrinsic\u000acomputation is used for designed computation in computing machinery. Intrinsic\u000anatural computation occurs on variety of levels of physical processes,\u000acontaining the levels of computation of living organisms (including highly\u000aintelligent animals) as well as designed computational devices. The present\u000aarticle offers a typology of current models of computation and indicates future\u000apaths for the advancement of the field; both by the development of new\u000acomputational models and by learning from nature how to better compute using\u000adifferent mechanisms of intrinsic computation.
+p453
+sg163
+VTypologies of Computation and Computational Models
+p454
+ssVhttp://arxiv.org/abs/1111.6925v1
+p455
+(dp456
+g11
+Vstat.ML
+p457
+sg13
+VProbabilistic graphical models combine the graph theory and probability\u000atheory to give a multivariate statistical modeling. They provide a unified\u000adescription of uncertainty using probability and complexity using the graphical\u000amodel. Especially, graphical models provide the following several useful\u000aproperties:\u000a  - Graphical models provide a simple and intuitive interpretation of the\u000astructures of probabilistic models. On the other hand, they can be used to\u000adesign and motivate new models.\u000a  - Graphical models provide additional insights into the properties of the\u000amodel, including the conditional independence properties.\u000a  - Complex computations which are required to perform inference and learning\u000ain sophisticated models can be expressed in terms of graphical manipulations,\u000ain which the underlying mathematical expressions are carried along implicitly.\u000a  The graphical models have been applied to a large number of fields, including\u000abioinformatics, social science, control theory, image processing, marketing\u000aanalysis, among others. However, structure learning for graphical models\u000aremains an open challenge, since one must cope with a combinatorial search over\u000athe space of all possible structures.\u000a  In this paper, we present a comprehensive survey of the existing structure\u000alearning algorithms.
+p458
+sg15
+VStructure Learning of Probabilistic Graphical Models: A Comprehensive\u000a  Survey
+p459
+ssVhttp://arxiv.org/abs/0901.0317v1
+p460
+(dp461
+g3
+Vcs.NE
+p462
+sg5
+VArtificial Chemistries (ACs) are symbolic chemical metaphors for the\u000aexploration of Artificial Life, with specific focus on the origin of life. In\u000athis work we define a P system based artificial graph chemistry to understand\u000athe principles leading to the evolution of life-like structures in an AC set up\u000aand to develop a unified framework to characterize and classify symbolic\u000aartificial chemistries by devising appropriate formalism to capture semantic\u000aand organizational information. An extension of P system is considered by\u000aassociating probabilities with the rules providing the topological framework\u000afor the evolution of a labeled undirected graph based molecular reaction\u000asemantics.
+p463
+sg7
+VDesign of a P System based Artificial Graph Chemistry
+p464
+ssVhttp://arxiv.org/abs/quant-ph/0003151v1
+p465
+(dp466
+g159
+Vquant-ph
+p467
+sg161
+VThis paper investigates a variety of unconventional quantum computation\u000adevices, including fermionic quantum computers and computers that exploit\u000anonlinear quantum mechanics. It is shown that unconventional quantum computing\u000adevices can in principle compute some quantities more rapidly than\u000a`conventional' quantum computers.
+p468
+sg163
+VUnconventional Quantum Computing Devices
+p469
+ssVhttp://arxiv.org/abs/1111.2567v1
+p470
+(dp471
+g78
+Vmath.NT
+p472
+sg80
+VGeneralized Lucas Numbers and Relations with Generalized Fibonacci\u000a  Numbers
+p473
+sg82
+VIn this paper, we present a new generalization of the Lucas numbers by matrix\u000arepresentation using Genaralized Lucas Polynomials. We give some properties of\u000athis new generalization and some relations between the generalized order-k\u000aLucas numbers and generalized order-k Fibonacci numbers. In addition, we obtain\u000aBinet formula and combinatorial representation for generalized order-k Lucas\u000anumbers by using properties of generalized Fibonacci numbers.
+p474
+ssVhttp://arxiv.org/abs/1007.0563v2
+p475
+(dp476
+g11
+Vstat.ML
+p477
+sg13
+VWe introduce block-tree graphs as a framework for deriving efficient\u000aalgorithms on graphical models. We define block-tree graphs as a\u000atree-structured graph where each node is a cluster of nodes such that the\u000aclusters in the graph are disjoint. This differs from junction-trees, where two\u000aclusters connected by an edge always have at least one common node. When\u000acompared to junction-trees, we show that constructing block-tree graphs is\u000afaster, and finding optimal block-tree graphs has a much smaller search space.\u000aApplying our block-tree graph framework to graphical models, we show that, for\u000asome graphs, e.g., grid graphs, using block-tree graphs for inference is\u000acomputationally more efficient than using junction-trees. For graphical models\u000awith boundary conditions, the block-tree graph framework transforms the\u000aboundary valued problem into an initial value problem. For Gaussian graphical\u000amodels, the block-tree graph framework leads to a linear state-space\u000arepresentation. Since exact inference in graphical models can be\u000acomputationally intractable, we propose to use spanning block-trees to derive\u000aapproximate inference algorithms. Experimental results show the improved\u000aperformance in using spanning block-trees versus using spanning trees for\u000aapproximate estimation over Gaussian graphical models.
+p478
+sg15
+VGraphical Models as Block-Tree Graphs
+p479
+ssVhttp://arxiv.org/abs/1505.01539v1
+p480
+(dp481
+g11
+Vcs.GT
+p482
+sg13
+VPotential games, originally introduced in the early 1990's by Lloyd Shapley,\u000athe 2012 Nobel Laureate in Economics, and his colleague Dov Monderer, are a\u000avery important class of models in game theory. They have special properties\u000asuch as the existence of Nash equilibria in pure strategies. This note\u000aintroduces graphical versions of potential games. Special cases of graphical\u000apotential games have already found applicability in many areas of science and\u000aengineering beyond economics, including artificial intelligence, computer\u000avision, and machine learning. They have been effectively applied to the study\u000aand solution of important real-world problems such as routing and congestion in\u000anetworks, distributed resource allocation (e.g., public goods), and\u000arelaxation-labeling for image segmentation. Implicit use of graphical potential\u000agames goes back at least 40 years. Several classes of games considered standard\u000ain the literature, including coordination games, local interaction games,\u000alattice games, congestion games, and party-affiliation games, are instances of\u000agraphical potential games. This note provides several characterizations of\u000agraphical potential games by leveraging well-known results from the literature\u000aon probabilistic graphical models. A major contribution of the work presented\u000ahere that particularly distinguishes it from previous work is establishing that\u000athe convergence of certain type of game-playing rules implies that the\u000aagents/players must be embedded in some graphical potential game.
+p483
+sg15
+VGraphical Potential Games
+p484
+ssVhttp://arxiv.org/abs/1512.09206v1
+p485
+(dp486
+g11
+Vstat.ME
+p487
+sg13
+VGraphical model has been widely used to investigate the complex dependence\u000astructure of high-dimensional data, and it is common to assume that observed\u000adata follow a homogeneous graphical model. However, observations usually come\u000afrom different resources and have heterogeneous hidden commonality in\u000areal-world applications. Thus, it is of great importance to estimate\u000aheterogeneous dependencies and discover subpopulation with certain commonality\u000aacross the whole population. In this work, we introduce a novel regularized\u000aestimation scheme for learning nonparametric mixture of Gaussian graphical\u000amodels, which extends the methodology and applicability of Gaussian graphical\u000amodels and mixture models. We propose a unified penalized likelihood approach\u000ato effectively estimate nonparametric functional parameters and heterogeneous\u000agraphical parameters. We further design an efficient generalized effective EM\u000aalgorithm to address three significant challenges: high-dimensionality,\u000anon-convexity, and label switching. Theoretically, we study both the\u000aalgorithmic convergence of our proposed algorithm and the asymptotic properties\u000aof our proposed estimators. Numerically, we demonstrate the performance of our\u000amethod in simulation studies and a real application to estimate human brain\u000afunctional connectivity from ADHD imaging data, where two heterogeneous\u000aconditional dependencies are explained through profiling demographic variables\u000aand supported by existing scientific findings.
+p488
+sg15
+VNonparametric mixture of Gaussian graphical models
+p489
+ssVhttp://arxiv.org/abs/1304.0600v1
+p490
+(dp491
+g11
+Vcs.GR
+p492
+sg13
+VTo create a text with graphic instructions for output pictures into LATEX\u000adocument, we offer software that allows us to build a picture in WIZIWIG mode\u000aand for setting the text with these graphical instructions.
+p493
+sg15
+VSoftware for creating pictures in the LaTeX environment
+p494
+ssVhttp://arxiv.org/abs/1405.1313v3
+p495
+(dp496
+g11
+Vmath.CO
+p497
+sg13
+VIn this paper, we investigate the importance of column scaling in relating\u000atwo signed-graphic representations of the same matroid. We used the Sage\u000aMathematics software to generate many examples of signed-graphic matroids and\u000atheir signed-graphic representations. Our examples show that column scaling is\u000asometimes necessary in order to transform one signed-graphic representation\u000ainto another; moreover, there exist many collections of signed-graphic\u000arepresentations that row-reduce to the same standard form. We also discuss an\u000ainteresting matroid-preserving operation on a signed graph, which we call the\u000acylinder flip, that relates certain pairs of signed-graphic representations of\u000athe same matroid.
+p498
+sg15
+VRecognizing signed-graphic matroids: Cylinder flips and the importance\u000a  of column scaling
+p499
+ssVhttp://arxiv.org/abs/1410.7242v1
+p500
+(dp501
+g19
+Vmath.FA
+p502
+sg21
+VOperators approximable by hypercyclic operators
+p503
+sg23
+VWe show that operators on a separable infinite dimensional Banach space $X$\u000aof the form $I +S$, where $S$ is an operator with dense generalised kernel,\u000amust lie in the norm closure of the hypercyclic operators on $X$, in fact in\u000athe closure of the mixing operators.
+p504
+ssVhttp://arxiv.org/abs/1211.6712v1
+p505
+(dp506
+g11
+Vcs.HC
+p507
+sg13
+VThe main objective of this paper was to investigate the effects of a computer\u000ascreen interface design and its related geometrical characteristics of 36\u000agraphical objects on a user's task efficiency. A total of 490 subjects took\u000apart in laboratory experiments that focused on the direct manipulation of a\u000avisual dialogue between a user and a computer. The subjects were asked to\u000aselect an object from among a group of items randomly placed on the computer\u000ascreen that were visible exclusively during the visual search process. A model\u000aexpressing the mean object acquisition time as a function of graphical object\u000asize and the configuration was developed and statistically validated. The model\u000ashowed an influence of geometrical design characteristics of the graphical\u000aobjects (icons) and their groupings (icon structures) on the observed task\u000aefficiency. The reported results can be used at those stages of a software\u000alifecycle that concentrate on prototyping, designing, and implementing\u000agraphical solutions for the efficient graphical user-computer interface.
+p508
+sg15
+VThe effects of graphical interface design characteristics on\u000a  human-computer interaction task efficiency
+p509
+ssVhttp://arxiv.org/abs/1204.3946v2
+p510
+(dp511
+g35
+Vnlin.AO
+p512
+sg37
+VThe Dynamics of Influence Systems
+p513
+sg39
+VInfluence systems form a large class of multiagent systems designed to model\u000ahow influence, broadly defined, spreads across a dynamic network. We build a\u000ageneral analytical framework which we then use to prove that, while sometimes\u000achaotic, influence dynamics of the diffusive kind is almost always\u000aasymptotically periodic. Besides resolving the dynamics of a popular family of\u000amultiagent systems, the other contribution of this work is to introduce a new\u000atype of renormalization-based bifurcation analysis for multiagent systems.
+p514
+ssVhttp://arxiv.org/abs/1108.1352v1
+p515
+(dp516
+g27
+Vcs.SE
+p517
+sg29
+VProgram understanding is an important aspect in Software Maintenance and\u000aReengineering. Understanding the program is related to execution behaviour and\u000arelationship of variable involved in the program. The task of finding all\u000astatements in a program that directly or indirectly influence the value for an\u000aoccurrence of a variable gives the set of statements that can affect the value\u000aof a variable at some point in a program is called a program slice. Program\u000aslicing is a technique for extracting parts of computer programs by tracing the\u000aprograms' control and data flow related to some data item. This technique is\u000aapplicable in various areas such as debugging, program comprehension and\u000aunderstanding, program integration, cohesion measurement, re-engineering,\u000amaintenance, testing where it is useful to be able to focus on relevant parts\u000aof large programs. This paper focuses on the various slicing techniques (not\u000alimited to) like static slicing, quasi static slicing, dynamic slicing and\u000aconditional slicing. This paper also includes various methods in performing the\u000aslicing like forward slicing, backward slicing, syntactic slicing and semantic\u000aslicing. The slicing of a program is carried out using Java which is a object\u000aoriented programming language.
+p518
+sg31
+VProgram slicing techniques and its applications
+p519
+ssVhttp://arxiv.org/abs/1304.3504v1
+p520
+(dp521
+g11
+Vmath.DG
+p522
+sg13
+VWe give, via elementary methods, explicit formulas for the ADM mass which\u000aallow us to conclude the positive mass theorem and Penrose inequality for a\u000aclass of graphical manifolds which includes, for instance, that ones with flat\u000anormal bundle.
+p523
+sg15
+VThe positive mass Theorem and Penrose inequality for graphical manifolds
+p524
+ssVhttp://arxiv.org/abs/1609.03049v1
+p525
+(dp526
+g11
+Vmath.CO
+p527
+sg13
+VBicircular lift matroids are a class of matroids defined on the edge set of a\u000agraph. For a given graph $G$, the circuits of its bicircular lift matroid\u000a$L(G)$ are the edge sets of those subgraphs of $G$ that contain at least two\u000acycles, and are minimal with respect to this property. For each cycle $C$ of\u000a$G$, since $L(G)/C$ is graphic and most graphic matroids are not bicircular\u000alift, the class of bicircular lift matroids is not minor-closed. In this paper,\u000awe prove that the class of matroids that are graphic or bicircular lift has a\u000afinite list of excluded minors.
+p528
+sg15
+VThe excluded minors for the class of matroids that are graphic or\u000a  bicircular lift
+p529
+ssVhttp://arxiv.org/abs/1512.03005v1
+p530
+(dp531
+g11
+Vmath.CO
+p532
+sg13
+VFrame matroids and lifted-graphic matroids are two interesting\u000ageneralizations of graphic matroids. Here we introduce a new generalization,\u000a{\u005cem quasi-graphic matroids}, that unifies these two existing classes. Unlike\u000aframe matroids and lifted-graphic matroids, it is easy to certify that a\u000amatroid is quasi-graphic. The main result of the paper is that every\u000a$3$-connected representable quasi-graphic matroid is either a lifted-graphic\u000amatroid or a frame matroid.
+p533
+sg15
+VQuasi-graphic matroids
+p534
+ssVhttp://arxiv.org/abs/1404.6764v1
+p535
+(dp536
+g11
+Vcs.HC
+p537
+sg13
+VAlthough a GUI largely replaces textual descriptions by graphical icons, the\u000atextual items are not completely removed. The textual items are inevitably used\u000ain window titles, message boxes, help items, menu items and popup items.\u000aTextual items are necessary for communicating messages that are beyond the\u000alimitation of graphical messages.\u000a  However, it is necessary to harness the textual items on the graphical\u000ainterface in such a way that they complement each other to produce the best\u000aeffect. One has to keep various considerations in mind while applying textual\u000aitems in Graphical User Interface. This article illustrates a few inventions on\u000apresenting textual items in a Graphical user Interface.
+p538
+sg15
+VInventions on presenting textual items in Graphical User Interface
+p539
+ssVhttp://arxiv.org/abs/1610.09743v1
+p540
+(dp541
+g11
+Vcs.HC
+p542
+sg13
+VIn this paper, we explore graphical passwords as a child-friendly alternative\u000afor user authentication. We evaluate the usability of three variants of the\u000aPassTiles graphical password scheme for children, and explore the similarities\u000aand differences in performance and preferences between children and adults\u000awhile using these schemes. Children were most successful at recalling passwords\u000acontaining images of distinct objects. Both children and adults prefer\u000agraphical passwords to their existing schemes, but password memorization\u000astrategies differ considerably between the two groups. Based on our findings,\u000awe provide recommendations for designing more child-friendly authentication\u000aschemes.
+p543
+sg15
+VAn Exploration of Graphical Password Authentication for Children
+p544
+ssVhttp://arxiv.org/abs/1309.1917v1
+p545
+(dp546
+g11
+Vcs.GR
+p547
+sg13
+VIn this article we present Zahir, a framework for experimentation in Computer\u000aGraphics that provides a group of object-oriented base components that take\u000acare of common tasks in rendering techniques and algorithms, specially those of\u000aNon Photo-realistic Rendering (NPR). These components allow developers to\u000aimplement rendering techniques and algorithms over static and animated meshes.\u000aCurrently, Zahir is being used in a Master's Thesis and as support material in\u000athe undergraduate Computer Graphics course in University of Chile.
+p548
+sg15
+VZahir: a Object-Oriented Framework for Computer Graphics
+p549
+ssVhttp://arxiv.org/abs/1212.1119v1
+p550
+(dp551
+g91
+Vcond-mat.stat-mech
+p552
+sg93
+VThe formalisms of Wyld [2] and Martin, Siggia, and Rose (MSR) [3] address the\u000aclosure problem of a statistical treatment of homogeneous isotropic turbulence\u000a(HIT) based on techniques primarily developed for quantum field theory. In the\u000aWyld formalism, there is a well-known double-counting problem, for which an\u000a{\u005cit ad hoc} solution was suggested by Lee [44]. We show how to implement this\u000acorrection in a more natural way from the basic equations of the formalism.\u000aThis leads to what we call the "Improved Wyld-Lee Renormalized Perturbation\u000aTheory". MSR had noted that their formalism had more vertex functions than\u000aWyld's formalism and based on this felt Wyld's formalism was incorrect. However\u000aa careful comparison of both formalisms here shows that the Wyld formalism\u000afollows a different procedure to that of the MSR formalism and so the treatment\u000aof vertex corrections appears in different ways in the two formalisms. Taking\u000athat into account, along with clarifications made to both formalisms, we find\u000athat they are equivalent and we demonstrate this up to fourth order.
+p553
+sg95
+VEulerian Field-Theoretic Closure Formalisms for Fluid Turbulence
+p554
+ssVhttp://arxiv.org/abs/gr-qc/9908033v1
+p555
+(dp556
+g78
+Vgr-qc
+p557
+sg80
+VA Simple Formula for Generating Chern Characters by Repeated Exterior\u000a  Differentiation
+p558
+sg82
+VA simple formula is given for generating Chern characters by repeated\u000aexterior differentiation for n-dimensional differentiable manifolds having a\u000ageneral linear connection.
+p559
+ssVhttp://arxiv.org/abs/1610.03777v1
+p560
+(dp561
+g11
+Vcs.CV
+p562
+sg13
+VWe introduce a convolutional neural network for inferring a compact\u000adisentangled graphical description of objects from 2D images that can be used\u000afor volumetric reconstruction. The network comprises an encoder and a\u000atwin-tailed decoder. The encoder generates a disentangled graphics code. The\u000afirst decoder generates a volume, and the second decoder reconstructs the input\u000aimage using a novel training regime that allows the graphics code to learn a\u000aseparate representation of the 3D object and a description of its lighting and\u000apose conditions. We demonstrate this method by generating volumes and\u000adisentangled graphical descriptions from images and videos of faces and chairs.
+p563
+sg15
+VDeep disentangled representations for volumetric reconstruction
+p564
+ssVhttp://arxiv.org/abs/math/0609831v3
+p565
+(dp566
+g78
+Vmath.AC
+p567
+sg80
+VGeneralized subresultants and generalized subresultant algorithm
+p568
+sg82
+VIn this paper we present the notions of trail (pseudo-)division, generalized\u000asubresultants and generalized subresultant algorithm.
+p569
+ssVhttp://arxiv.org/abs/1311.0716v1
+p570
+(dp571
+g3
+Vcs.AI
+p572
+sg5
+VIn this paper, I put forward that in many instances, thinking mechanisms are\u000aequivalent to artificial intelligence modules programmed into the human mind.
+p573
+sg7
+VArtificial Intelligence in Humans
+p574
+ssVhttp://arxiv.org/abs/1401.3448v1
+p575
+(dp576
+g11
+Vcs.AI
+p577
+sg13
+VInspired by the recently introduced framework of AND/OR search spaces for\u000agraphical models, we propose to augment Multi-Valued Decision Diagrams (MDD)\u000awith AND nodes, in order to capture function decomposition structure and to\u000aextend these compiled data structures to general weighted graphical models\u000a(e.g., probabilistic models). We present the AND/OR Multi-Valued Decision\u000aDiagram (AOMDD) which compiles a graphical model into a canonical form that\u000asupports polynomial (e.g., solution counting, belief updating) or constant time\u000a(e.g. equivalence of graphical models) queries. We provide two algorithms for\u000acompiling the AOMDD of a graphical model. The first is search-based, and works\u000aby applying reduction rules to the trace of the memory intensive AND/OR search\u000aalgorithm. The second is inference-based and uses a Bucket Elimination schedule\u000ato combine the AOMDDs of the input functions via the the APPLY operator. For\u000aboth algorithms, the compilation time and the size of the AOMDD are, in the\u000aworst case, exponential in the treewidth of the graphical model, rather than\u000apathwidth as is known for ordered binary decision diagrams (OBDDs). We\u000aintroduce the concept of semantic treewidth, which helps explain why the size\u000aof a decision diagram is often much smaller than the worst case bound. We\u000aprovide an experimental evaluation that demonstrates the potential of AOMDDs.
+p578
+sg15
+VAND/OR Multi-Valued Decision Diagrams (AOMDDs) for Graphical Models
+p579
+ssVhttp://arxiv.org/abs/0909.5033v1
+p580
+(dp581
+g11
+Vcs.DM
+p582
+sg13
+VWe introduce the notion of graphic cocircuits and show that a large class of\u000aregular matroids with graphic cocircuits belongs to the class of signed-graphic\u000amatroids. Moreover, we provide an algorithm which determines whether a\u000acographic matroid with graphic cocircuits is signed-graphic or not.
+p583
+sg15
+VRegular Matroids with Graphic Cocircuits
+p584
+ssVhttp://arxiv.org/abs/1607.00033v1
+p585
+(dp586
+g11
+Vmath.CO
+p587
+sg13
+VFoata and Zeilberger defined the graphical major index, $\u005cmathrm{maj}'_U$,\u000aand the graphical inversion index, $\u005cmathrm{inv}'_U$, for words. These\u000astatistics are a generalization of the classical permutation statistics\u000a$\u005cmathrm{maj}$ and $\u005cmathrm{inv}$ indexed by directed graphs $U$. They showed\u000athat $\u005cmathrm{maj}'_U$ and $\u005cmathrm{inv}'_U$ are equidistributed over all\u000arearrangement classes if and only if $U$ is bipartitional. In this paper we\u000astrengthen their result by showing that if $\u005cmathrm{maj}'_U$ and\u000a$\u005cmathrm{inv}'_U$ are equidistributed on a single rearrangement class then $U$\u000ais essentially bipartitional. Moreover, we define a graphical sorting index,\u000a$\u005cmathrm{sor}'_U$, which generalizes the sorting index of a permutation. We\u000athen characterize the graphs $U$ for which $\u005cmathrm{sor}'_U$ is equidistributed\u000awith $\u005cmathrm{inv}'_U$ and $\u005cmathrm{maj}'_U$ on a single rearrangement class.
+p588
+sg15
+VGraphical Mahonian Statistics on Words
+p589
+ssVhttp://arxiv.org/abs/gr-qc/0412031v1
+p590
+(dp591
+g91
+Vgr-qc
+p592
+sg93
+VDynamics of a null thin shell immersed in a generic spherically symmetric\u000aspacetime is obtained within the distributional formalism. It has been shown\u000athat the distributional formalism leads to the same result as in the\u000aconventional formalism.
+p593
+sg95
+VDynamics of a Spherical Null Shell within the Distributional Formalism
+p594
+ssVhttp://arxiv.org/abs/1410.7659v2
+p595
+(dp596
+g11
+Vcs.LG
+p597
+sg13
+VIn this paper we consider the problem of learning undirected graphical models\u000afrom data generated according to the Glauber dynamics. The Glauber dynamics is\u000aa Markov chain that sequentially updates individual nodes (variables) in a\u000agraphical model and it is frequently used to sample from the stationary\u000adistribution (to which it converges given sufficient time). Additionally, the\u000aGlauber dynamics is a natural dynamical model in a variety of settings. This\u000awork deviates from the standard formulation of graphical model learning in the\u000aliterature, where one assumes access to i.i.d. samples from the distribution.\u000a  Much of the research on graphical model learning has been directed towards\u000afinding algorithms with low computational cost. As the main result of this\u000awork, we establish that the problem of reconstructing binary pairwise graphical\u000amodels is computationally tractable when we observe the Glauber dynamics.\u000aSpecifically, we show that a binary pairwise graphical model on $p$ nodes with\u000amaximum degree $d$ can be learned in time $f(d)p^2\u005clog p$, for a function\u000a$f(d)$, using nearly the information-theoretic minimum number of samples.
+p598
+sg15
+VLearning graphical models from the Glauber dynamics
+p599
+ssVhttp://arxiv.org/abs/gr-qc/9908034v1
+p600
+(dp601
+g78
+Vgr-qc
+p602
+sg80
+VA Sequence of Generalizations of Cartan's Conservation of Torsion\u000a  Theorem
+p603
+sg82
+VA sequence of generalizations of Cartan's conservation of torsion theorem is\u000agiven for n-dimensional differentiable manifolds having a general linear\u000aconnection.
+p604
+ssVhttp://arxiv.org/abs/1507.01166v1
+p605
+(dp606
+g19
+Vmath.FA
+p607
+sg21
+Vk-bitransitive and compound operators on Banach spaces
+p608
+sg23
+VIn this this paper, we introduce new classes of operators in complex Banach\u000aspaces, which we call k-bitransitive operators and compound operators to study\u000athe direct sum of diskcyclic operators. We create a set of sufficient\u000aconditions for k-bitransitivity and compound. We show the relation between\u000atopologically mixing operators and compound operators. Also, we extend the\u000aGodefroy-Shapiro Criterion for topologically mixing operators to compound\u000aoperators.
+p609
+ssVhttp://arxiv.org/abs/1603.04122v1
+p610
+(dp611
+g11
+Vstat.ME
+p612
+sg13
+VWe present a comprehensive study of graphical log-linear models for\u000acontingency tables. High dimensional contingency tables arise in many areas\u000asuch as computational biology, collection of survey and census data and others.\u000aAnalysis of contingency tables involving several factors or categorical\u000avariables is very hard. To determine interactions among various factors,\u000agraphical and decomposable log-linear models are preferred. First, we explore\u000aconnections between the conditional independence in probability and graphs;\u000athereafter we provide a few illustrations to describe how graphical log-linear\u000amodel are useful to interpret the conditional independences between factors. We\u000aalso discuss the problem of estimation and model selection in decomposable\u000amodels.
+p613
+sg15
+VGraphical Log-linear Models: Fundamental Concepts and Applications
+p614
+ssVhttp://arxiv.org/abs/0809.0884v1
+p615
+(dp616
+g11
+Vcs.HC
+p617
+sg13
+VThe concept of metaphor, in particular graphical (or visual) metaphor, is\u000acentral to the field of information visualization. Information graphics and\u000ainteractive information visualization systems employ a variety of metaphorical\u000adevices to make abstract, complex, voluminous, or otherwise\u000adifficult-to-comprehend information understandable in graphical terms. This\u000apaper explores the use of metaphor in information visualization, advancing the\u000atheory previously argued by Johnson, Lakoff, Tversky et al. that many\u000ainformation graphics are metaphorically understood in terms of cognitively\u000aentrenched spatial patterns known as image schemas. These patterns serve to\u000astructure and constrain abstract reasoning processes via metaphorical\u000aprojection operations that are grounded in everyday perceptual experiences with\u000aphenomena such as containment, movement, and force dynamics. Building on\u000aprevious research, I argue that information graphics promote comprehension of\u000atheir target information through the use of graphical patterns that invoke\u000athese preexisting schematic structures. I further theorize that the degree of\u000astructural alignment of a particular graphic with one or more corresponding\u000aimage schemas accounts for its perceived degree of intuitiveness. Accordingly,\u000aimage schema theory can provide a powerful explanatory and predictive framework\u000afor visualization research. I review relevant theories of analogy and metaphor,\u000aand discuss the image schematic properties of several common types of\u000ainformation graphic. I conclude with the proposal that the inventory of image\u000aschemas culled from linguistic studies can serve as the basis for an inventory\u000aof design elements suitable for developing intuitive and effective new\u000ainformation visualization techniques.
+p618
+sg15
+VOn the role of metaphor in information visualization
+p619
+ssVhttp://arxiv.org/abs/1608.07495v1
+p620
+(dp621
+g19
+Vmath.FA
+p622
+sg21
+VQuantifications of strictly singular operators and strictly cosingular\u000a  operators
+p623
+sg23
+VWe investigate possible quantifications of strictly singular operators,\u000a$l_{p}$-strictly singular operators, $c_{0}$-strictly singular operators,\u000astrictly cosingular operators, $l_{p}$-strictly cosingular operators. We prove\u000aquantitative, even strengthening versions of well-known results about\u000arelationships of these five classes of operators and compact, weakly compact,\u000aunconditionally converging operators.
+p624
+ssVhttp://arxiv.org/abs/1101.0663v1
+p625
+(dp626
+g11
+Vcs.GR
+p627
+sg13
+VWe discuss a topic on the role of computer graphics in the production of\u000adocumentaries, which is often ignored in favor of other topics. Typically,\u000aexcept for some rare occasions, documentary producers and computer scientists\u000aor digital artists that do computer graphics are relatively far apart in their\u000adomains and rarely intercommunicate to have a joint production; yet it happens,\u000aand perhaps more so in the present and the future.\u000a  We attempt to classify the documentaries on the amount and techniques of\u000acomputer graphics used for documentaries. We come up with the initial\u000acategories such as "plain" (no graphics), "in-between", "all-out" -- nearly\u000a100% of the documentary consisting of computer-generated imagery. Computer\u000agraphics can be used to enhance the scenery, fill in the gaps in the missing\u000astoryline pieces, or animate between scenes. It can incorporate stereoscopic\u000aeffects for higher viewer impression as well as interactivity aspects. It can\u000aalso be used simply in old archived image and film restoration.
+p628
+sg15
+VThe Role of Computer Graphics in Documentary Film Production
+p629
+ssVhttp://arxiv.org/abs/1111.0324v4
+p630
+(dp631
+g11
+Vstat.ME
+p632
+sg13
+VWe consider the problem of estimating multiple related but distinct graphical\u000amodels on the basis of a high-dimensional data set with observations that\u000abelong to distinct classes. A motivating example occurs in the analysis of gene\u000aexpression data for tissue samples with and without cancer. In this case, we\u000amight wish to estimate a gene expression network for the normal tissue and a\u000agene expression network for the tumor tissue. We expect the two gene expression\u000anetworks to be similar but not identical to each other, and so more accurate\u000aestimation of these two networks may be possible using a joint approach. We\u000apropose the joint graphical lasso for this purpose. Rather than estimating a\u000agraphical model for each class separately, or a single graphical model across\u000aall classes, we borrow strength across the classes in order to estimate\u000amultiple graphical models that share certain characteristics, such as the\u000alocations or weights of nonzero edges. Our approach is based upon maximizing a\u000apenalized log likelihood. We employ fused lasso or group lasso penalties, and\u000aimplement a very fast computational approach that solves the joint graphical\u000alasso problem. In a simulation study we demonstrate that our proposed approach\u000aleads to more accurate estimation of networks and covariance structure than\u000acompeting approaches. We further illustrate our proposal on a\u000apublicly-available lung cancer gene expression data set.
+p633
+sg15
+VThe joint graphical lasso for inverse covariance estimation across\u000a  multiple classes
+p634
+ssVhttp://arxiv.org/abs/1306.6409v1
+p635
+(dp636
+g11
+Vmath.CO
+p637
+sg13
+VSeveral matroids can be defined on the edge set of a graph. Although\u000ahistorically the cycle matroid has been the most studied, in recent times, the\u000abicircular matroid has cropped up in several places. A theorem of Matthews from\u000alate 1970s gives a characterization of graphs whose bicircular matroids are\u000agraphic. We give a characterization of graphs whose bicircular matroids are\u000asigned-graphic.
+p638
+sg15
+VBicircular signed-graphic matroids
+p639
+ssVhttp://arxiv.org/abs/cs/0701087v2
+p640
+(dp641
+g3
+Vcs.MA
+p642
+sg5
+VThis text provides with an introduction to the modern approach of\u000aartificiality and simulation in social sciences. It presents the relationship\u000abetween complexity and artificiality, before introducing the field of\u000aartificial societies which greatly benefited from the computer power fast\u000aincrease, gifting social sciences with formalization and experimentation tools\u000apreviously owned by "hard" sciences alone. It shows that as "a new way of doing\u000asocial sciences", artificial societies should undoubtedly contribute to a\u000arenewed approach in the study of sociality and should play a significant part\u000ain the elaboration of original theories of social phenomena.
+p643
+sg7
+VArtificiality in Social Sciences
+p644
+ssVhttp://arxiv.org/abs/1703.09489v1
+p645
+(dp646
+g78
+Vmath.GT
+p647
+sg80
+VGeneralized connected sum formula for the Arnold invariants of generic\u000a  plane curves
+p648
+sg82
+VWe define the generalized connected sum for generic closed plane curves,\u000ageneralizing the strange sum defined by Arnold, and completely describe how the\u000aArnold invariants $J^{\u005cpm}$ and $\u005cmathit{St}$ behave under the generalized\u000aconnected sums.
+p649
+ssVhttp://arxiv.org/abs/chao-dyn/9504008v1
+p650
+(dp651
+g11
+Vchao-dyn
+p652
+sg13
+VStochastic properties of the long-time behaviour of a continuously observed\u000a(and interactively controlled) quantum-field top are investigated\u000amathematically. Applications to interactively controlled stochastic\u000acomputer-graphic dynamic systems are discussed.
+p653
+sg15
+VBelavkin-Kolkoltsov watch-dog effects in interactively controlled\u000a  stochastic computer-graphic dynamic systems. A mathematical study
+p654
+ssVhttp://arxiv.org/abs/cs/9810004v1
+p655
+(dp656
+g11
+Vcs.CY
+p657
+sg13
+VTeaching object-oriented programming in an introductory programming course\u000aposes considerable challenges to the instructor. An often advocated approach to\u000ameeting this challenge is the use of a simple, object-oriented graphics\u000alibrary. We have developed a simple, portable graphics library for teaching\u000aobject-oriented programming using C++. The library, EzWindows, allows beginning\u000aprogrammers to design and write programs that use the graphical display found\u000aon all modern desktop computers. In addition to providing simple graphical\u000aobjects such as windows, geometric shapes, and bitmaps, EzWindows provides\u000afacilities for introducing event-based programming using the mouse and timers.\u000aEzWindows has proven to be extremely popular; it is currently in use at over\u000a200 universities, colleges, and high schools. This paper describes the\u000arationale for EzWindows and its high-level design.
+p658
+sg15
+VThe Design of EzWindows: A Graphics API for an Introductory Programming\u000a  Course
+p659
+ssVhttp://arxiv.org/abs/1105.1534v1
+p660
+(dp661
+g3
+Vcs.NE
+p662
+sg5
+VIn analogon to successful artificial evolution simulations as Tierra or\u000aavida, this text presents a way to perform artificial evolution in a native x86\u000asystem. The implementation of the artificial chemistry and first results of\u000astatistical experiments are presented.
+p663
+sg7
+VTaking the redpill: Artificial Evolution in native x86 systems
+p664
+ssVhttp://arxiv.org/abs/1202.4834v1
+p665
+(dp666
+g27
+Vcs.LO
+p667
+sg29
+VWe present an approach to program reasoning which inserts between a program\u000aand its verification conditions an additional layer, the denotation of the\u000aprogram expressed in a declarative form. The program is first translated into\u000aits denotation from which subsequently the verification conditions are\u000agenerated. However, even before (and independently of) any verification\u000aattempt, one may investigate the denotation itself to get insight into the\u000a"semantic essence" of the program, in particular to see whether the denotation\u000aindeed gives reason to believe that the program has the expected behavior.\u000aErrors in the program and in the meta-information may thus be detected and\u000afixed prior to actually performing the formal verification. More concretely,\u000afollowing the relational approach to program semantics, we model the effect of\u000aa program as a binary relation on program states. A formal calculus is devised\u000ato derive from a program a logic formula that describes this relation and is\u000asubject for inspection and manipulation. We have implemented this idea in a\u000acomprehensive form in the RISC ProgramExplorer, a new program reasoning\u000aenvironment for educational purposes which encompasses the previously developed\u000aRISC ProofNavigator as an interactive proving assistant.
+p668
+sg31
+VComputer-Assisted Program Reasoning Based on a Relational Semantics of\u000a  Programs
+p669
+ssVhttp://arxiv.org/abs/0904.3669v1
+p670
+(dp671
+g35
+Vcs.MA
+p672
+sg37
+VCollaborative systems and multiagent systems
+p673
+sg39
+VThis paper presents some basic elements regarding the domain of the\u000acollaborative systems, a domain of maximum actuality and also the multiagent\u000asystems, developed as a result of a sound study on the one-agent systems.
+p674
+ss.
