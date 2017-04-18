@@ -1,0 +1,1728 @@
+PreCog: Improving Crowdsourced Data Quality
+Before Acquisition
+Hamed Nilforoshan Jiannan Wang♦ Eugene Wu
+
+arXiv:1704.02384v1 [cs.DB] 7 Apr 2017
+
+Columbia University
+Simon Fraser University♦
+{hn2284, ew2493}@columbia.edu
+jnwang@sfu.ca
+
+ABSTRACT
+Quality control in crowdsourcing systems is crucial. It is
+typically done after data collection, often using additional
+crowdsourced tasks to assess and improve the quality. These
+post-hoc methods can easily add cost and latency to the
+acquisition process—particularly if collecting high-quality
+data is important. In this paper, we argue for pre-hoc interface optimizations based on feedback that helps workers
+improve data quality before it is submitted and is well suited
+to complement post-hoc techniques. We propose the Precog
+system that explicitly supports such interface optimizations
+for common integrity constraints as well as more ambiguous
+text acquisition tasks where quality is ill-defined. We then
+develop the Segment-Predict-Explain pattern for detecting
+low-quality text segments and generating prescriptive explanations to help the worker improve their text input. Our
+unique combination of segmentation and prescriptive explanation are necessary for Precog to collect 2× more high-quality
+text data than non-Precog approaches on two real domains.
+
+1.
+
+Figure 1: Text acquisition with post-hoc quality control.
+
+INTRODUCTION
+Figure 2: Text acquisition with pre-hoc (beige background)
+and post-hoc quality control.
+
+A dominant use case for crowdsourcing is to collect data—
+labels, opinions, text extraction, ratings—from large groups
+of workers. Although crowdsourcing is used to collect labels
+and simple data for machine learning applications, many
+popular online communities such as Amazon, AirBnB, Quora,
+Reddit, and others also rely on collecting and presenting high
+quality, open-ended content that is crowdsourced from their
+users. For example, Amazon crowdsources product reviews
+by asking customers to rate products and write reviews for
+them; rental services (e.g., AirbnB) relies on rental hosts to
+describe their rental properties in quantitative (e.g., number
+of bed rooms, wireless) as well as qualitative terms (e.g.,
+textual description).
+Quality control for crowdsourcing has been extensively
+studied [54] and can be modeled in two phases. Pre-hoc
+methods improve quality before the data is acquired (submitted); Post-hoc methods improve quality after data acquisition
+(i.e., after submission). Most studies focus on post-hoc quality control, often using additional crowdsourced tasks to
+assess and improve the quality. For example, task replication [43, 80] assigns the same task to multiple workers and
+aggregates them into a single result; multi-stage workflow design [6, 48] uses additional crowd tasks to (iteratively) refine
+previously submitted tasks; in text acquisition, filtering/ranking [1, 37, 67, 82, 84, 86, 90, 95] uses crowd tasks to assess each
+document’s quality and either rank them by quality or filter
+out low-quality documents.
+
+In this paper, we argue for pre-hoc quality control systems.
+Pre-hoc quality control occurs before data acquisition and
+naturally complements many existing post-hoc techniques to
+further improve the final data quality. Figure 1 illustrates
+a typical text acquisition workflow: the crowd generates
+text documents, more tasks are used to estimate the text
+quality, low-quality documents are removed, and this may
+ultimately trigger the need to collect more data. Companies
+(e.g., Amazon, Zappos) use this post-hoc technique by asking
+users to assess whether a product review is “helpful” or
+“not helpful”, and ranks and displays reviews based on this
+measure.
+Figure 2 augments this workflow with pre-hoc quality
+control. The only change is the beige component, which
+augments the data collection interface (task interface) to
+estimate the quality of the user’s (in this case) text, and
+automatically provide feedback if the predicted quality is
+low. Since good feedback can help the worker improve the
+text, it naturally improves the quality of the acquired data,
+and can reduce data acquisition costs. Furthermore, in some
+settings where collecting more data is not an option (e.g.,
+less popular products may not have enough users that are
+willing to, or equipped to, write reviews), it will be more
+important to apply pre-hoc quality control.
+1
+
+In fact, instances of pre-hoc quality control are already
+commonly used in practice, both in the survey design literature [36] and as form design throughout the Internet. The
+basic idea is to push data-quality constraints down to the
+data collection interface rather than validate them after data
+acquisition. For quantitative attributes, a common dataquality constraint is to ensure values are not out of bounds
+(e.g., human age should be above 0). This can be achieved
+by dynamically identifying these constraint violations and
+providing feedback to the user. Similarly, auto-complete may
+be used to provide feedback about existing categories in order
+to avoid duplicates when collecting categorical text [28, 71]
+(e.g., ice cream flavors, presidents). By tackling low-quality
+data pre-acquisition, it can reduce or eliminate the need for
+post-hoc quality control.
+Although it’s possible to automatically perform pre-hoc
+quality control for simple constraints over simple data types,
+it is still unclear how this can be achieved for more complex data integrity constraints and data types. For instance,
+multi-paragraph text attributes such as product reviews,
+forum comments, or rental descriptions are particularly challenging for several reasons. First, the quality measure is
+continuous (there is no “perfect document”) and thus hard to
+identify a “violation”. Second, it is ill-defined and applicationdependent, thus difficult to specify as a constraint. Third, it’s
+unclear how to automatically generate the appropriate feedback text to show the user. Existing approaches (surveyed in
+Related Work) focus on syntactic errors such as grammatical
+mistakes, which cannot help improve the text content, or
+overly simple models for picking feedback text [50].
+To this end, we present Precog1 , a crowdsourced data acquisition system that supports pre-hoc quality control for
+both simple data types and multi-paragraph text attributes.
+It does so by generating feedback or interface changes to help
+workers improve their data pre-submission. It can be integrated seamlessly into existing crowdsourcing applications
+or systems with post-hoc quality control, helping them to
+further improve quality.
+By default, Precog provides optimizations for constraints
+over numerical and categorical data types, and can be extended with custom optimizations. Our technical contribution is a pre-hoc feedback system for multi-paragraph
+text. As illustrated in Figure 3, we employ a novel SegmentPredict-Explain pattern to generate customized feedback on
+an individual segment (rather than document) level. Precog
+takes long form text from a crowd worker, decomposes it into
+coherent portions (segments) based on their topics, predicts
+the quality of each segment, and automatically generates
+immediate feedback to explain how these segments can be
+improved.
+The core challenges are to (1) identify a proxy for text
+quality that is consistent with the downstream application’s
+needs, and (2) to generate effective feedback text. We address the former challenge using a data-driven approach that
+learns a quality measure from data that has already been
+acquired. For instance, Amazon already has a corpus of high
+and low-quality reviews, and similarly for other applications.
+To build high-quality models, we survey and categorize features from the writing analysis literature into 5 categories
+
+1. user input
+
+2. segment by
+topic
+
+3. estimate
+quality
+
+4. targeted
+feedback
+
+Figure 3: The Segment-Predict-Explain pattern: Precog splits
+user input into coherent segments; estimates the quality of
+each segment and the text as a whole; and generates and
+shows suggested improvements to the user.
+(e.g., readability, informativeness, etc), and implement a representative and extensible library of 47 text quality features.
+By default we use this library for learning quality measures
+from a corpus.
+The feedback literature suggests that precise, local feedback is effective [68]. Thus, we decompose the text into
+segments, and for each low-quality segment predicted by the
+model, we generate segment-specific feedback. One approach
+is to simply highlight the low-quality segment and provide
+generic/static feedback. Our experiments and prior work [52]
+show that this is less effective than a more customized approach. An alternative is to use existing model explanation
+algorithms [76] to describe the prediction. However, it leaves
+it up to the user to infer specific improvements to make.
+In contrast, we generate prescriptive, actionable explanations that, if followed, are expected to improve the text. We
+define this as the Prescriptive Explanation problem, and
+find that the search space of solutions for the problem is
+exponential in the number of model features. Our efficient
+solution called TCruise leverages the structure of random
+forest models to generate explanations in interactive time.
+In addition to evaluating Precog for hard constraints
+and simple data types, we evaluate Precog’s text feedback
+through extensive MTurk experiments on two real application domains—product reviews and rental host profiles.
+Precog is easily extended to new domains, and increases the
+number of high-quality documents by ≥ 2× compared to
+not using pre-hoc techniques. We further show that Precog’s
+unique approach to combining prescriptive explanations and
+segment-level feedback improves text quality by 14.3%, and
+over 3× better than a state-of-the-art feedback system [50].
+To summarize our contributions:
+• We present the argument for pre-hoc quality control and
+present its unique advantages as well as the challenges for
+multi-paragraph text.
+• The design and implementation of Precog, which supports
+pre-hoc quality control for constraints over simple data
+types and quality measures over text and open-ended
+attributes.
+• A data-driven approach to estimate quality for text attributes, including a categorization and implementation of
+47 text quality features from a survey of the literature.
+• We define the Prescriptive Explanation Problem to provide
+actionable feedback for text acquisition. The problem
+is exponential and we present an efficient solution that
+leverages the structure of random forest models to generate
+high-quality feedback in interactive time.
+• Extensive MTurk experiments on two real-world domains
+with different quality measures: helpfulness for Amazon
+product reviews and trustworthiness for AirBnB housing profiles. Precog, which is complementary to post-hoc
+quality control techniques, collects ≥ 2× high-quality documents for the same budget as no feedback, and improves
+text quality by 14.3% on average.
+
+1
+Similar to precogs in Minority Report [22], who identify
+and help “resolve” low-quality human action in the future,
+Precog identifies and helps resolve low-quality data before it
+is submitted in the future.
+
+2
+
+2.
+
+Precog: A PRECOG SYSTEM
+
+As described in the introduction, Precog seeks to optimize
+the data collection interface in order to improve the quality
+of the collected data and ensure data quality constraints.
+In this section, we first describe how users express Precog
+quality control for common data integrity constraints, as well
+as quality scores on a crowd-sourced table. Quality scores
+are intended for attribute values for which the definition
+of quality defined as a continuous measure to be improved,
+rather than a boolean constraint, and provides the framework
+for which we implement a model-based feedback system for
+performing Precog on text attributes (Section 3).
+
+2.1
+
+Pushing Data Constraints to the Interface
+
+Precog extends existing crowdsourced databases that contain crowdsourced and non-crowdsourced base relations; a
+crowdsourced table [28] represents a subset of all possible
+records that may be stored in the table and the task is to
+acquire records to insert into the table. Precog uses existing
+techniques to generate forms for crowd workers to fill out,
+and the form contents are inserted as new records into the
+corresponding crowd table. For instance, Amazon product
+reviews and users may be modeled using the following crowdbased DDL statements. The first states that user information
+is collected from the crowd (of Amazon users) and that the
+username must be unique. The second states that a review
+is written for a given product in the products table, and
+contains a numerical rating as well as the text of the review.
+For the sake of exposition, product_id is the textual name of
+the product. The final FEATURE table review_feats is used
+in the later sections to represent the features extracted from
+the value of the primary key (review). For instance, len
+FEATURE len_extracton defines the feature returned by the
+user-defined function len_extracton.
+
+Figure 4: Examples of three levels of Precog quality control
+for four classes of data integrity constraints.
+
+CREATE CROWD TABLE users (
+id autoincrement primary key,
+username text UNIQUE,
+age int CHECK age > 0 AND age < 100,
+CHECK(username matches \w+)
+);
+CREATE CROWD TABLE reviews(
+id autoincrement primary key,
+product_id text,
+rating int CHECK rating > 0 AND rating <= 5,
+review text,
+QUALITY SCORE qualreview qual_udf(review),
+FOREIGN KEY product_id REF products(id)
+);
+CREATE FEATURE TABLE review_feats(
+review text primary key references reviews.review,
+topics FEATURE topic_extractor,
+len FEATURE len_extracton,
+...
+);
+
+Generic Feedback: Precog automatically generates feedback based on the error message that the underlying database
+generates when the INSERT violates a constraint. The left
+column shows the feedback interface generated by default.
+Although they are interpretable for simple constraints such
+as domain violations, the language for the uniqueness violation requires database familiarity and may not be accessible
+to non-technical experts. Since the quality score is not a
+boolean constraint, feedback is simply not generated for it2 .
+As constraints become more complex, there is a need for
+customized messages.
+
+Overview: In contrast to naive form validation, which simply rejects user inputs with an error message, Precog seeks to
+accommodate iterative improvements through feedback interfaces. Figure 4 summarizes Precog into three levels based on
+the amount of customization needed by the developer. The
+default simply renders feedback generated from database constraint violations on tuple insertion (left column). Developers
+commonly implement explanation functions to generate more
+user-friendly feedback (middle column). Finally, the most
+sophisticated may change the input element itself in order
+to constrain or fully customize the feedback (right column).
+Below, we describe how developers can express the three
+levels of Precog quality control for domain, foreign-key,
+uniqueness, and quality score constraints in Figure 4.
+
+Customized Feedback: Precog provides a DDL for developers to customize feedback. A developer first defines an
+explanation function that takes as input the list of attribute
+names and values for which the constraint is defined for (in
+order to support multi-attribute constraints) and the error
+message, and returns a string that is shown as feedback. In
+these examples, we simply define a python function. The developer then binds an explanation fuction to the appropriate
+constraint.
+
+In addition to boolean constraints such as domain, foreign
+key, and uniqueness constraints, Precog also supports quality
+scores. In contrast to typical integrity constraints, which will
+reject an inserted record that violates the constraint, Precog
+seeks to maximize its value. For instance, qualreview seeks
+to maximize the quality score as defined by qual_udf. This
+provides the functionality for our automatic pre-hoc quality
+control system for free-form text attributes.
+The rest of this subsection describes the DDL statements
+that users can use to specify feedback and interfaces for
+Precog quality control. These statements complement existing task interface specifications that prior crowdsourcing
+systems [28, 59, 71] use for task generation by providing a
+way to augment them for data integrity constraints.
+
+def exp_func(att1, val1, ..., attn, valn, err=None):
+return "custom error message"
+CREATE EXPLANATION <func> ON <table>(<att1>,..<attn>)
+FOR
+<CONSTRAINT NAME> USING <explanation function>;
+
+Below is the specification to customize the feedback for a
+numeric domain constraint3 . Note that the same explanation
+2
+
+Note that the developer may express a CHECK constraint and the
+database can generate an (indecipherable) error message.
+3
+Note that databases automatically generate names for almost all
+integrity constraints. Some constraints, such as domain constraints,
+are registered as syntax errors. For these, Precog generates default
+names of the form <table>_<attribute>_<type>.
+
+3
+
+function is used for domain constraints on reviews.rating
+and users.age.
+
+reduces the developer’s efforts by allowing them to express
+the quality score in terms of model features by defining
+a FEATURE table, and to define explanation functions over
+features of the text attribute. Our design is informed by the
+writing analysis and feedback literature, which emphasizes
+the value of providing immediate feedback [51], as well as finegrained feedback for specific portions of the text [17, 78, 83],
+as is common in coding environments.
+Existing feedback approaches are not directly applicable
+for Precog. Crowd-based feedback is effective, but can take
+20 minutes to generate feedback [52] and are essentially posthoc because they create new crowd tasks to refine previously
+submitted ones. Automated approaches such as auto-graders
+primarily focus on predicting quality rather than generating feedback [4, 25, 58, 89]; others are limited to syntactic
+analysis [27, 35, 63], or generate overly simple writing feedback [7, 10, 49]. In the rest of this paper, we use the term
+document to refer to the value of the acquired text attribute.
+
+def numeric_exp(att, val, err):
+return "%s: ‘%s’ should be a number" % (att, val)
+CREATE EXPLANATION ON reviews(rating)
+FOR reviews_rating_domain USING numeric_exp;
+CREATE EXPLANATION ON users(age)
+FOR users_age_domain USING numeric_exp;
+
+Similar functions can easily be written for the foreign-key
+and uniqueness constraints in Figure 4:
+def product_exp(att, val, err):
+return "%s is not a product" % val
+def unique_exp(att, val, err):
+return "%s has been taken" % val
+
+For text attributes, the explanation function is slightly
+different, which is defined on a FEATURE table. An example
+will be shown in Section 5.2.
+
+Segment-Predict-Explain: Based on these observations,
+Precog automatically identifies low-quality portions of a document, and generates feedback to help improve the identified
+issues. In order to generate targeted feedback, Precog automatically identifies topically coherent portions and segments
+the document in order to analyze each segment individually.
+For this, we use TopicTiling [77], a sliding window-based
+segmentation algorithm that computes the dominant topics
+within the window using LDA [8]. When the topic within
+the window changes significantly, then TopicTiling creates a
+new segment. Precog is agnostic to the specific segmentation
+algorithm, and developers can use their own.
+Rather than define a concrete quality measure, Precog
+automatically learns the quality measure from a training
+corpus that contains documents along with their quality
+labels (for the entire document, not each segment). We
+learn this quality measure by training a random forest model
+that predicts the quality of individual text segments. We
+believe our assumption about the availability of a training
+corpus is reasonable in data acquisition settings, because
+such quality labels are already gathered in order to rank
+documents (e.g., Amazon helpful/unhelpful reviews, Reddit
+comment up/down votes). We describe this in Section 4.
+Finally, Precog explains why segments were predicted as
+low quality by selecting the feedback that is most relevant
+to changing the segment into a high quality prediction. To
+do so, we develop a novel perturbation-based analysis to
+identify the combination of features that, when changed, will
+most likely reclassify the text as high quality. We then map
+these feature combinations to explanation functions that are
+executed to generate the final set of feedback text (Section 5).
+
+Although these user defined functions are powerful enough
+to support arbitrary analysis of an attribute value, such an
+approach is difficult to compose and extend, and the feedback
+is still limited to the entire attribute value. In many cases,
+such as text attributes, it is desirable to provide feedback
+for specific segments of the text value. For this, we next
+introduce DDL statements to specify custom interfaces.
+Custom Interface: Fully customizing the interface component is useful in order to directly prevent users from submitting invalid attribute values. For instance, we might
+replace the rating domain constraint with five stars similar
+to Yelp and other social websites. However, we may use a
+slider if for larger cardinalities. We assume that the interface is a javascript function (say, as an AngularJS [19] or
+ReactJS [26] component); the constructor takes as input a
+Precog-provided getFeedback method that retrieves feedback
+from the Precog server. Developers can bind the interface
+to an attribute using a CREATE INTERFACE statement. For
+example, the following specify the star interface for rating
+and the autocomplete interface for product:
+CREATE INTERFACE ON reviews(rating)
+USING "stars" FROM "interfaces.js"
+AND explanation_function;
+CREATE INTERFACE ON reviews(product_id)
+USING "autocomplete" FROM "interfaces.js"
+AND explanation_function;
+
+It addition, custom interfaces can be used to provide feedback that goes beyond textual feedback (e.g., visualizing distributions of common numerical values), or that is at a finer
+granularity than for the entire attribute. For instance, the
+bottom row of Figure 4 illustrates fine-grained feedback in the
+form of both highlighted text and text feedback for individual segments that the user has written for reviews.review.
+Section 3 describes the Segment-Predict-Explain pattern that
+helps developers easily customize interface for text attributes.
+
+3.
+
+User-facing Interface: The custom interface column for
+the quality score in Figure 4 depicts the Precog interface in
+action. The user writes a product review in the textbox; the
+content is sent to the Precog backend via getFeedback().
+The backend splits the review into coherent segments, identifies the low-quality segments, and generates document-level
+feedback. The document-level feedback is shown to the user,
+and the low-quality segments are highlighted as light red
+in the interface. Finally, when the user hovers over a highlighted segment, more targeted feedback helps explain why it
+was identified as low quality and how it could be improved.
+
+SEGMENT-PREDICT-EXPLAIN
+
+The challenge with directly developing Precog quality
+control for text is that the quality score and explanation
+function is difficult to express as a concrete function, and they
+must be customized for the application domain. To address
+this issue, we present a Segment-Predict-Explain pattern that
+
+Architecture: Figure 5 depicts the system architecture.
+For hard constraints (Purple), user inputs are sent to the
+
+4
+
+jargon usage, text similarity measures) that are trained to
+fit each developer’s unique corpus. Further, developers can
+easily extend the library with custom features.
+Based on this library, we develop document-level and
+segment-level prediction models. The key challenge is that
+training data only contains quality labels for entire documents (e.g., helpfulness for the full review), and it is unclear
+how to leverage them for training a segment-level model. We
+describe our experiments that show that it is possible to use
+these labels as a proxy for individual segments.
+
+4.1
+
+Existing automated writing feedback tools primarily focus
+on syntactic, simple errors [27, 35, 63]. However, recent
+study shows the promise of translating semantic features to
+textual feedback [50]. Our goal is to provide the foundation
+for such content-specific semantic feedback by surveying and
+categorizing features from the writing analysis literature.
+To this end, we performed a survey of literature spanning
+of social media text analysis [32, 55, 57, 82, 85], essay grading [4,25,58,89], deception detection [23,60], and information
+retrieval [64, 84]. Our contribution is to curate the subset of
+these features that can be generalized across text domains
+to improve writing quality, categorize them (Table 1), and
+integrate them into an open source feature library4 . This
+groundwork reduces the task of applying Precog to new domains. The primary features that we do not include are
+those that rely on application metadata such as the worker’s
+history or location, which may be predictive of quality but
+not related to the writing content, and cannot be mapped
+to actionable writing feedback.
+We identify five main categories across the existing literature (Table 1). The first category, Informativeness, highlights
+trends across existing literature that show that both general
+length measures [4, 50, 55, 57, 82] as well as domain-specific
+jargon are highly predictive of quality [55, 57, 60]. We implement a variety of length measures, and use the Apriori
+algorithm [75] to mine jargon based on the training data
+inputted into Precog, and identify its distribution across the
+sentences of an input document. Moreover, there have been
+many successful attempts to use topic distributions to predict
+quality [55, 57, 57]. While such approaches are often supervised in nature, requiring a manual topic ontology [57, 62],
+we use LDA [8] because it is unsupervised and can be quickly
+trained on any corpus without any cost to the developer.
+Furthermore, while most approaches simply use the distribution of topics as a feature [57, 62], Precog computes several
+summary statistics (entropy, topic ID and probability of
+top-K topics, ranked by probability) not used in prior work
+that prove highly predictive in our experiments. Subjectivity
+assesses user bias using a variety of features ranging from
+sentiment analysis [32, 34, 56] to pronoun usage [73]. Readability/Grammar is an aggregate of syntactic features shown
+predictive across multiple domains [23, 50, 60, 82]. Finally,
+the Similarity category reflects how many quality prediction
+approaches compare the input document to a gold-standard
+of text [47, 50]. We compute a variety of similarity measures
+between the input document and a sample of high and low
+quality documents–using both the simple TF-IDF measure
+used in prior work [47] as well as occurrences of popular
+parts of speech appearing in a document (i.e top-K nouns in
+unhelpful documents that appear).
+
+Figure 5: Precog architecture. Purple arrows show the
+feedback process for hard constraints. The Segment-PredictExplain component has a beige background: Blue arrows
+depict the offline training and storage process and Green
+arrows depict the online execution flow when a user submits.
+database, which checks that the input satisfies the integrity
+constraints. On violations, the feedback generator creates
+custom feedback (if specified in a DDL statement) and the
+default or customized interface displays the feedback.
+The Segment-Predict-Explain component consists of offline
+and online components. The offline components (blue arrows) take as input a corpus of training data in the form of
+user generated text documents and their labels—for instance,
+Amazon product reviews may be labeled by the ratio of “helpful” and “unhelpful” votes. The Segmenter first splits each
+document into segments. The Model Generator then trains
+two classification models to predict the quality of a user’s
+overall text submission as well as its constituent segments;
+these are cached in the Model Store.
+The online components (green arrows) send the contents
+of a text input widget, along with an optional corpus name,
+to the webserver. Precog uses the models in the Model Store
+to identify whether the entire document and/or segments
+generated by the Segmenter are low quality. The Feedback
+Generator then constructs feedback explanations for the low
+quality text, which are returned and displayed in the widget.
+
+4.
+
+Feature Library for Text Quality
+
+PREDICT
+
+Precog takes as input a training corpus of documents
+and document-level quality labels, and trains two models—
+document-level and segment-level prediction models—in order to provide document-level and fine-grained segment-level
+feedback. Both are important because they address different
+text quality factors. The document level feedback provides a
+global quality assessment. For instance, consider a document
+that contains a single segment—the segment may be high
+quality but the overall document is too short and is missing
+text for other topics. In contrast, segment level feedback is
+needed in order to provide specific, actionable suggestions
+that may not be evident at the document level.
+Clearly, document quality assessment is a well-studied area.
+In this section, we describe our approach towards in-depth
+semantic feedback. We first describe our extensible feature
+library that consolidates text features across literature in social media text analysis, essay grading, language psychology,
+and data mining research communities. As compared to other
+features libraries such as LIWC, Precog’s main advantage is
+a high-concentration of data-driven features (topic modeling,
+
+4
+
+5
+
+Available at http://cudbg.github.io/Dialectic
+
+Category
+Informativeness
+Topic
+
+#
+8
+5
+
+Subjectivity
+
+15
+
+Readability and Grammar
+
+15
+
+Similarity
+
+4
+
+Description
+mined jargon word and named entity stats [64], length measures (word, sentence, etc. count)
+LDA topic distribution and top topics [8], entropy across topic distribution
+opinion sentence distribution stats [64], valence, polarity, and subjectivity scores and distribution
+across sentences [32, 34, 56], % upper case characters, first person usage, adjectives
+spelling errors [45], ARI, Gunning index, Coleman-Liau index, Flesch Reading tests, SMOG,
+punctuation, parts of speech distribution, lexical diversity measures, LIWC grammar features
+various TF-IDF and top parts of speech comparisons with sample of low and high utility documents
+
+Table 1: Summary of feature library for text quality.
+
+4.2
+
+Document-level Prediction
+
+to manually label the generated segments, but this will be
+very costly and time-consuming. We observe that document
+quality is sufficiently correlated with segment quality, and a
+document’s label can be used to label its segments as training
+data for a segment classifier. The key insight is that the
+predictive model is robust to noisy labels. Although there
+might be a number of segments mislabeled, the model can
+tolerate their impact well and achieve good performance.
+We tested this hypothesis by running an experiment, using
+an existing corpus of Amazon reviews [61]. We compared
+a segment binary classifier trained under this assumption
+with human evaluation. Specifically, we ran a crowdsourced
+study to label 500 Amazon segments (250 drawn from helpful reviews, and 250 from unhelpful reviews), with human
+helpfulness labels (the median segment length of a review is
+3). We trained workers on a separate sample of segments,
+along with explanations of why each segment was helpful
+or unhelpful. We then randomly assigned each worker 50
+segments to label, and collected labels until each segment had
+≥ 3 labels, and determined the final label of each segment
+using the Get Another Label algorithm [81].
+We then computed pairwise accuracies between the document labels, classifier predictions, and crowd labels: 71.1%
+(Classifier predicting Crowd Label), 72.5% (Classifier predicting Document label), and 69.5% (Document label predicting
+Crowd Label). The consistent results between all three comparisons suggest the efficacy of the segment-level classifier,
+and our end-to-end experimental results suggest that the predictive model is effective at providing segment level feedback.
+Nevertheless, more studies are needed to fully evaluate this
+hypothesis across other text domains and document lengths.
+We defer this to future work.
+
+We now describe the prediction model we use for documentlevel prediction. Once a library of features are given, the
+document-level prediction turns to be a typical classification
+problem. We choose a random forest classifier, which has
+been shown effective in existing work [32], and select features
+using the recursive feature elimination algorithm [38].
+Our model performs competitively with prior work [32].
+The prior work predicts the quality of Amazon DVD, AV
+player and Camera reviews with 83% accuracy; Precog’s default model on the same setup predicts at 85% accuracy—the
+slight improvement is due to the additional features in the
+topic and similarity categories from other literature (Table 1).
+Precog also achieves 79% accuracy at predicting if an Airbnb
+profile is above or below median trustworthiness, using trustworthiness data from [94]. We validated generalizability of
+the model to domains not covered in prior work by evaluating
+it on reddit comments from the AskScience subreddit5 and
+predicted comment helpfulness on an evenly balanced sample
+with 80% accuracy6 .
+
+4.3
+
+Segment-level Prediction
+
+There are two challenges in training a segment-level prediction model. The first one is how to split a document
+into segments. Although there are numerous segmentation
+algorithms, we describe the rationale for the choice of using
+a topic-based segmentation algorithm. The second challenge
+is to determine how the available document-level labels can
+be used for training segment-level quality.
+Segmentation: Contributor rubrics across many social media services are structured around topics [2, 92, 96], and
+psychology research suggests that mentally processing the
+topical hierarchy of text is fundamental to the reading process [41]. Thus, Precog segments documents at topic-level
+units. To this end, we use a technique called TopicTiling [77],
+an extension to TextTiling [40]. It uses a sliding window to
+compute the LDA [8] topic distribution within each window
+and create a new segment when the distribution changes
+beyond a threshold. TopicTiling outperformed other topic
+segmenters [44, 65] in terms of their WindowDiff score [74] as
+compared to a hand-segmented test corpus of 40 documents.
+Moreover, Precog also makes it easy for developers to
+add custom segmentation algorithms. Given a small test
+corpus of pre-segmented documents, Precog can benchmark
+the algorithms and recommend the one with the highest
+WindowDiff score.
+
+5.
+
+We describe how Precog automatically generates feedback
+text for low-quality text. This problem is challenging because we must analyze potentially arbitrary text content. Our
+approach is inspired by existing feedback systems—model
+features act as signals to identify text characteristics that the
+worker should change. We first introduce the Prescriptive
+Explanation problem, which assigns responsibility to each
+model feature proportional to the amount that it will contribute to improving the predicted text quality. We then
+use explanation functions to transform the most responsible
+features into prescriptive feedback for the user.
+
+Document Labels for Segments: Despite generating topically coherent segments, we lack quality labels for training
+the predictive model at the segment level. One solution is
+5
+6
+
+EXPLAIN
+
+5.1
+
+Problem Background
+
+Our problem is closely related to model explanation, which
+generates explanations for a model’s (mis-)prediction. The
+classic approach is to use simple, interpretable models [13,
+53, 88] or to learn an interpretable model using the training
+
+https://www.reddit.com/r/askscience/
+We define > 1 net up-votes as helpful and ≤ 1 as unhelpful.
+
+6
+
+data near the test point [76]. However, it still leaves it up to
+the user to infer specific improvements to make.
+Feedback systems are typically based on outlier detection [50]. They pre-compute the “typical” values of each
+feature in the high quality corpus, then identify the “atypical” outliers in the test data’s feature vector (e.g., a feature whose value is 1.5 standard deviations from the mean).
+Features are individually mapped to pre-written feedback
+text [7, 10, 49]. Unfortunately, this procedure is not effective
+for non-continuous or low cardinality features such as one-hot
+encoded features (e.g., each word is represented as a separate
+binary feature) common in text analysis.
+Further, their analyses are per-feature and don’t account
+for multi-feature interactions. Consider a review consisting
+of a long, angry diatribe about customer service. In isolation,
+existing approaches may find that the length is large and
+suggest reducing it, and that the emotion is high and suggest
+reducing it. However, such systems would not recognize that
+the review can be most improved by simultaneously reducing
+the emotion in the text and including more product details
+that ultimately increase the length.
+Ultimately, existing feedback and explanation approaches
+are descriptive of the prediction, rather than prescriptive of
+the changes that must be made. Although the data cleaning literature has proposed ways to prescribe data cleaning
+operations [14], they are not applicable for text attributes.
+We directly address this problem by selecting multi-feature
+explanation functions to prescribe improvements to the user’s
+text.
+
+5.2
+
+Figure 6: Assigning responsibility to perturbations. The
+paths go from the document’s current low quality classification to a high quality classification. The green path (p1 )
+must at least reduce emotion by −20; the blue path (p2 ) must
+at least increase length by 10 and at least reduce emotion
+by −15.
+
+input text. Although developers can easily implement their
+own FEFs, Precog is pre-populated with 5 FEFs that work
+across the two application domains used for evaluation.
+
+5.3
+
+Problem Statement
+
+Intuition:
+Figure 6 depicts the main intuition behind
+the problem and our approach. Consider a single tree in a
+random forest, consisting of decisions on two features, len
+and emotion. Precog uses the feature library to transform the
+input text into a feature vector of (len=10, emotion=30),
+and is thus classified as low quality.
+When we consider a user’s edits, they are desirable if the
+edits will improve the document’s quality—in other words, if
+it will cause the document to be reclassified as high quality.
+In this example, there are two ways to perturb the feature
+vector: by reducing the emotion feature by at least 20, or
+by increasing the length by at least 10 and reducing the
+emotion by at least 15.
+Thus, it is clear that the emotion should be assigned a
+greater responsibility because there are more branches for
+which changing its value will contribute to a better classification. In general, we must account for the amount that
+a feature must be perturbed, and the number of other features that must also be perturbed, in order to improve the
+classification. A similar approach is applicable for regression
+models as well, where increasing the continuous prediction
+assigns the perturbation more responsibility.
+
+Feature Explanation Functions
+
+Section 2 introduced explanation functions that can take
+as input features in a FEATURE table whose primary key
+references the desired text attribute. We now formally define these feature-oriented explanation functions (FEFs) and
+provide examples used in the experiments.
+Let F be the set of n model features, and fi denote the
+ith feature. An FEF e : R|F| → text maps the feature vector
+for a subset of features F ⊆ F to feedback text. Intuitively,
+the FEF should be executed if its list of features F can
+take “highly responsibility” for improving the quality score.
+Precog can automatically control the generated feedback by
+reallocating responsibility.
+In practice, an FEF takes as input a list of features, as
+well as the text document and the full feature vector, and
+returns feedback text. Recall the feedback in the custom
+Precog interface in Figure 4, it identifies that the segment
+is short on details and suggests new topics. The following
+snippet sketches the Not Enough Detail function in our evaluation. If the features topics, featureCnt, and textLen
+have high responsibility, then it will be called to recommend
+new product features that the worker should mention in the
+review; the recommendations are dynamically selected based
+on the text’s topic distribution (topics) and the number of
+product features detected (featureCnt < 10):
+
+Setup: Let d ∈ Rn be a data point (text document or segment) represented as a feature vector, where di corresponds
+to the value of fi . For instance, F may be the text features
+described above, and a data point corresponds to the extracted text feature vector. A model M : Rn → N classifies
+a data point as M (d) ∈ N, and a utility function U : N → R
+maps a label to a utility value. For instance, in a binary
+classification problem U may return 1 if the input is “high
+quality” and 0 otherwise; in a regression model, U may be
+the identity function.
+A perturbation p ∈ Rn is a vector that modifies a data
+point. pi 6= 0 if fi is perturbed, otherwise pi = 0. We
+assume that the domains of the features have been normalized
+between [0, 1].
+
+def notEnoughDetail(topics, featureCnt, textLen,
+text="", feats=[]):
+if featureCnt < 10 and textLen < threshold:
+return "Try adding information about: " +
+suggest_new_prod_feats(topics, text, feats)
+...
+
+We note that existing feedback systems [7,49,50] implicitly
+follow this model, however they bind individual features to
+static strings. In contrast, Precog supports feature combinations and can dynamically generate feedback based on the
+
+Responsibility: Our goal is to identify feature subsets of
+the test data point d that, if perturbed, will most improve
+7
+
+d’s utility7 . To do so, we first define the impact I(d, p) for an
+individual perturbation p as the amount that it improves the
+utility function discounted by the amount of the perturbation
+∆(p) and the model’s prediction confidence C(d + p) ∈ [0, 1].
+I(d, p) =
+
+We instead present a heuristic solution called TCruise
+whose complexity is linear in the number of paths in the
+random forest model. The key insight is to take advantage
+of the structure of the random forest model to constrain the
+types of perturbations and feature subsets to consider. A
+path is the sequence of decisions from the root of a tree to a
+leaf node.
+The main idea is to scan each tree in the random forest and
+compute responsibility scores local to the tree. In addition,
+rather than compute the impact for all possible perturbations,
+we only consider the minimal perturbation with respect to
+each path in the tree.
+Let D = {d1 , . . . , dm } be the training dataset and Y =
+{y1 , . . . , ym } be their labels. The random forest model M =
+{T1 , . . . , Tt } is composed of a set of trees. A tree Ti is
+composed of a set of k decision paths qi1 , . . . , qik ; each path qij
+matches a subset of the training dataset Dij ⊆ D and its vote
+vij is the majority label in Dij . Thus, the output of Ti (d) is
+the vote vij of the path that matches d (e.g., d ∈ Dij ), and the
+output of the random forest M (d) = arg maxv |{1|vij = v}|
+is the majority vote of its trees.
+Let minp(d, qij ) return the minimum perturbation p (based
+on its L2 norm) such that d matches path qij .
+
+U (M (d + p)) − U (M (d))
+× C(d + p)
+∆(p)
+
+C can be chosen based on the model—for a random forest,
+we define C as the percentage of trees that vote for the
+majority label. The discount function ∆ can be similarly
+defined in multiple ways.
+For instance, consider ∆(p) = |p|2 , the L2 norm of the
+perturbation vector. It will cause the impact function to
+converge to 0 as the perturbations become larger. Consider
+the perturbations p1 , p2 in Figure 6. Assuming that C() = 1,
+p1 ’s impact on the input document is I(d, p1 ) = 1−0
+×1=
+20
+0.05, whereas p2 ’s impact is I(d, p2 ) = 1021−0
+×
+1
+=
+0.055.
+2
++15
+However, there can be an infinite number of perturbations
+that all improve the utility—which should be selected? In
+this work, we restrict the analysis to perturbations that have
+the maximal influence. For this reason, we first define the
+maximum influence perturbation set PF of a given subset of
+features F ⊆ F as the set of perturbations that only perturbe
+features in F and have the maximal influence. Further, the
+set of maximum influence perturbations is the union of PF
+for all feature sets:
+
+minp(d, qij ) = arg min |p|2 s.t. qij matches d + p
+p∈Rn
+
+PF (d) = arg max I(d, p) s.t. ∀fi ∈F
+/ (pi = 0)
+p∈Rn
+
+P(d) =
+
+[
+
+Rather than examining all possible perturbations, our heuristic to compute Sfdi restricts the set of perturbations with
+respect to the decision paths in the trees that increase d’s
+utility. The impact function I() is identical, however it takes
+a path qij as input and internally computes the minimum
+perturbation minp(d, qij ). This can be directly computed by
+examining the decision points along the path. The confidence
+C(d) is the fraction of samples in Dij whose labels yk match
+the path’s prediction vij .
+
+PF (d)
+
+F⊆F
+
+Based on these definitions, the total responsibility of a given
+feature fi ∈ F is based on the responsibility of each perturbation that involves the feature. To this end, we define the
+responsibility Sfdi of a feature fi for input point d as the sum
+of all maximum influence perturbations that involve fi (e.g.,
+the perturbation pi 6= 0):
+X
+
+Sfdi =
+
+I(d, p)
+
+I(d, qij ) =
+
+p∈P(d),pi 6=0
+
+Putting this together, we can define the responsibility score
+Sed of a feature explanation function (FEF) e as the average
+of its bound features; where Fei ⊆ F is the set of features
+bound to an FEF:
+P
+Sed =
+
+fi ∈Fe
+
+C(d) =
+
+i
+
+|Fe |
+
+× C(d + minp(d, qij ))
+
+|{dk ∈ Dij |yk = vij }|
+|Dij |
+
+Qi (d) = {q ∈ Ti |∀q0 ∈Ti I(d, q) ≥ I(d, q 0 ) ∧ Fminp(d,q) = Fminp(d,q0 ) }
+
+Problem 1 (Prescriptive Explanation). Given the
+feature vector of a data point d, prediction model M , a set
+of FEFs E = {e1 , · · · , em }, return the top k FEFs whose
+responsibility is above a threshold t:
+
+Fp = {fi ∈ F |pi 6= 0}
+
+Finally, Sfdi computes the responsibility for fi as the sum of
+all maximal influence paths in all decision trees that improve
+the predicted utility U ().
+
+E ∗ = topk Sed s.t. Sed > t
+e∈E
+
+Sfdi =
+
+The TCruise Heuristic Solution
+
+X
+
+X
+
+I(d, qij ) if U (vij ) > U (M (d))
+
+Ti ∈M q j ∈Q (d)
+i
+i
+
+The space of solutions for Problem 1 relies on enumerating
+all possible elements in the power set of the feature set F,
+which is exponential in size: 2|F | . This means that for n
+features there are 2n possible sets of (maximal influence)
+perturbations to naively explore.
+7
+
+∆(minp(d, qij ))
+
+If two paths within a tree perturb the same set of features,
+we only consider the path with the maximal impact score. In
+addition, we do not compare paths across trees. We define
+Qi as the set of maximal impact paths of a tree Ti , with at
+most one path for a given subset of features. Fp is the subset
+of features that p perturbs:
+
+Sfd
+
+We are now ready to present the key technical problem
+for text acquisition feedback:
+
+5.4
+
+U (vij ) − U (M (d))
+
+Our implementation indexes all paths in the random forest
+by their utility. Given d and predicted utility U (M (d)), we
+retrieve and scan the paths with higher utility. For each
+scanned path q, we compute the change in the utility function, discount its value by the minimum perturbation p as
+well as the path’s confidence. We then select the maximal
+
+No feedback needed if data point already has high utility.
+8
+
+We added LIWC API calls to Precog; the model tested
+on a balanced set of 300 AirBnB host profiles was competitive (79% accuracy) at predicting if a profile was ≥ median
+trustworthiness. All trustworthiness factors except friendliness directly corresponded to existing explanation functions.
+Thus, we wrote a friendliness explanation function that suggested writing more friendly and inclusive prose, and bound
+it to the relevant LIWC features (social, inclusive, etc).
+Thus, three of the FEFs, Informativeness, Topic, and Readability/Grammar, overlapped between the two domains. The
+fourth FEF for product reviews was mapped to Subjectivity
+features in (Table 1) and the fourth host profiles FEF was
+mapped to Friendliness LIWC features shown in [94], with
+each returning text suggesting that the user improves the
+respective facet of their submission (i.e., “Please make your
+writing more balanced and neutral”). Other explanation functions (Topic, Informativeness) suggested specific content for
+the user to write about, mined from high-quality documents
+from each corpus (i.e., topics, jargon).
+Overall, each explanation function was 3-20 lines of python
+code. We are optimistic about the Segment-Predict-Explain
+pattern, because adopting to new domains is simply a matter
+synthesizing existing research by adding features and creating
+simple explanation functions.
+
+impact paths for each tree; for each path, we add the responsibility score of all features perturbed in its minimum
+perturbation p. The final scores are used to select from the
+library of explanation functions.
+Normalization: We find that features closer to the root
+will happen to occur in more feature sets and have artificially
+higher scores, thus we need to adjust feature impact scores
+to reduce bias. To do so, we draw a sample of text from the
+corpus that has been labeled as low quality. For each feature
+fi , we compute the responsibility for each low quality text,
+and aggregate their values to compute the sample mean µfi
+and standard deviation σfi . We then normalize a feature’s
+responsibility Sfdi by computing Snormdfi =
+
+d
+Sf
+−µf
+
+i
+
+i
+
+σf
+
+.
+
+i
+
+Picking FEFs: Once the feature scores have been computed, identifying the top-k FEFs is straightforward, and we
+compute each FEF’s average impact score using a series of
+fast matrix operations. Let ~s ∈ Rn where ~si = Snormdi , and
+matrix A ∈ Rm×n represent the features bound to each of
+the m FEFs, where Aji = 1 if feature fi is bound to FEF ej ,
+~
+e
+otherwise 0. Also, let ~e ∈ Rm = A~s. Pn j Aji is the average
+i=1
+impact score of all features mapped to the jth FEF. We then
+sort the FEFs by their average scores and take the top k
+with a score above the threshold t.
+
+7.
+6.
+
+NEW APPLICATION DOMAINS
+
+EXPERIMENTS
+
+We now evaluate how Precog improves high-quality data
+acquisition using live Mechanical Turk deployments. First,
+we validate the value of pre-hoc quality control by running
+a crowdsourced data acquisition experiment with different
+Precog optimizations for foreign key and domain constraints.
+Second, we evaluate Precog’s Segment-Predict-Explain pattern for text acquisition in two domains—acquiring customer
+reviews for Amazon products [61] and acquiring profile descriptions for AirBnB host profiles [94]. Precog is able to
+adopt to the domains’ different quality measures (helpfulness vs trustworthiness) with small configuration changes.
+Finally, we perform a detailed analysis of how segmentation
+and TCruise each contribute to improving the quality of the
+acquired text.
+
+How much work does it take to add rich feedback support
+for text in a new domain? We describe our process to
+extend Precog to two domains with different quality measures:
+product reviews that care about helpfulness to a shopper [3],
+and then host profiles that are judged by trustworthiness to
+renters [57]. We start with the feature library of 47 features
+and no explanation functions.
+The general approach is to survey quality assessment research in a domain to borrow useful features and explanations.
+We did not require new features for product reviews; we simply label reviews with ≥ 60% helpful votes as high quality
+and low otherwise. The resulting model (85% accuracy,
+balanced test set) was competitive with existing work [31].
+For explanation functions, prior work showed that 75%
+of reasons for unhelpful reviews were covered by (in priority order) overly emotional/biased opinions, lack of information/not enough detail, irrelevant comments, and poor
+writing style [18]. These naturally map to 4 of our feature
+categories, so we wrote explanation functions for each and
+bound them to the features in the corresponding category.
+For instance, the following defines the function for Off-Topic
+text:
+
+7.1
+
+Precog for Hard Constraints
+
+Although it is intuitively obvious that form feedback and
+custom interfaces should improve quality, we quantify the
+amount using the example from Section 2. We evaluate
+Precog for product_id (foreign key constraint) and rating
+(domain constraint) from the reviews table. Figure 7 depicts
+the three interfaces that are created—naive with no Precog,
+customized feedback, and customized interface optimizations.
+
+def offTopic(topics, text="", feats=[]):
+if len(topics) < 5:
+sortedTopics = sorted(topics, key=topic.prob)
+return "Try discussing some of these topics: " +
+topK(sortedTopics, 5)
+
+We used a similar process for host profiles and found that
+research emphasizes trustworthiness as the key quality metric [57, 94]. Their work identified a subset of the Linguistic
+Inquiry and Word Count (LIWC) features [73] and other
+features as useful for measuring trustworthiness. The primary groups of features related to absence of detail and low
+topic diversity. Reading through their table of features, we
+also found that writing style and friendliness features were
+common.
+
+Figure 7: Worker interfaces to evaluate no optimization, custom
+feedback Precog, and custom interface Precog for hard constraints.
+
+We created a simple Mechanical Turk task that asked
+workers to submit the product model of their cell phone
+along with a 1 to 5 rating for the phone’s quality; each
+9
+
+worker was paid $0.05 to complete the task. Each worker
+was randomly assigned to one of three conditions, one for
+each of the interfaces shown in Figure 7. The experiment was
+run until 100 workers had participated in each condition. For
+the foreign key constraint, we populated a products table
+with all cell phone product models from the Amazon product
+corpus and a comprehensive list of phone models [93]. We
+relaxed the foreign key constraint by ignoring case sensitivity
+of the product names.
+
+Experimental Conditions: The purpose of experiments
+is to both show the Cost Saving benefits of Precog as well
+as to evaluate the effectiveness of it’s two main features
+(segment-level feedback and TCruise explanation generation).
+We thus assign each participant to one of four conditions.
+A detailed explanation of the four conditions is shown in
+Section 7.2.2. We first present the results of the fully featured
+Precog condition (Section 7.2.1) and then demonstrate the
+contribution of each Precog component (in Section 7.2.2).
+Product-Review Participants: For the laptop review
+experiment, we recruited 85 workers on Amazon’s Mechanical Turk (61.2% male, 38.8% female, ages 20-65 µage =32,
+σage =8.5). 81 completed the task. Participants were randomly assigned to one condition group; all conditions had 21
+subjects except the Precog condition which had 22. No participant had used Precog before. 71.3% had written a prior
+product review; all had read a product review in the past.
+All participants were US Residents with > 90% HIT accept
+rates. The average task completion time was 14 minutes,
+and payment was $2.5 (∼ $10/hr).
+
+Figure 8: # records satisfying both constraints vs budget. Feedback and interface customization acquire 1.7× and 1.9× more
+valid records than no Precog optimization.
+
+Host-Profile Participants: For the profile description experiment, we recruited 92 workers on Amazon’s Mechanical Turk (58.7% male, 41.3% female, ages 20-62 µage =33,
+σage =8.2); all completed the task. Participants were randomly assigned to one condition group; with (21,26,22,23)
+participants in conditions (1,2,3,4), respectively. No participant had used Precog before. 62% had used AirBnb before.
+All participants were US Residents with > 90% HIT accept
+rates. The average task completion time was 11 minutes,
+and payment was $2.5 (∼ $13.6/hr).
+
+Figure 8 plots the number of high quality tuples that were
+collected as a function of the number of completed tasks; we
+define a tuple as high quality if no constraints were violated.
+Feedback and interface customization acquire 1.7× and 1.9×
+more high quality tuples than no Precog optimization.
+
+7.2
+
+Precog for Text Acquisition
+
+Setup and Datasets: Precog is setup as described in Section 6: we train Precog using the laptop category of the
+Amazon product reviews corpus [61], and the AirBnb profile
+corpus [94] for their corresponding experiments. We then
+synthesized existing research to write 4 explanation functions
+for each domain, with 3 overlapping between the two.
+
+Protocol and Rubric for Assessing Quality: Three
+independent evaluators (non-authors) coded the pre and
+post-feedback documents using a rubric based on prior work
+on review quality [18, 55, 67] and Airbnb profile quality [57].
+Each rubric rated documents on a 1-7 Likert scale using
+three specific aspects identified by prior work—Informativity,
+Subjectivity, Readability—for reviews—Ability, Benevolence,
+Integrity–for profile trustworthiness, as well as a holistic
+overall score. The change in these measures between pre and
+post-feedback suggests the utility of the feedback.
+The review rubric asks coders to scores reviews on helpfulness to laptop shoppers, and the host profile rubric asks
+coders to score profiles based on trustworthiness to potential
+tenants. Each defines the three main measures, and provides
+examples that contribute positively and negatively to each
+criteria.
+For product reviews, Informativity is the extent that the review provides detailed information about the product, where
+7 means that the review elaborates on all or almost all of
+the specifications of a product while 1 means that it states
+an opinion but fails to provide factual details (e.g., laptop
+specifications). Subjectivity is the extent that the review is
+fair and balanced but with enough helpful opinions for the
+buyer to make an informed decision: 1 means the review is
+an angry rant or lacks any opinions while 7 means it is a
+fair and balanced opinion. Readability is the extent that the
+review facilitates or obfuscates the writer’s meaning. For
+instance, a review that consists of many ambiguous phrases
+like “I have never done anything crazy with it and it still
+works.” is assigned 1 as it might require multiple readings
+to understand. Overall Quality is the holistic helpfulness of
+the review for prospective buyers.
+
+Procedures: Participants writing product reviews were
+asked to write a review of their most recently owned laptop
+computer “as if they are trying to help someone else decide to
+buy that laptop or not and are writing on a review website
+like the Amazon store”. We used a qualification task to
+ensure participants had ever owned a laptop. Participants
+writing Airbnb profiles were asked to “pretend that [they]
+are interesting in being a host on Airbnb” and to “write an
+Airbnb profile for [themselves]”. Participants were told that
+upon submitting their writing, they may receive feedback
+and could optionally revise.
+Upon pressing the I’m Done Writing button, the interface
+displayed our document-level feedback under the text field;
+for users in the segmentation condition, low quality segments
+were highlighted red and the related feedback displayed when
+users hovered over the segment. We then gave participants
+the opportunity to revise their submission; to avoid bias, we
+noted that they were not obligated to. At this point, users
+could click the Recompute Text Feedback button (median 1
+click/participant), or press Submit to submit and finish the
+task. We used a post-study survey to collect demographic
+information as well as their subjective experience.
+The interface was the same for all conditions—only the
+feedback content changed. The final submission was considered the post-feedback submission, and the initial submission
+upon pressing the I’m Done Writing was the pre-feedback
+submission. The experiment was IRB approved.
+10
+
+7.2.2
+
+Ma et. al describe the meaning of the three Airbnb criteria
+in [57]: Ability “refers to the host’s domain specific skills
+or competence.” Benevolence “refers to the host’s domain
+specific skills or competence.” Ability “refers to the host’s
+domain specific skills or competence.” Each measure is rated
+on a scale from 1 (Strongly Disagree) to 7 (Strongly Agree)
+based on coder agreement with a set of statements mapped
+to each criterion (i.e., “This person will stick to his/her word,
+and be there when I arrive instead of standing me up” for
+integrity). The full set of coder statements is described at
+length in [57]. Overall Quality is the holistic trustworthiness
+of the host for prospective tenants.
+Finally, we asked coders to subjectively rate their agreement from 1-7 to the statement “The post-feedback revisions
+improved on the pre-feedback document.”, or 0 if the document did not change. Each measure is the average of the
+ratings from two coders—if they differed by ≥ 3, a third
+expert coder was used as the tie breaker and decided the
+final value. The third coder was trained by being shown
+the Amazon or Airbnb corpus, examples across the quality
+spectrum, and the other two coders. The coders labeled
+documents in random order and did not have access to any
+other information about the documents.
+
+7.2.1
+
+Segment, Explain, or Both?
+
+Are both Segment and Explain necessary in the SegmentPredict-Explain pattern? To understand the contributing
+factors towards the quality improvements, we compared
+four feedback systems that varied along two dimensions:
+granularity varies the feedback to be at the document level
+(Doc), or at the document and segment level (Seg); explanation selection compares the single-feature outlier technique
+from [50] (Krause) with TCruise. This results in a 2x2
+between-subjects design. Precog denotes the segment-level
+TCruise-based system.
+Krause [50] was shown to outperform static explanations
+of important components of a helpful review (similar to a
+rubric) for students performing peer code-reviews and uses
+an outlier based approach described in Section 5.1. To
+ensure fair comparison, we supplemented their features with
+domain-specific features for Informativeness (# of product
+features/jargon), Readability (Coleman-Liau index), and
+Friendliness (LIWC features related to friendliness) so that
+their features are comparable to those used in our feature
+library.
+To summarize, each participant was randomly assigned to
+one of four conditions: Doc+Krause, Seg+Krause, Doc+TCruise
+and Precog (Seg+TCruise ).
+
+Cost Savings
+
+Figure 10: Improvement on Likert scores for both domains (reviews and profiles) and four quality criteria per domain. Note
+that the quality criteria differ across domains.
+
+Figure 9: # of documents where quality ≥ thresh, for varying
+thresholds; product reviews (top), host profiles (bottom). Precog
+is more effective than no Precog when the desired quality is high.
+
+Figure 10 plots the mean change and 95% boostrap confidence interval for the four rubric scores. Figure 11 shows a
+similar chart for the coder’s subjective opinion of the improvement. These plots show the effect size across all measures,
+and that the largest improvements were due to the combination of segmentation and TCruise-based explanation.
+
+Figure 9 compares Precog against the baseline of not using Precog (naive review collection). We plot CDF curves
+for the number of high quality documents as the task budget increases. Each facet defines high quality at a different
+threshold; product reviews and host profiles are shown as
+the top and bottom rows, respectively. When the threshold
+is low, it is easy to acquire low-quality text and both approaches are the same. However, Precog is more effective
+when the threshold increases. For the reviews and profiles
+experiments, Precog acquires ≥ 2× and ≥ 2.6× more high
+quality documents than the baseline for thresholds of 5.5
+and 6, respectively. Note that the baseline does not acquire
+any high quality reviews when thresh ≥ 6. Precog only
+marginally increases latency of each worker. The average
+host profile took 6.8 minutes to complete without Precog,
+and 11.1 minutes with the additional feedback from Precog.
+Similarly, Airbnb profiles took an average of 10.2 minutes
+to complete without Precog and 15.3 minutes to complete
+with Precog. Such latency difference is relatively small if
+we compare the end-to-end time of two systems since the
+majority of the time was spent on worker recruitment.
+
+Figure 11: Subjective agreement to: “The post-feedback revisions
+improved on the pre-feedback review.” for product reviews, and
+“The post-feedback revisions are more trustworthy than the prefeedback profile.” for host profiles.
+
+We conduct statistical tests to further investigate the results. For both Product Review and Host Profiles, we performed Two-Way ANOVAs with both the Overall Quality Im11
+
+knowledge, Precog is the first system that systematically
+supports Precog for a wide range of data types and quality
+specifications (constraints and quality scores).
+
+provement and Subjective Coder Improvement Scores as the
+dependent variables, and TCruise and segmentation as the
+independent variables. We then performed pairwise Tukey
+HSD post-hoc tests between each of the four conditions.
+We found that combining segmentation and TCruise-based
+explanation outperformed all other conditions by a statistically significant margin for Product Reviews, and outperformed all but the next-best Doc+TCruise condition for
+Host Profiles. Furthermore, controlling for the other variable, TCruise showed a statistically significant difference in
+improvement, while segmentation did not.
+However, the combination of segmentation and TCruise
+consistently produced larger effect sizes than all other conditions across both Host Profiles and Product Reviews: for
+Product Reviews Precog, which combines segmentation and
+TCruise, improved the overall measure (bottom left facet)
+by nearly 3.9× over the baseline (0.55 vs. 0.14 increase), and
+a 2.4× improvement over the next-best Doc+TCruise condition. For Host Profiles Precog improved the overall measure
+by nearly 7.1× over the baseline (0.65 vs. 0.07 increase),
+and a 1.7× improvement over the next-best Doc+TCruise
+condition.
+In summary, we find that TCruise is essential to improving
+document quality; combining TCruise with Segmentation
+empirically produces the best results across the board.
+
+8.
+
+Post-hoc Approaches for Text Acquisition: A dominant approach is to filter poor content [84] such as spam;
+sort and surface higher quality content [1, 37, 86] such as
+product reviews [67], answers to user comments [90, 95], or
+forum comments [82]; or edit user reviews for clarification
+or grammatical purposes [6, 42, 48]. These approaches incur
+additional quality control costs and are complementary to
+Precog. They also assume a large corpus that contains high
+quality content for every topic (e.g., product or question). In
+reality, there is often a long tail of topics without sufficient
+content for such approaches to be effective [61, 79]. For such
+cases, improving quality during user input process may be
+more effective.
+Indirect Quality Mechanisms: Indirect methods such
+as community standards and guidelines [2, 5, 70] help clarify
+quality standards, while up-votes and ratings provide social
+incentives [11, 66]. Incentive mechanisms such as badges,
+scores [21, 33], status [97], or even money [42, 46] have also
+been used to keep good contributors. These methods focus
+more on finding good contributors and lack content-specific
+feedback (e.g., discuss camera quality for a phone).
+
+RELATED WORK
+
+9.
+
+Sections 4 and 5 surveyed work related to text quality
+prediction and writing feedback. We now describe related
+work in terms of data acquisition interface optimizations,
+quality control in crowdsourcing and other post-hoc quality
+mechanisms specific for text acquisition.
+
+CONCLUSION AND FUTURE WORK
+
+This paper presented the design, implementation and evaluation of Precog, a pre-hoc quality control system. The
+basic idea is to push data-quality constraints down to the
+data collection interface and improve data quality before
+acquisition. While the idea is easy to achieve for simple
+data types and constraints, it faces significant challenges for
+text documents. We address these challenges by proposing
+a novel segment-predict-explain pattern for detecting lowquality text and generating prescriptive explanations to help
+the user improve their text. Specifically, we develop effective
+approaches to measure text quality at both document and
+segment levels, present an efficient technique to solve the
+prescriptive explanation problem, and discuss how to extend
+Precog to new domains. Through extensive MTurk experiments, we find that Precog collects ≥ 2× more high-quality
+documents and improves text quality by 14.3% compared to
+not using pre-hoc techniques.
+Though Precog demonstrates the feasibility of such automated interfaces, it also reveals several areas of improvement.
+Due to a small number of explanation functions, study participants found that repeatedly using the system began to
+provide redundant feedback; simplifying the development of
+more explanation functions may help the system produce
+more nuanced feedback. We also used document-quality labels to train the segment classifier. We showed this to be
+sufficient by testing on crowd-sourced labels; however more
+sophisticated techniques to classify segments could improve
+feedback.
+In the long term, we envision Precog as an example of
+automatically applying pre-hoc quality control (e.g., writing
+feedback) based on downstream application needs (e.g., quality reviews). In future work, we hope to explore a broader
+range of applications (e.g., different social media domains or
+user contexts), and study how to optimize data-collection
+interfaces to meet more complex application needs.
+
+Survey Design and Optimization: The survey design
+literature has studied ways to re-ordering, and designing
+survey forms in order to reduce data entry errors. These
+include guidelines and constraints on form elements [36, 69],
+as well as interface techniques such as double entry [20] commonly used for picking passwords. These can be integrated
+as feedback and interface customizations in Precog.
+A closely related work from the database community is
+Usher [15], which have similar goals to improve data collection quality. Usher analyzes an existing corpus of collected
+data to dynamically learn soft constraints on data values, and
+focuses on input placement, re-asking, and some interface
+enhancements. These ideas can be viewed as instances of
+Precog. To contrast, we focus on using explicit constraints
+and ambiguous quality measures (for text) and provide explicit DDL statements to push them to the input interface.
+Additionally, our Segment-Predict-Explain pattern addresses
+on free-form text entry that complements their focus on
+simple data types.
+Quality Control in Crowdsourcing: Quality control is
+an important research topic in crowdsourced data management [16, 30, 54]. It has been extensively studied in recent
+years [9,12,24,29,39,80,98]. There are some works that apply
+pre-hoc quality control to improving crowd quality [72,87,91].
+Further, review hierarchies were proposed for hierarchical
+crowdsourced quality control using expert crowds [39]. However this work either focuses on a particular application [91],
+or not intended to support custom interfaces [72]. Moreover, none focus on multi-paragraph text attributes such
+as product reviews or forum comments. To the best of our
+12
+
+10.
+
+REFERENCES
+
+[25] N. Farra, S. Somasundaran, and J. Burstein. Scoring
+persuasive essays using opinions and their targets. In
+NAACL, 2015.
+[26] A. Fedosejev. React. js Essentials. Packt Publishing Ltd,
+2015.
+[27] FoxType. Write smarter emails. foxtype.com/, 2016.
+[28] M. J. Franklin, D. Kossmann, T. Kraska, S. Ramesh, and
+R. Xin. Crowddb: answering queries with crowdsourcing. In
+SIGMOD, 2011.
+[29] J. Gao, Q. Li, B. Zhao, W. Fan, and J. Han. Truth discovery
+and crowdsourcing aggregation: A unified perspective.
+PVLDB, 2015.
+[30] H. Garcia-Molina, M. Joglekar, A. Marcus, A. G.
+Parameswaran, and V. Verroios. Challenges in data
+crowdsourcing. TKDE, 2016.
+[31] A. Ghose and P. G. Ipeirotis. Designing novel review ranking
+systems: predicting the usefulness and impact of reviews. In
+EC, 2007.
+[32] A. Ghose and P. G. Ipeirotis. Estimating the helpfulness and
+economic impact of product reviews: Mining text and
+reviewer characteristics. In TKDE, 2011.
+[33] A. Ghosh. Social computing and user-generated content: a
+game-theoretic approach. In ACM SIGecom Exchanges.
+ACM, 2012.
+[34] C. H. E. Gilbert. Vader: A parsimonious rule-based model
+for sentiment analysis of social media text. In Eighth
+International AAAI Conference on Weblogs and Social
+Media, 2014.
+[35] Google. Check spelling and grammar in google docs.
+support.google.com/docs/answer/57859, 2016.
+[36] R. M. Groves, F. J. Fowler Jr, M. P. Couper, J. M.
+Lepkowski, E. Singer, and R. Tourangeau. Survey
+methodology, volume 561. John Wiley & Sons, 2011.
+[37] I. Guy. Social recommender systems. In Recommender
+Systems Handbook. Springer, 2015.
+[38] I. Guyon, J. Weston, S. Barnhill, and V. Vapnik. Gene
+selection for cancer classification using support vector
+machines. In Machine learning. Springer, 2002.
+[39] D. Haas, J. Ansel, L. Gu, and A. Marcus. Argonaut:
+macrotask crowdsourcing for complex data processing.
+VLDB, 2015.
+[40] M. A. Hearst. Texttiling: Segmenting text into
+multi-paragraph subtopic passages. In Computational
+Linguistics. MIT Press, 1997.
+[41] J. Hyönä, R. F. Lorch Jr, and J. K. Kaakinen. Individual
+differences in reading to summarize expository text:
+Evidence from eye fixation patterns. American Psychological
+Association, 2002.
+[42] P. Ipeirotis. Fix reviews’ grammar, improve sales.
+behind-the-enemy-lines.com/2011/04/want-to-improvesales-fix-grammar-and.html, 2016.
+[43] P. G. Ipeirotis, F. Provost, and J. Wang. Quality
+management on amazon mechanical turk. In ACM SIGKDD
+workshop on human computation, 2010.
+[44] J. C. T. Ji-Wei Wu. An efficient linear text segmentation
+algorithm using hierarchical agglomerative clustering. In
+CIS, 2011.
+[45] R. Kelly. rfk/pyenchant, Jan 2011.
+[46] J. Kim. The institutionalization of youtube: From
+user-generated content to professionally generated content.
+In Media, Culture & Society. Sage Publications, 2012.
+[47] S.-M. Kim, P. Pantel, T. Chklovski, and M. Pennacchiotti.
+Automatically assessing review helpfulness. In ACL, 2006.
+[48] A. Kittur, B. Smus, S. Khamkar, and R. E. Kraut.
+Crowdforge: Crowdsourcing complex work. In UIST, 2011.
+[49] J. Krause, A. Perer, and K. Ng. Interacting with predictions:
+Visual inspection of black-box machine learning models. In
+HCI, 2016.
+[50] M. Krause. A method to automatically choose suggestions to
+improve perceived quality of peer reviews based on linguistic
+features. In HCOMP, 2015.
+
+[1] E. Agichtein, C. Castillo, D. Donato, A. Gionis, and
+G. Mishne. Finding high-quality content in social media. In
+WSDM, 2008.
+[2] Amazon. Amazon: Community guidelines.
+https://www.amazon.com/gp/help/customer/display.
+html?nodeId=201929730, 2016.
+[3] N. Archak, A. Ghose, and P. G. Ipeirotis. Deriving the
+pricing power of product features by mining consumer
+reviews. In Management Science. INFORMS, 2011.
+[4] Y. Attali and J. Burstein. Automated essay scoring with
+R v. 2.0. In ETS Research Report Series. Wiley
+e-rater
+Online Library, 2004.
+[5] E. Bakshy, B. Karrer, and L. A. Adamic. Social influence
+and the diffusion of user-created content. In EC, 2009.
+[6] M. S. Bernstein, G. Little, R. C. Miller, B. Hartmann, M. S.
+Ackerman, D. R. Karger, D. Crowell, and K. Panovich.
+Soylent: A word processor with a crowd inside. In UIST,
+2010.
+[7] O. Biran and K. McKeown. Justification narratives for
+individual classifications. In AutoML, 2014.
+[8] D. M. Blei, A. Y. Ng, and M. I. Jordan. Latent dirichlet
+allocation. In JMLR, 2003.
+[9] R. Boim, O. Greenshpan, T. Milo, S. Novgorodov,
+N. Polyzotis, and W. C. Tan. Asking the right questions in
+crowd data sourcing. In ICDE, 2012.
+[10] Boomerang. Respondable: Personal ai assistant for writing
+better emails.
+http://www.boomeranggmail.com/respondable/, 2016.
+[11] A. Bosu, C. S. Corley, D. Heaton, D. Chatterji, J. C. Carver,
+and N. A. Kraft. Building reputation in stackoverflow: an
+empirical investigation. In MSR, 2013.
+[12] C. C. Cao, J. She, Y. Tong, and L. Chen. Whom to ask?
+jury selection for decision making tasks on micro-blog
+services. PVLDB, 2012.
+[13] R. Caruana, Y. Lou, J. Gehrke, P. Koch, M. Sturm, and
+N. Elhadad. Intelligible models for healthcare: Predicting
+pneumonia risk and hospital 30-day readmission. In KDD,
+2015.
+[14] A. Chalamalla, I. F. Ilyas, M. Ouzzani, and P. Papotti.
+Descriptive and prescriptive data cleaning. In SIGMOD,
+pages 445–456, 2014.
+[15] C. C. Chen and Y.-D. Tseng. Quality evaluation of product
+reviews using an information quality framework. In Decision
+Support Systems. Elsevier, 2011.
+[16] A. I. Chittilappilly, L. Chen, and S. Amer-Yahia. A survey
+of general-purpose crowdsourcing techniques. TKDE, 2016.
+[17] R. R. Choudhury, H. Yin, and A. Fox. Scale-driven
+automatic hint generation for coding style. In ITS, 2016.
+[18] L. Connors, S. M. Mudambi, and D. Schuff. Is it the review
+or the reviewer? a multi-method approach to determine the
+antecedents of online review helpfulness. In System Sciences
+(HICSS), 2011 44th Hawaii International Conference on,
+pages 1–10. IEEE, 2011.
+[19] P. B. Darwin and P. Kozlowski. AngularJS web application
+development. Packt Publ., 2013.
+[20] S. Day, P. Fayers, and D. Harvey. Double data entry: what
+value, what price? Controlled clinical trials, 19(1):15–24,
+1998.
+[21] S. Deterding, D. Dixon, R. Khaled, and L. Nacke. From
+game design elements to gamefulness: defining gamification.
+In MindTrek, 2011.
+[22] P. K. Dick, S. Spielberg, T. Cruise, and S. Morton. Minority
+report. http://www.imdb.com/title/tt0181689/, 2002.
+[23] M. Drouin, R. L. Boyd, J. T. Hancock, and A. James.
+Linguistic analysis of chat transcripts from child predator
+undercover sex stings. The Journal of Forensic Psychiatry &
+Psychology, pages 1–21, 2017.
+[24] J. Fan, G. Li, B. C. Ooi, K. Tan, and J. Feng. iCrowd: an
+adaptive crowdsourcing framework. In SIGMOD, 2015.
+
+13
+
+[51] J. A. Kulik and C.-L. C. Kulik. Timing of feedback and
+verbal learning. In Review of educational research, 1988.
+[52] C. E. Kulkarni, M. S. Bernstein, and S. R. Klemmer.
+Peerstudio: Rapid peer feedback emphasizes revision and
+improves performance. In L@S, 2015.
+[53] B. Letham, C. Rudin, T. H. McCormick, D. Madigan, et al.
+Interpretable classifiers using rules and bayesian analysis:
+Building a better stroke prediction model. The Annals of
+Applied Statistics, 2015.
+[54] G. Li, J. Wang, Y. Zheng, and M. J. Franklin. Crowdsourced
+data management: A survey. TKDE, 2016.
+[55] J. Liu, Y. Cao, C.-Y. Lin, Y. Huang, and M. Zhou.
+Low-quality product review detection in opinion
+summarization. In EMNLP-CoNLL, 2007.
+[56] S. Loria. Textblob: Simplified text processing.
+https://textblob.readthedocs.io/en/dev, 2014.
+[57] X. Ma, J. T. Hancock, K. L. Mingjie, and M. Naaman.
+Self-disclosure and perceived trustworthiness of airbnb host
+profiles. In CSCW, 2017.
+[58] N. Madnani and A. Cahill. An explicit feedback system for
+preposition errors based on wikipedia revisions. In NAACL,
+2014.
+[59] A. Marcus, E. Wu, D. Karger, S. Madden, and R. Miller.
+Human-powered sorts and joins. VLDB, 2011.
+[60] D. M. Markowitz and J. T. Hancock. Linguistic obfuscation
+in fraudulent science. Journal of Language and Social
+Psychology, 35(4):435–445, 2016.
+[61] J. McAuley, R. Pandey, and J. Leskovec. Inferring networks
+of substitutable and complementary products. In KDD,
+2015.
+[62] J. D. Mcauliffe and D. M. Blei. Supervised topic models. In
+Advances in neural information processing systems, pages
+121–128, 2008.
+[63] Microsoft. Check spelling and grammar in office 2010 and
+later. support.office.com, 2016.
+[64] B. L. Minqing Hu. Mining opinion features in customer
+reviews. In AAAI, 2004.
+[65] H. Misra, F. Yvon, O. Cappé, and J. Jose. Text
+segmentation: A topic modeling perspective. In Information
+Processing & Management. Elsevier, 2011.
+[66] L. Muchnik, S. Aral, and S. J. Taylor. Social influence bias:
+A randomized experiment. In Science. American Association
+for the Advancement of Science, 2013.
+[67] S. M. Mudambi and D. Schuff. What makes a helpful
+review? a study of customer reviews on amazon.com. In
+MIS quarterly, 2010.
+[68] M. Nelson and C. Schunn. The nature of feedback:
+Investigating how different types of feedback affect writing
+performance. In Learning Research and Development Center,
+2007.
+[69] K. Norman, S. Lee, P. Moore, G. Murry, W. Rivadeneira,
+B. Smith, and P. Verdines. Online survey design guide, 2003.
+[70] O. Nov. What motivates wikipedians? In Communications
+of the ACM, 2007.
+[71] A. G. Parameswaran, H. Park, H. Garcia-Molina,
+N. Polyzotis, and J. Widom. Deco: declarative
+crowdsourcing. In CIKM, 2012.
+[72] H. Park and J. Widom. CrowdFill: collecting structured
+data from the crowd. In SIGMOD, 2014.
+[73] J. W. Pennebaker, R. L. Boyd, K. Jordan, and K. Blackburn.
+The development and psychometric properties of liwc2015.
+Technical report, 2015.
+
+[74] L. Pevzner and M. A. Hearst. A critique and improvement of
+an evaluation metric for text segmentation. In
+Computational Linguistics. MIT Press, 2002.
+[75] R. S. Rakesh Agrawal. Fast algorithm for mining association
+rules. In VLDB, 1994.
+[76] M. T. Ribeiro, S. Singh, and C. Guestrin. "why should I
+trust you?": Explaining the predictions of any classifier. In
+SIGKDD, 2016.
+[77] M. Riedl and C. Biemann. Topictiling: a text segmentation
+algorithm based on lda. In ACL, 2012.
+[78] K. Rivers and K. R. Koedinger. Automating hint generation
+with solution space path construction. In ICITS, 2014.
+[79] G. Saito. Unanswered quora. quora.com/What-percentageof-questions-on-Quora-have-no-answers, 2016.
+[80] A. D. Sarma, A. G. Parameswaran, and J. Widom. Towards
+globally optimal crowdsourcing quality management: The
+uniform worker setting. In SIGMOD, 2016.
+[81] V. S. Sheng, F. Provost, and P. G. Ipeirotis. Get another
+label? improving data quality and data mining using
+multiple, noisy labelers. In KDD, 2008.
+[82] S. Siersdorfer, S. Chelaru, W. Nejdl, and J. San Pedro. How
+useful are your comments?: analyzing and predicting
+youtube comments and comment ratings. In WWW, 2010.
+[83] R. Singh, S. Gulwani, and A. Solar-Lezama. Automated
+semantic grading of programs. Technical report, MIT, 2012.
+[84] N. Spirin and J. Han. Survey on web spam detection:
+principles and algorithms. In KDD, 2012.
+[85] C. Tan, V. Niculae, C. Danescu-Niculescu-Mizil, and L. Lee.
+Winning arguments: Interaction dynamics and persuasion
+strategies in good-faith online discussions. In WWW, 2016.
+[86] J. Tang, X. Hu, and H. Liu. Social recommendation: a
+review. In SNAM. Springer, 2013.
+[87] B. Trushkowsky, T. Kraska, M. J. Franklin, and P. Sarkar.
+Crowdsourced enumeration queries. In ICDE, 2013.
+[88] B. Ustun and C. Rudin. Supersparse linear integer models
+for optimized medical scoring systems. Machine Learning,
+2016.
+[89] S. Valenti, F. Neri, and R. Cucchiarelli. An overview of
+current research on automated essay grading. In Journal of
+Information Technology Education, 2003.
+[90] G. Wang, K. Gill, M. Mohanlal, H. Zheng, and B. Y. Zhao.
+Wisdom in the social crowd: an analysis of quora. In WWW,
+2013.
+[91] S. E. Whang, J. McAuley, and H. Garcia-Molina. Compare
+me maybe: Crowd entity resolution interfaces. Technical
+report, Stanford InfoLab, 2012.
+[92] Wikipedia. Editor guidelines.
+en.wikipedia.org/wiki/Wikipedia:
+Policies_and_guidelines, 2016.
+[93] N. World. List of nfc phones.
+https://www.nfcworld.com/nfc-phones-list/, 2016.
+[94] M. N. Xiao Ma, Trishala Neeraj. A computational approach
+to perceived trustworthiness of airbnb host profiles. preprint
+maxiao.info, 2017.
+[95] L. Yang and X. Amatriain. Recommending the world’s
+knowledge: Application of recommender systems at quora.
+In RecSys, 2016.
+[96] Yelp. Content guidelines. yelp.com/guidelines, 2016.
+[97] Zappos. What in the hay is a zappos premier reviewer?
+http://www.zappos.com/premier-reviewers, 2016.
+[98] Y. Zheng, J. Wang, G. Li, R. Cheng, and J. Feng. QASCA:
+A quality-aware task assignment system for crowdsourcing
+applications. In SIGMOD, 2015.
+
+14
+
+

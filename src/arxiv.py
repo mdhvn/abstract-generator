@@ -4,6 +4,8 @@ from __future__ import print_function
 import feedparser
 from requests.exceptions import HTTPError
 
+from unidecode import unidecode
+
 root_url = 'http://export.arxiv.org/api/'
 
 
@@ -78,7 +80,7 @@ def download(obj, dirname='./'):
     # Downloads file in obj (can be result or unique page) if it has a .pdf link
     if 'pdf_url' in obj and 'title' in obj and obj['pdf_url'] and obj['title']:
 	disallowed_characters = '\/:*?"<>|'	
-	title = str(obj['title'])
+	title = str(unidecode(obj['title']))
 	file_path_safe_title = title.translate(None, disallowed_characters)
 
         filename = dirname + file_path_safe_title +".pdf"

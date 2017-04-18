@@ -74,7 +74,7 @@ class DocumentRetriever(object):
 				# Download the document
 				document_pdf_file_path = arxiv.download(document, DATA_DIRECTORY_PATH)
 				document_txt_file_path = ""  # Do we need this?
-				print("Downloaded document")
+				print "\t Downloaded document ", (number_of_successes + number_of_failures), "/", number_of_documents,
 
 
 				try:
@@ -82,10 +82,11 @@ class DocumentRetriever(object):
 					document_txt_file_path = self.convertDocumentToText(document_pdf_file_path)
 					#print("Converted document to text")
 
-				except:
+				except Exception as exception:
 					#print("Could not decode the document correctly")
 					os.remove(document_pdf_file_path)
 					number_of_failures = number_of_failures + 1
+					print " - failed (", str(type(exception).__name__), ")"  
 					pass
 				else:
 					# Add this document to the corpus metadata
@@ -99,6 +100,7 @@ class DocumentRetriever(object):
 					#print("Processed document")
 
 					number_of_successes = number_of_successes + 1
+					print " - succeeded"
 		
 		
 		print ""
@@ -114,24 +116,28 @@ class DocumentRetriever(object):
 
 def main():
 	retriever = DocumentRetriever()
-	documents, metadata = retriever.getDocuments("Programming Languages", 100)
+
+	documents, metadata = retriever.getDocuments("Locality Sensitive Hashing", 50)
 	retriever.processDocuments(documents, metadata)
 
-	documents, metadata = retriever.getDocuments("Graphics", 100)
-	retriever.processDocuments(documents, metadata)
+	#documents, metadata = retriever.getDocuments("Programming Languages", 100)
+	#retriever.processDocuments(documents, metadata)
+
+	#documents, metadata = retriever.getDocuments("Graphics", 100)
+	#retriever.processDocuments(documents, metadata)
 	
-	documents, metadata = retriever.getDocuments("Operating Systems", 100)
-	retriever.processDocuments(documents, metadata)
+	#documents, metadata = retriever.getDocuments("Operating Systems", 100)
+	#retriever.processDocuments(documents, metadata)
 
-	documents, metadata = retriever.getDocuments("Computer Architecture", 100)
-	retriever.processDocuments(documents, metadata)
+	#documents, metadata = retriever.getDocuments("Computer Architecture", 100)
+	#retriever.processDocuments(documents, metadata)
 		
 	corpus_file = open(COMPUTER_SCIENCE_CORPUS_PATH, "rb")
 	corpus = pickle.load(corpus_file)
 	corpus_file.close()
 
-	for word in corpus:
-		print word, ":", corpus[word]
+	#for word in corpus:
+	#	print word, ":", corpus[word]
 
 	print("\n")
 	print("the: ", corpus["the"])
