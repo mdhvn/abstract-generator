@@ -3,6 +3,7 @@ from document_processor import DocumentProcessor
 import os
 import pickle
 import textract
+import time
 
 DATA_DIRECTORY_PATH = "../data/"  # Import from document_processor(?)
 COMPUTER_SCIENCE_METADATA_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus_metadata.dat"
@@ -11,7 +12,7 @@ COMPUTER_SCIENCE_CORPUS_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus.da
 class DocumentRetriever(object):
 
 	def __init__(self):
-		print("Hello world!")
+		print("Created new Retriever object")
 
 	def getDocuments(self, query, number_of_results):
 		documents = self.retrieveDocuments(query, number_of_results)
@@ -19,12 +20,22 @@ class DocumentRetriever(object):
 		
 		return documents, metadata
 		
-
+	# Add delays?
 	def retrieveDocuments(self, query, number_of_results):
+		documents = { }
+
+		DOCUMENTS_PER_ITERATION = number_of_results
+
+		number_of_iterations = number_of_results / DOCUMENTS_PER_ITERATION
+
+		print "Attempting to retrieve", number_of_results, "results for '", query, "'"
+
 		documents = arxiv.query(query,
 					prune = True, 
 			              	start = 0, 
-			              	max_results = number_of_results)
+			              	max_results = DOCUMENTS_PER_ITERATION)
+
+		print "Documents retrieved:", str(len(documents))
 
 		return documents
 
@@ -116,9 +127,10 @@ class DocumentRetriever(object):
 
 def main():
 	retriever = DocumentRetriever()
-
-	documents, metadata = retriever.getDocuments("Locality Sensitive Hashing", 50)
-	retriever.processDocuments(documents, metadata)
+	
+	documents, metadata = retriever.getDocuments("programming+languages", 64)
+	
+	#retriever.processDocuments(documents, metadata)
 
 	#documents, metadata = retriever.getDocuments("Programming Languages", 100)
 	#retriever.processDocuments(documents, metadata)
@@ -132,15 +144,16 @@ def main():
 	#documents, metadata = retriever.getDocuments("Computer Architecture", 100)
 	#retriever.processDocuments(documents, metadata)
 		
-	corpus_file = open(COMPUTER_SCIENCE_CORPUS_PATH, "rb")
-	corpus = pickle.load(corpus_file)
-	corpus_file.close()
+	#corpus_file = open(COMPUTER_SCIENCE_CORPUS_PATH, "rb")
+	#corpus = pickle.load(corpus_file)
+	#corpus_file.close()
 
 	#for word in corpus:
 	#	print word, ":", corpus[word]
 
-	print("\n")
-	print("the: ", corpus["the"])
+	#print("\n")
+	#print("the: ", corpus["the"])
+	print ("Completed program")
 	
 
 

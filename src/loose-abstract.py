@@ -39,7 +39,7 @@ def TF_IDF(word, word_counts, corpus):
 
 
 def main():
-	contents = readFile("../data/test/human_computer_interaction.txt")
+	contents = readFile("../data/test/information_theory.txt")
 
 	sentences = sent_tokenize(contents)
 	tokens = word_tokenize(contents)

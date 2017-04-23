@@ -1,4 +1,5 @@
 import codecs
+import copy
 from nltk import word_tokenize
 from nltk import FreqDist
 import os
@@ -25,8 +26,8 @@ class DocumentProcessor(object):
 
 		# Comment this back in!
 		# Remove both the .pdf and .txt versions of the file from disk
-		os.remove(self.filename)
-		os.remove(self.filename[:-len("txt")] + "pdf")
+		#os.remove(self.filename)
+		#os.remove(self.filename[:-len("txt")] + "pdf")
 
 		
 
@@ -35,13 +36,26 @@ class DocumentProcessor(object):
 		self.frequency_distribution = FreqDist(self.tokens)
 		self.number_of_samples = len(self.frequency_distribution)
 		self.word_counts = self.frequency_distribution.most_common(self.number_of_samples)
-		self.word_count_dictionary = { }
+		
+		cleaned_token_list = [ ]
 
-		for word_count in self.word_counts:
-			word = word_count[0]
-			count = word_count[1]
+		# Clean the list
+		for token in self.tokens:
+			if token not in string.punctuation:
+				cleaned_token_list.append(token)
+		
+		self.tokens = cleaned_token_list[:]
 
-			self.word_count_dictionary[word] = count
+		for token in self.tokens:
+			print token
+
+		#self.word_count_dictionary = { }
+
+		#for word_count in self.word_counts:
+		#	word = word_count[0]
+		#	count = word_count[1]
+                #
+		#	self.word_count_dictionary[word] = count
 
 	def appendToCorpus(self, corpus, word_count_dictionary):
 		for word in word_count_dictionary:
@@ -86,24 +100,28 @@ class DocumentProcessor(object):
 def main():
 	document_one_path = TEST_DATA_DIRECTORY_PATH + "information_theory.txt"
 	document_two_path = TEST_DATA_DIRECTORY_PATH + "computational_philosophy.txt"
+	document_three_path = TEST_DATA_DIRECTORY_PATH + "human_computer_interaction.txt"
 
-	document_one = DocumentProcessor(document_one_path)
-	document_two = DocumentProcessor(document_two_path)
+	#document_one = DocumentProcessor(document_one_path)
+	#document_two = DocumentProcessor(document_two_path)
+	document_three = DocumentProcessor(document_three_path)
 
-	document_one.processText()
-	document_one.writeToCorpus()
+	#document_one.processText()
+	#document_one.writeToCorpus()
 
-	print("Wrote document_one")
+	#print("Wrote document_one")
 
-	document_two.processText()
-	document_two.writeToCorpus()
+	#document_two.processText()
+	#document_two.writeToCorpus()
 
-	print("Wrote document_two")
+	#print("Wrote document_two")
 
-	print(document_one.getMostCommonWords(50))
-	print(document_two.getMostCommonWords(50))
+	#print(document_one.getMostCommonWords(50))
+	#print(document_two.getMostCommonWords(50))
 
-	document_one.readCorpus()
+	#document_one.readCorpus()
+	
+	document_three.processText()
 
 if __name__ == "__main__":
 	main()

@@ -15,6 +15,7 @@ root_url = 'http://export.arxiv.org/api/'
 def query(s, prune=True, start=0, max_results=10):
     # Gets a list of top results, each of which is a dict
     results = feedparser.parse(root_url + 'query?search_query=all:' + s + '&start=' + str(start) + '&max_results=' + str(max_results))
+
     if results['status'] != 200:
         # TODO: better error reporting
         raise Exception("HTTP Error " + str(results['status']) + " in query")

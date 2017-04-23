@@ -1,0 +1,39 @@
+Artificial Intelligence
+Computation and Language
+Computational Complexity
+Computational Engineering, Finance, and Science
+Computational Geometry
+Computer Science and Game Theory
+Computer Vision and Pattern Recognition
+Computers and Society
+Cryptography and Security
+Data Structures and Algorithms
+Databases
+Digital Libraries
+Discrete Mathematics
+Distributed, Parallel, and Cluster Computing
+Emerging Technologies
+Formal Languages and Automata Theory
+General Literature
+Graphics
+Hardware Architecture
+Human-Computer Interaction
+Information Retrieval
+Information Theory
+Machine Learning
+Logic in Computer Science
+Mathematical Software
+Multiagent Systems
+Multimedia
+Networking and Internet Architecture
+Neural and Evolutionary Computing
+Numerical Analysis
+Operating Systems
+Performance
+Programming Languages
+Robotics
+Social and Information Networks
+Software Engineering
+Sound
+Symbolic Computation
+Systems and Control

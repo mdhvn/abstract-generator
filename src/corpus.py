@@ -4,23 +4,24 @@ import pickle
 
 DATA_DIRECTORY_PATH = "../data/"
 COMPUTER_SCIENCE_CORPUS_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus"
+COMPUTER_SCIENCE_QUERIES_PATH = DATA_DIRECTORY_PATH + "computer_science_queries.txt"
 CORPUS_EXTENSION = ".dat"
 
 
-COMPUTER_SCIENCE_QUERIES = ["Artificial Intelligence",
-                            "Computation and Language",
-			    "Computational Complexity",
-			    "Computational Engineering, Finance, and Science",
-		            "Computational Geometry",
-			    "Computer Science and Game Theory",
-			    "Computer Vision and Pattern Recognition",
-			    "Computers and Society",
-			    "Cryptography and Security",
-			    "Data Structures and Algorithms",
+COMPUTER_SCIENCE_QUERIES = [#"Artificial+Intelligence",
+                            "Computation+and+Language",
+			    "Computational+Complexity",
+			    "Computational+Engineering,+Finance,+and+Science",
+		            "Computational+Geometry",
+			    "Computer+Science+and+Game+Theory",
+			    "Computer+Vision+and+Pattern+Recognition",
+			    "Computers+and+Society",
+			    "Cryptography+and+Security",
+			    "Data+Structures+and+Algorithms",
 			    #"Databases",
-			    "Digital Libraries",
-			    "Discrete Mathematics",
-			    "Distributed, Parallel, and Cluster Computing",
+			    "Digital+Libraries",
+			    "Discrete+Mathematics",
+			    "Distributed,+Parallel,+and+Cluster+Computing",
 			    "Emerging Technologies",
 			    "Formal Languages and Automata Theory",
 		            "General Literature",
@@ -46,7 +47,6 @@ COMPUTER_SCIENCE_QUERIES = ["Artificial Intelligence",
 			    "Sound",
 			    "Symbolic Computation",
 			    "Systems and Control"]
-
 
 class Corpus(object):
 	
@@ -89,15 +89,24 @@ class Corpus(object):
 	def reload(self):
 		self.loadCorpus()
 
-	def buildCorpus(self):
-		for query in COMPUTER_SCIENCE_QUERIES:
-			document_retriever = DocumentRetriever()
+	def getQueriesFromFile(self):
+		queries_file = open(COMPUTER_SCIENCE_QUERIES_PATH, "r")
+		queries = queries_file.read().splitlines()
 
+		for query in range(0, len(queries)):
+			queries[query] = queries[query].replace(" ", "+")
+
+		return queries
+
+	def buildCorpus(self):
+		for query in self.getQueriesFromFile():
+			document_retriever = DocumentRetriever()
+		
 			print ""
 			print query
 			print ""
 		
-			documents, metadata = document_retriever.getDocuments(query, 500)
+			documents, metadata = document_retriever.getDocuments(query, 50)
 			document_retriever.processDocuments(documents, metadata)
 			
 			del document_retriever
@@ -105,12 +114,18 @@ class Corpus(object):
 
 def main():
 	computer_science_corpus = Corpus(COMPUTER_SCIENCE_CORPUS_PATH)
-	print "Total documents: ", computer_science_corpus.numberOfDocuments()
-	print "Frequency of 'the': ", computer_science_corpus.wordFrequency("the")
-	print "Frequency of 'algorithm': ", computer_science_corpus.wordFrequency("algorithm")
-	print "Frequency of 'philosophy': ", computer_science_corpus.wordFrequency("philosophy")
-	print "Frequency of 'Knuth': ", computer_science_corpus.wordFrequency("Knuth")
-	#computer_science_corpus.buildCorpus()
+	#print "Total documents: ", computer_science_corpus.numberOfDocuments()
+	#print "Total words: ", computer_science_corpus.totalWords()
+	#print "Frequency of 'the': ", computer_science_corpus.wordFrequency("the")
+	#print "Frequency of 'algorithm': ", computer_science_corpus.wordFrequency("algorithm")
+	#print "Frequency of 'philosophy': ", computer_science_corpus.wordFrequency("philosophy")
+	#print "Frequency of 'Donald': ", computer_science_corpus.wordFrequency("Donald")
+	#print "Frequency of 'Knuth': ", computer_science_corpus.wordFrequency("Knuth")
+	#print "Frequency of 'artificial': ", computer_science_corpus.wordFrequency("artificial")
+	#print "Frequency of 'intelligence': ", computer_science_corpus.wordFrequency("intelligence")
+	#print "Frequency of 'India': ", computer_science_corpus.wordFrequency("India")
+	computer_science_corpus.buildCorpus()
+	
 
 	
 if __name__ == "__main__":
