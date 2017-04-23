@@ -1,6 +1,6 @@
 from document_retriever import DocumentRetriever
 import pickle
-
+import time
 
 DATA_DIRECTORY_PATH = "../data/"
 COMPUTER_SCIENCE_CORPUS_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus"
@@ -69,6 +69,9 @@ class Corpus(object):
 			document_retriever.processDocuments(documents, metadata)
 			
 			del document_retriever
+
+			print "Waiting for 3 seconds..."
+			time.sleep(3)
 	
 	def clearCorpus(self):
 		self.corpus_file = open(self.corpus_path, "w").close()

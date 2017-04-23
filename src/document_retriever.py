@@ -3,7 +3,6 @@ from document_processor import DocumentProcessor
 import os
 import pickle
 import textract
-import time
 
 DATA_DIRECTORY_PATH = "../data/"  # Import from document_processor(?)
 COMPUTER_SCIENCE_METADATA_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus_metadata.dat"
@@ -24,16 +23,12 @@ class DocumentRetriever(object):
 	def retrieveDocuments(self, query, number_of_results):
 		documents = { }
 
-		DOCUMENTS_PER_ITERATION = number_of_results
-
-		number_of_iterations = number_of_results / DOCUMENTS_PER_ITERATION
-
 		print "Attempting to retrieve", number_of_results, "results for '", query, "'"
-
+	
 		documents = arxiv.query(query,
 					prune = True, 
 			              	start = 0, 
-			              	max_results = DOCUMENTS_PER_ITERATION)
+			              	max_results = number_of_results)
 
 		print "Documents retrieved:", str(len(documents))
 
