@@ -1,0 +1,1088 @@
+On Nonlinear Prices in Timed Automata
+Devendra Bhave
+
+Shankara Narayanan Krishna
+
+Ashutosh Trivedi ∗
+
+IIT Bombay, India
+
+IIT Bombay, India
+
+CU Boulder, USA
+
+devendra@cse.iitb.ac.in
+
+krishnas@cse.iitb.ac.in
+
+ashutosh.trivedi@colorado.edu
+
+Priced timed automata provide a natural model for quantitative analysis of real-time systems and
+have been successfully applied in various scheduling and planning problems. The optimal reachability problem for linearly-priced timed automata is known to be PSPACE-complete. In this paper
+we investigate priced timed automata with more general prices and show that in the most general
+setting the optimal reachability problem is undecidable. We adapt and implement the construction of
+Audemard, Cimatti, Kornilowicz, and Sebastiani for non-linear priced timed automata using stateof-the-art theorem prover Z3 and present some preliminary results.
+
+1
+
+Introduction
+
+Timed automata, introduced by Alur and Dill [3], extend finite state automata with continuous variables—
+referred as clocks—that evolve with uniform rates. Time automata syntax permits comparing clocks
+with integers as guard on transitions and as well as invariants on locations (states), and also allows clock
+resets as a way to remember the time a transition was last fired. These features of time automata are general enough to permit modeling rich timing properties of real-time systems while providing a decidable
+verification framework. Timed automata have been quite successful in practice due to their appealing
+theoretical properties as well as the presence of mature verification tools such as UPPAAL.
+Priced timed automata [9, 8] are extensions of timed automata which permit us to model cost associated with staying at locations as well as taking discrete transitions. Priced timed automata are useful in
+modeling various decision-theoretic problem in the presence of strict timing constraints. The most natural problem studied on these models is the optimal reachability problem (shortest path problem) where
+the goal is to find the minimum (or maximum) cost to reach a given set of locations.
+Linearly-priced timed automata [6] (LPTA), also known as weighted timed automata, are subclasses
+of priced timed automata where prices change linearly with respect to delay incurred at particular location. For LPTA the optimal reachability problem is known to be decidable and is shown to be PSPACEcomplete exploiting a clever extension of region graphs to so-called corner-point abstraction by Bouyer
+et al. [8]. Alur et al. [4] earlier gave an EXPTIME algorithm to solve the problem with an arbitrary initial
+state by giving a non-trivial extension of the region graph. Larsen et al. [6, 9] gave a symbolic algorithm
+to solve the problem, although with some restrictions on the initial state (a corner state with all clocks
+set to zero). A recent result by Fearnley and Jurdzinksi [13] showed that the PSPACE-hardness results
+hold for timed automata with two clocks [13]. On the other hand, for timed automata with one clock,
+reachability-time and reachability-price problems are known to be NL-complete [19].
+In practice, however, the requirement for nonlinear pricing models is quite common. As an example
+consider the optimal scheduling problem of battery usage in embedded systems studied by Jongerden et
+∗ This
+
+material is based upon work supported by DARPA under agreement number FA8750-15-2-0096 and by the US
+National Science Foundation (NSF) under grant numbers CPS-1446900. The U.S. Government is authorized to reproduce and
+distribute reprints for Governmental purposes notwithstanding any copyright notation thereon. All opinions expressed are those
+of the authors, and not necessarily of the DARPA or NSF.
+Kargahi and Trivedi: Verification and Validation of
+Cyber-Physical Systems 2016 (V2CPS-16)
+EPTCS 232, 2016, pp. 65–78, doi:10.4204/EPTCS.232.9
+
+This work is licensed under the
+Creative Commons Attribution License.
+
+On Nonlinear Prices in Timed Automata
+
+66
+
+al. [16]. In this work authors modeled batteries using kinetic battery model (KiBaM). KiBaM itself is a
+nonlinear model, but Jongerden et al. [16] manually discretized it to required approximation to model the
+whole problem as optimization on LPTA. Similar scenarios can be cited from other application domains
+of priced timed automata such as scheduling [7], resource modeling and analysis [14], and optimal
+synthesis [15]. However, we believe that providing non-linear price modeling facilities directly in the
+language of timed automata will further their applicability in system design. Jurdzinski and Trivedi [18]
+introduced a non-linear subclass of priced timed automata, so-called concavely-priced timed automata,
+where prices in each location are certain concave prices of valuation and time delays. Exploiting the
+concave nature of the prices, they showed that the optimal price reachability problem for this class
+of automata has the same complexity as that of LPTA. Priced timed automata with exponential price
+functions were studied in a restricted context by Bouyer et al. [10] and Fahrenberg and Larsen [12].
+In this paper we uniformly study various subclasses of (non-linear) priced timed automata, and study
+the boundary between decidable and undecidable variants of PTA. Towards this goal we first show the
+undecidability of the optimal reachability problem for unrestricted priced timed automata by showing
+a reduction from the halting problem for two-counter machines. For reasoning with decidable variants,
+we first introduce a key notion of price-preserving bisimilarity. We exploit this notion to formalize
+reduction for the optimal cost reachability problem for piecewise-linear priced timed automata to linearly
+priced timed automata. We also show the decidability of ε -optimal cost reachability for priced timed
+automata with Lipschitz-continuous prices. Finally, we adapt the construction of Audemard, Cimatti,
+Kornilowicz, and Sebastiani [5] for bounded model-checking of timed automata using SAT solvers to
+work for bounded reachability problem for non-linearly priced timed automata using SMT solver Z3 [11].
+In conjunction with a decision procedure for the theory of the class of price functions (for instance
+polynomial prices [17, 11]), our implementation can be used to compute bounded-step cost-optimal
+schedules for priced timed automata. We demonstrate the applicability of our approach using airplane
+landing problem [7].
+This paper is organized as follows: we begin by defining syntax and semantics of generalized priced
+timed automata in the next section. We define various pricing models and their hierarchy. We prove key
+undecidability result in Section 3 and show decidability results in Section 4. Finally, in section 5 we
+present the details of our implementation and experimental results.
+
+2
+
+Priced Timed Automata
+
+We denote sets of integers, rational numbers and real numbers as Z, Q and R respectively. Their respective non-negative subsets are denoted as Z+ , Q+ and R+ .
+Let X = {x1 , x2 , . . . , xn } be the finite set of clocks. A clock valuation is a map ν : X 7→ R+ . Thus, a
+given clock valuation ν maps clock xi to a value νi . This fact is written as ν (xi ) = νi . In n-tuple form,
+a clock valuation ν is denoted as (ν1 , ν2 , . . . , νn ). Given a clock valuation ν and τ ∈ R+ , ν + τ is the
+clock valuation defined by (ν1 + τ , ν2 + τ , . . . , νn + τ ). A guard is any finite conjunction of clauses of
+the form xi ∼ c, where clock xi ∈ X , constant c ∈ Z+ and ∼ is one of the comparison operators in set
+V
+{<, ≤, =, >, ≥}. Let G be the set of guards. Given a valuation ν and a guard g = j (xi ∼ c j ), ν  g
+V
+means expression j (ν (xi ) ∼ c j ) evaluates to true. For Y ⊆ X , ν [Y := 0] denotes clock valuation in
+which clocks in Y are reset to 0 while other clocks remain unchanged.
+Timed Automata. A timed transition system T is a tuple (L, X , E) where (i) L is a finite set of locations, (ii) X is a finite set of clocks variables, and (iii) E is set of transitions. A configuration of T
+
+D. Bhave, S. N. Krishna & A. Trivedi
+
+67
+
+is a pair (ℓ, ν ), where ℓ ∈ L is a location and ν in clock valuation over set X . Let QT be the set of
+configurations for the timed transition system T . There are two types of transitions over QT :
+→ (ℓ, ν + t), where t ∈ R+
+• Delay, E τ ⊆ QT × R+ × QT : (ℓ, ν ) −
+t
+
+Y
+
+• Switch, E e ⊆ QT × 2X × QT : (ℓ, ν ) −
+→ (ℓ′ , ν [Y := 0]) where Y ⊆ X .
+We write E = E τ ∪ E e for the set of transitions of timed transition system T .
+Definition A timed automaton A is a tuple (L, X , E, I) where (i) L is a finite set of locations (ii) X is a
+finite set of clocks (iii) E ⊆ L × G × 2X × L is a finite set of edges (iv) I : L 7→ G assigns an invariant to
+each location.
+The semantics of timed automaton A is given as a timed transition system TA = (LA , XA , EA ), where
+τ ∪ E e , s.t.
+(i) LA = L (ii) XA = X (iii) EA = EA
+A
+τ = {(ℓ, ν ) −
+→ (ℓ, ν + t) | t ∈ R+ and ∀δ ∈ R+ , 0 ≤ δ ≤ t ⇒ (ν + δ )  I(ℓ)}
+• EA
+t
+
+Y
+
+e = {(ℓ, ν ) −
+• EA
+→ (ℓ′ , ν [Y := 0]) | Y ⊆X , (ℓ, g,Y, ℓ′ ) ⊆ E, ν  g and ν  I(ℓ)}
+
+A run ρ = q0 → q1 → · · · → qm of the timed automaton A is a finite path in the induced timed
+transition system TA where every qi is configuration in TA and → is either delay or switch edge in EA .
+We use notation ρ = q0
+qm for a run from q0 to qm . We write Runs(q, q′ ) for the set of runs from the
+′
+location q to q . A run is said to be canonical if delay and switch transitions alternate.
+Priced timed automata. A priced timed automaton (PTA) is a timed automaton A = (L, X , E, I, π , ψ )
+augmented with a price functions π : QA × R+ 7→ R+ and ψ : E 7→ Z+ which assign prices (costs) for
+waiting at locations and taking edges, where QA is the set of the configurations of timed automaton A .
+τ1
+e1 ′ τ2
+e2 ′
+τm
+em ′
+→
+q1 −
+→
+q1 −
+→ q2 −
+→
+q2 · · · −→
+qm −→
+qm be a canonical run of TA . Then the
+Let A be a PTA and ρ = q′0 −
+m
+′
+cost C(ρ ) of the run ρ is equal to Cd (ρ )+Cs (ρ ) where Cd (ρ ) = ∑m
+k=1 π (qk−1 , τk ) and Cs (ρ ) = ∑k=1 ψ (ek )
+are the duration and switching costs of ρ respectively.
+A priced timed transition system T is a tuple (L, X , E) where (i) L is a set of locations (ii) X is a
+finite set of clocks (iii) E is a set of transitions. A configuration is a tuple (ℓ, ν , u), where ℓ ∈ L is a
+location, ν is a clock valuation over set X and u ∈ R is current accumulated price. Let QT be the set of
+configurations for timed transition system T . There are two types of transitions defined over QT :
+• Delay, E τ ⊆ QT × R+ × QT : (ℓ, ν , u) −
+→ (ℓ, ν + t, u′ ), where t ∈ R+
+t
+
+Y
+
+→ (ℓ′ , ν [Y :=0], u′ ) where Y ⊆ X .
+• Switch, E e ⊆ QT × 2X × QT : (ℓ, ν , u) −
+We write E = E τ ∪ E e for the set of transitions of timed transition system T . A priced timed transition system is said to be canonical if for its every run, delay transitions and switch transitions occur in
+t1
+t2
+→
+(ℓ2 , ν2 , u2 ) −
+→
+the strict alternation. Observe that two consecutive delay transitions like (ℓ1 , ν1 , u1 ) −
+t1 +t2
+(ℓ3 , ν3 , u3 ) cannot be combined together as (ℓ1 , ν1 , u1 ) −−
+−→ (ℓ3 , ν3 , u3 ) because for non-linear price
+functions such clubbing may not yield valid transitions. Similarly, there cannot be consecutive switch
+transitions without zero delay transition between them.
+Let A = (L, X , E, I, π , ψ ) be a priced timed automaton. The semantics of A are given by a canonical
+τ ∪ E e , s.t.:
+priced timed transition system TA = (LA , XA , EA ) such that, LA = L, XA = X , EA = EA
+A
+τ = {(ℓ, ν , u) −
+• EA
+→ (ℓ, ν + t, u + π (ℓ,t)) | t ∈ R+ and ∀δ ∈ R+ , 0 ≤ δ ≤ t ⇒ (ν + δ )  I(ℓ)}
+t
+
+Y
+
+e = {(ℓ, ν , u) −
+→ (ℓ′ , ν [Y :=0], u + ψ (γ )) | Y ⊆ X , transition γ = (ℓ, g,Y, ℓ′ ) ∈ E, ν  g, ν 
+• EA
+I(ℓ) and ν [Y :=0]]  I(ℓ′ )}.
+
+On Nonlinear Prices in Timed Automata
+
+68
+
+A run of the transition system TA starts with some configuration (ℓ, ν , u0 ) where ℓ ∈ L, ν ∈ (R+ )X and
+u0 ∈ R. We do not explicitly specify initial configuration in our definition of priced timed automaton.
+Cost-optimal reachability problem Let A be a priced timed automaton. Given two locations ℓ, ℓ′ of
+A, the optimal cost OptCost(ℓ, ℓ′ ), of reaching ℓ′ from ℓ is defined as
+OptCost(ℓ, ℓ′ ) =
+
+inf
+
+ρ ∈Runs(ℓ,ℓ′ )
+
+C(ρ ).
+
+Given priced timed automaton A , locations ℓ, ℓ′ , and a budget B ∈ R the cost-optimal reachability
+problem is to decide whether OptCost(ℓ, ℓ′ ) ≤ B.
+Summary of Our Results. Our first result (Section 3) is that the optimal cost reachability problem for
+general priced timed automata is undecidable.
+Theorem 2.1 Cost-optimal reachability problem for nonlinearly priced timed automata is undecidable.
+Given this negative result it is justifiable to look for various restricted subclasses of price functions
+in order to recover decidable variants. The first subclass that we consider is piece-wise linear price
+functions. A piecewise linear price function f : R+ →R can be represented as tuple (Pℓ ,YPℓ ,YIℓ ) where
+• Pℓ = hp1 = 0, p2 , . . . , pn i is an increasing sequence of n-points in time. First point p1 is always at
+time value zero. Thus, p1 (= 0) < p2 < . . . < pn holds.
+• YPℓ = hy p1 , y p2 , . . . , y pn i is a sequence of prices such that y pi = fℓ (pi ).
+• YIℓ = h(m1 , c1 ), (m2 , c2 ), . . . , (mn , cn )i is a sequence of n tuples. Time intervals formed by points
+def
+def
+in Pℓ are I1 = (p1 , p2 ), · · · , In = (pn , +∞). Again let I = hI1 , . . . , In i be the sequence of intervals.
+Value of piecewise linear price function fℓ in the interval Ik is given by parameters in tuple (mk , ck ),
+such that if τ ∈ Ik , f (τ ) = mk τ + ck .
+We call tuple (Pℓ ,YPℓ ,YIℓ ) as structure of function f . We call a timed automaton is piecewise linearly
+priced if for all configuration (ℓ, ν ) we have that π ((ℓ, ν ), τ ) = fℓ (τ ), where fℓ = (Pℓ ,YPℓ ,YIℓ ), is a piecewise linear function defined over interval [0, +∞) and all the constants appearing in its structure are
+integers. Observe that the standard definition of linearly priced timed automata can be casted as a special
+case of piecewise linearly priced timed automata such that fℓ = (Pℓ ,YPℓ ,YIℓ ), where Pℓ = h0i, YPℓ = h0i,
+and YIℓ = h(kℓ , 0)i such that kℓ is rate of change of price at location ℓ. For LPTA the cost-optimal reachability problem is known to be PSPACE-complete [8]. In Section 4 we show the following key result of
+piecewise linearly priced timed automata.
+Theorem 2.2 The cost-optimal reachability problem for piecewise linearly priced timed automaton is
+PSPACE-complete.
+This result can easily be extended to piecewise-concave priced timed automata [18].
+We also study more general Lipschitz continuously priced timed automata. We say that a function
+f : R 7→ R is Lipschitz continuous function, if there exists a constant K ≥ 0, called Lipschitz constant
+of f , s.t. k f (x) − f (y)k ≤ Kkx − yk for all x, y in the domain of f . A timed automaton is then called
+Lipschitz continuous priced if price functions π ((ℓ, ν ), τ ) = fℓ (τ ), are Lipschitz continuous for every
+location ℓ and there exists a constant T such that all the clock valuations are bounded from above by
+T . For this class of functions the optimal reachability problem may not be computable due to optimal
+occurring at non-rational points. For this reason we study the following approximate optimal problem.
+
+ε -Cost-optimal reachability problem Let A be a priced timed automaton. Given ε > 0 and two locations ℓ, ℓ′ of A , a budget B ∈ R+ , the ε -optimal cost problem is to decide whether OptCost(ℓ, ℓ′ ) ≤ B + ε .
+
+D. Bhave, S. N. Krishna & A. Trivedi
+
+x
+y
+w
+z
+
+=
+=
+=
+=
+
+enc(c)
+enc(d)
+0
+0
+
+69
+
+y = 1? y := 0
+l0
+
+y = 1? y := 0
+
+z > 0?
+x, w := 0
+
+πl0 = (1 − x − 2t )2
+
+l1
+
+z = 1?
+
+l2
+x := 0, {z = 0}
+z := 0
+πl1 = 0
+πl2 = 0
+
+x
+y
+w
+z
+
+=
+=
+=
+=
+
+0
+enc(d)
+enc(c − 1)
+0
+
+x
+y
+w
+z
+
+=
+=
+=
+=
+
+0
+enc(d)
+enc(c + 1)
+0
+
+Figure 1: Decrement c module
+
+x
+y
+w
+z
+
+=
+=
+=
+=
+
+enc(c)
+enc(d)
+0
+0
+
+x = 1? x := 0,
+y = 1? y := 0
+l0
+
+z > 0?
+w := 0
+
+πl0 = (1 − x − 2t)2
+
+l1
+
+z = 1?
+
+l2
+x := 0, {z = 0}
+z := 0
+πl1 = 0
+πl2 = 0
+
+Figure 2: Increment c module
+We show in Section 4 the following result for Lipschitz-continuous priced timed automata.
+Theorem 2.3 The ε -Cost-optimal reachability is decidable for Lipschitz-continuous priced timed automata.
+Finally, in Section 5 we give details of our implementation to solve step-bounded cost-optimal reachability problem for general priced timed automata.
+
+3
+
+Undecidability
+
+This section is devoted to the proof of Theorem 2.1. We prove this result by reducing the halting problem for two counter machines to the cost-optimal reachability problem for priced timed automata. A
+two-counter machine M is a tuple (L,C) where L = {ℓ0 , ℓ1 , . . . , ℓn } is the set of instructions including
+a distinguished terminal instruction ℓn called HALT, and the set C = {c1 , c2 } of two counters. The instructions L are of the type: (1) (increment c) ℓi : c := c + 1; goto ℓk , (2) (decrement c) ℓi : c := c − 1;
+goto ℓk , (3) (zero-check c) ℓi : if (c > 0) then goto ℓk else goto ℓm , where c ∈ C, ℓi , ℓk , ℓm ∈ L. A configuration of a two-counter machine is a tuple (ℓ, c, d) where ℓ ∈ L is an instruction, and c, d ∈ N is the
+value of counters c1 and c2 , resp. A run of a two-counter machine is a (finite or infinite) sequence of
+configurations hk0 , k1 , . . .i where k0 = (ℓ0 , 0, 0) and the relation between subsequent configurations is
+governed by transitions between respective instructions. The halting problem for a two-counter machine
+asks whether its unique run ends at the terminal instruction ℓn . The halting problem for two-counter
+machines is known [20] to be undecidable.
+Proof of Theorem 2.1 We reduce the reachability problem of two counter machines to an instance of
+the cost-optimal reachability problem OptCost(q, q′ ) for priced timed automata A such that desired
+configuration of two counter machine is reachable from its initial configuration iff there is a run in the
+automaton A from q to q′ of cost exactly zero.
+
+On Nonlinear Prices in Timed Automata
+
+70
+
+Let M be the instance of the two counter machine having counters c and d. We construct a PTA A
+from M using suitable encoding. Valid runs of M are mapped to valid runs of A such that their cost
+is exactly zero. Figure 1 and 2 describes the module simulating counter decrement instruction of M .
+PTA A is constructed by composing the various modules. A uses four clocks – x, y, w and z, out of
+which x and y encode counters c and d as x = 1 − 21c and y = 1 − 21d . Let enc(·) denote this encoding
+function. Testing whether c is zero amounts to testing x is zero in the guards of A . Figure 1 describes
+decrement operation on counter c. It shows clock valuations before entering the module and after exiting
+the module when simulation is correct. Let t be the amount of time spent in location l0 during simulation.
+Let (x, y, z, w) = (1 − 21c , 1 − 21d , 0, 0) be the configuration on entering l0 . We want to ensure that the time
+1
+. The self loop at l0 ensures that the value of y never crosses 1. If so, the new values
+spent at l0 is t = 2c−1
+1
+1
+1
+) or 2c−1
+− 21d , 2c−1
+, 0. Note that the new value of y after elapse
+of x, y, z, w respectively are 0, 1 − ( 21d − 2c−1
+1
+1
+1
+) or 2c−1
+− 21d depending on whether d > c or not. A time of 1 − 2c−1
+is spent at
+of time t is 1 − ( 21d − 2c−1
+1
+1
+location l1 . This gives us the configuration 0, 1 − 2d , 0, 1 − 2c−1 on reaching l2 . Note that the self loop on
+y at location l1 helps in regaining the value of y to be 1 − 21d in the case when d > c. Note that the cost
+1
+is 0 iff t = 2c−1
+. Thus, only correct simulation incurs zero price. Likewise increment module in figure 2
+correctly works when t = 1−x
+2 .
+Observe that after every increment or decrement operation, the value of clock x moves to clock w.
+Hence, in order to composing A from individual modules we need to swap the roles of clocks x and w in
+every alternate modules. Let hc1 , d1 i be initial configuration and hc2 , d2 i be target configuration of M .
+They map to clock valuation ν1 = (enc(c1 ), enc(d1 ), 0, 0) and ν2 = (enc(c2 ), enc(d2 ), 0, 0) respectively.
+To make ν1 and ν2 separate locations, we can scale all constants ν1 , ν2 and A so as to make clock values
+in ν1 and ν2 integers. The construction is now complete.
+
+4
+
+Decidable Subclasses
+
+Priced Timed Bisimulations. Let A and B be timed automata with their timed transition systems
+SA and SB . Let QA and QB respective sets of configurations. A binary symmetric relation R over
+QA × QB is a strong timed bisimulation relation iff for all a ∈ (R+ ∪ 2X )
+a
+
+a
+
+• if q1 −
+→ q′1 and q1 Rq2 then there exists transition q2 −
+→ q′2 such that q′1 Rq′2
+a
+
+a
+
+• conversely, if q2 −
+→ q′2 and q1 Rq2 then there exists transition q1 −
+→ q′1 such that q′1 Rq′2 ,
+where q1 , q′1 ∈ QA and q2 , q′2 ∈ QB . The relation R is strong timed bisimilarity or strong timed bisimulation equivalence if it is the largest strong timed bisimulation relation such that R ⊆ QA × QB . Timed
+automata A and B are strong timed bisimilar if there exists such R.
+Let A and B be priced timed automata with their priced timed transition systems TA and TB . Let
+PA and PB be respective sets of priced configurations. A strong timed bisimilarity ∼ is said to price
+preserving if for every a ∈ (R+ ∪ 2X )
+a
+
+a
+
+• if (q1 , u1 ) −
+→ (q′1 , u′1 ) is in TA and q1 ∼ q2 then there exists transition (q2 , u2 ) −
+→ (q′2 , u′2 ) in TB
+′
+′
+′
+′
+such that q1 ∼ q2 and (u1 − u1 ) = (u2 − u2 )
+a
+
+a
+
+• conversely, if (q2 , u2 ) −
+→ (q′2 , u′2 ) is in TB and q1 ∼ q2 then there exists transition (q1 , u1 ) −
+→ (q′1 , u′1 )
+′
+′
+′
+′
+in TA such that q1 ∼ q2 and (u1 − u1 ) = (u2 − u2 )
+where (q1 , u1 ), (q′1 , u′1 ) ∈ PA and (q2 , u2 ), (q′2 , u′2 ) ∈ PB .
+
+D. Bhave, S. N. Krishna & A. Trivedi
+
+71
+
+Lemma 4.1 If A and B are two priced timed automata with price preserving timed bisimilarity ∼, then
+ak−1
+ak
+a3
+a1
+a2
+(k)
+(k)
+for any k length run ρA in A , where ρA = (q0A , u0 ) −
+→ (q1A , u1 ) −
+→ (q2A , u2 ) −
+→ · · · −−→ (qk−1
+→
+A , uk−1 ) −
+ak−1
+a3
+a2
+a1
+(k)
+(k)
+2
+k
+1
+0
+→ · · · −−→
+(qA , uk ), there is a run k length run ρB in B, where ρB = (qB , u0 ) −
+→ (qB , u2 ) −
+→ (qB , u1 ) −
+ak
+k−1
+i
+i
+k
+(qB , uk−1 ) −
+→ (qB , uk ), such that, for every 0 ≤ i ≤ k, qA ∼ qB holds. u0 is initial credit.
+As the choice of initial credit is arbitrary and the cost of a run does not depend on the value of initial
+credit, we claim following lemma.
+Lemma 4.2 Let A and B be two priced timed automata with price preserving timed bisimilarity ∼.
+Then following statements are true.
+1. for every run ρA in A , there exists a run ρB in B s. t. cost C(ρA ) = C(ρB )
+2. for every run ρB in B, there exists a run ρA in A s. t. cost C(ρA ) = C(ρB )
+
+4.1 Proof of Theorem 2.2
+Lemma 4.3 For every piecewise linearly priced timed automaton (PwLPTA), there exists linearly priced
+timed automaton with price preserving strong bisimulation between them.
+Proof We prove this lemma by constructing LPTA explicitly from a given PwLPTA. Rest of this section
+explains construction and lemma 4.4 proves its correctness.
+Construction of LPTA Let A = (LA , XA , EA , IA , πA , ψA ) be a PwLPTA. We construct LPTA B =
+(LB , XB , EB , IB , πB , ψB ) from PwLPTA A as follows:
+• Let ℓ ∈ LA be some location of A . Delay price function for location ℓ, πA (ℓ, τ ) = fℓ (τ ), is
+piecewise linear with respect to τ . fℓ is given by integer restricted structure (Pℓ ,YPℓ ,YIℓ ), where
+– Pℓ = hp1 = 0, p2 , . . . , pn i
+– YPℓ = hy p1 , y p2 , . . . , y pn i
+– YIℓ = h(m1 , c1 ), (m2 , c2 ), . . . , (mn , cn )i with the following interval sequence
+def
+
+def
+
+def
+
+I = hI1 = (p1 , p2 ), I2 = (p2 , p3 ), · · · , In = (pn , pn+1 = +∞)i.
+We associate each pi ∈ Pℓ and each I j ∈ I with locations of LB . This association is captured by
+mapping α ℓ such that α ℓ (pi ) = ℓ pi and α ℓ (I j ) = ℓ(p j , p j+1 ) . Here, ℓ pi and ℓ(p j , p j+1 ) are the names
+of locations of B. We define another mapping β ℓ (I j ) which returns jth entry in the sequence
+YIℓ . This mapping is useful for retrieving parameters of delay cost function in the interval I j .
+Let θ ℓ = ∪ni=1 {ℓ pi , ℓ(pi , pi+1 ) }. θ ℓ denotes locations in LB generated from location ℓ ∈ LA . Then
+LB := ∪ℓ∈LA θ ℓ .
+• We add one extra clock named x to B. Thus, XB := XA ∪ {x}. This clock measures time spent at
+every location of A . Whenever a run enters any location of A , x is reset to zero.
+• An edge e = (l, ϕ , λ , l ′ ) ∈ EB iff there is an edge e′ = (ℓ, χ , ξ , ℓ′ ) ∈ EA such that
+– either α ℓ (pi ) = l or α ℓ (Ii ) = l
+– either α ℓ (p j ) = l ′ or α ℓ (I j ) = l ′
+
+χ ∧ (x = pi ) if α ℓ (pi ) = l
+– ϕ :=
+χ ∧ (x ∈ Ii ) if α ℓ (Ii ) = l
+
+On Nonlinear Prices in Timed Automata
+
+72
+– λ := ξ ∪ {x}
+
+• Location invariant, IB (l) = IA (ℓ) iff l ∈ θ ℓ
+
+0 if α ℓ (pi ) = l
+• Location price, πB (l) :=
+mi if α ℓ (Ii ) = l and β ℓ (Ii ) = (mi , ci )
+
+′
+ψA (e′ ) + y pi if α ℓ (pi ) = l ′
+• Edge price, ψB (e) :=
+′
+′
+ψA (e′ ) + ci if α ℓ (Ii ) = l ′ and β ℓ (Ii ) = (mi , ci )
+Let ℓ and m be locations of A and B respectively. We define following relation between ℓ and m,
+ϒ = {(ℓ, m) | m ∈ θ ℓ }.
+Lemma 4.4 ϒ is price preserving timed bisimilarity.
+Proof Let A = (LA , XA , EA , IA , πA , ψA ) be a PwLPTA and B = (LB , XB , EB , IB , πB , ψB ) be
+LPTA constructed from A using above construction.
+If part: Let t be delay and λ be set of clocks to be reset in A . Now consider following transition
+(t,λ )
+
+in TA , (l1 , ν1 , u1 ) −−→ (l1′ , ν1′ , u′1 ). Now we try to find simulating transition in B under relation ϒ. We
+(t,λ )
+
+claim its (l2 , ν1 : 0, u1 ) −−→ (l2′ , ν1′ : 0, u′1 ). To hold this claim, we choose l2 ∈ LB such that delay t
+matches with expected interval of l2 . If t = pi for some i then l2 = α l1 (pi ). Otherwise t will match with
+some interval I j . So l2 = α l1 (I j ). Thus, (l1 , l2 ) ∈ ϒ holds. To place edge in B, construction mandates
+(l1′ , l2′ ) ∈ ϒ. Also the clocks in XA change identically. Now, let’s verify that prices are preserved. For
+the case where t = pi , (u′1 − u1 ) = y pi + ψA ((l1 , l2 )). Verify that from construction yields same price
+difference. For the case where t = I j , location price matters. Verify that rates at l1′ and l2′ are the same in
+the construction. Price change (u′1 − u1 ) = m j · t + c j + ψA ((l1 , l2 )). Price offset c j is added to edge cost
+in the construction. Thus prices are preserved.
+(t,λ )
+
+Else if part: We consider following transition in TB , (l2 , ν2 : 0, u2 ) −−→ (l2′ , ν2′ : 0, u′2 ). We simulate
+(t,λ )
+
+it on A to get (l1 , ν2 , u1 ) −−→ (l1′ , ν2′ , u′1 ). If (l1 , l2 ) ∈ ϒ, then construction offers no choice but to choose
+l1′ such that (l1′ , l2′ ) ∈ ϒ holds. ν2′ := (ν2 + t)[λ := 0] follows from construction. Verify that prices are
+preserved using the same argument as in if part of the proof.
+Now we are in position to sketch the proof of Theorem 2.2.
+Proof of Theorem 2.2 PSPACE-hardness follows from the fact that LPTA are nothing but PwLPTA
+with single piece and their cost-optimal reachability is PSPACE-complete. We now explain a PSPACE
+algorithm for solving cost-optimal reachability for PwLPTA. We construct LPTA B for given piecewise linearly priced timed automaton A and solve cost-optimal reachability on B. Construction yields
+priced timed bisimilarity ϒ. Using lemma 4.2, we get OptCost(l, l ′ ) = opt {OptCost(m, m′ ) | (l, m) ∈
+ϒ and (l ′ , m′ ) ∈ ϒ} where l and l ′ are locations of A , m and m′ are locations of B and opt is either
+supremum or infimum.
+
+4.2 Proof of Theorem 2.3
+Before we sketch a proof of Theorem 2.3, we introduce the concept of iterative approximation for nonlinear price functions.
+Let A = (L, X , E, I, π , ψ ) be a priced timed automaton. If for some location ℓ, price function π (ℓ, τ )
+is nonlinear with respect to τ , then A is nonlinearly priced timed automaton (NLPTA).
+
+D. Bhave, S. N. Krishna & A. Trivedi
+
+73
+
+Definition We define a PwLPTA Au = (L, X , E, I, πu , ψ ) be upper bound price approximation of A , if
+for every location ℓ and time τ , πu (ℓ, τ ) ≥ π (ℓ, τ ) and πu (ℓ, τ ) is piecewise linear in τ for a fixed ℓ.
+Similarly, a PwLPTA Al = (L, X , E, I, πl , ψ ) is lower bound price approximation of A , if for every
+location ℓ and time τ , πl (ℓ, τ ) ≤ π (ℓ, τ ) and πl (ℓ, τ ) is piecewise linear in τ for a fixed ℓ.
+Lemma 4.5 OptCostAl (ℓ, ℓ′ ) ≤ OptCostA (ℓ, ℓ′ ) ≤ OptCostAu (ℓ, ℓ′ )
+Now we are in position to sketch the proof of Theorem 2.3.
+Proof of Theorem 2.3 Let f : R 7→ R be Lipschitz continuous function with Lipschitz constant K. Let
+x, y ∈ R be any two arbitrary points in the interval [x, y]. The value of f in [x, y] is upper bounded by
+f (x)+ f (y)+K(y−x)
+and lower bounded by f (x)+ f (y)−K(y−x)
+. Figure 3 shows calculation of these bounds for
+2
+2
+a Lipschitz continuous function. More precisely, for every t ∈ [x, y],
+f (t) ∈
+
+h f (x) + f (y) − K(y − x) f (x) + f (y) + K(y − x) i
+.
+,
+2
+2
+
+Assume that f is a rational function. We will first prove decidability of ε -optimal cost reachability
+problem using this assumption. Later we will drop this assumption.
+We now construct two piecewise linear price functions fl and fu such that fl (t) ≤ f (t) ≤ fu (t) holds
+for 0 ≤ t ≤ T . Let T ∈ R+ is a constant such that all clock valuations are bounded above by T .
+Let δ ∈ Q+ , 0 < δ ≤ T be the sampling period. Choice for the value of δ is explained at the end of
+the proof. We sample f at periodic intervals of δ in the interval 0 ≤ t ≤ T . We define a piecewise linear
+functions
+fl (t) = f (t)
+if t = N · δ , where N ∈ N
+
+f (N·δ )+ f ((N+1)·δ )−K δ
+if t ∈ N · δ , (N + 1) · δ , where N ∈ N
+=
+2
+fu (t) = f (t)
+δ )+K δ
+= f (N·δ )+ f ((N+1)·
+2
+
+if t = N · δ , where N ∈ N
+if t ∈ (N · δ , (N + 1) · δ ), where N ∈ N
+
+Let A be priced timed automaton with Lipschitz continuous price functions at all locations. We construct automata Al and Au by replacing price function at every location while keeping everything else
+unchanged. Specifically, if price function at location ℓ in A is π (ℓ) = f , then in Al , price at location
+(ℓ)
+(ℓ)
+ℓ is πl = fl . Likewise we assign price πu = fu to location ℓ of Au . Observe that Al and Au are
+(ℓ)
+(ℓ)
+replicas of A except the difference in location price functions. Since, πl (t) ≤ π (ℓ) (t) ≤ πu (t) holds
+′
+′
+′
+for all locations ℓ, OptCostAl (ℓ, ℓ ) ≤ OptCostA (ℓ, ℓ ) ≤ OptCostAu (ℓ, ℓ ) follows. Now, for any single
+(ℓ)
+(ℓ)
+delay transition, sup{kπu (t) − πl (t)k} ≤ kK δ k over all 0 ≤ t ≤ T . Let D be the diameter of region
+f (x)+ f (y)+K(y−x)
+2
+
+f (x)
+f (y)
+
+f
+
+f (x)+ f (y)−K(y−x)
+2
+
+x
+
+y
+
+t
+
+Figure 3: Upper and lower bounds for Lipschitz continuous function in the range [x, y]
+
+On Nonlinear Prices in Timed Automata
+
+74
+
+graph, then sup{kOptCostAl (ℓ, ℓ′ ) − OptCostAu (ℓ, ℓ′ )k} = ε ≤ kDK δ k. This gives us the bound on ε .
+We choose δ = kDKk
+ε .
+In the above construction f is evaluated only at sampling points. We can safely drop the rationality
+restriction of f by approximating it by rational function f ′ such that k f − f ′ k ≤ kDK2 δ k .
+
+5
+
+Step-Bounded Cost-Optimal Reachability Problem
+
+In this section we look into the following step-bounded cost-optimal reachability problem for priced
+timed automata.
+Step-Bounded Cost-optimal reachability problem Let A be a priced timed automaton. Given two
+locations ℓ, ℓ′ of A, step bound N ∈ N, the step-bounded optimal cost OptCostN (ℓ, ℓ′ ), is defined as
+OptCostN (ℓ, ℓ′ ) =
+
+inf
+
+ρ ∈RunsN (ℓ,ℓ′ )
+
+C(ρ ),
+
+where RunsN (ℓ, ℓ′ ) are the set of canonical runs between ℓ and ℓ′ of length less than or equal to N.
+Given priced timed automaton A , locations ℓ, ℓ′ , and a budget B ∈ R+ the step-bounded cost-optimal
+reachability problem is to decide whether OptCostN (ℓ, ℓ′ ) ≤ B.
+In this section we extend the encoding of Audemard, Cimatti, Kornilowicz, and Sebastiani [5] to solve
+step-bounded optimal-cost reachability problem for priced timed automata. After generating the encoding, we can feed it to SMT solver that support the theory corresponding to the price functions to solve
+the step-bounded cost-optimal reachability problem.
+
+5.1 Audemard-Cimatti-Kornilowicz-Sebastiani Encoding for PTA
+Let A1 , A2 , . . . An be the priced timed automata which are composed into network of automata A . These
+automata communicate using channels. Let η be the set of channels used in A . If c is a channel, then c!
+is send operation on the channel c and c? is the blocking receive operation on the channel c.
+Original Encoding for Timed Automata. We generate SMT formula for each automata using encoding
+from Audemard et. al. [5]. As per their scheme, we create one real variable for every clock and create
+separate one for an extra variable named z, which keeps the track of global time. We add a variable
+named s of type bitvector at every step which denotes current location. Notation sℓ denotes assertion that
+current location is ℓ. We also create two binary variables for each channel per automaton – one for send
+and one for receive. For example, if automaton A2 sends over channel c in current step, we set variable
+named A2 .c!. This notation helps us to identify automaton which uses that channel in the current step
+and the type (send or receive) of an operation performed on that channel. We permit to use global clocks.
+While generating formula for A, it may happen that some of the automata share clock names or location
+names. For example, automata A1 and A2 may both have local clocks named y. But we must distinguish
+between variables that were created to hold value of y in A1 and value of y in A2 . We qualify all variables
+with name of automaton they are the part of. Here, we create real variables named A1 .y and A2 .y. All
+of these variables are created for every step of a run in a standard bounded-model-checking fashion.
+Assertions in Fig. 5.1 describe encoding at current and next step in the formula. We represent next step
+variables in primed version. For further details refer to [5].
+Extension for Priced Timed Automata. Let A = (L, X , E, I, π , ψ ) be priced timed automaton. To keep
+our encoding as general as possible, we describe our SMT formula generation for general priced timed
+automata. Observe that this class of automata subsume LPTA, concavely-priced PTA, piecewise-linear
+
+D. Bhave, S. N. Krishna & A. Trivedi
+
+^
+
+75
+
+T → sℓ ∧ ϕ ∧ s′ℓ′ ∧
+
+T =(ℓ,ϕ ,λ ,ℓ′ )
+
+^
+
+(x′ = z′ ) ∧
+
+x∈λ
+
+^
+
+x∈
+/λ
+
+Tδ → (sℓ = s′ℓ ) ∧ (z′ − z < 0) ∧
+
+^
+
+
+(x′ = x) ∧ (z′ = z)
+
+(x′ = x) ∧
+
+x∈X
+
+Tnull → (sℓ = s′ℓ ) ∧ (z′ = z) ∧
+
+^
+
+(x′ = x) ∧
+
+_
+
+T
+
+
+(¬a)
+
+(2)
+
+
+(¬a)
+
+(3)
+
+a∈η
+
+^
+
+a∈η
+
+x∈X
+
+Tnull ∨ Tδ ∨
+
+^
+
+(1)
+
+(4)
+
+T ∈E
+
+price0 = 0
+
+T → price′ = price + ψ (T )
+
+(6)
+
+
+Tδ ∧ sℓ → price′ = price + π (ℓ, x, z − z′ )
+
+(7)
+
+^
+
+T ∈E
+
+^
+
+ℓ∈L
+
+(5)
+
+Tnull → (price’ = price)
+
+(8)
+
+price(n) ⋊
+⋉k
+
+(9)
+
+Figure 4: SMT assertions for priced timed automata
+
+76
+
+On Nonlinear Prices in Timed Automata
+
+Table 1: Comparison of the performance of our tool with UPPAAL-Cora is shown for ALP problem with
+8, 9, and 10 runways, with varying number of airplanes. We report running time (in seconds) for our
+algorithm (Z3) and DFS and random options for UPPAAL-Cora. TO stands for timeout (>30 mins).
+Airplanes
+8 runways
+9 runways
+10 runways
+Z3
+CORA CORA
+Z3
+CORA CORA
+Z3
+CORA CORA
+DFS
+Random
+DFS
+Random
+DFS
+Random
+1
+0.12
+< 0.1
+< 0.1
+0.4
+< 0.1
+< 0.1
+0.30
+< 0.1
+< 0.1
+2
+0.09
+< 0.1
+< 0.1
+0.57
+< 0.1
+< 0.1
+0.76
+< 0.1
+< 0.1
+3
+0.44
+< 0.1
+< 0.1
+2.52
+< 0.1
+< 0.1
+2.31
+< 0.1
+< 0.1
+4
+4.28
+2.4
+0.04
+6.73
+4.18
+0.08
+5.86
+7.81
+0.06
+5
+2.73 278.21
+0.7
+9.61
+679.27
+0.1
+5.09
+TO
+0.05
+6
+22.28
+TO
+0.16
+21.34
+TO
+0.45
+20.68
+TO
+0.32
+7
+29.23
+TO
+0.23
+201.15
+TO
+1.15
+152.03
+TO
+1.36
+8
+89.27
+TO
+0.79
+86.1
+TO
+1.85
+94.88
+TO
+5.12
+9
+331
+TO
+35.09
+103.62
+TO
+151.84 1650.05
+TO
+277.38
+10
+889
+TO
+36.42
+667.33
+TO
+49.04
+1309.67
+TO
+230.69
+
+PTA, and Lipschitz-continuous priced PTA. For each automaton, we represent current accumulated price
+using real variable named price. We introduce variables pricek at each step. Initially price0 is set to zero
+as in 5. When switch transition occurs, we update the price using equation 6. The function ψ (T ) denotes
+edge price for the transition T . Equation 7 is used to specify prices for each delay transition. Quantity
+(z − z′ ) is the delay incurred at current step and x is vector of current clock valuations. As price functions
+are location dependent, we add clause sℓ to check whether current location is ℓ and then update price
+accordingly. For null transitions, prices at current and previous step are identical. To decide whether
+accumulated price at step n satisfies the condition price(n) ⋊
+⋉ k, where ⋊
+⋉ ∈ {<, ≤, >, ≥, =, 6=}, we add
+an assertion as per Eq. 9.
+
+5.2 Experimental Results
+We implemented the encoding discussed in the previous subsection as a vtool [1] for analyzing stepbounded optimal-cost for PTA. Out tool invokes state-of-the-art theorem prover Z3 [11] from Microsoft
+Research. It supports linear and non-linear arithmetic, bit-vectors, arrays, data-types, and quantifiers. For
+our purpose, Z3 can be used to solve price functions that are given as a polynomial of time-delay and the
+current valuation. Other non-linear price functions such as log, sin, cos, and exp can be accommodated
+in this framework using corresponding Taylor series approximations.
+In order to show experimental results, we concentrate the standard Airport Landing Scheduling Problem (ALP) from [7]. In order to give comparison with an existing tool we keep the price function linear
+and compare our tool with state-of-the-art optimal-cost reachability tool Uppaal-Cora [2].
+Airport Landing Scheduling Problem. Given number of airplanes each with attributes like type of
+airplane, landing time window and number of runways, assign a landing time and runways to each
+airplane such that all airplanes land within their specific landing time window and also comply with
+safety regulations like mandatory wake turbulence separation delay. There are two possible sources of
+costs. If airplane travels faster than its designated speed, it lands earlier but consumes more fuel. If
+airplane landing is delayed, it suffers fuel costs for circling over the airport.
+
+D. Bhave, S. N. Krishna & A. Trivedi
+
+77
+
+ALP is known to suffer exponential blowup with increasing runways [7]. We used the instances
+of ALP problem which are distributed with Uppaal CORA demo version. We asked whether there is
+a schedule such that all airplanes land and total cost is bounded from above by a fixed budget (800).
+Table 1 shows the results of our experiments. We ran all our experiments on 64-bit IntelR XeonR CPU
+E5-2660 v2 running at 2.20GHz with 64 GB RAM. We fixed time limit to 30 minutes for each problem
+and used single threaded Z3 SMT solver (v 4.3.2).
+
+6
+
+Conclusion and Future Work
+
+We studied priced timed automata with non-linear prices and showed the undecidability of a general class
+of polynomially-priced timed automata. We then introduced piecewise-linear and Lipschitz-continuous
+price functions, and recovered decidability in this restricted setting. We also studied step-bounded costoptimal reachability problem for price timed automata, and implemented an SMT based tool to solve
+this problem. This problem is of interest since the optimal-cost reachability problem in some cases (under structurally non-Zeno restriction on timed automata along with non-negativity restriction on prices)
+reduces to step-bounded reachability problem.
+Observe that, although our tool does not perform as well as random-optimal option of UPPAALCora, it outperforms both dfs and bfs (not reported here). As a future work, we plan to exploit randomization to scale the performance of our implementation. We believe that these experiments presented
+here demonstrate the applicability of SMT-based step-bounded verification methodology for mediumsized examples of priced timed automata.
+
+References
+[1] Bhave et al. (2015): PTA-BMC. http://www.cse.iitb.ac.in/~devendra/pta-bmc.html.
+[2] Larsen et al. (2006): UPPAAL-CORA. http://people.cs.aau.dk/~adavid/cora/index.html.
+[3] Rajeev Alur & David L. Dill (1994): A Theory of Timed Automata. Theor. Comput. Sci 126(2), pp. 183–235.
+DOI: 10.1016/0304-3975(94)90010-8.
+[4] Rajeev Alur, Salvatore La Torre & George J. Pappas (2004): Optimal Paths in Weighted Timed Automata.
+Theor. Comput. Sci. 318, pp. 297–322, DOI: 10.1016/j.tcs.2003.10.038.
+[5] G. Audemard, A. Cimatti, A. Kornilowicz & R. Sebastiani (2002): Bounded Model Checking for Timed
+Systems. In: Formal Techniques for Networked and Distributed Sytems FORTE 2002, LNCS 2529, Springer,
+pp. 243–259, DOI: 10.1007/3-540-36135-9_16.
+[6] Gerd Behrmann, Ansgar Fehnker, Thomas Hune, Kim Larsen, Paul Pettersson, Judi Romijn & Frits Vaandrager (2001): Minimum-Cost Reachability for Priced Time Automata. In: HSCC, LNCS 2034, Springer, pp.
+147–161, DOI: 10.1007/3-540-45351-2_15.
+[7] Gerd Behrmann, Kim G Larsen & Jacob I Rasmussen (2005): Optimal scheduling using priced timed automata. Performance Evaluation Review 32(4), pp. 34–40, DOI: 10.1145/1059816.1059823.
+[8] Patricia Bouyer, Thomas Brihaye, Véronique Bruyère & Jean-François Raskin (2007): On the
+FMSD 31(2), pp. 135–175, DOI:
+Optimal Reachability Problem of Weighted Timed Automata.
+10.1007/s10703-007-0035-4.
+[9] Patricia Bouyer, Ed Brinksma & Kim Guldstrand Larsen (2004): Staying Alive as Cheaply as Possible. In:
+HSCC, pp. 203–218, DOI: 10.1007/978-3-540-24743-2_14.
+[10] Patricia Bouyer, Uli Fahrenberg, Kim G. Larsen & Nicolas Markey (2010): Timed Automata with Observers
+Under Energy Constraints. In: HSCC, ACM, pp. 61–70, DOI: 10.1145/1755952.1755963.
+
+78
+
+On Nonlinear Prices in Timed Automata
+
+[11] Leonardo De Moura & Nikolaj Bjørner (2008): Z3: An efficient SMT solver. In: Tools and Algorithms for the
+Construction and Analysis of Systems, Springer, pp. 337–340, DOI: 10.1007/978-3-540-78800-3_24.
+[12] Uli Fahrenberg & Kim G. Larsen (2009): Discount-Optimal Infinite Runs in Priced Timed Automata. ENTCS
+(INFINITY) 239, pp. 179 – 191, DOI: 10.1016/j.entcs.2009.05.039.
+[13] John Fearnley & Marcin Jurdzinski (2013): Reachability in Two-Clock Timed Automata Is PSPACEComplete. In: ICALP, pp. 212–223, DOI: 10.1007/978-3-642-39212-2_21.
+[14] Dinko Ivanov, Marin Orlić, Cristina Seceleanu & Aneta Vulgarakis (2010): REMES tool-chain: a set of integrated tools for behavioral modeling and analysis of embedded systems. In: Automated software engineering,
+ACM, pp. 361–362, DOI: 10.1145/1858996.1859076.
+[15] Zhihao Jiang, Miroslav Pajic, Salar Moarref, Rajeev Alur & Rahul Mangharam (2012): Modeling and verification of a dual chamber implantable pacemaker. In: Tools and Algorithms for the Construction and
+Analysis of Systems, Springer, pp. 188–203, DOI: 10.1007/978-3-642-28756-5_14.
+[16] M. Jongerden, A. Mereacre, H. Bohnenkamp, B. Haverkort & J. Katoen (2010): Computing Optimal Schedules of Battery Usage in Embedded Systems. Industrial Informatics, IEEE Transactions on 6(3), pp. 276–286,
+DOI: 10.1109/TII.2010.2051813.
+[17] Dejan Jovanović & Leonardo De Moura (2012): Solving non-linear arithmetic. In: Automated Reasoning,
+Springer, pp. 339–354, DOI: 10.1007/978-3-642-31365-3_27.
+[18] Marcin Jurdzinski & Ashutosh Trivedi (2008): Concavely-Priced Timed Automata. In: FORMATS, pp.
+48–62, DOI: 10.1007/978-3-540-85778-5_5.
+[19] F. Laroussinie, N. Markey & Ph. Schnoebelen (2004): Model Checking Timed Automata with One or Two
+Clocks. In: CONCUR, LNCS 3170, Springer, pp. 387–401, DOI: 10.1007/978-3-540-28644-8_25.
+[20] Marvin L. Minsky (1967): Computation: finite and infinite machines. Prentice-Hall, Inc.
+
+

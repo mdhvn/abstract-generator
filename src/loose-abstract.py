@@ -31,6 +31,8 @@ def TF_IDF(word, word_counts, corpus):
 		if (current_word == word):
 			frequency_in_document = current_count
 
+	#print word, frequency_in_document
+
 	term_frequency = frequency_in_document
 
 	inverse_document_frequency = math.log(1 + (number_of_documents / (1 + frequency_in_corpus)))
@@ -39,7 +41,7 @@ def TF_IDF(word, word_counts, corpus):
 
 
 def main():
-	contents = readFile("../data/test/information_theory.txt")
+	contents = readFile("../data/test/computational_theory.txt")
 
 	sentences = sent_tokenize(contents)
 	tokens = word_tokenize(contents)

@@ -26,10 +26,8 @@ class DocumentProcessor(object):
 
 		# Comment this back in!
 		# Remove both the .pdf and .txt versions of the file from disk
-		#os.remove(self.filename)
-		#os.remove(self.filename[:-len("txt")] + "pdf")
-
-		
+		os.remove(self.filename)
+		os.remove(self.filename[:-len("txt")] + "pdf")
 
 	def processText(self):
 		self.tokens = word_tokenize(self.documentContents)
@@ -46,9 +44,6 @@ class DocumentProcessor(object):
 		
 		self.tokens = cleaned_token_list[:]
 
-		for token in self.tokens:
-			print token
-
 		#self.word_count_dictionary = { }
 
 		#for word_count in self.word_counts:
@@ -64,6 +59,13 @@ class DocumentProcessor(object):
 			else:
 				corpus[word] = word_count_dictionary[word]
 
+	def countTokensInCorpus(self, corpus, tokens):
+		for token in tokens:
+			if token in corpus:
+				corpus[token] = corpus[token] + 1
+			else:
+				corpus[token] = 1
+
 	def writeToCorpus(self):
 		corpus_file = open(COMPUTER_SCIENCE_CORPUS_PATH, "rb")
 		
@@ -73,8 +75,10 @@ class DocumentProcessor(object):
 			corpus_file.seek(0)  # Reset the file pointer.
 			corpus = pickle.load(corpus_file)
 			corpus_file.close()
-
-		self.appendToCorpus(corpus, self.word_count_dictionary)
+		
+		# Fix this
+		# self.appendToCorpus(corpus, self.word_count_dictionary)
+		self.countTokensInCorpus(corpus, self.tokens)
 
 		corpus_file = open(COMPUTER_SCIENCE_CORPUS_PATH, "wb")
 		pickle.dump(corpus, corpus_file)
