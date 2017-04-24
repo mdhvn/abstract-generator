@@ -1,0 +1,1387 @@
+The Magic Barrier Revisited: Accessing Natural Limitations of
+Recommender Assessment∗
+Kevin Jasberg
+
+Sergej Sizov
+
+Web Science Group
+Heinrich-Heine-University Duesseldorf
+Duesseldorf, Germany 45225
+kevin.jasberg@uni-duesseldorf.de
+
+Web Science Group
+Heinrich-Heine-University Duesseldorf
+Duesseldorf, Germany 45225
+sizov@hhu.de
+
+arXiv:1704.05841v1 [cs.HC] 19 Apr 2017
+
+ABSTRACT
+Recommender systems nowadays have many applications and are
+of great economic benefit. Hence, it is imperative for successoriented companies to compare different of such systems and select
+the better one for their purposes. To this end, various metrics of
+predictive accuracy are commonly used, such as the Root Mean
+Square Error (RMSE), or precision and recall. All these metrics more
+or less measure how well a recommender system can predict human
+behaviour. Unfortunately, human behaviour is always associated
+with some degree of uncertainty, making the evaluation difficult,
+since it is not clear whether a deviation is system-induced or just
+originates from the natural variability of human decision making.
+At this point, some authors speculated that we may be reaching
+some Magic Barrier where this variability prevents us from getting
+much more accurate [12, 13, 24]. In this article, we will extend the
+existing theory of the Magic Barrier [24] into a new probabilistic
+but a yet pragmatic model. In particular, we will use methods from
+metrology and physics to develop easy-to-handle quantities for
+computation to describe the Magic Barrier for different accuracy
+metrics and provide suggestions for common application. This
+discussion is substantiated by comprehensive experiments with real
+users and large-scale simulations on a high-performance cluster.
+
+KEYWORDS
+Magic Barrier, Noise, Uncertainty, Distribution-Paradigm, PointParadigm, RMSE
+ACM Reference format:
+Kevin Jasberg and Sergej Sizov. 2017. The Magic Barrier Revisited: Accessing
+Natural Limitations of Recommender Assessment. In Proceedings of arXiv,
+https://arxiv.org/, 2017, 9 pages.
+DOI:
+
+1
+
+INTRODUCTION
+
+Recommender systems have become quite essential for our modern
+information society. Applied within a variety of engines, they
+predict human behaviour (e.g. ratings a user might give to a specific
+item) and thus models a user’s preferences. In doing so, those
+∗ Full dataset and evaluation routines available at https://jasbergk.wixsite.com/research
+
+Permission to make digital or hard copies of part or all of this work for personal or
+classroom use is granted without fee provided that copies are not made or distributed
+for profit or commercial advantage and that copies bear this notice and the full citation
+on the first page. Copyrights for third-party components of this work must be honored.
+For all other uses, contact the owner/author(s).
+arXiv, https://arxiv.org/
+© 2017 Copyright held by the owner/author(s). . . . $15.00
+DOI:
+
+algorithms use specific machine learning techniques to learn about
+one’s personal interests and to develop empathy for multiple as
+well as variable human aspects.
+Unfortunately, human beings can not be deemed as constant
+functions. It has recently been shown, that users provide inconsistent ratings when requested to rate same films at different times
+[13]. This Human Uncertainty, as we understand it in this contribution, appears to be a characteristic feature of the cognitive
+process of decision making which influences its outcome, making
+it circumstantial and temporally unstable; the outcome appears to
+be more or less fluctuating randomly when repeating a decision
+making. Consequently, we may assume that observed decisions are
+drawn from individual distributions [10].
+Accordingly, this complicates the evaluation of recommender
+systems, since it is not clear whether the difference between a
+given rating and the prediction is induced by the system or just a
+matter of Human Uncertainty. If we are able to improve the systeminduced prediction quality to such an extent that only the factor
+of human uncertainty is left, then all visible differences within a
+quality metric would only exist due to this uncertainty and may
+vary with each repeated rating trial. This implies that rankings of
+different (well improved) recommender systems would shuffle with
+each repetition as well, i.e sound rankings do no longer exist for
+excellent systems but there is an equivalence class of indistinguishable optimal systems. This leads to the assumption of some Magic
+Barrier where natural variability may prevent us from getting much
+more accurate [12].
+Motivating Example. As a motivating example, we consider the
+task of rating prediction, along with the Root Mean Square Error
+(RMSE) as a widely used metric for prediction quality. In a systematic experiment with real users (described in more detail in
+forthcoming sections), individuals rated theatrical trailers multiple
+times. Figure 1a shows that only 35% of all users show constant
+rating behaviour, whereas about 50% use two different answer categories and 15% of all users make use of three or more categories.
+Based on these observations, we compute the RMSE for three recommender systems (designed by definition of their predictors π )
+for each rating trial. Figure 1b depicts the RMSE outcomes and
+their frequency. It becomes apparent at once that the RMSE itself
+yields a particular degree of uncertainty, emerged from uncertain
+user feedback. When ranking these recommender systems, Figure
+1b allows for three possible results
+(R1 ≺ R2 ≺ R3) ∨ (R2 ≺ R1 ≺ R3) ∨ (R1 ≺ R3 ≺ R2),
+
+(1)
+
+where the relation ≺ denotes “better than”. The ranking problem
+is most obvious for recommender R1 as it could be both, the best
+
+arXiv, 2017, https://arxiv.org/
+or the worst recommender, although it operates for the same users
+rating the same items. In addition, it may be possible that further
+repetitions of ratings would lead to even more ranking possibilities. This naturally implies to deem those RMSE scores as single
+draws from distributions that are strongly overlapping. As will be
+revealed later, recommender R1 is the Magic Barrier itself. Therefore, our considerations above - the indistinguishability of excellent
+systems close to the Magic Barrier - hold even for straightforward
+investigations.
+The Problem. The problem of Human Uncertainty - if not explicitly considered - is that any improvement to an existing system
+or even the assessment of different systems might not be statistically sound. This, in particular, has financial implications when
+money is invested in the further development of a system but as a
+result, there is merely an overfitting instead of real improvements.
+Therefore, the crux is to recognise whether the prediction quality
+has really improved or is just some random artefact. So there is a
+need for a decision criterion whether a system still has room for
+improvements. For the RMSE in particular, a criterion has recently
+been developed which allows for a dichotomous consideration (yes
+or no)[24]. But while the uncertainty of users is considered, its
+influence on the precise localisation of the Magic Barrier is negated.
+However, in our example (Fig 1b) we have seen that the RMSE
+(esp. the Magic Barrier) itself follows a distribution due to Human
+Uncertainty. As a consequence, systems with an RMSE near the
+“old” Magic Barrier might already be interfered by this Human Uncertainty and respectively, achieving an RMSE less than the “old”
+Magic Barrier does not always mean that this system is already
+interfered. So the question changes from “Is the prediction quality
+interfered by Human Uncertainty?” to “How likely is it that the
+
+0.5
+
+relative frequency
+
+0.4
+0.3
+0.2
+0.1
+0.0
+
+1
+
+2
+
+3
+
+4
+
+Number of used answer categories
+
+5
+
+(a) Frequency of used answer categories
+4.0
+3.5
+
+absolute frequency
+
+3.0
+
+R1 (π = mean)
+R2 (π = 1st rating)
+R3 (π = 3 const.)
+
+2.5
+2.0
+1.5
+1.0
+0.5
+0.0
+0.0
+
+0.2
+
+0.4
+
+0.6
+
+0.8
+
+1.0
+
+1.2
+
+Root Mean Square Error (RMSE)
+
+1.4
+
+1.6
+
+1.8
+
+(b) Distribution of RMSE outcomes
+
+Figure 1: Uncertain user ratings and impact on the RMSE
+
+prediction quality is interfered by Human Uncertainty?”, which
+allows for more differentiated evaluation of recommender systems.
+Our Objective. In this contribution, we present a method by
+which the Magic Barrier can be estimated for any quality assessment
+metric. For this purpose, we will embed the Magic Barrier into a
+complete probabilistic framework and deduce a pragmatic theory
+through complexity reduction. We aim to generate concrete and
+action-oriented quantities that can easily be embedded in existing
+approaches to recommender assessment. We also provide our data
+records for modelling Human Uncertainty and demonstrate its
+transferability using the example of Netflix Prize.
+
+2
+
+RELATED WORK
+
+Recommender Systems and Assessment. The central role of recommender systems led to a lot of research and produced a variety of
+techniques and approaches. A good introduction and overview is
+given by [16, 23]. For the comparative assessment, different metrics
+are used to determine the prediction quality, such as the root mean
+squared error (RMSE), the mean absolute error (MAE), the mean average precision (MAP) along with many others [1, 7, 12]. Although
+we exemplify our methodology in accordance with the RMSE, the
+main results of this contribution can be easily adopted for alternative assessment metrics without substantial loss of generality,
+insofar they require for (uncertain) human input.
+Dealing with Uncertainties. The relevance of our contribution
+arises from the fact that the unavoidable human uncertainty sometimes has a vast influence on the evaluation of different prediction algorithms [3, 5]. The idea of uncertainty is not only related
+to predictive data mining but also to measuring sciences such as
+metrology. Recently, a paradigm shift was initiated on the basis of a
+so far incomplete theory of error [8, 11]. In consequence, measured
+properties are currently modelled by probability density functions
+and quantities calculated therefrom are then assigned a distribution
+by means of a convolution of their argument densities. This model
+is described in [17]. A feasible framework for computing these
+convolutions via Monte-Carlo-Simulation is given by [18]. We take
+this as a basis for our own modelling of uncertainty for addressing
+similar issues in the field of computer science. To derive a pragmatic and easy to handle theory, we will refer to the Gaussian Error
+Propagation which is commonly used in physics as well [6, 19, 25].
+The Magic Barrier. One of the first works addressing Human Uncertainty and its impact on recommender systems was presented in
+[13], where users have been proven to give inconsistent ratings on
+movies. The authors claim that it will never be possible to perfectly
+predict ratings and that there must exist an upper bound on rating
+prediction accuracy. Later, this upper bound was mentioned once
+again in [12] and received the name Magic Barrier, which is still
+in use nowadays. A first calculation of the Magic Barrier can be
+found in [24]. Derived by risk function minimisation, the authors
+defined the Magic Barrier as the square root of the averaged user
+variances (gathered from repeated ratings). Even though this approach accounts for Human Uncertainty, its influence - namely the
+uncertainty of the Magic Barrier itself - remains unconsidered. In
+our contribution, we complete this theory and therefore allow a
+more differentiated analysis of recommender assessment.
+
+The Magic Barrier Revisited: Accessing Natural Limitations of Recommender Assessment
+Experimental Designs. The complexity of human perception and
+cognition can be addressed by means of latent distributions [10].
+This idea is widely used in cognitive science and in statistical modelling of ordinal data [14]. We adopt the idea of modelling user
+uncertainty by means of individual Gaussians following the argumentation in [26] for constructing our individual response models.
+The methodology applied in our experiments is adopted from experimental psychology [15] and works on repeating rating scenarios
+for same users-items-pairs as done before in [2].
+
+3
+
+MODELLING A MAGIC BARRIER
+
+In this section, we embed human uncertainty into a mathematical
+construct and introduce an approach for estimating a Magic Barrier
+for a given evaluation metric. Although the term “Magic Barrier” is
+related to the RMSE in particular, such a barrier does basically exist
+for any metric comparing (uncertain) user inputs with predicted
+scores. Therefore, we first develop a general framework which will
+then be illustrated for the RMSE as a prominent example.
+
+3.1
+
+Changing Paradigms
+
+As mentioned above, various experiments [2, 13] along with our
+own have shown that users are scattering around their true value of
+preference. Consequently, we may assume that observed decisions
+are drawn from individual distributions, as a result of complex
+cognition processes, and influenced by multiple factors (e.g. mood,
+media literacy, etc.) [10]. Therefrom, a paradigm shift has to be
+carried out, which is similar to the recent change of perspectives on
+measurement errors in metrology [8]: Every measurable quantity
+that is somehow related to human cognition is no longer considered as a single point (point-paradigm) but rather as a whole interval of possible values (set-paradigm) that is somehow distributed
+(distribution-paradigm). In the context of this paper, we will, therefore, consider user ratings as random variables. On this basis, we
+develop statistical methodologies that are to be explored hereinafter.
+
+3.2
+
+Composed Quantities
+
+Composed quantities, in this contribution, are quantities Z that
+compute from a continuous function Z = д(X 1 , . . . , X n ) of large
+amounts of uncertain arguments X i (random variables). Hence,
+Z becomes a random variable itself. This reasoning can be understood heuristically: For each draw, there is a variety of possibilities
+for a single outcome x i of a random variable X i . The outcomes
+x 1 , . . . , x n of all random variables altogether result into a single outcome for the composed quantity Z by means of z = д(x 1 , . . . , x n ).
+Accounting for all the possibilities for x 1 , . . . , x n (e.g. when repeating draws infinitely) will then result in a variety of possible
+outcomes z. Thus, the distribution of Z emerges as a convolution
+of n density functions with respect to the mapping д [17, 18].
+
+3.3
+
+Magic Barrier Estimation
+
+The Magic Barrier is defined as the minimum of an evaluation metric when explicitly accounting for Human Uncertainty. Therefore,
+we must first specify an optimal recommender by defining its predictors. Then we have to compute the probability density function
+of the evaluation metric which arises for this optimal recommender.
+
+arXiv, 2017, https://arxiv.org/
+
+What is an optimal recommender? The choice of predictors depends on the evaluation metric and the underlying data model. We
+will demonstrate this by using an example. In the case of the Root
+Mean Square Error (RMSE)
+q
+Í
+RMSE = N1 ν (X ν − πν )2 ,
+(2)
+the comparison of a rating X ν and a prediction πν ∈ R is done via
+c(X ν ) = (X ν − πν )2 , whose expectation reaches its minimum when
+ÍN
+d ÍN
+1 ÍN
+2
+(3)
+d π i=0 (x i − π ) = 2 · i=0 (π −x i ) = 0 ⇔ π = N i=0 x i
+where x i denote the realisations of the random variable X ν . Hence,
+the optimal recommender system with respect to the RMSE is
+defined by πν := E[X ν ] for each user-item-pair ν .
+This might be totally different when considering the Mean Absolute Error (MAE), whose primary comparison is based on the
+function c(X ν ) = |X ν − πν |, reaching a minimum for its expectation when πν is the median of X ν . The median corresponds to
+the expected value, only if a symmetrical distribution is chosen
+as the underlying data model. Consequently, when assuming all
+X ν ∼ N (µν , σν ) to be normally distributed (symmetric density
+function), the optimal recommender system does not differ for
+the RMSE and the MAE respectively. Having X ν ∼ Γ(αν , βν ) being gamma-distributed instead, the optimal recommender may be
+different for both metrics, depending on the extent of asymmetry.
+Monte-Carlo-Simulation. Now having the definition of an optimal recommender system, we need to deduce the probability
+density function of the evaluation metric for this optimum. In
+theory, this is done by a convolution of all density functions fi
+of X i , but what sounds simple at first, turns out to be quite laborious and inapplicable as demonstrated in [9]. For this reason,
+metrologists typically apply statistical simulations. In this paper we
+use Monte-Carlo-Simulations as described in [18]: For each of
+our ratings X ν , we compute a sample S(X ν ) := {xν1 , . . . , xντ } of τ
+pseudo-random numbers (trials) that are drawn from a distribution
+(underlying data model). Then, we yield a sample for the evaluation
+metric Z = д(X 1 , . . . , X N ) via
+n
+o
+k
+S(Z ) = zk = д(x 1k , . . . , x N
+) : k = 1, . . . , τ .
+(4)
+Post hoc illustration of this sample by a normed histogram with b
+bins leads to an approximation for the density of Z .
+Although the statistical simulation of convolutions produces
+excellent results while also being easy to realise, we are facing a
+blatant run-time problem as soon as we are entering the realm of big
+data. For example, for N = 80 000 ratings, the simulation already
+takes up to an hour of runtime1 . To compute the Magic Barrier on
+the Netflix test record (N = 2.8 · 106 ), we need about 35 hours. In
+the following sections, we will derive a pragmatic estimate for the
+desired density function of the Magic Barrier for arbitrary metrics.
+With this, we get same results but need only a mere fraction of the
+simulation runtime. For example, the probability density for the
+Magic Barrier on the Netflix test record can be computed in less
+than 80 milliseconds.
+1 Mac
+
+mini, i5 processor, 8GB DDR3-RAM
+
+arXiv, 2017, https://arxiv.org/
+Estimation Analytics. Even before the technical possibilities of
+statistical simulations existed, metrologists had estimated the expected value and the variance of quantities Z = д(X ). The core
+these estimations is to expand д ∈ C ∞ (R) into its Taylor series
+д(X ) =
+
+∞ (k )
+Õ
+д (µ)
+k =0
+
+k!
+
+(X − µ)k
+
+k =0
+
+=
+
+k =0
+
+k!
+
+k =0
+
+mk
+
+(6)
+
+where mk is the k-th central moment. For the variance and its
+quasi-linearity3 , we yield
+#
+!2
+∞
+∞
+h
+i
+Õ
+Õ
+f (k ) (µ)
+f (k ) (µ)
+k
+V
+(X − µ) =
+V (X − µ)k
+k!
+k!
+k =0
+k =0
+!2
+∞
+Õ f (k ) (µ)
+(m 2k − m k2 )
+(7)
+k!
+"
+
+V[д(X )]
+
+=
+=
+
+V[Yν ]
+
+=
+=
+=
+
+(5)
+
+where д(k) (µ) denotes the k th derivative of д evaluated at the expectation of X . Due to the linearity of the expectation2 , we yield
+"∞
+#
+∞ (k )
+i
+Õ д(k ) (µ)
+Õ
+д (µ) h
+k
+E[д(X )] = E
+(X − µ) =
+E (X − µ)k
+k!
+k!
+∞ (k )
+Õ
+д (µ)
+
+as well as the variance
+V[(σν I + µν − µν )2 ] = V[(σν I)2 ]
+
+
+V[σν2 I2 ] = σν4 V[I2 ] = σν4 E[I4 ] − E[I2 ]2
+
+
+σν4 3V[I]2 − V[I]2 = 2σν4
+
+Í
+We thus obtain a χ 2 -distribution for Z := N1 ν Yν which converges into a Gaussian for a large number N of ratings by means
+of the central limit theorem. The parameters of this Gaussian are
+"
+#
+1 Õ 2
+1 Õ
+1 Õ
+Yν =
+E[Yν ] =
+σ
+(11)
+E[Z ] = E
+N ν
+N ν
+N ν ν
+"
+#
+1 Õ
+1 Õ
+2 Õ 4
+V[Z ] = V
+Yν = 2
+V[Yν ] = 2
+σ . (12)
+N ν
+N ν
+N ν ν
+Now we can consider the Magic Barrier to be the image of the
+root function
+i.e. MB = д(X 1 , . . . , X N ) ≡
+√ of a single random variable,
+Í
+Í
+h(Z ) := Z where Z ∼ N ( N1 ν σν2 , N22 ν σν4 ). Applying the
+one-dimensional Taylor approximation from equations 6 and 7
+leads to
+
+k =0
+
+where the last line has been simplified by using the common identity
+V[(X − µ)k ] = E[(X − µ)2k ] − E[(X − µ)k ]2 = m 2k −mk 2 . The usual
+approximation is to omit terms of higher orders, like
+E[д(X )]
+
+=
+
+д(µ) + д 0 (µ) · m 1 + . . . ≈ д(µ)
+
+V[д(X )]
+
+=
+
+д 0 (µ)2m 1 + д 00 (µ)2 (m 4 − m 22 )/4 + . . . ≈ д 0 (µ)2m 1 .
+
+We have so far only considered a smooth function with just
+one argument in order to guarantee an easy understanding of the
+methodology. When considering n arguments, we use a Taylor
+series in more dimensions and yield equivalent results which, together with the assumption of normality, form the Gaussian Error
+Propagation [6, 19, 25].
+
+(10)
+
+E[MB]
+
+=
+
+V[MB]
+
+=
+
+p
+V[Z ]
+− . . . ≈ E[Z ]
+8E[Z ]3/2
+V[Z ]
+V[Z ]2
+V[Z ]
++
++... ≈
+.
+4E[Z ] 32E[Z ]3
+4E[Z ]
+
+p
+
+E[Z ] −
+
+(13)
+(14)
+
+With additional assumption of normality (which is indeed a suitable
+model, as we will confirm soon), the approximated distribution of
+the Magic Barrier for the RMSE is
+!
+r
+Í
+1 Í 2 1 ν σν4
+MB ∼ N
+σ ,
+(15)
+Í
+N ν ν 2N ν σν2
+
+4 MAGIC BARRIER FOR THE RMSE
+4.1 Application of Gaussian Error Propagation
+
+Í
+where E[MB] ≈ ( ν σν2 /N )1/2 exactly meets the traditional Magic
+Í
+Í
+Barrier as defined in [24] and V[MB] ≈ ( ν σν4 )/(2N ν σν2 ) represents the traditionally neglected uncertainty of this Magic Barrier,
+emerged from uncertain user ratings.
+
+In this section we will derive closed form approximations for the
+RMSE and therefore define
+q
+Í
+MB = д(X 1 , . . . , X N ) := N1 ν (X ν − E[X ν ])2 .
+(8)
+
+4.2
+
+Since we have to face multiple arguments, we would usually need a
+Taylor series in several variables, which is quite ugly for demonstration purposes. Therefore, we first condense all ratings X 1 , . . . , X N
+into a single random variable and then use the one-dimensional
+Taylor approximation. In doing so, we choose Gaussians as the
+underlying data model for our ratings. By this means, every rating
+X ν ∼ N (µν , σν ) can be written as X ν = σν I + µν where I ∼ N (0, 1).
+Hence, Yν := (X ν − E[X ν ])2 receives the expectation
+E[Yν ]
+
+2 E[aX
+3 V[aX
+
+=
+
+E[(σν I + µν − µν )2 ] = E[(σν I)2 ]
+
+=
+
+E[σν2 I2 ] = σν2 E[I2 ] = σν2 V[I] = σν2
+
++ b] = aE[X ] + b holds for a, b ∈ R and arbitrary random variable X
++ b] = a 2 V[X ] holds for a, b ∈ R and arbitrary random variable X
+
+(9)
+
+Goodness of Approximation
+
+As mentioned above, the method presented here is merely an approximation, since we omit terms of higher orders. At this point,
+one may wonder how well this estimate actually matches the true
+state. To answer this question, we first compare the simulated expectations and variances with the calculated ones in a regression
+analysis. Concerning the distribution model, we investigate the
+degree similarity using the Jensen–Shannon-Divergence.
+Regression analysis. We keep the following simulations as general as possible. To this end we gradually fix a particular number
+N of ratings from the set {50, 100, 150, 200, 500, 1000} and sample
+N expectations µν uniformly from the interval [1, 5] as well as N
+2 ,σ2
+variances σν2 uniformly from [σmin
+max ]. These intervals result
+from the assumption of five repeated ratings (as happened in our
+experiments) with the commonly used 5-star scale. Under these
+
+The Magic Barrier Revisited: Accessing Natural Limitations of Recommender Assessment
+
+arXiv, 2017, https://arxiv.org/
+
+for N > 100. Thus, the more ratings we have, the more adequate
+is a Gaussian as the assumed density. For a visual comparison of
+both distributions, Figure 6 depicts the simulated density as well as
+the approximation for our experiment with N = 213.
+
+4.3
+0.00
+
+0.05
+
+0.10
+
+0.15
+
+0.20
+
+0.25
+
+Normed Jensen Shannon Divergence
+
+Figure 2: Jensen–Shannon-Divergence for comparing the
+simulated distribution with a predetermined Gaussian
+conditions, the positive variance yields limitations4
+2
+σmin
+
+=
+
+var({1, 1, 1, 1, 2}) = 0.16
+
+(16)
+
+2
+σmax
+
+=
+
+var({1, 1, 1, 5, 5}) = 3.86
+
+(17)
+
+(µν , σν2 )
+
+For each pair
+we then compute a sample S(X ν ) with τ =
+107 random numbers drawn from the specified Gaussian to perform
+the convolution via equation 4. For many repetitions, we receive
+a lot of simulated expectations/variances to be plotted against the
+approximated ones by means of linear regression. A perfect match
+between simulation and approximation would lead to the regression
+y = 1 · x + 0 with correlation coefficient R 2 = 1. The results
+Sim(E)
+
+=
+
+0.999 · Apr(E) − 0.003
+
+(R 2 = 0.99)
+
+(18)
+
+Sim(V)
+
+=
+
+0.981 · Apr(V) + 0.000
+
+(R = 1.00)
+
+(19)
+
+2
+
+show that this condition is almost fully achieved and hence we may
+consider these approximations as appropriate.
+Jensen–Shannon-Divergence. When modelling the Magic Barrier,
+not only the expectation and the variance are of great importance,
+but rather the entire probability density. While the simulated distribution arises naturally from convolution, it is predetermined for
+the approximation. Therefore, it is necessary to evaluate the degree
+of deviation of both distributions. In doing so, we proceed as done
+in the regression analysis above, but instead of computing means
+and variances, we transform our samples into discrete probability distributions Psim and Papr and analyse the Jensen–ShannonDivergence (JSD)
+1
+1
+JSD(Psim |Papr ) = D KL (Psim |M) + D KL (Papr |M)
+(20)
+2
+2
+Í
+where D KL (P1 |P2 ) = i P1 (i) log2 (P1 (i)/P2 (i)) denotes the KullbackLeibler-Divergence and M = 21 (Psim + Papr ). Since we use the base
+2 logarithm, the JSD yields the boundaries
+0 ≤ JSD ≤ 2 log(2) or
+
+JSD
+0 ≤ 2 log(2)
+≤1
+
+(21)
+
+The outcomes for the normed JSD is shown in Figure 2. We observe
+that the mid-range of all outcomes is located between 0.01 and 0.08
+confirming high similarity of the simulated distribution and the
+assumed Gaussian. There are, however, some outliers which only
+occur for N = 50 ratings. This can be explained by the fact that the
+RMSE contains the sum of squared normal distributions, which is
+χ 2 -distributed, but quickly converges to the normal distribution
+4 Samples
+
+are only examples producing the minimum/maximum variance
+
+Understanding the Magic Barrier
+
+In this section, we will take a closer look at the properties of the
+Magic Barrier. For this purpose, the individual dependencies of
+the Magic Barrier and their effects are analysed in a sensitivity
+analysis. In addition, we will generalise the dichotomous decision
+criterion from [24] and develop a pragmatic rule of thumb to ascertain whether a deeper consideration of the Magic Barrier seems
+worthwhile.
+Sensitivity analysis. A sensitivity analysis is used to determine
+how a quantity responds to the variation of its arguments. Therefore, we vary one argument within reasonable boundaries while
+fixing all the other arguments at the same time.
+In Figure 3a and 3b, one can observe the Magic Barrier’s reaction
+to an increasing number N of ratings. It is seen that the expectation
+remains unaffected by the number of uncertain ratings. Only the
+extent of the uncertainty raises or lowers the mean value. On a
+5-star scale together with five re-ratings, the expected value yields
+limitations (green and red) due to the minimum and maximum
+variance possible. The growth behaviour of the expectation under
+rating uncertainty is asymptotic. However, Figure 3b reveals that
+the Magic Barrier’s variance is heavily impacted by the number
+of ratings, i.e. the precision of the Magic Barrier even gains when
+more uncertain ratings are added. The extent of rating uncertainty
+also leads to boundaries, but this influence gradually disappears
+for increasing N . A comparison of Figure 3b and Figure 3d reveals
+that the number of ratings significantly affects the first two decimal places of the variance, whereas the influence of the rating
+uncertainty affects only the third and fourth decimal places at most.
+In summary, it can be said that the extent of Human Uncertainty
+alone is responsible for the location of the Magic Barrier, whilst its
+spread can be reduced by adding ratings. However, the degree of
+this improvement decreases very rapidly.
+What we have omitted here is the influence of the underlying
+data model and the applied rating scale. The rating scale limits
+the variance of a user and thus has a great impact of the possible location of the Magic Barrier. The underlying data model has
+also a great impact on the Magic Barrier but will be the discussed
+separately in further research.
+Do we need a Magic Distribution? Now having in mind that the
+variance of the Magic Barrier decreases for large N , one may ask
+if we really need the Magic Barrier to be a distribution rather that
+a single score. The answer depends on many factors. First of all,
+the world of recommender assessment does not entirely consist of
+large-scale experiments, so that the variance can not be deemed to
+equal zero. In the case of large-scale experiments, the predefined
+accuracy of computed scores does matter quite a lot. For example, all
+RMSE scores were given to the fourth decimal place in Netflix Prize
+[22]. As shown in the following sections, the standard deviation
+of the Magic Barrier for the Netflix data set can be assumed to be
+σ = 0.0007, which is still seven times larger than the specified
+
+arXiv, 2017, https://arxiv.org/
+
+1.5
+1.0
+0.5
+0.0
+
+0
+
+2000
+
+4000
+
+6000
+
+Sample Size N
+
+8000
+
+0.15
+0.10
+0.05
+0.00
+
+10000
+
+(a) E[M B] with respect to N
+
+0
+
+2000
+
+4000
+
+6000
+
+Sample Size N
+
+8000
+
+10000
+
+(b) V[M B] with respect to N
+
+0.020
+
+2.5
+
+Variance of Magic Barrier
+
+2.0
+
+3.0
+minimum
+maximum
+average
+
+Mean of Magic Barrier
+
+0.20
+minimum
+maximum
+average
+
+2.5
+
+Variances of Magic Barrier
+
+Mean of Magic Barrier
+
+3.0
+
+2.0
+1.5
+1.0
+0.5
+0.0
+0.0
+
+0.5
+
+1.0
+
+1.5
+
+2.0
+
+2.5
+
+3.0
+
+Value for all Rating Variances
+
+3.5
+
+4.0
+
+(c) V[M B] with respect to σ 2
+
+0.015
+0.010
+
+N=100
+N=200
+N=300
+N=400
+N=500
+N=1000
+
+0.005
+0.000
+0.0
+
+0.5
+
+1.0
+
+1.5
+
+2.0
+
+2.5
+
+3.0
+
+Value for all Rating Variances
+
+3.5
+
+4.0
+
+(d) V[M B] with respect to σ 2
+
+Figure 3: Sensitivity analysis of the Magic Barrier varying the number of ratings and the extent of rating variances
+rounding accuracy of four decimal places. In this example, we see
+that even for large data records the effort of considering the Magic
+Barrier as a distribution is quite meaningful.
+Furthermore, we need a non-vanishing variance for a statistically
+sound decision whether a system can still be improved. Following
+[24], any improvement of a recommender system is pointless, if the
+RMSE score is below the Magic Barrier, i.e. E[RMSE] < E[MB].
+But since both quantities are distributed, their density functions
+may nevertheless overlap. Figure 4 illustrates the interference of the
+Magic Barrier with a recommender system used in our experiments.
+Although the decision criterion from [24] holds, there is a significant
+probability that the RMSE outcome is already affected by the Magic
+Barrier. This probability is given by
+∫ ∞
+
+P(MB > RMSE) =
+f RMSE (x) · 1 − F M B (x) dx
+(22)
+−∞
+
+where F M B (x) denotes the cumulative distribution function. In
+our example from Figure 4, this probability is around 0.33, i.e. the
+RMSE is interfering with the Magic Barrier in one of three outcomes.
+For this reason, an analysis of possible improvements can not be
+answered by a dichotomous decision criterion (yes or no), but has
+to be answered by means of probabilities (How likely is it that my
+system can still be improved and what risk am I willing to accept?).
+When is a differentiated consideration needed? However, such a
+differentiated approach is not always worth it. Therefore, it would
+be useful to have a rule of thumb to find out whether a differentiated
+
+10
+Magic Barrier
+RMSE
+
+Probability Density
+
+8
+
+6
+
+4
+
+2
+
+0
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1.0
+
+1.1
+
+RMSE SCORE
+
+consideration is fruitful or not. For example, a possible criterion
+might be the intersection of the 99%-confidence intervals of the
+RMSE and the Magic Barrier. Due to normality, further analysis
+should be taken into consideration, when
+p
+p
+(23)
+E[MB] + 3 V[MB] > E[RMSE] − 3 V[RMSE].
+By assuming V[MB] ≈ V[RMSE], which usually holds when both
+quantities are computed on the same data record, this criterion can
+be simplified to E[RMSE] − E[MB] < 6V[MB]1/2 .
+
+5
+
+EXPERIMENTS
+
+In this section, we examine our theoretical considerations in reality.
+To this end, we conducted a controlled experiment with real users
+and measured their uncertainty. We are thus able to support the
+chosen data model and verify our approximation on a real data set.
+On this basis, possible applications can be illustrated (e.g. transferring our variances to other situations where no Human Uncertainty
+was explicitly measured).
+
+5.1
+
+The Experiment
+
+Our experiment is set up with Unipark’s5 survey engine while
+our participants were committed from the crowdsourcing platform
+Clickworker6 . To derive a user’s rating distributions, we use the
+method of re-rating, which was successfully used in [2, 13] before.
+For this purpose, participants watched theatrical trailers of popular
+movies and television shows and provided ratings in five repetition
+trials7 . User ratings have been recorded for five out of ten fixed
+trailers so that remaining trailers act as distractors triggering the
+misinformation effect, i.e. memory is becoming less accurate due
+to interference from post-event information.
+We received a rating tensor Ru,i,t with dim(R) = (67, 5, 5), having N = 1 675 ratings in total, where the coordinates (u, i, t) encode the rating that has been given to item i by user u in the t-th
+trial. From this record we derive a unique rating distribution for
+each user-item-pair by considering tensor-slices in trial-dimension
+Ru,i := {Ru,i,t |t = 1, . . . , 5} for which we compute MaximumLikelihood-Parameters given a predetermined data model (e.g. Gaussians, CUB-Models, etc.). Altogether 67 people from Germany, Austria and Switzerland participated in this experiment. This group
+can be parted into 57% females and 43% males whose ages range
+from 20 to 60 years while over 60% of our participants where aged
+5 http://www.unipark.com/de/
+
+Figure 4: Interference of RMSE with the Magic Barrier
+
+6 https://www.clickworker.de/
+7A
+
+full description can be found on https://jasbergk.wixsite.com/research
+
+The Magic Barrier Revisited: Accessing Natural Limitations of Recommender Assessment
+between 20 and 40. This group also includes a good average of
+lower, medium and higher educational levels. The rating frequency
+habits range from “rarely” to “often” in uniform distribution.
+
+5.2
+
+Data Model and Uncertainties
+
+Proving the data model. In this contribution we opt for Gaussians since they are strongly associated to human characteristics
+[4] and have also been proven to be appropriate user models in
+[26]. Additionally, Gaussians exhibit maximum entropy along all
+distributions with finite mean/variance and support on R.
+For each recorded item, all tensor slices having a non-vanishing
+variance are checked for normality by means of a one-sample KStest [20] with confidence level α = 0.05. The null hypothesis was
+never rejected, allowing to keep the Gaussian distribution as a
+possible model.
+Proving Human Uncertainty. For each of the user-item-pairs Ru,i ,
+we compute the Gaussian ML-Parameters and consider the variances V(Ru,i ) as representations of the Human Uncertainty. In our
+experiment, only few tensor slices contain constant ratings and
+hence lead to a vanishing variance. Performing an item-wise analysis, the fraction of tensor slices with non-zero variance ranges from
+50 to 90% that is, only every second participant is able to reproduce
+its own decisions for the best case. For the worst case, only one out
+of ten participants is able to precisely reproduce a rating. Figure
+5 depicts the distribution of variances emerged from repeated ratings within our experiment. We observe that the overall variance
+follows an exponential distribution V ∼ Exp(λ) with parameter
+λ = 2.11. This power-law distribution literally means, that many
+users have a low degree of uncertainty while only a few users have
+a very high degree of uncertainty.
+
+5.3
+
+The Magic Barrier
+
+Figure 3a shows that the expected value of the Magic Barrier depends solely on the Human Uncertainty. For our five-star scale
+as well as its minimum and maximum variances, the expectation should - when equation 15 holds - be located in the interval
+[0.40 ; 1.55]. In the case of our experiment, we have N = 213 rating
+distributions with non-vanishing variance. It is clear from Figure 3b
+
+arXiv, 2017, https://arxiv.org/
+
+that for this sample size, the distribution of the Human Uncertainty
+has a large impact on the variance of the Magic Barrier. According
+to equation15, the variance of the Magic Barriers should be found
+in the interval [0.0008 ; 0.0113].
+On the basis of our data record, the simulation and approximation
+lead to well matching expectations (ca. 0.733) and variances (ca.
+0.003) for the Magic Barrier. It is apparent, that the true values are
+located near the lower bound of the previously estimated intervals.
+This can be explained by the power-law distribution, i.e. a lot of
+variances are near the minimum and only a few have got higher
+extents. The difference of expectations is about 0.2% while the
+difference of variances is about 1.2%. The matching between the
+simulated and the assumed data model of a Gaussian can be clearly
+confirmed in Figure 6. The corresponding normed JSD is 0.05.
+
+5.4
+
+Application
+
+Implicit Impact on Recommender Assessment. So far we have only
+discussed the explicit impact on the assessment of recommender
+systems, that is: How likely is it that a system can still be improved,
+just before the RMSE solely depends on Human Uncertainty itself.
+Now we want to investigate the implicit influence, which affects
+any recommender comparison, even if the corresponding RMSE
+distributions are not directly overlapping with the Magic Barrier.
+In doing so, we generate two copies of the Magic Barrier (as the
+optimal recommender). Each of these copies is gradually distorted
+by adding artificial noise to their predictors in such a way that
+the relative noise difference of both copies remain constant. By
+increasing the noise for both copies whilst keeping their relative
+difference constant, we generate an offset (distance from the Magic
+Barrier). This offset is plotted against the probabilities of error when
+using the traditional point-paradigm ranking, which is given by the
+generalisation of equation 22. Figure 7 depicts the family of curves,
+mapping the distance from the Magic Barrier to the corresponding
+error probabilities. This distance (x-axis) represents the overall
+quality of a system, i.e. the larger this quantity, the worse the
+prediction quality. The colours encode the relative difference ∆ of
+two recommender systems among each other. For the green curve
+(representing 10% noise of difference), an x-value of 0.15 means
+
+2.5
+
+9
+approximated
+simulated
+
+8
+7
+
+Probability Density
+
+Probability Density
+
+2.0
+
+1.5
+
+1.0
+
+6
+5
+4
+3
+2
+
+0.5
+
+1
+0.0
+0.0
+
+0.5
+
+1.0
+
+1.5
+
+2.0
+
+Standard Deviation
+
+Figure 5: Distribution of variances emerged from repeated
+ratings within our experiment
+
+0
+0.5
+
+0.6
+
+0.7
+
+0.8
+
+0.9
+
+1.0
+
+RMSE Score
+
+Figure 6: Visual comparison of simulated and approximation Magic Barrier based on experimental data records
+
+arXiv, 2017, https://arxiv.org/
+E[RMSEbest ] − E[MB] = 0.8567 − 0.6687 = 0.1880 is greater than
+6V[MB]1/2 = 0.1587, it can be assumed that the Magic Barrier has
+not yet been reached. In fact, there is still the potential for about
+20% of improvement when taking the winner as reference.
+
+0.5
+
+0.01
+0.05
+0.1
+0.15
+0.2
+0.25
+
+ErrorProbability
+
+0.4
+
+6
+
+0.3
+
+0.2
+
+0.1
+
+0.0
+0.00
+
+0.05
+
+0.10
+
+0.15
+
+0.20
+
+0.25
+
+0.30
+
+Distance from Magic Barrier by means of artificial noise
+
+Figure 7: Error Probabilities for a point-paradigm ranking
+of systems with constant RMSE difference according to their
+overall distance to the Magic Barrier.
+
+that system 1 has a noise of 15% whereas system 2 has a noise of
+25%. The corresponding y-value indicates the error probability for
+ranking both systems using the traditional point-paradigm. It is
+apparent, that two recommender systems can not be brought into a
+ranking order without considerable error probability if their relative
+difference is less than 15%, regardless of their basic prediction
+quality.
+As a result, we recognise the following: The distance from the
+Magic Barrier has a great influence on the overlaps in two constantly different recommender systems, i.e. for a fixed difference in
+prediction quality, they can be distinguished much better if they
+are bad systems, rather than good ones. On the contrary, the better
+a system becomes, the more improvement does a revision need,
+in order to be detected with statistical evidence. This basically
+means that a recommender system within a repeated process of
+improvement will certainly reach a prediction quality so that there
+is probably no sufficiently large amount of optimisation left, in order to distinguish further improvements from the old system with
+statistical evidence. This convergence is actually the true nature
+of the Magic Barrier, which could not have been shown without
+switching perspectives to the distribution-paradigm.
+Transferability: The Netflix Prize. Unfortunately, existing records
+have not gathered Human Uncertainty. Therefore, we examine
+the possibility of applying the findings of our experiment to such
+data records. To this end, we assume the distribution of Human
+Uncertainty, emerged from our experiment, to be valid for a larger
+number of ratings. Under this condition, we will examine possible
+consequences on Netflix Prize as an example.
+The Netflix test record consists of N = 2.8 · 106 ratings in total.
+For each of these ratings, we randomly assign a variance drawn
+from the Pareto distribution in Figure 5. According to this data,
+the Magic Barrier can be estimated to MB ∼ N (0.6687, 0.0007).
+Even though the standard deviation seems small, it is still in the
+range of Netflix’s rounding accuracy of four decimal places. To
+estimate whether the contest winner [21] might interfere with
+the Magic Barrier, we use the simplification of Equation 23. Since
+
+DISCUSSION AND CONCLUSIONS
+
+Discussion. In our experiment, the existence of Human Uncertainty is proven and it has been shown that it corresponds to a
+power-law distribution, i.e. there are many users having a small
+variance and there are only a few users having a large variance. This
+implies the existence of an offset within every prediction quality
+metric that emerges from Human Uncertainty, the so-called Magic
+Barrier. Having several recommender systems whose RMSEs, for
+example, are lower than this Magic Barrier, every repetition of the
+rating proceeding would very likely result into rearrangements of
+the ranking order, i.e. a reliable ranking can not be built.
+In this article, we have lifted an existing theory of this Magic
+Barrier into a completely probabilistic methodology, providing a
+generalisation for any quality related metric. Our estimation provides processing of big data in little time while additionally being
+very precise. With our probabilistic approach, the true nature of
+the Magic Barrier can be demonstrated: When approaching the
+Magic Barrier, the distinguishability of many recommender systems
+automatically decreases, supporting the idea of one equivalence
+class of optimal systems. Likewise, essential properties of the Magic
+Barrier have been revealed, for example, the expectation does not
+change for a higher number of ratings. In contrast, the variance
+even decreases for an additional number of uncertain ratings and
+allows to locate the Magic Barrier more precisely. Finally, we have
+demonstrated the possibility to transfer our results onto other data
+records in order to make careful predictions of possible interference.
+Conclusion. What are the consequences for the assessment of
+recommender systems in general? The essence of our contribution
+is the revelation of the following problems:
+(1) People are not able to tell us what they really mean.
+(2) Human Uncertainty creates a barrier from which below
+any assessment results are just random.
+(3) This barrier also implicitly influences recommender assessments; the better our systems become, the more indistinguishable they become.
+At this point it must be said that these problems are not grounded in
+this new perspective presented here, but have always been present
+in data analysis. The approach used in this contribution is just
+able to make these problems visible. Furthermore, these problems
+do not only occur within our experiments, but have also been
+proven by other authors in different situations of user feedback. This
+may have far-reaching consequences, especially in the area of the
+recommender systems, when the selection of a supposedly better
+system is a monetary decision. For example, financial resources may
+be invested in improving a system but the improvements achieved
+are purely random, which remains unnoticed.
+For this reason, it becomes crucial to further examine the extent
+of impact of Human Uncertainty within this field of research. It
+is also necessary to find proper solutions for these problems, e.g.
+designing sophisticated mechanisms to identify uncertainty and
+developing novel strategies to efficiently deal with it. This naturally
+
+The Magic Barrier Revisited: Accessing Natural Limitations of Recommender Assessment
+involves research that connects the fields of behavioural decision
+making, cognitive psychology and recommender systems to create
+interdisciplinary synergy effects. We will continue to address these
+issues in further research.
+
+arXiv, 2017, https://arxiv.org/
+
+REFERENCES
+[1] Amatriain, X., Ed. Workshop on Recommendation Utitlity Evaluation: Beyond
+RMSE September (Dublin, Ireland, 9 2012), ACM.
+[2] Amatriain, X., and Pujol, J. Rate it again: Increasing recommendation accuracy
+by user re-rating. In Proceedings of the Third ACM Conference on Recommender
+Systems (2009), ACM, pp. 173–180.
+[3] Amatriain, X., Pujol, J. M., and Oliver, N. I like it… i like it not: Evaluating
+user ratings noise in recommender systems. International Conference on User
+Modeling, Adaptation, and Personalization (2009), 247–258.
+[4] Ashby, F. G. Multidimensional Models of Perception and Cognition (Scientific
+Psychology Series. Psychology Press, 1992.
+[5] Beel, J., Genzmehr, M., Langer, S., Nürnberger, A., and Gipp, B. A comparative analysis of offline and online evaluations and discussion of research paper
+recommender system evaluation. In Proceedings of the International Workshop
+on Reproducibility and Replication in Recommender Systems Evaluation (2013),
+RecSys ’13, pp. 7–14.
+[6] Bevington, P., and Robinson, D. K. Data Reduction and Error Analysis for the
+Physical Sciences, 3rd ed. McGraw-Hill Education, 2002.
+[7] Bobadilla, J., Ortega, F., Hernando, A., and Gutiérrez, A. Recommender
+systems survey. Knowledge-based systems 46 (2013), 109–132.
+[8] Buffler, A., Allie, S., and Lubben, F. The development of first year physics
+students’ ideas about measurement in terms of point and set paradigms. International Journal of Science Education 23, 11 (2001), 1137–1156.
+[9] Chan, F. K. Miss distance–generalized variance non-central chi distribution. In
+AAS/AIAA Space Flight Mechanics Meeting (2011), pp. 11–175.
+[10] D’Elia, A., and Piccolo, D. A mixture model for preferences data analysis.
+Computational Statistics & Data Analysis 49, 3 (2005), 917–934.
+[11] Grabe, M. Grundriss der Generalisierten Gauß’schen Fehlerrechnung. Springer
+Berlin Heidelberg, 2011.
+[12] Herlocker. Evaluating collaborative filtering recommender systems. ACM
+Transactions on Information Systems 22, 1 (2004), 5–53.
+[13] Hill, W., Stead, L., Rosenstein, M., and Furnas, G. Recommending and
+evaluating choices in a virtual community of use. In Proceedings of the SIGCHI
+Conference on Human Factors in Computing Systems (1995), CHI ’95, pp. 194–201.
+[14] Iannario, M. Modelling uncertainty and overdispersion in ordinal data. Communications in Statistics - Theory and Methods 43 (2014), 771–786.
+[15] Intraub, H. Presentation rate and the representation of briefly glimpsed pictures
+in memory. Journal of Experimental Psychology 6, 1 (1990), 1–11.
+[16] Jannach, D., Zanker, M., Felfernig, A., and Friedrich, G. Recommender
+Systems: An Introduction. Cambridge University Press, 2010.
+[17] JCGM. Guide to the expression of uncertainty in measurement. Tech. rep., BIPM,
+2008.
+[18] JCGM. Supplement 1 to the gum - propagation of distributions using a monte
+carlo method. Tech. rep., BIPM, 2008.
+[19] Ku, H. Notes on the use of propagation of error formulas. Journal of Research of
+the National Bureau of Standards 70, 4 (1966).
+[20] Massey Jr, F. J. The kolmogorov-smirnov test for goodness of fit. Journal of the
+American statistical Association 46, 253 (1951), 68–78.
+[21] Netflix. Netflix leaderboard.
+[22] Netflix. The netflix prize rules.
+[23] Ricci, F., Rokach, L., and Shapira, B. Recommender Systems Handbook. Springer,
+11 2015.
+[24] Said, A., Jain, B., Narr, S., and Plumbaum, T. Users and noise: The magic barrier
+of recommender systems. In User Modeling, Adaptation, and Personalization,
+vol. 7379. Springer Berlin / Heidelberg, 2012, pp. 237–248.
+[25] Taylor, J. Introduction to error analysis, the study of uncertainties in physical
+measurements. University Science Books, 1997.
+[26] Zhang, Y., and Koren, J. Efficient bayesian hierarchical user modeling for
+recommendation system. Proceedings of the 30th annual international ACM SIGIR
+conference on Research and development in information retrieval (2007), 47–54.
+
+

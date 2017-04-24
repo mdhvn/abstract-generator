@@ -45,6 +45,16 @@ class Corpus(object):
 		else:
 			return 0
 
+	def documentsByCategory(self, category):
+		documents = [ ]
+
+		for document in self.metadata:
+			if category == document["category"]:
+				documents.append(document)
+
+		return documents
+				
+
 	def reload(self):
 		self.loadCorpus()
 
@@ -70,8 +80,8 @@ class Corpus(object):
 			
 			del document_retriever
 
-			print "Waiting for 3 seconds..."
-			time.sleep(3)
+			#print "Waiting for 3 seconds..."
+			#time.sleep(3)
 	
 	def clearCorpus(self):
 		self.corpus_file = open(self.corpus_path, "w").close()
@@ -90,6 +100,10 @@ def main():
 	print "Frequency of 'artificial': ", computer_science_corpus.wordFrequency("artificial")
 	print "Frequency of 'intelligence': ", computer_science_corpus.wordFrequency("intelligence")
 	print "Frequency of 'India': ", computer_science_corpus.wordFrequency("India")
+	print "Number of documents on 'Formal Languages': ", computer_science_corpus.wordFrequency("cs.FL")
+	print "Number of documents on 'Distributed and Parallel Computing': ", computer_science_corpus.wordFrequency("cs.DC")
+	print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
+	print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
 	#computer_science_corpus.buildCorpus()
 	#computer_science_corpus.clearCorpus()
 

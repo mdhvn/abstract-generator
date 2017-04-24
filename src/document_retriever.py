@@ -11,30 +11,23 @@ COMPUTER_SCIENCE_CORPUS_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus.da
 class DocumentRetriever(object):
 
 	def __init__(self):
-		print("Created new Retriever object")
+		pass
 
 	def getDocuments(self, query, number_of_results):
 		documents = self.retrieveDocuments(query, number_of_results)
-		metadata = self.retrieveMetadata(documents)
+		metadata = self.extractMetadata(documents)
 		
 		return documents, metadata
 		
-	# Add delays?
 	def retrieveDocuments(self, query, number_of_results):
-		documents = { }
-
-		print "Attempting to retrieve", number_of_results, "results for '", query, "'"
-	
 		documents = arxiv.query(query,
 					prune = True, 
 			              	start = 0, 
 			              	max_results = number_of_results)
 
-		print "Documents retrieved:", str(len(documents))
-
 		return documents
 
-	def retrieveMetadata(self, documents):
+	def extractMetadata(self, documents):
 		metadata = { }
 
 		for document in documents:
@@ -50,14 +43,12 @@ class DocumentRetriever(object):
 	def convertDocumentToText(self, document_pdf_file_path):
 		document_text = textract.process(document_pdf_file_path, encoding = "utf-8")
 
-		#document_txt_file_path = DATA_DIRECTORY_PATH + "temporary.txt"
-		document_txt_file_path = DATA_DIRECTORY_PATH + document_pdf_file_path[:-len("pdf")] + "txt"
-		document_file = open(document_txt_file_path, "w")
+		document_text_file_path = DATA_DIRECTORY_PATH + document_pdf_file_path[:-len("pdf")] + "txt"
+		document_file = open(document_text_file_path, "w")
 		document_file.write(document_text)
 		document_file.close()
 
-		return document_txt_file_path
-	
+		return document_text_file_path
 
 	def processDocuments(self, documents, metadata):
 		metadata_file = open(COMPUTER_SCIENCE_METADATA_PATH, "rb")
@@ -79,13 +70,13 @@ class DocumentRetriever(object):
 			if document_id not in corpus_metadata:	
 				# Download the document
 				document_pdf_file_path = arxiv.download(document, DATA_DIRECTORY_PATH)
-				document_txt_file_path = ""  # Do we need this?
+				document_text_file_path = ""  # Do we need this?
 				print "\t Downloaded document ", (number_of_successes + number_of_failures), "/", number_of_documents,
 
 
 				try:
 					# Convert the document to text and delete the PDF
-					document_txt_file_path = self.convertDocumentToText(document_pdf_file_path)
+					document_text_file_path = self.convertDocumentToText(document_pdf_file_path)
 					#print("Converted document to text")
 
 				except Exception as exception:
@@ -93,17 +84,20 @@ class DocumentRetriever(object):
 					os.remove(document_pdf_file_path)
 					number_of_failures = number_of_failures + 1
 					print " - failed (", str(type(exception).__name__), ")"  
-					pass
 				else:
 					# Add this document to the corpus metadata
 					corpus_metadata[document_id] = metadata[document_id]
 				
 					# Send it for processing
-					document_processor = DocumentProcessor(document_txt_file_path)
+					document_processor = DocumentProcessor(document_text_file_path)
 
 					document_processor.processText()
 					document_processor.writeToCorpus()
 					#print("Processed document")
+					
+					# Remove both the .pdf and .txt. version of the file from disk
+					os.remove(document_pdf_file_path)
+					os.remove(document_text_file_path)
 
 					number_of_successes = number_of_successes + 1
 					print " - succeeded"
@@ -123,8 +117,13 @@ class DocumentRetriever(object):
 def main():
 	retriever = DocumentRetriever()
 	
-	documents, metadata = retriever.getDocuments("programming+languages", 64)
+	documents, metadata = retriever.getDocuments("programming+languages", 374)
 	
+	print(len(documents))
+
+	for document in metadata:
+		print document
+
 	#retriever.processDocuments(documents, metadata)
 
 	#documents, metadata = retriever.getDocuments("Programming Languages", 100)
@@ -149,8 +148,6 @@ def main():
 	#print("\n")
 	#print("the: ", corpus["the"])
 	print ("Completed program")
-	
-
 
 if __name__ == "__main__":
 	main()

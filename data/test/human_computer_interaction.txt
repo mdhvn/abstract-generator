@@ -12,7 +12,7 @@ jnwang@sfu.ca
 ABSTRACT
 Quality control in crowdsourcing systems is crucial. It is
 typically done after data collection, often using additional
-crowdsourced tasks to assess and improve the quality. These
+crowdsourced tasks to assess and improve  quality. These
 post-hoc methods can easily add cost and latency to the
 acquisition process—particularly if collecting high-quality
 data is important. In this paper, we argue for pre-hoc interface optimizations based on feedback that helps workers

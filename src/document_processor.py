@@ -24,11 +24,6 @@ class DocumentProcessor(object):
 		self.documentContents = unidecode(self.documentContents)  # Decode to ASCII
 		documentFile.close()
 
-		# Comment this back in!
-		# Remove both the .pdf and .txt versions of the file from disk
-		os.remove(self.filename)
-		os.remove(self.filename[:-len("txt")] + "pdf")
-
 	def processText(self):
 		self.tokens = word_tokenize(self.documentContents)
 		self.frequency_distribution = FreqDist(self.tokens)
@@ -55,16 +50,20 @@ class DocumentProcessor(object):
 	def appendToCorpus(self, corpus, word_count_dictionary):
 		for word in word_count_dictionary:
 			if word in corpus:
-				corpus[word] = corpus[word] + word_count_dictionary[word]
+				#corpus[word] = corpus[word] + word_count_dictionary[word]
+				corpus[word] = corpus[word] + 1
 			else:
 				corpus[word] = word_count_dictionary[word]
 
-	def countTokensInCorpus(self, corpus, tokens):
+	def countTokensInCorpus(self, tokens):
+		# Fix/improve this
+		tokens_seen = { }
+
 		for token in tokens:
-			if token in corpus:
-				corpus[token] = corpus[token] + 1
-			else:
-				corpus[token] = 1
+			if token not in tokens_seen:
+				tokens_seen[token] = 1
+
+		return tokens_seen
 
 	def writeToCorpus(self):
 		corpus_file = open(COMPUTER_SCIENCE_CORPUS_PATH, "rb")
@@ -78,7 +77,8 @@ class DocumentProcessor(object):
 		
 		# Fix this
 		# self.appendToCorpus(corpus, self.word_count_dictionary)
-		self.countTokensInCorpus(corpus, self.tokens)
+		tokens_seen_in_document = self.countTokensInCorpus(self.tokens)		
+		self.appendToCorpus(corpus, tokens_seen_in_document)
 
 		corpus_file = open(COMPUTER_SCIENCE_CORPUS_PATH, "wb")
 		pickle.dump(corpus, corpus_file)
@@ -102,30 +102,27 @@ class DocumentProcessor(object):
 		print("the: ", corpus["the"])
 
 def main():
-	document_one_path = TEST_DATA_DIRECTORY_PATH + "information_theory.txt"
-	document_two_path = TEST_DATA_DIRECTORY_PATH + "computational_philosophy.txt"
-	document_three_path = TEST_DATA_DIRECTORY_PATH + "human_computer_interaction.txt"
+	information_theory_path = TEST_DATA_DIRECTORY_PATH + "information_theory.txt"
+	computation_philosophy_path = TEST_DATA_DIRECTORY_PATH + "computational_philosophy.txt"
+	human_computer_interaction_path = TEST_DATA_DIRECTORY_PATH + "human_computer_interaction.txt"
+	recommender_systems_path = TEST_DATA_DIRECTORY_PATH + "recommender_systems.txt"
 
-	#document_one = DocumentProcessor(document_one_path)
-	#document_two = DocumentProcessor(document_two_path)
-	document_three = DocumentProcessor(document_three_path)
+	information_theory = DocumentProcessor(information_theory_path)
+	information_theory.processText()
+	information_theory.writeToCorpus()
 
-	#document_one.processText()
-	#document_one.writeToCorpus()
+	computational_philosophy = DocumentProcessor(computational_philosophy_path)
+	computational_philosophy.processText()
+	computational_philosophy.writeToCorpus()
 
-	#print("Wrote document_one")
+	human_computer_interaction = DocumentProcessor(human_computer_interaction_path)
+	human_computer_interaction.processText()
+	human_computer_interaction.writeToCorpus()
 
-	#document_two.processText()
-	#document_two.writeToCorpus()
+	recommender_systems = DocumentProcessor(recommender_systems_path)
+	recommender_systems.processText()
+	recommender_systems.writeToCorpus()
 
-	#print("Wrote document_two")
-
-	#print(document_one.getMostCommonWords(50))
-	#print(document_two.getMostCommonWords(50))
-
-	#document_one.readCorpus()
-	
-	document_three.processText()
 
 if __name__ == "__main__":
 	main()
