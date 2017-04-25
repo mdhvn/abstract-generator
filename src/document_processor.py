@@ -14,9 +14,28 @@ COMPUTER_SCIENCE_CORPUS_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus.da
 
 class DocumentProcessor(object):
 
-	def __init__(self, filename):
-		self.filename = filename
-		self.readFileContents()
+	def __init__(self, document_file_path):
+		# For now, we assume that this class always receives
+		# a PDF document as input. Also add the case where this
+		# class is provided a .txt (text) file as input. Use
+		# the readFileContents() function to read input from 
+		# a text file.
+		self.document_text = self.convertDocumentToText(document_file_path)
+
+		#self.processText()
+
+		#self.filename = filename
+		#self.readFileContents()
+
+	def convertDocumentToText(self, document_pdf_file_path):
+		document_text = textract.process(document_pdf_file_path, encoding = "utf-8")
+		#document_text = unidecode(document_text)
+
+		# Remove the original (PDF) version of the
+		# document from disk.
+		#os.remove(document_pdf_file_path)
+
+		return document_text
 
 	def readFileContents(self):
 		documentFile = codecs.open(self.filename, "r", "utf-8")
@@ -25,10 +44,10 @@ class DocumentProcessor(object):
 		documentFile.close()
 
 	def processText(self):
-		self.tokens = word_tokenize(self.documentContents)
+		self.tokens = word_tokenize(self.document_text)
 		self.frequency_distribution = FreqDist(self.tokens)
-		self.number_of_samples = len(self.frequency_distribution)
-		self.word_counts = self.frequency_distribution.most_common(self.number_of_samples)
+		self.number_of_unqiue_tokens = self.frequency_distribution.N()
+		self.word_frequencies = self.frequency_distribution.most_common(self.number_of_samples)
 		
 		cleaned_token_list = [ ]
 
@@ -46,6 +65,20 @@ class DocumentProcessor(object):
 		#	count = word_count[1]
                 #
 		#	self.word_count_dictionary[word] = count
+
+	def getWordFrequencies(self):
+		WORD_INDEX = 0
+		FREQUENCY_INDEX = 1
+
+		word_frequencies = { }
+
+		for word_frequency_pair in self.word_frequencies:
+			word = word_frequency_pair[WORD_INDEX]
+			frequency = word_frequency_pair[FREQUENCY_INDEX]
+
+			word_frequencies[word] = frequency
+
+		return word_frequencies
 
 	def appendToCorpus(self, corpus, word_count_dictionary):
 		for word in word_count_dictionary:
@@ -102,26 +135,25 @@ class DocumentProcessor(object):
 		print("the: ", corpus["the"])
 
 def main():
-	information_theory_path = TEST_DATA_DIRECTORY_PATH + "information_theory.txt"
+	automata_path = TEST_DATA_DIRECTORY_PATH + "automata.pdf"
 	computation_philosophy_path = TEST_DATA_DIRECTORY_PATH + "computational_philosophy.txt"
-	human_computer_interaction_path = TEST_DATA_DIRECTORY_PATH + "human_computer_interaction.txt"
+	human_computer_interaction_path = TEST_DATA_DIRECTORY_PATH + "human_computer_interaction.pdf"
 	recommender_systems_path = TEST_DATA_DIRECTORY_PATH + "recommender_systems.txt"
+	
+	#print automata_path
+	#automata = DocumentProcessor(automata_path)
 
-	information_theory = DocumentProcessor(information_theory_path)
-	information_theory.processText()
-	information_theory.writeToCorpus()
-
-	computational_philosophy = DocumentProcessor(computational_philosophy_path)
-	computational_philosophy.processText()
-	computational_philosophy.writeToCorpus()
+	#computational_philosophy = DocumentProcessor(computational_philosophy_path)
+	#computational_philosophy.processText()
+	#computational_philosophy.writeToCorpus()
 
 	human_computer_interaction = DocumentProcessor(human_computer_interaction_path)
-	human_computer_interaction.processText()
-	human_computer_interaction.writeToCorpus()
+	#human_computer_interaction.processText()
+	#human_computer_interaction.writeToCorpus()
 
-	recommender_systems = DocumentProcessor(recommender_systems_path)
-	recommender_systems.processText()
-	recommender_systems.writeToCorpus()
+	#recommender_systems = DocumentProcessor(recommender_systems_path)
+	#recommender_systems.processText()
+	#recommender_systems.writeToCorpus()
 
 
 if __name__ == "__main__":

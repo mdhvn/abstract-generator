@@ -34,21 +34,17 @@ class DocumentRetriever(object):
 			document_id = document["id"]
 
 			metadata[document_id] = { }
+			metadata[document_id]["id"] = document_id
 			metadata[document_id]["title"] = document["title"]
 			metadata[document_id]["summary"] = document["summary_detail"]["value"]
 			metadata[document_id]["category"] = document["arxiv_primary_category"]["term"]
 
 		return metadata
 
-	def convertDocumentToText(self, document_pdf_file_path):
-		document_text = textract.process(document_pdf_file_path, encoding = "utf-8")
+	def getDocumentPDF(self, document):
+		document_pdf_file_path = arxiv.download(document, DATA_DIRECTORY_PATH)
 
-		document_text_file_path = DATA_DIRECTORY_PATH + document_pdf_file_path[:-len("pdf")] + "txt"
-		document_file = open(document_text_file_path, "w")
-		document_file.write(document_text)
-		document_file.close()
-
-		return document_text_file_path
+		return document_pdf_file_path
 
 	def processDocuments(self, documents, metadata):
 		metadata_file = open(COMPUTER_SCIENCE_METADATA_PATH, "rb")
@@ -75,8 +71,10 @@ class DocumentRetriever(object):
 
 
 				try:
+					# Send the document for processingsublinme
+					document_processor = DocumentProcessor(document_pdf_file_path)
 					# Convert the document to text and delete the PDF
-					document_text_file_path = self.convertDocumentToText(document_pdf_file_path)
+					#document_text_file_path = self.convertDocumentToText(document_pdf_file_path)
 					#print("Converted document to text")
 
 				except Exception as exception:
@@ -89,15 +87,15 @@ class DocumentRetriever(object):
 					corpus_metadata[document_id] = metadata[document_id]
 				
 					# Send it for processing
-					document_processor = DocumentProcessor(document_text_file_path)
+					
 
-					document_processor.processText()
-					document_processor.writeToCorpus()
+					#document_processor.processText()
+					#document_processor.writeToCorpus()
 					#print("Processed document")
 					
 					# Remove both the .pdf and .txt. version of the file from disk
-					os.remove(document_pdf_file_path)
-					os.remove(document_text_file_path)
+					#os.remove(document_pdf_file_path)
+					#os.remove(document_text_file_path)
 
 					number_of_successes = number_of_successes + 1
 					print " - succeeded"

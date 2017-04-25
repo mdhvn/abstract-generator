@@ -1,4 +1,5 @@
 from document_retriever import DocumentRetriever
+import os
 import pickle
 import time
 
@@ -19,7 +20,6 @@ class Corpus(object):
 		self.corpus_file = open(self.corpus_path, "rb")
 		self.metadata_file = open(self.metadata_path, "rb")
 		
-		# Do we need to deal with this at all?
 		try:
 			self.corpus = pickle.load(self.corpus_file)
 		except:
@@ -58,6 +58,9 @@ class Corpus(object):
 	def reload(self):
 		self.loadCorpus()
 
+	def containsDocument(self, document):
+		return (document["id"] in self.metadata)
+		
 	def getQueriesFromFile(self):
 		queries_file = open(COMPUTER_SCIENCE_QUERIES_PATH, "r")
 		queries = queries_file.read().splitlines()
@@ -67,6 +70,16 @@ class Corpus(object):
 
 		return queries
 
+	def addTokensToCorpus(self, tokens):
+		unique_tokens = set(tokens)
+
+		for token in unique_tokens:
+			if token in self.corpus:
+				self.corpus[token] = self.corpus[token] + 1
+			else:
+				self.corpus[token] = 0
+		
+
 	def buildCorpus(self):
 		for query in self.getQueriesFromFile():
 			document_retriever = DocumentRetriever()
@@ -75,36 +88,88 @@ class Corpus(object):
 			print query
 			print ""
 		
-			documents, metadata = document_retriever.getDocuments(query, 20)
-			document_retriever.processDocuments(documents, metadata)
+			documents, metadata = document_retriever.getDocuments(query, 5)
+
+			for document in documents:
+				if not self.containsDocument(document):
+					document_id = document["id"]
+					document_pdf_file_path = document_retriever.getDocumentPDF(document)
+
+					try:
+						document_processor = DocumentProcessor(document_pdf_file_path)
+						# print?
+					except Exception as exception:
+						# count failure
+						# print
+						pass
+					else:
+						# GET DATA BACK FROM THE PROCESSOR
+						tokens = document_processor.getTokens()
+						
+						self.addTokensToCorpus(tokens)
+						self.metadata[document_id] = metadata[document_id]
+						self.writeCorpusToDisk()
+						# count success
+
+					os.remove(document_pdf_file_path)
+					
+						
+					
+	
+			# Add retries for documents not received:
+			# 	1) When fewer documents are retrieved than requested.
+			# 	2) When a retrieved document already exists.
+
+			# document_retriever.py should download a document, store it on disk
+			# and return the path to the document. 
+
+			# Let corpus.py send the document for processing
+			# and delete the file. 
+
+			#document_retriever.processDocuments(documents, metadata)
+			#print "Documents: ", len(documents)
+			#print "Verifying with metadata: ", len(metadata)
 			
-			del document_retriever
+			#del document_retriever
 
 			#print "Waiting for 3 seconds..."
-			#time.sleep(3)
+			time.sleep(1)
 	
 	def clearCorpus(self):
 		self.corpus_file = open(self.corpus_path, "w").close()
 		self.metadata_file = open(self.metadata_path, "w").close()
 		print "Cleared corpus and metadata files"
 
+	def writeCorpusToDisk(self):
+		self.corpus_file = open(self.corpus_path, "wb")
+		self.metadata_file = open(self.metadata_path, "wb")
+
+		pickle.dump(self.corpus, self.corpus_file)
+		pickle.dump(self.metadata, self.metadata_file)	
+
+		self.corpus_file.close()
+		self.metadata_file.close()
+
+	def __del__(self):
+		self.writeCorpusToDisk()
+
 def main():
 	computer_science_corpus = Corpus(COMPUTER_SCIENCE_CORPUS_PATH)
 	print "Total documents: ", computer_science_corpus.numberOfDocuments()
-	print "Total words: ", computer_science_corpus.totalWords()
-	print "Frequency of 'the': ", computer_science_corpus.wordFrequency("the")
-	print "Frequency of 'algorithm': ", computer_science_corpus.wordFrequency("algorithm")
-	print "Frequency of 'philosophy': ", computer_science_corpus.wordFrequency("philosophy")
-	print "Frequency of 'Donald': ", computer_science_corpus.wordFrequency("Donald")
-	print "Frequency of 'Knuth': ", computer_science_corpus.wordFrequency("Knuth")
-	print "Frequency of 'artificial': ", computer_science_corpus.wordFrequency("artificial")
-	print "Frequency of 'intelligence': ", computer_science_corpus.wordFrequency("intelligence")
-	print "Frequency of 'India': ", computer_science_corpus.wordFrequency("India")
-	print "Number of documents on 'Formal Languages': ", computer_science_corpus.wordFrequency("cs.FL")
-	print "Number of documents on 'Distributed and Parallel Computing': ", computer_science_corpus.wordFrequency("cs.DC")
-	print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
-	print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
-	#computer_science_corpus.buildCorpus()
+	# print "Total words: ", computer_science_corpus.totalWords()
+	# print "Frequency of 'the': ", computer_science_corpus.wordFrequency("the")
+	# print "Frequency of 'algorithm': ", computer_science_corpus.wordFrequency("algorithm")
+	# print "Frequency of 'philosophy': ", computer_science_corpus.wordFrequency("philosophy")
+	# print "Frequency of 'Donald': ", computer_science_corpus.wordFrequency("Donald")
+	# print "Frequency of 'Knuth': ", computer_science_corpus.wordFrequency("Knuth")
+	# print "Frequency of 'artificial': ", computer_science_corpus.wordFrequency("artificial")
+	# print "Frequency of 'intelligence': ", computer_science_corpus.wordFrequency("intelligence")
+	# print "Frequency of 'India': ", computer_science_corpus.wordFrequency("India")
+	# print "Number of documents on 'Formal Languages': ", computer_science_corpus.wordFrequency("cs.FL")
+	# print "Number of documents on 'Distributed and Parallel Computing': ", computer_science_corpus.wordFrequency("cs.DC")
+	# print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
+	# print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
+	computer_science_corpus.buildCorpus()
 	#computer_science_corpus.clearCorpus()
 
 	
