@@ -20,12 +20,14 @@ class DocumentProcessor(object):
 		# class is provided a .txt (text) file as input. Use
 		# the readFileContents() function to read input from 
 		# a text file.
-		self.document_text = self.convertDocumentToText(document_file_path)
+		#self.document_text = self.convertDocumentToText(document_file_path)
 
-		#self.processText()
+		self.file_path = document_file_path
+		self.readFileContents()	
 
-		#self.filename = filename
-		#self.readFileContents()
+		self.processText()
+
+		pass
 
 	def convertDocumentToText(self, document_pdf_file_path):
 		document_text = textract.process(document_pdf_file_path, encoding = "utf-8")
@@ -38,26 +40,32 @@ class DocumentProcessor(object):
 		return document_text
 
 	def readFileContents(self):
-		documentFile = codecs.open(self.filename, "r", "utf-8")
-		self.documentContents = documentFile.read()
-		self.documentContents = unidecode(self.documentContents)  # Decode to ASCII
+		documentFile = codecs.open(self.file_path, "r", "utf-8")
+		self.document_text = documentFile.read()
+		self.document_text = unidecode(self.document_text)  # Decode to ASCII
 		documentFile.close()
+
+	def cleanTokens(self):        
+		tokens_to_delete = [ ]
+
+        	for token in range(0, len(self.tokens)):
+            		self.tokens[token] = self.tokens[token].strip()
+            
+            	if self.tokens[token] in string.punctuation:
+                	tokens_to_delete.append(self.tokens[token])
+
+       		for token in tokens_to_delete:
+			self.tokens.remove(token)
 
 	def processText(self):
 		self.tokens = word_tokenize(self.document_text)
+		self.cleanTokens()
+
+		self.unique_tokens = set(self.tokens)
+
 		self.frequency_distribution = FreqDist(self.tokens)
-		self.number_of_unqiue_tokens = self.frequency_distribution.N()
-		self.word_frequencies = self.frequency_distribution.most_common(self.number_of_samples)
+		self.word_frequencies = self.frequency_distribution.most_common(len(self.unique_tokens))
 		
-		cleaned_token_list = [ ]
-
-		# Clean the list
-		for token in self.tokens:
-			if token not in string.punctuation:
-				cleaned_token_list.append(token)
-		
-		self.tokens = cleaned_token_list[:]
-
 		#self.word_count_dictionary = { }
 
 		#for word_count in self.word_counts:
@@ -65,6 +73,10 @@ class DocumentProcessor(object):
 		#	count = word_count[1]
                 #
 		#	self.word_count_dictionary[word] = count
+
+	def getTokens(self):
+		# Return the set of unique tokens for this document?
+		return self.tokens
 
 	def getWordFrequencies(self):
 		WORD_INDEX = 0

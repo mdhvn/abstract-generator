@@ -1,3 +1,4 @@
+from document_processor import DocumentProcessor
 from document_retriever import DocumentRetriever
 import os
 import pickle
@@ -88,33 +89,44 @@ class Corpus(object):
 			print query
 			print ""
 		
-			documents, metadata = document_retriever.getDocuments(query, 5)
+			documents, metadata = document_retriever.getDocuments(query, 10)
 
 			for document in documents:
 				if not self.containsDocument(document):
 					document_id = document["id"]
-					document_pdf_file_path = document_retriever.getDocumentPDF(document)
+					document_text_file_path = ""
 
 					try:
-						document_processor = DocumentProcessor(document_pdf_file_path)
+						document_text_file_path = document_retriever.getDocumentTextFile(document)
 						# print?
 					except Exception as exception:
 						# count failure
 						# print
-						pass
+						print " - failed (", str(type(exception).__name__), ")" 
+
+						if (len(document_text_file_path) > 4):
+							os.remove(document_text_file_path)
+		
 					else:
+						print " - succeeded"
 						# GET DATA BACK FROM THE PROCESSOR
+						document_processor = DocumentProcessor(document_text_file_path)
 						tokens = document_processor.getTokens()
 						
 						self.addTokensToCorpus(tokens)
 						self.metadata[document_id] = metadata[document_id]
 						self.writeCorpusToDisk()
-						# count success
-
-					os.remove(document_pdf_file_path)
-					
 						
+						if (len(document_text_file_path) > 4):
+							os.remove(document_text_file_path)
+
+						# count success
+				else:
+					print "- Document already in corpus"
+
 					
+
+							
 	
 			# Add retries for documents not received:
 			# 	1) When fewer documents are retrieved than requested.
@@ -161,19 +173,19 @@ def main():
 	computer_science_corpus = Corpus(COMPUTER_SCIENCE_CORPUS_PATH)
 	print "Total documents: ", computer_science_corpus.numberOfDocuments()
 	# print "Total words: ", computer_science_corpus.totalWords()
-	# print "Frequency of 'the': ", computer_science_corpus.wordFrequency("the")
-	# print "Frequency of 'algorithm': ", computer_science_corpus.wordFrequency("algorithm")
-	# print "Frequency of 'philosophy': ", computer_science_corpus.wordFrequency("philosophy")
-	# print "Frequency of 'Donald': ", computer_science_corpus.wordFrequency("Donald")
-	# print "Frequency of 'Knuth': ", computer_science_corpus.wordFrequency("Knuth")
-	# print "Frequency of 'artificial': ", computer_science_corpus.wordFrequency("artificial")
-	# print "Frequency of 'intelligence': ", computer_science_corpus.wordFrequency("intelligence")
-	# print "Frequency of 'India': ", computer_science_corpus.wordFrequency("India")
-	# print "Number of documents on 'Formal Languages': ", computer_science_corpus.wordFrequency("cs.FL")
-	# print "Number of documents on 'Distributed and Parallel Computing': ", computer_science_corpus.wordFrequency("cs.DC")
-	# print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
-	# print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
-	computer_science_corpus.buildCorpus()
+	print "Frequency of 'the': ", computer_science_corpus.wordFrequency("the")
+	print "Frequency of 'algorithm': ", computer_science_corpus.wordFrequency("algorithm")
+	print "Frequency of 'philosophy': ", computer_science_corpus.wordFrequency("philosophy")
+	print "Frequency of 'Donald': ", computer_science_corpus.wordFrequency("Donald")
+	print "Frequency of 'Knuth': ", computer_science_corpus.wordFrequency("Knuth")
+	print "Frequency of 'artificial': ", computer_science_corpus.wordFrequency("artificial")
+	print "Frequency of 'intelligence': ", computer_science_corpus.wordFrequency("intelligence")
+	print "Frequency of 'India': ", computer_science_corpus.wordFrequency("India")
+	print "Number of documents on 'Formal Languages': ", computer_science_corpus.wordFrequency("cs.FL")
+	print "Number of documents on 'Distributed and Parallel Computing': ", computer_science_corpus.wordFrequency("cs.DC")
+	print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
+	print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
+	#computer_science_corpus.buildCorpus()
 	#computer_science_corpus.clearCorpus()
 
 	

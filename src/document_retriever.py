@@ -41,76 +41,91 @@ class DocumentRetriever(object):
 
 		return metadata
 
-	def getDocumentPDF(self, document):
+	#def getDocumentPDF(self, document):
+	#	document_pdf_file_path = arxiv.download(document, DATA_DIRECTORY_PATH)
+	#
+	#	return document_pdf_file_path
+
+	def getDocumentTextFile(self, document):
 		document_pdf_file_path = arxiv.download(document, DATA_DIRECTORY_PATH)
-
-		return document_pdf_file_path
-
-	def processDocuments(self, documents, metadata):
-		metadata_file = open(COMPUTER_SCIENCE_METADATA_PATH, "rb")
+		document_text = textract.process(document_pdf_file_path, encoding = "utf-8")
 		
-		corpus_metadata = { }
-
-		if (len(metadata_file.read()) != 0):
-			metadata_file.seek(0)  # Reset the file pointer.
-			corpus_metadata = pickle.load(metadata_file)
-			metadata_file.close()
+		document_text_file_path = DATA_DIRECTORY_PATH + document_pdf_file_path[:-len("pdf")] + "txt"
+		document_text_file = open(document_text_file_path, "w")
+		document_text_file.write(document_text)
+		document_text_file.close()
 		
-		number_of_documents = len(documents)
-		number_of_successes = 0
-		number_of_failures = 0
+		os.remove(document_pdf_file_path)
 
-		for document in documents:
-			document_id = document["id"]
-
-			if document_id not in corpus_metadata:	
-				# Download the document
-				document_pdf_file_path = arxiv.download(document, DATA_DIRECTORY_PATH)
-				document_text_file_path = ""  # Do we need this?
-				print "\t Downloaded document ", (number_of_successes + number_of_failures), "/", number_of_documents,
+		return document_text_file_path
 
 
-				try:
-					# Send the document for processingsublinme
-					document_processor = DocumentProcessor(document_pdf_file_path)
-					# Convert the document to text and delete the PDF
-					#document_text_file_path = self.convertDocumentToText(document_pdf_file_path)
-					#print("Converted document to text")
+# 	def processDocuments(self, documents, metadata):
+# 		metadata_file = open(COMPUTER_SCIENCE_METADATA_PATH, "rb")
+		
+# 		corpus_metadata = { }
 
-				except Exception as exception:
-					#print("Could not decode the document correctly")
-					os.remove(document_pdf_file_path)
-					number_of_failures = number_of_failures + 1
-					print " - failed (", str(type(exception).__name__), ")"  
-				else:
-					# Add this document to the corpus metadata
-					corpus_metadata[document_id] = metadata[document_id]
+# 		if (len(metadata_file.read()) != 0):
+# 			metadata_file.seek(0)  # Reset the file pointer.
+# 			corpus_metadata = pickle.load(metadata_file)
+# 			metadata_file.close()
+		
+# 		number_of_documents = len(documents)
+# 		number_of_successes = 0
+# 		number_of_failures = 0
+
+# 		for document in documents:
+# 			document_id = document["id"]
+
+# 			if document_id not in corpus_metadata:	
+# 				# Download the document
+# 				document_pdf_file_path = 
+# (document, DATA_DIRECTORY_PATH)
+# 				document_text_file_path = ""  # Do we need this?
+# 				print "\t Downloaded document ", (number_of_successes + number_of_failures), "/", number_of_documents,
+
+
+# 				try:
+# 					# Send the document for processingsublinme
+# 					document_processor = DocumentProcessor(document_pdf_file_path)
+# 					# Convert the document to text and delete the PDF
+# 					#document_text_file_path = self.convertDocumentToText(document_pdf_file_path)
+# 					#print("Converted document to text")
+
+# 				except Exception as exception:
+# 					#print("Could not decode the document correctly")
+# 					os.remove(document_pdf_file_path)
+# 					number_of_failures = number_of_failures + 1
+# 					print " - failed (", str(type(exception).__name__), ")"  
+# 				else:
+# 					# Add this document to the corpus metadata
+# 					corpus_metadata[document_id] = metadata[document_id]
 				
-					# Send it for processing
+# 					# Send it for processing
 					
 
-					#document_processor.processText()
-					#document_processor.writeToCorpus()
-					#print("Processed document")
+# 					#document_processor.processText()
+# 					#document_processor.writeToCorpus()
+# 					#print("Processed document")
 					
-					# Remove both the .pdf and .txt. version of the file from disk
-					#os.remove(document_pdf_file_path)
-					#os.remove(document_text_file_path)
+# 					# Remove both the .pdf and .txt. version of the file from disk
+# 					#os.remove(document_pdf_file_path)
+# 					#os.remove(document_text_file_path)
 
-					number_of_successes = number_of_successes + 1
-					print " - succeeded"
+# 					number_of_successes = number_of_successes + 1
+# 					print " - succeeded"
 		
 		
-		print ""
-		print ""
-		print "Total documents: ", number_of_documents
-		print "Number of successes: ", number_of_successes
-		print "Number of failures: ", number_of_failures	
+# 		print ""
+# 		print ""
+# 		print "Total documents: ", number_of_documents
+# 		print "Number of successes: ", number_of_successes
+# 		print "Number of failures: ", number_of_failures	
 					
-		# Write the updated corpus out to the file
-		metadata_file = open(COMPUTER_SCIENCE_METADATA_PATH, "wb")
-		pickle.dump(corpus_metadata, metadata_file)
-		metadata_file.close()
+# 		# Write the updated corpus out to the file
+# 		metadata_file = open(COMPUTER_SCIENCE_METADATA_PATH, "wb")
+# 		pickle.dump(corpus_metadata, metadata_file)
+# 		metadata_file.close()
 
 def main():
 	retriever = DocumentRetriever()
