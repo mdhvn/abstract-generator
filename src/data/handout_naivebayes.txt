@@ -1,0 +1,194 @@
+Machine learning and Naive Bayes
+Katrin Erk
+February 23, 2017
+
+1
+
+What is machine learning?
+
+Machine learning algorithms learn from data without being explicitly programmed
+(Arthur Samuel, after Wikipedia).
+For example, in supervised classification, a machine learning algorithm sees data
+that has been labeled with the correct label. For word sense disambiguation,
+this would be occurrences of a word, say star, labeled with the correct sense of
+each occurrence, say celestial object versus well-known person. The task of the
+algorithm is then to learn from that labeled data and to generalize, such that it
+can label new occurrences of the word star.
+There are other kinds of machine learning too, for example clustering, where the
+task of the machine learning algorithm is to group a collection of data points
+into coherent groups. That is a kind of unsupervised machine learning (because
+the algorithm does not get labeled data to show which data point should go into
+which group).
+
+2
+
+Featurization
+
+In the case of word sense disambiguation, you want the algorithm to learn from
+labeled data points, occurrences of a word in context togheter with the right
+sense. How should you present those data points to the algorithm? You could
+use the sentence as is. Or you could record the sentence and give the algorithm
+the sound waves. But that might make it hard for the algorithm to figure out
+how to learn.
+Typically in supervised classification, each data point is converted into a list of
+features. These are characteristics of the data point that the experimenter has
+decided will be useful for learning.
+For word sense disambiguation, this could be the words directly before and after
+the target word. Or it could be all the words that appear in a wide context
+around the target word.
+1
+
+Typically a data point gets converted to a list of features, or feature vector,
+where the feature vectors have the same length for all data points.
+
+3
+
+The Naive Bayes classifier
+
+Say you have a data point that you represent as a feature vector f~. Then in
+a probabilistic classifier, what you want to do is to assign the most likely sense
+for this feature vector.
+We can write this down as a formula. Say we have a collection S of senses.
+Then the probability of a sense s from S is P (s|f~), the probability of s given
+the feature vector f~.
+To write “the most likely sense ŝ given f~”, we say:
+ŝ = argmaxs in S P (s|f~)
+“argmax” is something similar to “max”. maxs in S P (s|f~) would give us the
+highest probability that any sense s achieves. This is almost, but not quite,
+what we want. argmaxs in S P (s|f~) is the sense for which we get this highest
+probability.
+Then we can change this formula around. We take two steps: One that gives
+the algorithm the name “Bayes”, and one that gives it the name “naive”.
+
+3.1
+
+Applying Bayes’ rule
+
+First, for the “Bayes” step. In general, Bayes’ rule says:
+P (A|B) =
+
+P (B|A)P (A)
+P (B)
+
+In our case,
+P (s|f~) =
+
+P (f~|s)P (s)
+P (f~)
+
+So
+ŝ = argmaxs∈S
+
+P (f~|s)P (s)
+P (f~)
+
+Say we have two senses for the word star, “s1 : celestial object” and “s2 : wellknown person”. Then we get this for each of the senses:
+
+2
+
+P (f~|s1 )P (s1 )
+P (f~)
+P (f~|s2 )P (s2
+P (f~)
+
+P (s1 |f~) =
+P (s2 |f~) =
+
+We divide by the same denominator in both cases! That means that the sense
+~
+(s)
+that has the highest value on P (fP|s)P
+will also have the highest value on
+(f~)
+P (f~|s)P (s). So we can just leave out the denominator, and have less work to
+do.
+Theno what we actually need to compute is
+ŝ = argmaxs∈S P (f~|s)P (s)
+That is we need to compute two things: The probability P (s) for each sense,
+and the probability P (f~|s).
+
+3.2
+
+Estimating probabilities from data
+
+We do P (s) first. Where do we get probabilities from? This is where the training
+data comes in!
+One good way in which we can estimate probabilities is by counting. Say you
+have a die, and you want to know what the probability is of rolling a 6 with this
+die. Patient as you are, you roll the die 1,000 times, and find that you rolled
+a six 167 times. Now you estimate that the probability of rolling a 6 with this
+die is approximately 167/1000 = 1/6.
+Now let’s do the same with our training data. Say you have 1,000 occurrences
+for the word star, 600 of them labeled “well-known person” and 400 labeled
+“celestial object”. Then you simply estimate
+P (celestial object) = 400/1000 = 2/5
+and
+P (well − known person) = 600/1000 = 3/5
+You simply use relative frequency in the data as your estimate of the probability.
+So, now you have P (s). But how about P (f~|s)?
+
+3.3
+
+A naive assumption
+
+The value P (f~|s) is another probability. Can we estimate it from corpus data,
+as we did for P (s)? Let’s try the same relative frequency idea. Here it would
+mean to compute:
+3
+
+• for the numerator: the number of times we have seen the feature vector f~
+in cases where the sense was s
+• for the denominator: the number of times we have seen sense s.
+But the numerator is a problem: How often can we hope to see the exact same
+feature vector, that is, the exact same context for the same target word? Pretty
+much never. So with this method we will never see numbers high enough to
+estimate P (f~|s) well.
+At this point we make a naive assumption: That the occurrences of all the
+features are independent given sense s. That is, we assume that the occurrence
+of a word like “shine” in the context will be completely independent from the
+occurrence of, say, “brightly”, and the occurrence of “Hollywood” is completely
+independent of the occurrence of “movie”. This is an extremely naive assumption indeed!
+However, it is also a very useful assumption: If the occurrences of all the features are independent, then P (f~|s) is simply the product of the probabilities for
+individual features:
+P (f~|s) ≈ P (f1 |s) · P (f2 |s) · . . . · P (fn |s)
+Another way to write this is
+P (f~|s) ≈
+
+n
+Y
+
+P (fj |s)
+
+j=1
+
+This very simple method with strong simplifying assumptions has been used
+successfully in part-of-speech tagging, speech recognition, probabilistic parsing,
+...
+Now we have something much simpler that we need to estimate: probabilities
+P (f |s) for an individual feature f . This we can do using relative frequency: We
+just count how often we have seen feature f together with sense s, and divide
+by the number of times we have seen sense s.
+P (f |s) =
+
+count(f, s)
+count(s)
+
+Writing P (s) the same way: Let ` be the target word we are disambiguating (in
+our example, “star”), then
+P (s) =
+
+count(s, `)
+count(`)
+
+Overall, the formula for Naive Bayes for WSD is:
+ŝ = argmaxs∈S P (s)
+
+n
+Y
+j=1
+
+4
+
+P (fj |s)
+
+

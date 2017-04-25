@@ -6,7 +6,7 @@ from nltk import word_tokenize
 from nltk import FreqDist
 import operator
 import string
-from textblob import TextBlob
+#from textblob import TextBlob
 from unidecode import unidecode
 
 DATA_DIRECTORY_PATH = "../data/"
@@ -103,9 +103,9 @@ def main():
 				pass
 			else:	
 				if sentence not in sentences_used:
-					sentence_sentiment = TextBlob(sentence)
-					
-					print "\t", "-", sentence, sentence_sentiment.sentiment
+					#sentence_sentiment = TextBlob(sentence)
+					print "\t - ", sentence
+					#print "\t", "-", sentence, sentence_sentiment.sentiment
 					sentences_used.append(sentence)
 					break
 
