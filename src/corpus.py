@@ -138,6 +138,10 @@ class Corpus(object):
 	def clearCorpus(self):
 		self.corpus_file = open(self.corpus_path, "w").close()
 		self.metadata_file = open(self.metadata_path, "w").close()
+
+		self.corpus = { }
+		self.metadata = { }
+
 		print "Cleared corpus and metadata files"
 
 	def writeCorpusToDisk(self):
