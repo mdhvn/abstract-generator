@@ -1,2 +1,1294 @@
 (dp0
-.
+Vhttp://arxiv.org/abs/cs/0508065v1
+p1
+(dp2
+S'category'
+p3
+Vcs.DL
+p4
+sS'summary'
+p5
+VVarious XML-based approaches aimed at representing compound digital assets\u000ahave emerged over the last several years. Approaches that are of specific\u000arelevance to the digital library community include the Metadata Encoding and\u000aTransmission Standard (METS), the IMS Content Packaging XML Binding, and the\u000aXML Formatted Data Units (XFDU) developed by CCSDS Panel 2. The MPEG-21 Digital\u000aItem Declaration (MPEG-21 DID) is another standard specifying the\u000arepresentation of digital assets in XML that, so far, has received little\u000aattention in the digital library community. This article gives a brief insight\u000ainto the MPEG-21 standardization effort, highlights the major characteristics\u000aof the MPEG-21 DID Abstract Model, and describes the MPEG-21 Digital Item\u000aDeclaration Language (MPEG-21 DIDL), an XML syntax for the representation of\u000adigital assets based on the MPEG-21 DID Abstract Model. Also, it briefly\u000ademonstrates the potential relevance of MPEG-21 DID to the digital library\u000acommunity by describing its use in the aDORe repository environment at the\u000aResearch Library of the Los Alamos National Laboratory (LANL) for the\u000arepresentation of digital assets.
+p6
+sS'id'
+p7
+g1
+sS'title'
+p8
+VRepresenting Digital Assets using MPEG-21 Digital Item Declaration
+p9
+ssVhttp://arxiv.org/abs/cs/9810020v1
+p10
+(dp11
+g3
+Vcs.CG
+p12
+sg5
+VSeveral recent SIGGRAPH papers on surface simplification are described.
+p13
+sg7
+g10
+sg8
+VComputational Geometry Column 33
+p14
+ssVhttp://arxiv.org/abs/1704.05136v1
+p15
+(dp16
+g3
+Vcs.DB
+p17
+sg5
+VIn this work, answer-set programs that specify repairs of databases are used\u000aas a basis for solving computational and reasoning problems about causes for\u000aquery answers from databases.
+p18
+sg7
+g15
+sg8
+VThe Causality/Repair Connection in Databases: Causality-Programs
+p19
+ssVhttp://arxiv.org/abs/1111.4450v1
+p20
+(dp21
+g3
+Vcs.CR
+p22
+sg5
+VWhile strictly black and white images have been the basis for visual\u000acryptography, there has been a lack of an easily implemented format for colour\u000aimages. This paper establishes a simple, yet secure way of implementing visual\u000acryptography with colour, assuming a binary data representation.
+p23
+sg7
+g20
+sg8
+VFull Restoration of Visual Encrypted Color Images
+p24
+ssVhttp://arxiv.org/abs/1210.2457v1
+p25
+(dp26
+g3
+Vcs.LO
+p27
+sg5
+VWe transform a Muller game with n vertices into a safety game with (n!)^3\u000avertices whose solution allows to determine the winning regions of the Muller\u000agame and to compute a finite-state winning strategy for one player. This yields\u000aa novel antichain-based memory structure and a natural notion of permissive\u000astrategies for Muller games. Moreover, we generalize our construction by\u000apresenting a new type of game reduction from infinite games to safety games and\u000ashow its applicability to several other winning conditions.
+p28
+sg7
+g25
+sg8
+VDown the Borel Hierarchy: Solving Muller Games via Safety Games
+p29
+ssVhttp://arxiv.org/abs/1004.4793v1
+p30
+(dp31
+g3
+Vcs.CV
+p32
+sg5
+VA logical approach to object recognition on image is proposed. The main idea\u000aof the approach is to perform the object recognition as a logical inference on\u000aa set of rules describing an object shape.
+p33
+sg7
+g30
+sg8
+VLogical methods of object recognition on satellite images using spatial\u000a  constraints
+p34
+ssVhttp://arxiv.org/abs/0908.0833v1
+p35
+(dp36
+g3
+Vcs.CE
+p37
+sg5
+VThe top-down approach of engineering software integration is considered in\u000athis parer. A set of advantages of this approach are presented, by examples.\u000aAll examples are supplied by open source code.
+p38
+sg7
+g35
+sg8
+VTop-down Paradigm in Engineering Software Integration
+p39
+ssVhttp://arxiv.org/abs/1112.0262v1
+p40
+(dp41
+g3
+Vphysics.soc-ph
+p42
+sg5
+VModels that explain the economical and political realities of nowadays\u000asocieties should help all the world's citizens. Yet, the last four years showed\u000athat the current models are missing. Here we develop a dynamical\u000asociety-deciders model showing that the long lasting economical stress can be\u000asolved when increasing fairness in nations. fairness is computed for each\u000anation using indicators from economy and politics. Rather than austerity versus\u000aspending, the dynamical model suggests that solving crises in western societies\u000ais possible with regulations that reduce the stability of the deciders, while\u000ashifting wealth in the direction of the people. This shall increase the\u000adynamics among socio-economic classes, further increasing fairness.
+p43
+sg7
+g40
+sg8
+VFairness in society
+p44
+ssVhttp://arxiv.org/abs/0907.5469v1
+p45
+(dp46
+g3
+Vcs.GT
+p47
+sg5
+VAn abstraction of normal form games is proposed, called\u000aFeasibility/Desirability Games (or FD Games in short). FD Games can be seen\u000afrom three points of view: as a new presentation of games in which Nash\u000aequilibria can be found, as choice models in microeconomics or as a model of\u000aevolution in games.
+p48
+sg7
+g45
+sg8
+VFeasibility/Desirability Games for Normal Form Games, Choice Models and\u000a  Evolutionary Games
+p49
+ssVhttp://arxiv.org/abs/1212.0819v1
+p50
+(dp51
+g3
+Vcs.CV
+p52
+sg5
+VIt is proposed a new code for contours of plane images. This code was applied\u000afor optical character recognition of printed and handwritten characters. One\u000acan apply it to recognition of any visual images.
+p53
+sg7
+g50
+sg8
+VA Topological Code for Plane Images
+p54
+ssVhttp://arxiv.org/abs/1101.4236v1
+p55
+(dp56
+g3
+Vcs.CR
+p57
+sg5
+VThis paper presents new properties of Primitive Pythagorean Triples (PPT)\u000athat have relevance in applications where events of different probability need\u000ato be generated and in cryptography.
+p58
+sg7
+g55
+sg8
+VIndexing Properties of Primitive Pythagorean Triples for Cryptography\u000a  Applications
+p59
+ssVhttp://arxiv.org/abs/cs/0604048v1
+p60
+(dp61
+g3
+Vcs.CR
+p62
+sg5
+VThis paper explains the recent developments in security and encryption. The\u000aButterfly cipher and quantum cryptography are reviewed and compared. Examples\u000aof their relative uses are discussed and suggestions for future developments\u000aconsidered. In addition application to network security together with a\u000asubstantial review of classification of encryption systems and a summary of\u000asecurity weaknesses are considered.
+p63
+sg7
+g60
+sg8
+VWill the Butterfly Cipher keep your Network Data secure? Developments in\u000a  Computer Encryption
+p64
+ssVhttp://arxiv.org/abs/cs/9808008v1
+p65
+(dp66
+g3
+Vcs.CG
+p67
+sg5
+VProblems presented at the open-problem session of the 14th Annual ACM\u000aSymposium on Computational Geometry are listed.
+p68
+sg7
+g65
+sg8
+VComputational Geometry Column 34
+p69
+ssVhttp://arxiv.org/abs/1209.3054v1
+p70
+(dp71
+g3
+Vcs.DB
+p72
+sg5
+VThis paper, the first step to connect relational databases with systems\u000aconsequence (Kent: "System Consequence" 2009), is concerned with the semantics\u000aof relational databases. It aims to to study system consequence in the\u000alogical/semantic system of relational databases. The paper, which was inspired\u000aby and which extends a recent set of papers on the theory of relational\u000adatabase systems (Spivak: "Functorial Data Migration" 2012), is linked with\u000awork on the Information Flow Framework (IFF) [http://suo.ieee.org/IFF/]\u000aconnected with the ontology standards effort (SUO), since relational databases\u000anaturally embed into first order logic. The database semantics discussed here\u000ais concerned with the conceptual level of database architecture. We offer both\u000aan intuitive and technical discussion. Corresponding to the notions of primary\u000aand foreign keys, relational database semantics takes two forms: a\u000adistinguished form where entities are distinguished from relations, and a\u000aunified form where relations and entities coincide. The distinguished form\u000acorresponds to the theory presented in (Spivak: "Simplicial databases"\u000a2009)[arXiv:0904.2012]. The unified form, a special case of the distinguished\u000aform, corresponds to the theory presented in (Spivak: "Functorial Data\u000aMigration" 2012). A later paper will discuss various formalisms of relational\u000adatabases, such as relational algebra and first order logic, and will complete\u000athe description of the relational database logical environment.
+p73
+sg7
+g70
+sg8
+VDatabase Semantics
+p74
+ssVhttp://arxiv.org/abs/1507.04188v1
+p75
+(dp76
+g3
+Vcs.DS
+p77
+sg5
+VWe survey models and algorithms for stream verification.
+p78
+sg7
+g75
+sg8
+VStream Verification
+p79
+ssVhttp://arxiv.org/abs/0804.3401v1
+p80
+(dp81
+g3
+Vquant-ph
+p82
+sg5
+VThis article surveys quantum computational complexity, with a focus on three\u000afundamental notions: polynomial-time quantum computations, the efficient\u000averification of quantum proofs, and quantum interactive proof systems.\u000aProperties of quantum complexity classes based on these notions, such as BQP,\u000aQMA, and QIP, are presented. Other topics in quantum complexity, including\u000aquantum advice, space-bounded quantum computation, and bounded-depth quantum\u000acircuits, are also discussed.
+p83
+sg7
+g80
+sg8
+VQuantum Computational Complexity
+p84
+ssVhttp://arxiv.org/abs/1309.1066v1
+p85
+(dp86
+g3
+Vcs.DL
+p87
+sg5
+VWe compared statistics of major digital libraries and we tried to see if\u000athere is a relationship between the volume of digital libraries and online\u000avisibility of each digitized document. Finally, we analyzed the consequences of\u000athe diffusion strategies of French digital libraries. The statistics were\u000aobtained by survey, gray literature, alexa.com, and Google Trends.
+p88
+sg7
+g85
+sg8
+VStatistiques et visibilité des bibliothèques numériques : quelles\u000a  stratégies de diffusion ?
+p89
+ssVhttp://arxiv.org/abs/1611.04216v1
+p90
+(dp91
+g3
+Vcs.CR
+p92
+sg5
+VIs secure deletion of data still a problem?
+p93
+sg7
+g90
+sg8
+VGhosts of Deletions Past: New Secure Deletion Challenges and Solutions
+p94
+ssVhttp://arxiv.org/abs/1001.4764v1
+p95
+(dp96
+g3
+Vcs.CG
+p97
+sg5
+VWe show that the number of unit-area triangles determined by a set of $n$\u000apoints in the plane is $O(n^{9/4+\u005cepsilon})$, for any $\u005cepsilon>0$, improving\u000athe recent bound $O(n^{44/19})$ of Dumitrescu et al.
+p98
+sg7
+g95
+sg8
+VAn Improved Bound on the Number of Unit Area Triangles
+p99
+ssVhttp://arxiv.org/abs/1301.5398v1
+p100
+(dp101
+g3
+Vcs.HC
+p102
+sg5
+VThis paper describes the digital library of historical resources, a research\u000aproject which involves building a testbed for the purpose of developing and\u000atesting new collaborative digital library functionality and presents an initial\u000aanalysis of the digital library's public use on the web. The digital library is\u000amodeled to focus on serving secondary students information needs in conducting\u000ahistory projects. As such, in the implementation of the digital library, the\u000ause of online resources would be an integral part of history project based\u000alearning activities. Students should be enabled to access digital resources,\u000acreate and publish their own documents in the digital library and share them\u000awith others. As a testbed system, the collaborative digital library known as\u000aCoreDev has demonstrated its capabilities in serving an educational community\u000aas has been reflected by the positive feedback on the functional requirements\u000afrom 44 users. Over 75% of the respondents in the user survey considered\u000athemselves capable of using the digital library easily. The beta tester\u000ademographics (n = 105) indicate that the digital library is reaching its target\u000acommunities.
+p103
+sg7
+g100
+sg8
+VCollaborative digital library of historical resources: Evaluation of\u000a  first users
+p104
+ssVhttp://arxiv.org/abs/1403.0417v1
+p105
+(dp106
+g3
+Vcs.CC
+p107
+sg5
+VWe study the computational complexity of two Boolean nonlinearity measures:\u000athe nonlinearity and the multiplicative complexity. We show that if one-way\u000afunctions exist, no algorithm can compute the multiplicative complexity in time\u000a$2^{O(n)}$ given the truth table of length $2^n$, in fact under the same\u000aassumption it is impossible to approximate the multiplicative complexity within\u000aa factor of $(2-\u005cepsilon)^{n/2}$. When given a circuit, the problem of\u000adetermining the multiplicative complexity is in the second level of the\u000apolynomial hierarchy. For nonlinearity, we show that it is #P hard to compute\u000agiven a function represented by a circuit.
+p108
+sg7
+g105
+sg8
+VOn the Complexity of Computing Two Nonlinearity Measures
+p109
+ssVhttp://arxiv.org/abs/1402.3913v1
+p110
+(dp111
+g3
+Vcs.DL
+p112
+sg5
+VAlong with the rapid development of digital library, digital library of the\u000athird generation, taking the main characteristics of the personalized service,\u000ahas already become the mainstream today. This article first analyzes the\u000aconcept and characteristics of digital library, then elaborates the\u000ainevitability of personalized service as well as the necessity of its\u000adevelopment and based on the Propose of establishing interested knowledge-base,\u000aenumerates several ways of personalized service, at last according to\u000aindividualized service, this paper proposes the model of "learningoriented\u000aindividual digital library" and prospects the trends of digital library.
+p113
+sg7
+g110
+sg8
+VAnalysis of Personalized Information Service System for Digital\u000a  Libraries
+p114
+ssVhttp://arxiv.org/abs/1202.3898v1
+p115
+(dp116
+g3
+Vcs.GT
+p117
+sg5
+VShapley's discounted stochastic games, Everett's recursive games and\u000aGillette's undiscounted stochastic games are classical models of game theory\u000adescribing two-player zero-sum games of potentially infinite duration. We\u000adescribe algorithms for exactly solving these games.
+p118
+sg7
+g115
+sg8
+VExact Algorithms for Solving Stochastic Games
+p119
+ssVhttp://arxiv.org/abs/1604.08799v1
+p120
+(dp121
+g3
+Vcs.CR
+p122
+sg5
+VThis paper proposes a PKINIT_AS Kerberos V5 authentication system to use\u000apublic key cryptography and a method to implement the gssapi_krb authentication\u000amethod and secured Internet service using it in IPSec VPN
+p123
+sg7
+g120
+sg8
+VA method to Implement the Kerberos User Authentication and the secured\u000a  Internet Service
+p124
+ssVhttp://arxiv.org/abs/1408.2512v1
+p125
+(dp126
+g3
+Vcs.CY
+p127
+sg5
+VExcess individual creativity can be detrimental to society because creators\u000ainvest in unproven ideas at the expense of propagating proven ones. Moreover, a\u000aproportion of individuals can benefit from creativity without being creative\u000athemselves by copying creators. We hypothesized that (1) societies increase\u000atheir rate of cultural evolution by tempering the novelty-generating effects of\u000acreativity with the novelty-preserving effects of imitation, and (2) this is\u000acarried out by selectively rewarding and punishing creativity according to the\u000avalue of the individuals' creative outputs. We tested this using an agent-based\u000amodel of cultural evolution in which each agent self-regulated its\u000ainvention-to-imitation ratio as a function of the fitness of its cultural\u000aoutputs. In self-regulating societies, agents segregated into creators and\u000aimitators. The mean fitness of cultural outputs was higher than in\u000anon-self-regulating societies, and changes in diversity were rapider and more\u000apronounced. We discuss limitations and possible social implications of our\u000afindings.
+p128
+sg7
+g125
+sg8
+VComputational Evidence that Self-regulation of Creativity is Good for\u000a  Society
+p129
+ssVhttp://arxiv.org/abs/1204.3245v1
+p130
+(dp131
+g3
+Vcs.CR
+p132
+sg5
+VDeveloped structural scheme implementation of an integrated security and\u000aformulated principles for the creation and development of an effective system\u000aof information security.
+p133
+sg7
+g130
+sg8
+VMonografia
+p134
+ssVhttp://arxiv.org/abs/1205.1125v1
+p135
+(dp136
+g3
+Vcs.CE
+p137
+sg5
+VThis article highlights some of the basic concepts of bioinformatics and data\u000amining. The major research areas of bioinformatics are highlighted. The\u000aapplication of data mining in the domain of bioinformatics is explained. It\u000aalso highlights some of the current challenges and opportunities of data mining\u000ain bioinformatics.
+p138
+sg7
+g135
+sg8
+VApplication Of Data Mining In Bioinformatics
+p139
+ssVhttp://arxiv.org/abs/1601.06289v1
+p140
+(dp141
+g3
+Vcs.CR
+p142
+sg5
+VInformation Security in Cloud Computing environments is explored. Cloud\u000aComputing is presented, security needs are discussed, and mitigation approaches\u000aare listed. Topics covered include Information Security, Cloud Computing,\u000aPrivate Cloud, Public Cloud, SaaS, PaaS, IaaS, ISO 27001, OWASP, Secure SDLC.
+p143
+sg7
+g140
+sg8
+VConsiderations for Cloud Security Operations
+p144
+ssVhttp://arxiv.org/abs/1312.5271v1
+p145
+(dp146
+g3
+Vq-fin.RM
+p147
+sg5
+VSystematic and multifactor risk models are revisited via methods which were\u000aalready successfully developed in signal processing and in automatic control.\u000aThe results, which bypass the usual criticisms on those risk modeling, are\u000aillustrated by several successful computer experiments.
+p148
+sg7
+g145
+sg8
+VSystematic and multifactor risk models revisited
+p149
+ssVhttp://arxiv.org/abs/1602.04593v1
+p150
+(dp151
+g3
+Vcs.CV
+p152
+sg5
+VThis review provides an overview of the literature on the edge detection\u000amethods for pattern recognition that inspire from the understanding of human\u000avision. We note that edge detection is one of the most fundamental process\u000awithin the low level vision and provides the basis for the higher level visual\u000aintelligence in primates. The recognition of the patterns within the images\u000arelate closely to the spatiotemporal processes of edge formations, and its\u000aimplementation needs a crossdisciplanry approach in neuroscience, computing and\u000apattern recognition. In this review, the edge detectors are grouped in as edge\u000afeatures, gradients and sketch models, and some example applications are\u000aprovided for reference. We note a significant increase in the amount of\u000apublished research in the last decade that utilizes edge features in a wide\u000arange of problems in computer vision and image understanding having a direct\u000aimplication to pattern recognition with images.
+p153
+sg7
+g150
+sg8
+VEdge Detection for Pattern Recognition: A Survey
+p154
+ssVhttp://arxiv.org/abs/1509.01213v1
+p155
+(dp156
+g3
+Vq-fin.GN
+p157
+sg5
+VArtificial intelligence has impacted many aspects of human life. This paper\u000astudies the impact of artificial intelligence on economic theory. In particular\u000awe study the impact of artificial intelligence on the theory of bounded\u000arationality, efficient market hypothesis and prospect theory.
+p158
+sg7
+g155
+sg8
+VImpact of Artificial Intelligence on Economic Theory
+p159
+ssVhttp://arxiv.org/abs/cs/9902013v1
+p160
+(dp161
+g3
+Vcs.DL
+p162
+sg5
+VDigital libraries must reach out to users from all walks of life, serving\u000ainformation needs at all levels. To do this, they must attain high standards of\u000ausability over an extremely broad audience. This paper details the evolution of\u000aone important digital library component as it has grown in functionality and\u000ausefulness over several years of use by a live, unrestricted community. Central\u000ato its evolution have been user studies, analysis of use patterns, and\u000aformative usability evaluation. We extrapolate that all three components are\u000anecessary in the production of successful digital library systems.
+p163
+sg7
+g160
+sg8
+VUse and usability in a digital library search system
+p164
+ssVhttp://arxiv.org/abs/cs/0702075v1
+p165
+(dp166
+g3
+Vcs.DB
+p167
+sg5
+VThis paper presents a simple data dump and load utility for Firebird\u000adatabases which mimics mysqldump in MySQL. This utility, fb_dump and fb_load,\u000afor dumping and loading respectively, retrieves each database table using\u000akinterbasdb and serializes the data using marshal module. This utility has two\u000aadvantages over the standard Firebird database backup utility, gbak. Firstly,\u000ait is able to backup and restore single database tables which might help to\u000arecover corrupted databases. Secondly, the output is in text-coded format (from\u000amarshal module) making it more resilient than a compressed text backup, as in\u000athe case of using gbak.
+p168
+sg7
+g165
+sg8
+VFirebird Database Backup by Serialized Database Table Dump
+p169
+ssVhttp://arxiv.org/abs/0811.2117v1
+p170
+(dp171
+g3
+Vcs.DB
+p172
+sg5
+VThis paper addresses the problem of representing the set of repairs of a\u000apossibly inconsistent database by means of a disjunctive database.\u000aSpecifically, the class of denial constraints is considered. We show that,\u000agiven a database and a set of denial constraints, there exists a (unique)\u000adisjunctive database, called canonical, which represents the repairs of the\u000adatabase w.r.t. the constraints and is contained in any other disjunctive\u000adatabase with the same set of minimal models. We propose an algorithm for\u000acomputing the canonical disjunctive database. Finally, we study the size of the\u000acanonical disjunctive database in the presence of functional dependencies for\u000aboth repairs and cardinality-based repairs.
+p173
+sg7
+g170
+sg8
+VDisjunctive Databases for Representing Repairs
+p174
+ssVhttp://arxiv.org/abs/cs/0510022v1
+p175
+(dp176
+g3
+Vcs.CR
+p177
+sg5
+VWe examine the security of existing radio navigation protocols and attempt to\u000adefine secure, scalable replacements.
+p178
+sg7
+g175
+sg8
+VCryptographic Authentication of Navigation Protocols
+p179
+ssVhttp://arxiv.org/abs/cs/0406047v1
+p180
+(dp181
+g3
+Vcs.CV
+p182
+sg5
+VSelf-organizing neural networks are used for brick finding in OPERA\u000aexperiment. Self-organizing neural networks and wavelet analysis used for\u000arecognition and extraction of car numbers from images.
+p183
+sg7
+g180
+sg8
+VSelf-organizing neural networks in classification and image recognition
+p184
+ssVhttp://arxiv.org/abs/0907.4960v1
+p185
+(dp186
+g3
+Vcs.PL
+p187
+sg5
+VEzhil is a Tamil language based interpreted procedural programming language.\u000aTamil keywords and grammar are chosen to make the native Tamil speaker write\u000aprograms in the Ezhil system. Ezhil allows easy representation of computer\u000aprogram closer to the Tamil language logical constructs equivalent to the\u000aconditional, branch and loop statements in modern English based programming\u000alanguages. Ezhil is a compact programming language aimed towards Tamil speaking\u000anovice computer users. Grammar for Ezhil and a few example programs are\u000areported here, from the initial proof-of-concept implementation using the\u000aPython programming language1. To the best of our knowledge, Ezhil language is\u000athe first freely available Tamil programming language.
+p188
+sg7
+g185
+sg8
+VEzhil: A Tamil Programming Language
+p189
+ssVhttp://arxiv.org/abs/0808.2321v1
+p190
+(dp191
+g3
+Vmath.CV
+p192
+sg5
+VVarious complexes of differential operators are constructed on complex\u000aprojective space via the Penrose transform, which also computes their\u000acohomology.
+p193
+sg7
+g190
+sg8
+VThe Penrose Transform for Complex Projective Space
+p194
+ssVhttp://arxiv.org/abs/1504.03751v1
+p195
+(dp196
+g3
+Vcs.CY
+p197
+sg5
+VIn the wake of the on-going digital revolution, we will see a dramatic\u000atransformation of our economy and most of our societal institutions. While the\u000abenefits of this transformation can be massive, there are also tremendous risks\u000ato our society. After the automation of many production processes and the\u000acreation of self-driving vehicles, the automation of society is next. This is\u000amoving us to a tipping point and to a crossroads: we must decide between a\u000asociety in which the actions are determined in a top-down way and then\u000aimplemented by coercion or manipulative technologies (such as personalized ads\u000aand nudging) or a society, in which decisions are taken in a free and\u000aparticipatory way and mutually coordinated. Modern information and\u000acommunication systems (ICT) enable both, but the latter has economic and\u000astrategic benefits. The fundaments of human dignity, autonomous\u000adecision-making, and democracies are shaking, but I believe that they need to\u000abe vigorously defended, as they are not only core principles of livable\u000asocieties, but also the basis of greater efficiency and success.
+p198
+sg7
+g195
+sg8
+VSocietal, Economic, Ethical and Legal Challenges of the Digital\u000a  Revolution: From Big Data to Deep Learning, Artificial Intelligence, and\u000a  Manipulative Technologies
+p199
+ssVhttp://arxiv.org/abs/0912.1092v1
+p200
+(dp201
+g3
+Vcs.CR
+p202
+sg5
+VNowadays, using cryptographic systems play an effective role in security and\u000asafety technologies. One of the most applied kind of cryptography is Symmetric\u000aCryptography and its applications. New aspects of symmetric Cryptography\u000amethodologies and applications has been presented by this paper. Security-based\u000anetworks and some complex technologies such as RFID and parallel security\u000asettings has been intro-duced by using Symmetric Cryptography is the main base\u000aof discussion in this paper. Designing an unique protocol for Symmetric\u000aCryptography in security networks elements is our focus. Reviewing benefits of\u000ausing these methodologies has been pre-sented and discussed in this paper.
+p203
+sg7
+g200
+sg8
+VModern Symmetric Cryptography methodologies and its applications
+p204
+ssVhttp://arxiv.org/abs/0907.2019v1
+p205
+(dp206
+g3
+Vcs.CY
+p207
+sg5
+VThis paper studies the viability of making a country a developmental state.\u000aIn particular it studies the characteristics of a developmental state and how\u000athey are linked to technology. It then identifies technical education, as a\u000avital force for the creation of a developmental state. In particular it\u000aidentifies analytical, numeracy, computational and communication skills as\u000avital forces for a society to create a developmental society.
+p208
+sg7
+g205
+sg8
+VFoundations for a Developmental State: A case for technical education
+p209
+ssVhttp://arxiv.org/abs/1107.4687v2
+p210
+(dp211
+g3
+Vcs.CL
+p212
+sg5
+VModel-based language specification has applications in the implementation of\u000alanguage processors, the design of domain-specific languages, model-driven\u000asoftware development, data integration, text mining, natural language\u000aprocessing, and corpus-based induction of models. Model-based language\u000aspecification decouples language design from language processing and, unlike\u000atraditional grammar-driven approaches, which constrain language designers to\u000aspecific kinds of grammars, it needs general parser generators able to deal\u000awith ambiguities. In this paper, we propose Fence, an efficient bottom-up\u000aparsing algorithm with lexical and syntactic ambiguity support that enables the\u000ause of model-based language specification in practice.
+p213
+sg7
+g210
+sg8
+VFence - An Efficient Parser with Ambiguity Support for Model-Driven\u000a  Language Specification
+p214
+ssVhttp://arxiv.org/abs/0911.0727v1
+p215
+(dp216
+g3
+Vcs.CR
+p217
+sg5
+VCurrent security model in Global System for Mobile Communications (GSM)\u000apredominantly use symmetric key cryptography. The rapid advancement of Internet\u000atechnology facilitates online trading, banking, downloading, emailing using\u000aresource-constrained handheld devices such as personal digital assistants and\u000acell phones. However, these applications require more security than the present\u000aGSM supports. Consequently, a careful design of GSM security using both\u000asymmetric and asymmetric key cryptography would make GSM security more\u000aadaptable in security intensive applications. This paper presents a secure and\u000aefficient protocol for GSM security using identity based cryptography. The\u000asalient features of the proposed protocol are (i) authenticated key exchange;\u000a(ii) mutual authentication amongst communicating entities; and (iii) user\u000aanonymity. The security analysis of the protocol shows its strength against\u000asome known threats observed in conventional GSM security.
+p218
+sg7
+g215
+sg8
+VGSM Security Using Identity-based Cryptography
+p219
+ssVhttp://arxiv.org/abs/1412.7860v1
+p220
+(dp221
+g3
+Vcs.DS
+p222
+sg5
+VA model of a geometric algorithm is introduced and methodology of its\u000aoperation is presented for the dynamic partitioning of data spaces.
+p223
+sg7
+g220
+sg8
+VA self-organizing geometric algorithm for autonomous data partitioning
+p224
+ssVhttp://arxiv.org/abs/cs/0412089v1
+p225
+(dp226
+g3
+Vcs.DS
+p227
+sg5
+VA concept of "evolving categories" is suggested to build a simple, scalable,\u000amathematically consistent framework for representing in uniform way both data\u000aand algorithms. A state machine for executing algorithms becomes clear, rich\u000aand powerful semantics, based on category theory, and still allows easy\u000aimplementation. Moreover, it gives an original insight into the nature and\u000asemantics of algorithms.
+p228
+sg7
+g225
+sg8
+VEvolving Categories: Consistent Framework for Representation of Data and\u000a  Algorithms
+p229
+ssVhttp://arxiv.org/abs/1501.06754v1
+p230
+(dp231
+g3
+Vmath.CO
+p232
+sg5
+VWe generalize some homotopy calculation techniques such as splittings and\u000amatching trees that are introduced for the computations in the case of the\u000aindependence complexes of graphs to arbitrary simplicial complexes, and\u000aexemplify their efficiency on some simplicial complexes, the devoid complexes\u000aof graphs, which are simplicial complexes parametrized by graphs. Additionally,\u000awe compute the homotopy type of dominance complexes of chordal graphs.
+p233
+sg7
+g230
+sg8
+VMatching trees for simplicial complexes and homotopy type of devoid\u000a  complexes of graphs
+p234
+ssVhttp://arxiv.org/abs/1412.6341v1
+p235
+(dp236
+g3
+Vq-bio.NC
+p237
+sg5
+VWe propose to study maximum flow problems for connectome graphs. We suggest a\u000afew computational problems: finding vertex pairs with maximal flow, finding new\u000aedges which would increase the maximal flow. Initial computation results for\u000asome publicly available connectome graphs are described.
+p238
+sg7
+g235
+sg8
+VConnectome graphs and maximum flow problems
+p239
+ssVhttp://arxiv.org/abs/1612.01641v1
+p240
+(dp241
+g3
+Vcs.DB
+p242
+sg5
+VNowadays, graph databases are employed when relationships between entities\u000aare in the scope of database queries to avoid performance-critical join\u000aoperations of relational databases. Graph queries are used to query and modify\u000agraphs stored in graph databases. Graph queries employ graph pattern matching\u000athat is NP-complete for subgraph isomorphism. Graph database views can be\u000aemployed that keep ready answers in terms of precalculated graph pattern\u000amatches for often stated and complex graph queries to increase query\u000aperformance. However, such graph database views must be kept consistent with\u000athe graphs stored in the graph database.\u000a  In this paper, we describe how to use incremental graph pattern matching as\u000atechnique for maintaining graph database views. We present an incremental\u000amaintenance algorithm for graph database views, which works for imperatively\u000aand declaratively specified graph queries. The evaluation shows that our\u000amaintenance algorithm scales when the number of nodes and edges stored in the\u000agraph database increases. Furthermore, our evaluation shows that our approach\u000acan outperform existing approaches for the incremental maintenance of graph\u000aquery results.
+p243
+sg7
+g240
+sg8
+VIncremental View Maintenance for Deductive Graph Databases Using\u000a  Generalized Discrimination Networks
+p244
+ssVhttp://arxiv.org/abs/cs/0001025v1
+p245
+(dp246
+g3
+Vcs.CG
+p247
+sg5
+VRecent results on curve reconstruction are described.
+p248
+sg7
+g245
+sg8
+VComputational Geometry Column 38
+p249
+ssVhttp://arxiv.org/abs/cs/0603080v1
+p250
+(dp251
+g3
+Vcs.LO
+p252
+sg5
+VThe unification algorithm is at the core of the logic programming paradigm,\u000athe first unification algorithm being developed by Robinson [5]. More efficient\u000aalgorithms were developed later [3] and I introduce here yet another efficient\u000aunification algorithm centered on a specific data structure, called the\u000aUnification Table.
+p253
+sg7
+g250
+sg8
+VYet Another Efficient Unification Algorithm
+p254
+ssVhttp://arxiv.org/abs/1307.2397v1
+p255
+(dp256
+g3
+Vphysics.soc-ph
+p257
+sg5
+VOur society is changing. Almost nothing these days works without a computer\u000achip. Computing power doubles every 18 months, and in ten years it will\u000aprobably exceed the capabilities of a human brain. Computers perform\u000aapproximately 70 percent of all financial transactions today and IBM's Watson\u000anow seems to give better customer advise than some human telephone hotlines.\u000aWhat does this imply for our future society?
+p258
+sg7
+g255
+sg8
+VFrom Technology-Driven Society to Socially Oriented Technology. The\u000a  Future of Information Society -- Alternatives to Surveillance
+p259
+ssVhttp://arxiv.org/abs/0911.1672v1
+p260
+(dp261
+g3
+Vcs.CE
+p262
+sg5
+VThe fields of computing and biology have begun to cross paths in new ways. In\u000athis paper a review of the current research in biological computing is\u000apresented. Fundamental concepts are introduced and these foundational elements\u000aare explored to discuss the possibilities of a new computing paradigm. We\u000aassume the reader to possess a basic knowledge of Biology and Computer Science
+p263
+sg7
+g260
+sg8
+VBiological Computing Fundamentals and Futures
+p264
+ssVhttp://arxiv.org/abs/cs/9810021v1
+p265
+(dp266
+g3
+Vcs.CG
+p267
+sg5
+VThe proof of Dey's new k-set bound is illustrated.
+p268
+sg7
+g265
+sg8
+VComputational Geometry Column 32
+p269
+ssVhttp://arxiv.org/abs/cs/0303002v2
+p270
+(dp271
+g3
+Vcs.CL
+p272
+sg5
+VThe author uses the entropy of the ideal Bose-Einstein gas to minimize losses\u000ain computer-oriented languages.
+p273
+sg7
+g270
+sg8
+VAbout compression of vocabulary in computer oriented languages
+p274
+ssVhttp://arxiv.org/abs/0710.1481v1
+p275
+(dp276
+g3
+Vcs.CL
+p277
+sg5
+VThis paper describes experiments on identifying the language of a single name\u000ain isolation or in a document written in a different language. A new corpus has\u000abeen compiled and made available, matching names against languages. This corpus\u000ais used in a series of experiments measuring the performance of general\u000alanguage models and names-only language models on the language identification\u000atask. Conclusions are drawn from the comparison between using general language\u000amodels and names-only language models and between identifying the language of\u000aisolated names and the language of very short document fragments. Future\u000aresearch directions are outlined.
+p278
+sg7
+g275
+sg8
+VWhat's in a Name?
+p279
+ssVhttp://arxiv.org/abs/0910.0553v1
+p280
+(dp281
+g3
+Vcs.DS
+p282
+sg5
+VWe present a 1.91457-approximation algorithm for the prize-collecting\u000atravelling salesman problem. This is obtained by combining a randomized variant\u000aof a rounding algorithm of Bienstock et al. and a primal-dual algorithm of\u000aGoemans and Williamson.
+p283
+sg7
+g280
+sg8
+VCombining Approximation Algorithms for the Prize-Collecting TSP
+p284
+ssVhttp://arxiv.org/abs/1004.4022v1
+p285
+(dp286
+g3
+Vcs.DB
+p287
+sg5
+VThe importance of security in database research has greatly increased over\u000athe years as most of critical functionality of the business and military\u000aenterprises became digitized. Database is an integral part of any information\u000asystem and they often hold sensitive data. The security of the data depends on\u000aphysical security, OS security and DBMS security. Database security can be\u000acompromised by obtaining sensitive data, changing data or degrading\u000aavailability of the database. Over the last 30 years the information technology\u000aenvironment have gone through many changes of evolution and the database\u000aresearch community have tried to stay a step ahead of the upcoming threats to\u000athe database security. The database research community has thoughts about these\u000aissues long before they were address by the implementations. This paper will\u000aexamine the different topics pertaining to database security and see the\u000aadaption of the research to the changing environment. Some short term database\u000aresearch trends will be ascertained at the conclusion.
+p288
+sg7
+g285
+sg8
+VDatabase Security: A Historical Perspective
+p289
+ssVhttp://arxiv.org/abs/0811.0071v1
+p290
+(dp291
+g3
+Vcs.GT
+p292
+sg5
+VWe introduce the concept of Conversion/Preference Games, or CP games for\u000ashort. CP games generalize the standard notion of strategic games. First we\u000aexemplify the use of CP games. Second we formally introduce and define the\u000aCP-games formalism. Then we sketch two `real-life' applications, namely a\u000aconnection between CP games and gene regulation networks, and the use of CP\u000agames to formalize implied information in Chinese Wall security. We end with a\u000astudy of a particular fixed-point construction over CP games and of the\u000aresulting existence of equilibria in possibly infinite games.
+p293
+sg7
+g290
+sg8
+VConversion/Preference Games
+p294
+ssVhttp://arxiv.org/abs/1202.4883v3
+p295
+(dp296
+g3
+Vcs.FL
+p297
+sg5
+VA recent study on structural properties of regular and context-free languages\u000ahas greatly promoted our basic understandings of the complex behaviors of those\u000alanguages. We continue the study to examine how regular languages behave when\u000athey need to cut numerous infinite languages. A particular interest rests on a\u000asituation in which a regular language needs to "dissect" a given infinite\u000alanguage into two subsets of infinite size. Every context-free language is\u000adissected by carefully chosen regular languages (or it is REG-dissectible). In\u000aa larger picture, we show that constantly-growing languages and semi-linear\u000alanguages are REG-dissectible. Under certain natural conditions, complements\u000aand finite intersections of semi-linear languages also become REG-dissectible.\u000aRestricted to bounded languages, the intersections of finitely many\u000acontext-free languages and, more surprisingly, the entire Boolean hierarchy\u000aover bounded context-free languages are REG-dissectible. As an immediate\u000aapplication of the REG-dissectibility, we show another structural property, in\u000awhich an appropriate bounded context-free language can "separate with infinite\u000amargins" two given nested infinite bounded context-free languages.
+p298
+sg7
+g295
+sg8
+VThe Dissecting Power of Regular Languages
+p299
+ssVhttp://arxiv.org/abs/0912.0448v1
+p300
+(dp301
+g3
+Vmath.CO
+p302
+sg5
+VWe present an algebraic framework for the analysis of combinatorial games.\u000aThis framework embraces the classical theory of partizan games as well as a\u000anumber of misere games, comply-constrain games, and card games that have been\u000astudied more recently. It focuses on the construction of the quotient monoid of\u000aa game, an idea that has been successively applied to several classes of games.
+p303
+sg7
+g300
+sg8
+VThe strange algebra of combinatorial games
+p304
+ssVhttp://arxiv.org/abs/cs/0102004v1
+p305
+(dp306
+g3
+Vcs.CG
+p307
+sg5
+VThe recent result that n congruent balls in R^d have at most 4 distinct\u000ageometric permutations is described.
+p308
+sg7
+g305
+sg8
+VComputational Geometry Column 41
+p309
+ssVhttp://arxiv.org/abs/cs/9908006v2
+p310
+(dp311
+g3
+Vcs.CG
+p312
+sg5
+VTwo results in "computational origami" are illustrated.
+p313
+sg7
+g310
+sg8
+VComputational Geometry Column 36
+p314
+ssVhttp://arxiv.org/abs/1408.6477v1
+p315
+(dp316
+g3
+Vcs.LO
+p317
+sg5
+VWe study tree games developed recently by Matteo Mio as a game interpretation\u000aof the probabilistic $\u005cmu$-calculus. With expressive power comes complexity.\u000aMio showed that tree games are able to encode Blackwell games and,\u000aconsequently, are not determined under deterministic strategies.\u000a  We show that non-stochastic tree games with objectives recognisable by\u000aso-called game automata are determined under deterministic, finite memory\u000astrategies. Moreover, we give an elementary algorithmic procedure which, for an\u000aarbitrary regular language L and a finite non-stochastic tree game with a\u000awinning objective L decides if the game is determined under deterministic\u000astrategies.
+p318
+sg7
+g315
+sg8
+VTree games with regular objectives
+p319
+ssVhttp://arxiv.org/abs/cs/9908007v1
+p320
+(dp321
+g3
+Vcs.CG
+p322
+sg5
+VOpen problems from the 15th Annual ACM Symposium on Computational Geometry.
+p323
+sg7
+g320
+sg8
+VComputational Geometry Column 37
+p324
+ssVhttp://arxiv.org/abs/0803.1500v1
+p325
+(dp326
+g3
+Vcs.DL
+p327
+sg5
+VNCore is an open source architecture and software platform for creating\u000aflexible, collaborative digital libraries. NCore was developed by the National\u000aScience Digital Library (NSDL) project, and it serves as the central technical\u000ainfrastructure for NSDL. NCore consists of a central Fedora-based digital\u000arepository, a specific data model, an API, and a set of backend services and\u000afrontend tools that create a new model for collaborative, contributory digital\u000alibraries. This paper describes NCore, presents and analyzes its architecture,\u000atools and services; and reports on the experience of NSDL in building and\u000aoperating a major digital library on it over the past year and the experience\u000aof the Digital Library for Earth Systems Education in porting their existing\u000adigital library and tools to the NCore platform.
+p328
+sg7
+g325
+sg8
+VNCore: Architecture and Implementation of a Flexible, Collaborative\u000a  Digital Library
+p329
+ssVhttp://arxiv.org/abs/1403.3905v1
+p330
+(dp331
+g3
+Vcs.CG
+p332
+sg5
+VDetermining visibility in planar polygons and arrangements is an important\u000asubroutine for many algorithms in computational geometry. In this paper, we\u000areport on new implementations, and corresponding experimental evaluations, for\u000atwo established and one novel algorithm for computing visibility polygons.\u000aThese algorithms will be released to the public shortly, as a new package for\u000athe Computational Geometry Algorithms Library (CGAL).
+p333
+sg7
+g330
+sg8
+VEfficient Computation of Visibility Polygons
+p334
+ssVhttp://arxiv.org/abs/0809.0524v1
+p335
+(dp336
+g3
+Vcs.MM
+p337
+sg5
+VDocuments early computer art in the Soviet bloc and describes Marxist art\u000atheory.
+p338
+sg7
+g335
+sg8
+VComputer Art in the Former Soviet Bloc
+p339
+ssVhttp://arxiv.org/abs/1606.02570v2
+p340
+(dp341
+g3
+Vcs.CY
+p342
+sg5
+VWe discuss how to use evolutionary game theory (EGT) as a framework for\u000astudying how cultural dynamics and structural properties can influence the\u000aevolution of norms and behaviors within a society. We provide a brief tutorial\u000aon how EGT works, and discuss what kinds of insights it can provide. We then\u000adescribe three published studies in which we have developed EGT models that\u000ahelp explain how structural and external conditions in a society affect the\u000aemergence of social norms.
+p343
+sg7
+g340
+sg8
+VUsing Game Theory to Study the Evolution of Cultural Norms
+p344
+ssVhttp://arxiv.org/abs/1406.0968v1
+p345
+(dp346
+g3
+Vq-fin.CP
+p347
+sg5
+VThis paper describes recent development and test implementation of a\u000acontinuous time recurrent neural network that has been configured to predict\u000arates of change in securities. It presents outcomes in the context of popular\u000atechnical analysis indicators and highlights the potential impact of continuous\u000apredictive capability on securities market trading operations.
+p348
+sg7
+g345
+sg8
+VIntegration of a Predictive, Continuous Time Neural Network into\u000a  Securities Market Trading Operations
+p349
+ssVhttp://arxiv.org/abs/1502.01257v2
+p350
+(dp351
+g3
+Vcs.LO
+p352
+sg5
+VWe explain how recent developments in the fields of realisability models for\u000alinear logic -- or geometry of interaction -- and implicit computational\u000acomplexity can lead to a new approach of implicit computational complexity.\u000aThis semantic-based approach should apply uniformly to various computational\u000aparadigms, and enable the use of new mathematical methods and tools to attack\u000aproblem in computational complexity. This paper provides the background,\u000amotivations and perspectives of this complexity-through-realisability theory to\u000abe developed, and illustrates it with recent results.
+p353
+sg7
+g350
+sg8
+VTowards a Complexity-through-Realisability Theory
+p354
+ssVhttp://arxiv.org/abs/1002.3992v1
+p355
+(dp356
+g3
+Vcs.CY
+p357
+sg5
+VThe electronic government involves developing the informational society,\u000awhich refers to an economy and a society in which the access, acquisition,\u000amemorizing, taking, transmitting, spreading and using the knowledge accede to a\u000adecisive role. The informational society involves changes in the domains of\u000aadministration (e-Government), business (electronic commerce and e-business),\u000aeducation (long distance education), culture (multimedia centers and virtual\u000alibraries), mass- media (TV, video advertising panels), and in the labor manner\u000a(tele-work and virtual commuting).The e-government refers to the interaction\u000abetween the Government, Parliament and other public institutions with the\u000acitizens by the electronic means.
+p358
+sg7
+g355
+sg8
+VThe government of state's power bodies by means of the Internet
+p359
+ssVhttp://arxiv.org/abs/1303.1671v1
+p360
+(dp361
+g3
+Vcs.DS
+p362
+sg5
+VWe describe an elegant O*(2^k) algorithm for the disjoint compression problem\u000afor Odd Cycle Transversal based on a reduction to Above Guarantee Vertex Cover.\u000aWe believe that this algorithm refines the understanding of the Odd Cycle\u000aTransversal algorithm by Reed, Smith and Vetta.
+p363
+sg7
+g360
+sg8
+VAnother Disjoint Compression Algorithm for OCT
+p364
+ssVhttp://arxiv.org/abs/1006.1402v1
+p365
+(dp366
+g3
+Vcs.GT
+p367
+sg5
+VWe examine perfect information stochastic mean-payoff games - a class of\u000agames containing as special sub-classes the usual mean-payoff games and parity\u000agames. We show that deterministic memoryless strategies that are optimal for\u000adiscounted games with state-dependent discount factors close to 1 are optimal\u000afor priority mean-payoff games establishing a strong link between these two\u000aclasses.
+p368
+sg7
+g365
+sg8
+VBlackwell-Optimal Strategies in Priority Mean-Payoff Games
+p369
+ssVhttp://arxiv.org/abs/1311.0716v1
+p370
+(dp371
+g3
+Vcs.AI
+p372
+sg5
+VIn this paper, I put forward that in many instances, thinking mechanisms are\u000aequivalent to artificial intelligence modules programmed into the human mind.
+p373
+sg7
+g370
+sg8
+VArtificial Intelligence in Humans
+p374
+ssVhttp://arxiv.org/abs/1304.7184v1
+p375
+(dp376
+g3
+Vcs.CV
+p377
+sg5
+VStandard OCR is a well-researched topic of computer vision and can be\u000aconsidered solved for machine-printed text. However, when applied to\u000aunconstrained images, the recognition rates drop drastically. Therefore, the\u000aemployment of object recognition-based techniques has become state of the art\u000ain scene text recognition applications. This paper presents a scene text\u000arecognition method tailored to ancient coin legends and compares the results\u000aachieved in character and word recognition experiments to a standard OCR\u000aengine. The conducted experiments show that the proposed method outperforms the\u000astandard OCR engine on a set of 180 cropped coin legend words.
+p378
+sg7
+g375
+sg8
+VReading Ancient Coin Legends: Object Recognition vs. OCR
+p379
+ssVhttp://arxiv.org/abs/cmp-lg/9507013v1
+p380
+(dp381
+g3
+Vcmp-lg
+p382
+sg5
+VIndexed languages are interesting in computational linguistics because they\u000aare the least class of languages in the Chomsky hierarchy that has not been\u000ashown not to be adequate to describe the string set of natural language\u000asentences. We here define a class of unification grammars that exactly describe\u000athe class of indexed languages.
+p383
+sg7
+g380
+sg8
+VIndexed Languages and Unification Grammars
+p384
+ssVhttp://arxiv.org/abs/1602.06648v2
+p385
+(dp386
+g3
+Vcs.GT
+p387
+sg5
+VWe study new classes of games, called zero-sum equivalent games and zero-sum\u000aequivalent potential games, and prove decomposition theorems involving these\u000aclasses of games. We say that two games are "strategically equivalent" if, for\u000aevery player, the payoff differences between two strategies (holding other\u000aplayers' strategies fixed) are identical. A zero-sum equivalent game is a game\u000athat is strategically equivalent to a zero-sum game; a zero-sum equivalent\u000apotential game is a zero-sum equivalent game that is strategically equivalent\u000ato a common interest game. We also call a game "normalized" if the sum of one\u000aplayer's payoffs, given the other players' strategies, is always zero. We show\u000athat any normal form game can be uniquely decomposed into either (i) a zero-sum\u000aequivalent game and a normalized common interest game, or (ii) a zero-sum\u000aequivalent potential game, a normalized zero-sum game, and a normalized common\u000ainterest game, each with distinctive equilibrium properties. For example, we\u000ashow that two-player zero-sum equivalent games with finite strategy sets\u000agenerically have a unique Nash equilibrium and that two-player zero-sum\u000aequivalent potential games with finite strategy sets generically have a\u000astrictly dominant Nash equilibrium.
+p388
+sg7
+g385
+sg8
+VStrategic Decompositions of Normal Form Games: Zero-sum Games and\u000a  Potential Games
+p389
+ssVhttp://arxiv.org/abs/1604.08561v1
+p390
+(dp391
+g3
+Vcs.CL
+p392
+sg5
+VWe introduce a new measure of distance between languages based on word\u000aembedding, called word embedding language divergence (WELD). WELD is defined as\u000adivergence between unified similarity distribution of words between languages.\u000aUsing such a measure, we perform language comparison for fifty natural\u000alanguages and twelve genetic languages. Our natural language dataset is a\u000acollection of sentence-aligned parallel corpora from bible translations for\u000afifty languages spanning a variety of language families. Although we use\u000aparallel corpora, which guarantees having the same content in all languages,\u000ainterestingly in many cases languages within the same family cluster together.\u000aIn addition to natural languages, we perform language comparison for the coding\u000aregions in the genomes of 12 different organisms (4 plants, 6 animals, and two\u000ahuman subjects). Our result confirms a significant high-level difference in the\u000agenetic language model of humans/animals versus plants. The proposed method is\u000aa step toward defining a quantitative measure of similarity between languages,\u000awith applications in languages classification, genre identification, dialect\u000aidentification, and evaluation of translations.
+p393
+sg7
+g390
+sg8
+VComparing Fifty Natural Languages and Twelve Genetic Languages Using\u000a  Word Embedding Language Divergence (WELD) as a Quantitative Measure of\u000a  Language Distance
+p394
+ssVhttp://arxiv.org/abs/1311.5467v1
+p395
+(dp396
+g3
+Vcs.CC
+p397
+sg5
+VWe draw two incomplete, biased maps of challenges in computational complexity\u000alower bounds.
+p398
+sg7
+g395
+sg8
+VChallenges in computational lower bounds
+p399
+ssVhttp://arxiv.org/abs/1601.07021v1
+p400
+(dp401
+g3
+Vcs.CV
+p402
+sg5
+VIn this paper, a novel method, called polyhedron volume ratio classification\u000a(PVRC) is proposed for image recognition
+p403
+sg7
+g400
+sg8
+VPolyhedron Volume-Ratio-based Classification for Image Recognition
+p404
+ssVhttp://arxiv.org/abs/1206.2893v1
+p405
+(dp406
+g3
+Vcs.CC
+p407
+sg5
+VA link between Kolmogorov Complexity and geometry is uncovered. A similar\u000aconcept of projection and vector decomposition is described for Kolmogorov\u000aComplexity. By using a simple approximation to the Kolmogorov Complexity, coded\u000ain Mathematica, the derived formulas are tested and used to study the geometry\u000aof Light Cone.
+p408
+sg7
+g405
+sg8
+VDecomposition of Kolmogorov Complexity And Link To Geometry
+p409
+ssVhttp://arxiv.org/abs/1610.04575v1
+p410
+(dp411
+g3
+Vcs.CV
+p412
+sg5
+VThis paper implements and compares different techniques for face detection\u000aand recognition. One is find where the face is located in the images that is\u000aface detection and second is face recognition that is identifying the person.\u000aWe study three techniques in this paper: Face detection using self organizing\u000amap (SOM), Face recognition by projection and nearest neighbor and Face\u000arecognition using SVM.
+p413
+sg7
+g410
+sg8
+VComparing Face Detection and Recognition Techniques
+p414
+ssVhttp://arxiv.org/abs/0902.0673v1
+p415
+(dp416
+g3
+Vmath.HO
+p417
+sg5
+VWhere a 2D problem of optimal profile in variable speed flow is resolved in a\u000aclass of convex Bezier curves, using symbolic and numerical computations.
+p418
+sg7
+g415
+sg8
+VOptimal profiles in variable speed flows
+p419
+ssVhttp://arxiv.org/abs/1305.5757v1
+p420
+(dp421
+g3
+Vcs.DS
+p422
+sg5
+VIn this paper, we present an exact algorithm for the Steiner tree problem.\u000aThe algorithm is based on certain pre-computed index structures. Our algorithm\u000aoffers a practical solution for the Steiner tree problems on graphs of large\u000asize and bounded number of terminals.
+p423
+sg7
+g420
+sg8
+VTree Decomposition based Steiner Tree Computation over Large Graphs
+p424
+ssVhttp://arxiv.org/abs/1306.1906v1
+p425
+(dp426
+g3
+Vphysics.soc-ph
+p427
+sg5
+VPeaceful citizens and hard-working taxpayers are under government\u000asurveillance. Confidential communication of journalists is intercepted.\u000aCivilians are killed by drones, without a chance to prove their innocence. How\u000acould it come that far? And what are the alternatives?
+p428
+sg7
+g425
+sg8
+VQualified Trust, not Surveillance, is the Basis of a Stable Society
+p429
+ssVhttp://arxiv.org/abs/1003.1888v1
+p430
+(dp431
+g3
+Vmath.OC
+p432
+sg5
+VBiology-derived algorithms are an important part of computational sciences,\u000awhich are essential to many scientific disciplines and engineering\u000aapplications. Many computational methods are derived from or based on the\u000aanalogy to natural evolution and biological activities, and these biologically\u000ainspired computations include genetic algorithms, neural networks, cellular\u000aautomata, and other algorithms.
+p433
+sg7
+g430
+sg8
+VBiology-Derived Algorithms in Engineering Optimization
+p434
+ssVhttp://arxiv.org/abs/1102.0683v1
+p435
+(dp436
+g3
+Vq-fin.CP
+p437
+sg5
+VThe Cartier-Perrin theorem, which was published in 1995 and is expressed in\u000athe language of nonstandard analysis, permits, for the first time perhaps, a\u000aclear-cut mathematical definition of the volatility of a financial asset. It\u000ayields as a byproduct a new understanding of the means of returns, of the beta\u000acoefficient, and of the Sharpe and Treynor ratios. New estimation techniques\u000afrom automatic control and signal processing, which were already successfully\u000aapplied in quantitative finance, lead to several computer experiments with some\u000aquite convincing forecasts.
+p438
+sg7
+g435
+sg8
+VVolatility made observable at last
+p439
+ssVhttp://arxiv.org/abs/1109.3753v1
+p440
+(dp441
+g3
+Vquant-ph
+p442
+sg5
+VWe present a scheme for playing quantum repeated 2x2 games based on the\u000aMarinatto and Weber's approach to quantum games. As a potential application, we\u000astudy twice repeated Prisoner's Dilemma game. We show that results not\u000aavailable in classical game can be obtained when the game is played in the\u000aquantum way. Before we present our idea, we comment on the previous scheme of\u000aplaying quantum repeated games.
+p443
+sg7
+g440
+sg8
+VQuantum repeated games revisited
+p444
+ssVhttp://arxiv.org/abs/1612.07486v2
+p445
+(dp446
+g3
+Vcs.CL
+p447
+sg5
+VMost existing models for multilingual natural language processing (NLP) treat\u000alanguage as a discrete category, and make predictions for either one language\u000aor the other. In contrast, we propose using continuous vector representations\u000aof language. We show that these can be learned efficiently with a\u000acharacter-based neural language model, and used to improve inference about\u000alanguage varieties not seen during training. In experiments with 1303 Bible\u000atranslations into 990 different languages, we empirically explore the capacity\u000aof multilingual language models, and also show that the language vectors\u000acapture genetic relationships between languages.
+p448
+sg7
+g445
+sg8
+VContinuous multilinguality with language vectors
+p449
+ssVhttp://arxiv.org/abs/1406.1077v1
+p450
+(dp451
+g3
+Vcs.DS
+p452
+sg5
+VWe find large lower bounds for a certain family of algorithms, and prove that\u000asuch bounds are limited only by natural computability arguments.
+p453
+sg7
+g450
+sg8
+VHow inefficient can a sort algorithm be?
+p454
+ssVhttp://arxiv.org/abs/0801.1415v1
+p455
+(dp456
+g3
+Vcs.CL
+p457
+sg5
+VA simple review by a linguist, citing many articles by physicists:\u000aQuantitative methods, agent-based computer simulations, language dynamics,\u000alanguage typology, historical linguistics
+p458
+sg7
+g455
+sg8
+VThe emerging field of language dynamics
+p459
+ssVhttp://arxiv.org/abs/cs/0108021v1
+p460
+(dp461
+g3
+Vcs.CG
+p462
+sg5
+VA compendium of thirty previously published open problems in computational\u000ageometry is presented.
+p463
+sg7
+g460
+sg8
+VComputational Geometry Column 42
+p464
+ss.
