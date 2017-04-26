@@ -66,18 +66,55 @@ class Abstract(object):
         for word in self.word_frequencies:
             word_tf_idf_scores[word] = self.tf_idf(word)
 
-        self.word_tf_idf_scores = sorted(word_tf_idf_scores.items(),
-                                         key = operator.itemgetter(1),
-                                         reverse = True)
+        self.sorted_word_tf_idf_scores = sorted(word_tf_idf_scores.items(),
+                                                key = operator.itemgetter(1),
+                                                reverse = True)
 
-        for word in self.word_tf_idf_scores:
-            print word
+        self.word_tf_idf_scores = dict(self.sorted_word_tf_idf_scores)
 
-        self.word_tf_idf_scores = dict(self.word_tf_idf_scores)
+    def calculateSentenceScores(self):
+        self.sentence_scores = { }
+        
+        for word_score_tuple in self.sorted_word_tf_idf_scores:
+            word = word_score_tuple[0]
+            score = word_score_tuple[1]
+            #print (word, score)
+            
+            for sentence in self.sentences:
+                if word in sentence:
+                    if sentence in self.sentence_scores:
+                        self.sentence_scores[sentence] += score
+                        break
+                        #print "\t - First sentence already marked"
+                    else:
+                        self.sentence_scores[sentence] = score
+                        print "\t - ", sentence
+                        print ""
+                        print ""
+                        break
+
+        sorted_sentence_scores = sorted(self.sentence_scores.items(),
+                                        key = operator.itemgetter(1),
+                                        reverse = True)
+
+        #for sentence_score_tuple in sorted_sentence_scores:
+        #    print sentence_score_tuple[1]
+        #    print "\t - ", sentence_score_tuple[0]
+        #    print ""
+        #    print ""
         
     def createAbstract(self):
         self.calculateTFIDF()
+        self.calculateSentenceScores()
+
+    def getTitle(self):
+        first_whitespace = self.document.find(" ")
+        first_newline = self.document.find("\n")
         
+        print first_newline
+
+        return self.document[0 : first_newline]
+
     def removeReferences(self):
         # Finish this
         
@@ -120,15 +157,36 @@ class Abstract(object):
 
         for token in tokens_to_delete:
             self.tokens.remove(token)
+
+    def cleanSentences(self):
+        for sentence in range(0, len(self.sentences)):
+            self.sentences[sentence] = self.sentences[sentence].strip()
+            self.sentences[sentence] = self.sentences[sentence].replace(r'\n', '')
+            self.sentences[sentence] = self.sentences[sentence].replace(r'\t', '')
     
-    def processDocument(self):        
+    def processDocument(self):
+        self.title = self.getTitle()
+
+        print "Title: ", self.title
+        print ""
+        
+        # Start the document at the introduction(?)
+        # Fix se
+        introduction_index = self.document.find("INTRODUCTION")
+        self.original_document = self.document
+        self.document = self.document[introduction_index : len(self.document)]
+        
         self.tokens = word_tokenize(self.document)
         self.cleanTokens()
+        
         self.sentences = sent_tokenize(self.document)
+        #self.cleanSentences()
+        
         self.frequency_distribution = FreqDist(self.tokens)
         self.number_of_unique_tokens = self.frequency_distribution.N()
         self.word_frequencies = dict(self.frequency_distribution.most_common
                                     (self.number_of_unique_tokens))
+
 
         #self.removeReferences() (include?)
         #print self.document
@@ -141,7 +199,7 @@ class Abstract(object):
         #    print "===================="
 
 def main():
-        computational_theory_path = "../data/test/human_computer_interaction.txt"
+        computational_theory_path = "../data/test/computational_theory.txt"
 
         abstract = Abstract(computational_theory_path)
         print abstract.getAbstract()
