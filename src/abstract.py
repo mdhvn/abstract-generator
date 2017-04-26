@@ -11,6 +11,53 @@ from unidecode import unidecode
 DATA_DIRECTORY_PATH = "../data/"
 COMPUTER_SCIENCE_CORPUS_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus"
 
+words = ["goal",
+	 "summary",
+	 "research",
+	 "conclusion",
+	 "to this end",
+         "then",
+         "we then",
+	 "show",
+         "believe",
+	 "in",
+	 "this",
+	 "paper",
+	 "in this paper",
+	 "present",
+         "novel",
+         "problem",
+         "evaluate",
+	 "results",
+         "improves",
+	 "outperforms",
+         "our",
+         "explore",
+         "try",
+         "reveal"]
+
+# Go through a lot of abstracts and count the frequencies of all the words
+# that occur over the entire collection of abstracts. Weigh (sentences with)
+# these words higher in the query document.
+
+# Past-tense verbs?
+# Use POS tagging to identify words that signify:
+#	- Possession ("our results show...")
+# 	- Past tense ("we computed the score...")
+# 	as well as present tense ("we then find the maximum value...")
+
+# Look for numbers ("64% improvement...")
+
+# Weigh words/sentences more heavily for having:
+#	- Words that occur in the title
+# 	- Words that feature commonly in abstracts
+# https://arxiv.org/pdf/1704.00999.pdf
+# https://arxiv.org/pdf/1704.07661.pdf
+# https://arxiv.org/pdf/1704.07649.pdf
+# https://arxiv.org/pdf/1704.05263.pdf
+# https://arxiv.org/pdf/1703.07194.pdf
+# https://arxiv.org/pdf/1704.07619.pdf
+
 class Abstract(object):
 
     def __init__(self, filename):
@@ -38,7 +85,12 @@ class Abstract(object):
 	return self.abstract
 
     def tf_idf(self, word):
-        term_frequency = self.word_frequencies[word]
+	# Normalize the term frequency for document length.
+	# https://www.cs.bgu.ac.il/%7Eelhadad/nlp16/nenkova-mckeown.pdf
+	term_frequency = self.word_frequencies[word]
+	#term_frequency = float(self.word_frequencies[word])
+	#term_frequency = term_frequency / self.word_frequencies[self.most_frequent_word]
+	#print term_frequency
 
         number_of_documents = self.corpus.numberOfDocuments()
         frequency_in_corpus = self.corpus.wordFrequency(word)
@@ -74,44 +126,80 @@ class Abstract(object):
 
     def calculateSentenceScores(self):
         self.sentence_scores = { }
+
+	for sentence in self.sentences:
+		sentence_score = 0
+		
+		for word in sentence:
+			if word in self.word_tf_idf_scores:
+				sentence_score = sentence_score + self.word_tf_idf_scores[word]
+
+		self.sentence_scores[sentence] = sentence_score
+
+	
         
-        for word_score_tuple in self.sorted_word_tf_idf_scores:
-            word = word_score_tuple[0]
-            score = word_score_tuple[1]
-            #print (word, score)
+  #       for word_score_tuple in self.sorted_word_tf_idf_scores:
+  #           word = word_score_tuple[0]
+  #           score = word_score_tuple[1]
+  #           #print (word, score)
             
-            for sentence in self.sentences:
-                if word in sentence:
-                    if sentence in self.sentence_scores:
-                        self.sentence_scores[sentence] += score
-                        break
-                        #print "\t - First sentence already marked"
-                    else:
-                        self.sentence_scores[sentence] = score
-                        print "\t - ", sentence
-                        print ""
-                        print ""
-                        break
+  #           for sentence in self.sentences:
+		# print sentence
+		# continue
+
+  #               if word in sentence:
+  #                   if sentence in self.sentence_scores:
+  #                       self.sentence_scores[sentence] += score
+  #                       break
+
+  #                   else:
+  #                       self.sentence_scores[sentence] = score
+  #                       break
 
         sorted_sentence_scores = sorted(self.sentence_scores.items(),
                                         key = operator.itemgetter(1),
                                         reverse = True)
 
         #for sentence_score_tuple in sorted_sentence_scores:
-        #    print sentence_score_tuple[1]
-        #    print "\t - ", sentence_score_tuple[0]
-        #    print ""
-        #    print ""
+		#print sentence_score_tuple[1]
+		#print "\t - ", sentence_score_tuple[0]
+		#print ""
+		#print ""
         
     def createAbstract(self):
         self.calculateTFIDF()
         self.calculateSentenceScores()
 
+	for word_score_tuple in self.sorted_word_tf_idf_scores:
+		word = word_score_tuple[0]
+		#print word_score_tuple, 
+		#print "(document:", self.word_frequencies[word], ",",
+		#print "corpus:", self.corpus.wordFrequency(word), ")"
+
+	####################
+	sentences_seen = { }
+
+	for word_score_tuple in self.sorted_word_tf_idf_scores:
+		word = word_score_tuple[0]
+
+		for sentence in self.sentences:
+			if (word in sentence):
+                        	if sentence in sentences_seen:
+					sentences_seen[sentence] = sentences_seen[sentence] + 1
+				else:	
+					print "===================="
+					print sentence
+					sentences_seen[sentence] = 1
+				break
+					
+		if (len(sentences_seen) > 10):
+			break
+
     def getTitle(self):
         first_whitespace = self.document.find(" ")
         first_newline = self.document.find("\n")
         
-        print first_newline
+        #print first_newline
 
         return self.document[0 : first_newline]
 
@@ -186,6 +274,9 @@ class Abstract(object):
         self.number_of_unique_tokens = self.frequency_distribution.N()
         self.word_frequencies = dict(self.frequency_distribution.most_common
                                     (self.number_of_unique_tokens))
+	self.most_frequent_word = max(self.word_frequencies.iteritems(), key = operator.itemgetter(1))[0]
+
+	print "Maximum word frequency: ", self.most_frequent_word, "(", self.word_frequencies[self.most_frequent_word], ")"
 
 
         #self.removeReferences() (include?)
@@ -199,7 +290,7 @@ class Abstract(object):
         #    print "===================="
 
 def main():
-        computational_theory_path = "../data/test/computational_theory.txt"
+        computational_theory_path = "../data/test/human_computer_interaction.txt"
 
         abstract = Abstract(computational_theory_path)
         print abstract.getAbstract()

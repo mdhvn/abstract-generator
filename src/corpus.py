@@ -185,7 +185,7 @@ def main():
 	#print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
 	#print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
 	#print "Number of documents on 'Databases': ", computer_science_corpus.wordFrequency("cs.DB")
-	computer_science_corpus.buildCorpus()
+	#computer_science_corpus.buildCorpus()
 	#computer_science_corpus.clearCorpus()
 
 	

@@ -1,4 +1,69 @@
-37
-Title:  arXiv:1412.6144v1 [cs.NE] 14 Dec 2014
+Title:  PreCog: Improving Crowdsourced Data Quality
 
+Maximum word frequency:  the ( 592 )
+====================
+To this end, we present Precog1 , a crowdsourced data acquisition system that supports pre-hoc quality control for
+both simple data types and multi-paragraph text attributes.
+====================
+Although crowdsourcing is used to collect labels
+and simple data for machine learning applications, many
+popular online communities such as Amazon, AirBnB, Quora,
+Reddit, and others also rely on collecting and presenting high
+quality, open-ended content that is crowdsourced from their
+users.
+====================
+INTRODUCTION
+Figure 2: Text acquisition with pre-hoc (beige background)
+and post-hoc quality control.
+====================
+The only change is the beige component, which
+augments the data collection interface (task interface) to
+estimate the quality of the user's (in this case) text, and
+automatically provide feedback if the predicted quality is
+low.
+====================
+A dominant use case for crowdsourcing is to collect data--
+labels, opinions, text extraction, ratings--from large groups
+of workers.
+====================
+For example, Amazon crowdsources product reviews
+by asking customers to rate products and write reviews for
+them; rental services (e.g., AirbnB) relies on rental hosts to
+describe their rental properties in quantitative (e.g., number
+of bed rooms, wireless) as well as qualitative terms (e.g.,
+textual description).
+====================
+An alternative is to use existing model explanation
+algorithms [76] to describe the prediction.
+====================
+To build high-quality models, we survey and categorize features from the writing analysis literature into 5 categories
+
+1. user input
+
+2. segment by
+topic
+
+3. estimate
+quality
+
+4. targeted
+feedback
+
+Figure 3: The Segment-Predict-Explain pattern: Precog splits
+user input into coherent segments; estimates the quality of
+each segment and the text as a whole; and generates and
+shows suggested improvements to the user.
+====================
+For example, task replication [43, 80] assigns the same task to multiple workers and
+aggregates them into a single result; multi-stage workflow design [6, 48] uses additional crowd tasks to (iteratively) refine
+previously submitted tasks; in text acquisition, filtering/ranking [1, 37, 67, 82, 84, 86, 90, 95] uses crowd tasks to assess each
+document's quality and either rank them by quality or filter
+out low-quality documents.
+====================
+For instance, Amazon already has a corpus of high
+and low-quality reviews, and similarly for other applications.
+====================
+* Extensive MTurk experiments on two real-world domains
+with different quality measures: helpfulness for Amazon
+product reviews and trustworthiness for AirBnB housing profiles.
 None
