@@ -84,32 +84,41 @@ class Corpus(object):
 	def buildCorpus(self):
 		for query in self.getQueriesFromFile():
 			document_retriever = DocumentRetriever()
+			documents_to_retrieve = 25
+
+			print "\nQuery: ", query
 		
-			print ""
-			print query
-			print ""
-		
-			documents, metadata = document_retriever.getDocuments(query, 10)
+			documents, metadata = document_retriever.getDocuments(query, documents_to_retrieve)
+
+			print "\n\t - Documents requested: ", documents_to_retrieve
+			print "\t - Documents retrieved: ", len(documents)
+			print "\t --------------------------\n"
+
+			number_of_documents = len(documents)
+			number_of_successes = 0
+			number_of_failures = 0
 
 			for document in documents:
+				print "\t - Downloading document ", (number_of_successes + number_of_failures + 1), "/", number_of_documents,
+	
 				if not self.containsDocument(document):
 					document_id = document["id"]
 					document_text_file_path = ""
 
 					try:
 						document_text_file_path = document_retriever.getDocumentTextFile(document)
-						# print?
 					except Exception as exception:
-						# count failure
-						# print
-						print " - failed (", str(type(exception).__name__), ")" 
+						print ": failed (", str(type(exception).__name__), ")" 
 
 						if (len(document_text_file_path) != 0):
 							os.remove(document_text_file_path)
+
+						number_of_failures = number_of_failures + 1
 		
 					else:
-						print " - succeeded"
-						# GET DATA BACK FROM THE PROCESSOR
+						print ": succeeded"
+
+
 						document_processor = DocumentProcessor(document_text_file_path)
 						tokens = document_processor.getTokens()
 						
@@ -120,32 +129,22 @@ class Corpus(object):
 						if (len(document_text_file_path) != 0):
 							os.remove(document_text_file_path)
 
-						# count success
+						number_of_successes = number_of_successes + 1
+
+
 				else:
-					print "- Document already in corpus"
-
-					
-
-							
-	
-			# Add retries for documents not received:
-			# 	1) When fewer documents are retrieved than requested.
-			# 	2) When a retrieved document already exists.
-
-			# document_retriever.py should download a document, store it on disk
-			# and return the path to the document. 
-
-			# Let corpus.py send the document for processing
-			# and delete the file. 
-
-			#document_retriever.processDocuments(documents, metadata)
-			#print "Documents: ", len(documents)
-			#print "Verifying with metadata: ", len(metadata)
+					print ": failed (document already in corpus)"
+					number_of_failures = number_of_failures + 1
 			
-			#del document_retriever
+			print "\n\t   SUMMARY"
+			print "\t\t - Total documents requested: ", documents_to_retrieve
+			print "\t\t - Total documents retrieved: ", number_of_documents
+			print "\t\t - Successes (documents downloaded): ", number_of_successes
+			print "\t\t - Failures (could not download documents): ", number_of_failures
 
-			#print "Waiting for 3 seconds..."
-			time.sleep(1)
+			#del document_retriever
+	
+			time.sleep(5)
 	
 	def clearCorpus(self):
 		self.corpus_file = open(self.corpus_path, "w").close()
@@ -186,7 +185,7 @@ def main():
 	#print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
 	#print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
 	#print "Number of documents on 'Databases': ", computer_science_corpus.wordFrequency("cs.DB")
-	#computer_science_corpus.buildCorpus()
+	computer_science_corpus.buildCorpus()
 	#computer_science_corpus.clearCorpus()
 
 	

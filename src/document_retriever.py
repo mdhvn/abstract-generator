@@ -52,15 +52,14 @@ class DocumentRetriever(object):
 		try:
 			document_text = textract.process(document_pdf_file_path, encoding = "utf-8")
 		except:
-			print "\t\t (Conversion to text failed)"
+			#print "\t\t (Conversion to text failed)"
 			os.remove(document_pdf_file_path)
 		else:
 			os.remove(document_pdf_file_path)
-
-		document_text_file_path = DATA_DIRECTORY_PATH + document_pdf_file_path[:-len("pdf")] + "txt"
-		document_text_file = open(document_text_file_path, "w")
-		document_text_file.write(document_text)
-		document_text_file.close()
+			document_text_file_path = DATA_DIRECTORY_PATH + document_pdf_file_path[:-len("pdf")] + "txt"
+			document_text_file = open(document_text_file_path, "w")
+			document_text_file.write(document_text)
+			document_text_file.close()
 		
 		return document_text_file_path
 
