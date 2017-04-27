@@ -42,7 +42,24 @@ special_words = ["goal",
 	 "achieves",
          "in conclusion",
          "finally",
-	 "%"]
+	 "%",
+         "this problem",
+         "in this work",
+         "we consider",
+         "introduce",
+         "our approach",
+         "improve",
+         "result",
+         "seminal",
+         "consider",
+         "main",
+         "we propose",
+         "we",
+         "investigate",
+         "in this context",
+         "aims",
+         "experiments",
+         "describes"]
 
 # Go through a lot of abstracts and count the frequencies of all the words
 # that occur over the entire collection of abstracts. Weigh (sentences with)
@@ -60,8 +77,6 @@ special_words = ["goal",
 #	- Words that occur in the title
 # 	- Words that feature commonly in abstracts
 
-# https://arxiv.org/pdf/1704.00999.pdf
-# https://arxiv.org/pdf/1704.07661.pdf
 # https://arxiv.org/pdf/1704.07649.pdf
 # https://arxiv.org/pdf/1704.05263.pdf
 # https://arxiv.org/pdf/1703.07194.pdf
@@ -336,6 +351,12 @@ class Abstract(object):
         # Fix section identification
 	# skip past the abstract
         introduction_index = self.document.find("INTRODUCTION")
+	
+	if (introduction_index == -1):
+		introduction_index = self.document.find("Introduction")
+	
+	
+    
         self.original_document = self.document
         self.document = self.document[introduction_index : len(self.document)]
         
@@ -349,9 +370,9 @@ class Abstract(object):
         self.number_of_unique_tokens = self.frequency_distribution.N()
         self.word_frequencies = dict(self.frequency_distribution.most_common
                                     (self.number_of_unique_tokens))
-	self.most_frequent_word = max(self.word_frequencies.iteritems(), key = operator.itemgetter(1))[0]
+	#self.most_frequent_word = max(self.word_frequencies.iteritems(), key = operator.itemgetter(1))[0]
 
-	print "Maximum word frequency: ", self.most_frequent_word, "(", self.word_frequencies[self.most_frequent_word], ")"
+	#print "Maximum word frequency: ", self.most_frequent_word, "(", self.word_frequencies[self.most_frequent_word], ")"
 
 
         #self.removeReferences() (include?)
@@ -365,7 +386,7 @@ class Abstract(object):
         #    print "===================="
 
 def main():
-        computational_theory_path = "../data/test/human_computer_interaction.txt"
+        computational_theory_path = "../data/test/recommender_systems.txt"
 
         abstract = Abstract(computational_theory_path)
         print abstract.getAbstract()

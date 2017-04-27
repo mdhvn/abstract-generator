@@ -1,4184 +1,2108 @@
-Title:  PreCog: Improving Crowdsourced Data Quality
+Title:  The Magic Barrier Revisited: Accessing Natural Limitations of
 
-Maximum word frequency:  the ( 592 )
 ====================
-To this end, we present Precog1 , a crowdsourced data acquisition system that supports pre-hoc quality control for both simple data types and multi-paragraph text attributes.
+As a motivating example, we consider the task of rating prediction, along with the Root Mean Square Error (RMSE) as a widely used metric for prediction quality.
 
-15.7048380693
+12.9544500032
 
 ====================
-Although crowdsourcing is used to collect labels and simple data for machine learning applications, many popular online communities such as Amazon, AirBnB, Quora, Reddit, and others also rely on collecting and presenting high quality, open-ended content that is crowdsourced from their users.
+This leads to the assumption of some Magic Barrier where natural variability may prevent us from getting much more accurate [12].
 
-12.9907097709
+12.8882445481
 
 ====================
-A dominant use case for crowdsourcing is to collect data-- labels, opinions, text extraction, ratings--from large groups of workers.
+Applied within a variety of engines, they predict human behaviour (e.g.
 
-12.4346377554
+12.056476892
 
 ====================
-INTRODUCTION Figure 2: Text acquisition with pre-hoc (beige background) and post-hoc quality control.
+Accordingly, this complicates the evaluation of recommender systems, since it is not clear whether the difference between a given rating and the prediction is induced by the system or just a matter of Human Uncertainty.
 
-12.1580820267
+11.2388496498
 
 ====================
-In this paper, we argue for pre-hoc quality control systems.
+ratings a user might give to a specific item) and thus models a user's preferences.
 
-11.640864611
+10.9244023884
 
 ====================
-The only change is the beige component, which augments the data collection interface (task interface) to estimate the quality of the user's (in this case) text, and automatically provide feedback if the predicted quality is low.
+INTRODUCTION  Recommender systems have become quite essential for our modern information society.
 
-11.5902459912
+10.8725196339
 
 ====================
-For example, Amazon crowdsources product reviews by asking customers to rate products and write reviews for them; rental services (e.g., AirbnB) relies on rental hosts to describe their rental properties in quantitative (e.g., number of bed rooms, wireless) as well as qualitative terms (e.g., textual description).
+This Human Uncertainty, as we understand it in this contribution, appears to be a characteristic feature of the cognitive process of decision making which influences its outcome, making it circumstantial and temporally unstable; the outcome appears to be more or less fluctuating randomly when repeating a decision making.
 
-11.1732757445
+10.6307347391
 
 ====================
-To build high-quality models, we survey and categorize features from the writing analysis literature into 5 categories  1. user input  2. segment by topic  3. estimate quality  4. targeted feedback  Figure 3: The Segment-Predict-Explain pattern: Precog splits user input into coherent segments; estimates the quality of each segment and the text as a whole; and generates and shows suggested improvements to the user.
+In doing so, those * Full dataset and evaluation routines available at https://jasbergk.wixsite.com/research  Permission to make digital or hard copies of part or all of this work for personal or classroom use is granted without fee provided that copies are not made or distributed for profit or commercial advantage and that copies bear this notice and the full citation on the first page.
 
-10.7154072281
+10.4643523482
 
 ====================
-To this end, we performed a survey of literature spanning of social media text analysis [32, 55, 57, 82, 85], essay grading [4,25,58,89], deception detection [23,60], and information retrieval [64, 84].
+In this paper we use Monte-Carlo-Simulations as described in [18]: For each of our ratings X n , we compute a sample S(X n ) := {xn1 , .
 
-10.6025327283
+10.2593783493
 
 ====================
-For example, task replication [43, 80] assigns the same task to multiple workers and aggregates them into a single result; multi-stage workflow design [6, 48] uses additional crowd tasks to (iteratively) refine previously submitted tasks; in text acquisition, filtering/ranking [1, 37, 67, 82, 84, 86, 90, 95] uses crowd tasks to assess each document's quality and either rank them by quality or filter out low-quality documents.
+If we are able to improve the systeminduced prediction quality to such an extent that only the factor of human uncertainty is left, then all visible differences within a quality metric would only exist due to this uncertainty and may vary with each repeated rating trial.
 
-10.2068512947
+10.1328652551
 
 ====================
-In this section, we first describe how users express Precog quality control for common data integrity constraints, as well as quality scores on a crowd-sourced table.
+4.3 0.00  0.05  0.10  0.15  0.20  0.25  Normed Jensen Shannon Divergence  Figure 2: Jensen-Shannon-Divergence for comparing the simulated distribution with a predetermined Gaussian conditions, the positive variance yields limitations4 2 smin  =  var({1, 1, 1, 1, 2}) = 0.16  (16)  2 smax  =  var({1, 1, 1, 5, 5}) = 3.86  (17)  (un , sn2 )  For each pair we then compute a sample S(X n ) with t = 107 random numbers drawn from the specified Gaussian to perform the convolution via equation 4.
 
-9.72334363294
+9.37436874735
 
 ====================
-We further show that Precog's unique approach to combining prescriptive explanations and segment-level feedback improves text quality by 14.3%, and over 3x better than a state-of-the-art feedback system [50].
+We also provide our data records for modelling Human Uncertainty and demonstrate its transferability using the example of Netflix Prize.
 
-9.58324289821
+9.23517636044
 
 ====================
-Our experiments and prior work [52] show that this is less effective than a more customized approach.
+To this end we gradually fix a particular number N of ratings from the set {50, 100, 150, 200, 500, 1000} and sample N expectations un uniformly from the interval [1, 5] as well as N 2 ,s2 variances sn2 uniformly from [smin max ].
 
-9.56385321011
+9.23042649227
 
 ====================
-An alternative is to use existing model explanation algorithms [76] to describe the prediction.
+This implies that rankings of different (well improved) recommender systems would shuffle with each repetition as well, i.e sound rankings do no longer exist for excellent systems but there is an equivalence class of indistinguishable optimal systems.
 
-9.50151227474
+9.22857516716
 
 ====================
-Our efficient solution called TCruise leverages the structure of random forest models to generate explanations in interactive time.
+arXiv, https://arxiv.org/ (c) 2017 Copyright held by the owner/author(s).
 
-9.14793404288
+9.19561832213
 
 ====================
-In addition to evaluating Precog for hard constraints and simple data types, we evaluate Precog's text feedback through extensive MTurk experiments on two real application domains--product reviews and rental host profiles.
+The results Sim(E)  =  0.999 * Apr(E) - 0.003  (R 2 = 0.99)  (18)  Sim(V)  =  0.981 * Apr(V) + 0.000  (R = 1.00)  (19)  2  show that this condition is almost fully achieved and hence we may consider these approximations as appropriate.
 
-9.10223787377
+9.08406570818
 
 ====================
-Precog takes long form text from a crowd worker, decomposes it into coherent portions (segments) based on their topics, predicts the quality of each segment, and automatically generates immediate feedback to explain how these segments can be improved.
+Derived by risk function minimisation, the authors defined the Magic Barrier as the square root of the averaged user variances (gathered from repeated ratings).
 
-9.06273521501
+8.96702347948
 
 ====================
-As illustrated in Figure 3, we employ a novel SegmentPredict-Explain pattern to generate customized feedback on an individual segment (rather than document) level.
+Consequently, we may assume that observed decisions are drawn from individual distributions [10].
 
-9.03207062468
+8.93033537797
 
 ====================
-For this, we use TopicTiling [77], a sliding window-based segmentation algorithm that computes the dominant topics within the window using LDA [8].
+Figure 1a shows that only 35% of all users show constant rating behaviour, whereas about 50% use two different answer categories and 15% of all users make use of three or more categories.
 
-8.97204733824
+8.74283349666
 
 ====================
-* Extensive MTurk experiments on two real-world domains with different quality measures: helpfulness for Amazon product reviews and trustworthiness for AirBnB housing profiles.
+(k ) O d (u)  as well as the variance V[(sn I + un - un )2 ] = V[(sn I)2 ]   V[sn2 I2 ] = sn4 V[I2 ] = sn4 E[I4 ] - E[I2 ]2   sn4 3V[I]2 - V[I]2 = 2sn4  I We thus obtain a kh 2 -distribution for Z := N1 n Yn which converges into a Gaussian for a large number N of ratings by means of the central limit theorem.
 
-8.87727292673
+8.72684105916
 
 ====================
-To this end, we use a technique called TopicTiling [77], an extension to TextTiling [40].
+Although we exemplify our methodology in accordance with the RMSE, the main results of this contribution can be easily adopted for alternative assessment metrics without substantial loss of generality, insofar they require for (uncertain) human input.
 
-8.85246067966
+8.69295883819
 
 ====================
-We then randomly assigned each worker 50 segments to label, and collected labels until each segment had >= 3 labels, and determined the final label of each segment using the Get Another Label algorithm [81].
+The problem of Human Uncertainty - if not explicitly considered - is that any improvement to an existing system or even the assessment of different systems might not be statistically sound.
 
-8.8392636995
+8.68046519004
 
 ====================
-Quality control for crowdsourcing has been extensively studied [54] and can be modeled in two phases.
+$15.00 DOI:  algorithms use specific machine learning techniques to learn about one's personal interests and to develop empathy for multiple as well as variable human aspects.
 
-8.78920545676
+8.62079591884
 
 ====================
-Figure 1 illustrates a typical text acquisition workflow: the crowd generates text documents, more tasks are used to estimate the text quality, low-quality documents are removed, and this may ultimately trigger the need to collect more data.
+to "How likely is it that the  0.5  relative frequency  0.4 0.3 0.2 0.1 0.0  1  2  3  4  Number of used answer categories  5  (a) Frequency of used answer categories 4.0 3.5  absolute frequency  3.0  R1 (p = mean) R2 (p = 1st rating) R3 (p = 3 const.)
 
-8.73050865389
+8.56718535063
 
 ====================
-The basic idea is to push data-quality constraints down to the data collection interface rather than validate them after data acquisition.
+In doing so, we proceed as done in the regression analysis above, but instead of computing means and variances, we transform our samples into discrete probability distributions Psim and Papr and analyse the Jensen-ShannonDivergence (JSD) 1 1 JSD(Psim |Papr ) = D KL (Psim |M) + D KL (Papr |M) (20) 2 2 I where D KL (P1 |P2 ) = i P1 (i) log2 (P1 (i)/P2 (i)) denotes the KullbackLeibler-Divergence and M = 21 (Psim + Papr ).
 
-8.68969642558
+8.50211854665
 
 ====================
-count) LDA topic distribution and top topics [8], entropy across topic distribution opinion sentence distribution stats [64], valence, polarity, and subjectivity scores and distribution across sentences [32, 34, 56], % upper case characters, first person usage, adjectives spelling errors [45], ARI, Gunning index, Coleman-Liau index, Flesch Reading tests, SMOG, punctuation, parts of speech distribution, lexical diversity measures, LIWC grammar features various TF-IDF and top parts of speech comparisons with sample of low and high utility documents  Table 1: Summary of feature library for text quality.
+As shown in the following sections, the standard deviation of the Magic Barrier for the Netflix data set can be assumed to be s = 0.0007, which is still seven times larger than the specified  arXiv, 2017, https://arxiv.org/  1.5 1.0 0.5 0.0  0  2000  4000  6000  Sample Size N  8000  0.15 0.10 0.05 0.00  10000  (a) E[M B] with respect to N  0  2000  4000  6000  Sample Size N  8000  10000  (b) V[M B] with respect to N  0.020  2.5  Variance of Magic Barrier  2.0  3.0 minimum maximum average  Mean of Magic Barrier  0.20 minimum maximum average  2.5  Variances of Magic Barrier  Mean of Magic Barrier  3.0  2.0 1.5 1.0 0.5 0.0 0.0  0.5  1.0  1.5  2.0  2.5  3.0  Value for all Rating Variances  3.5  4.0  (c) V[M B] with respect to s 2  0.015 0.010  N=100 N=200 N=300 N=400 N=500 N=1000  0.005 0.000 0.0  0.5  1.0  1.5  2.0  2.5  3.0  Value for all Rating Variances  3.5  4.0  (d) V[M B] with respect to s 2  Figure 3: Sensitivity analysis of the Magic Barrier varying the number of ratings and the extent of rating variances rounding accuracy of four decimal places.
 
-8.68931642066
+8.26452531015
 
 ====================
-For instance, Amazon already has a corpus of high and low-quality reviews, and similarly for other applications.
+To derive a pragmatic and easy to handle theory, we will refer to the Gaussian Error Propagation which is commonly used in physics as well [6, 19, 25].
 
-8.67163675779
+8.20324049352
 
 ====================
-We first introduce the Prescriptive Explanation problem, which assigns responsibility to each model feature proportional to the amount that it will contribute to improving the predicted text quality.
+3.2  Composed Quantities  Composed quantities, in this contribution, are quantities Z that compute from a continuous function Z = d(X 1 , .
 
-8.6696075372
+8.17911797482
 
 ====================
-We then computed pairwise accuracies between the document labels, classifier predictions, and crowd labels: 71.1% (Classifier predicting Crowd Label), 72.5% (Classifier predicting Document label), and 69.5% (Document label predicting Crowd Label).
+It has recently been shown, that users provide inconsistent ratings when requested to rate same films at different times [13].
 
-8.59085935199
+8.10861755243
 
 ====================
-To this end, we define the responsibility Sfdi of a feature fi for input point d as the sum of all maximum influence perturbations that involve fi (e.g., the perturbation pi 6= 0): X  Sfdi =  I(d, p)  I(d, qij ) =  p[?
+To answer this question, we first compare the simulated expectations and variances with the calculated ones in a regression analysis.
 
-8.5761732093
+8.08575057421
 
 ====================
-Precog also achieves 79% accuracy at predicting if an Airbnb profile is above or below median trustworthiness, using trustworthiness data from [94].
+h i O O f (k ) (u) f (k ) (u) k V (X - u) = V (X - u)k k!
 
-8.54436156463
+8.07381223008
 
 ====================
-Although developers can easily implement their own FEFs, Precog is pre-populated with 5 FEFs that work across the two application domains used for evaluation.
+MB = d(X 1 , .
 
-8.42955524608
+8.04669595692
 
 ====================
-Product-Review Participants: For the laptop review experiment, we recruited 85 workers on Amazon's Mechanical Turk (61.2% male, 38.8% female, ages 20-65 uage =32, sage =8.5).
+To this end, we conducted a controlled experiment with real users and measured their uncertainty.
 
-8.33331731396
+8.0160324481
 
 ====================
-To do so, we develop a novel perturbation-based analysis to identify the combination of features that, when changed, will most likely reclassify the text as high quality.
+To this end, we assume the distribution of Human Uncertainty, emerged from our experiment, to be valid for a larger number of ratings.
 
-8.2888872357
+7.93751659428
 
 ====================
-The final FEATURE table review_feats is used in the later sections to represent the features extracted from the value of the primary key (review).
+When considering n arguments, we use a Taylor series in more dimensions and yield equivalent results which, together with the assumption of normality, form the Gaussian Error Propagation [6, 19, 25].
 
-8.28857595699
+7.90290937355
 
 ====================
-We believe our assumption about the availability of a training corpus is reasonable in data acquisition settings, because such quality labels are already gathered in order to rank documents (e.g., Amazon helpful/unhelpful reviews, Reddit comment up/down votes).
+In a systematic experiment with real users (described in more detail in forthcoming sections), individuals rated theatrical trailers multiple times.
 
-8.28334872191
+7.87456458744
 
 ====================
-Companies (e.g., Amazon, Zappos) use this post-hoc technique by asking users to assess whether a product review is "helpful" or "not helpful", and ranks and displays reviews based on this measure.
+This group can be parted into 57% females and 43% males whose ages range from 20 to 60 years while over 60% of our participants where aged 5 http://www.unipark.com/de/  Figure 4: Interference of RMSE with the Magic Barrier  6 https://www.clickworker.de/ 7A  full description can be found on https://jasbergk.wixsite.com/research  The Magic Barrier Revisited: Accessing Natural Limitations of Recommender Assessment between 20 and 40.
 
-8.26376585625
+7.8688966281
 
 ====================
-CREATE CROWD TABLE users ( id autoincrement primary key, username text UNIQUE, age int CHECK age > 0 AND age < 100, CHECK(username matches \w+) ); CREATE CROWD TABLE reviews( id autoincrement primary key, product_id text, rating int CHECK rating > 0 AND rating <= 5, review text, QUALITY SCORE qualreview qual_udf(review), FOREIGN KEY product_id REF products(id) ); CREATE FEATURE TABLE review_feats( review text primary key references reviews.review, topics FEATURE topic_extractor, len FEATURE len_extracton, ... );  Generic Feedback: Precog automatically generates feedback based on the error message that the underlying database generates when the INSERT violates a constraint.
+2.5 2.0 1.5 1.0 0.5 0.0 0.0  0.2  0.4  0.6  0.8  1.0  1.2  Root Mean Square Error (RMSE)  1.4  1.6  1.8  (b) Distribution of RMSE outcomes  Figure 1: Uncertain user ratings and impact on the RMSE  prediction quality is interfered by Human Uncertainty?
 
-8.24160016801
+7.82777414112
 
 ====================
-The fourth FEF for product reviews was mapped to Subjectivity features in (Table 1) and the fourth host profiles FEF was mapped to Friendliness LIWC features shown in [94], with each returning text suggesting that the user improves the respective facet of their submission (i.e., "Please make your writing more balanced and neutral").
+In consequence, measured properties are currently modelled by probability density functions and quantities calculated therefrom are then assigned a distribution by means of a convolution of their argument densities.
 
-8.21476591194
+7.79179731584
 
 ====================
-foxtype.com/, 2016.
+V[d(X )]  = =  V[Yn ]  = = =  (5)  where d(k) (u) denotes the k th derivative of d evaluated at the expectation of X .
 
-8.19164711388
+7.75417882107
 
 ====================
-We define this as the Prescriptive Explanation problem, and find that the search space of solutions for the problem is exponential in the number of model features.
+R is done via c(X n ) = (X n - pn )2 , whose expectation reaches its minimum when IN d IN 1 IN 2 (3) d p i=0 (x i - p ) = 2 * i=0 (p -x i ) = 0 = p = N i=0 x i where x i denote the realisations of the random variable X n .
 
-8.17764150157
+7.69548337014
 
 ====================
-Pre-hoc methods improve quality before the data is acquired (submitted); Post-hoc methods improve quality after data acquisition (i.e., after submission).
+This, in particular, has financial implications when money is invested in the further development of a system but as a result, there is merely an overfitting instead of real improvements.
 
-8.14304219039
+7.67551653588
 
 ====================
-, qik ; each path qij matches a subset of the training dataset Dij [?]
+The ranking problem is most obvious for recommender R1 as it could be both, the best  arXiv, 2017, https://arxiv.org/ or the worst recommender, although it operates for the same users rating the same items.
 
-8.13541182329
+7.67504943058
 
 ====================
-Most studies focus on post-hoc quality control, often using additional crowdsourced tasks to assess and improve the quality.
+3.1  Changing Paradigms  As mentioned above, various experiments [2, 13] along with our own have shown that users are scattering around their true value of preference.
 
-8.02685015622
+7.63712257639
 
 ====================
-5.2  Figure 6: Assigning responsibility to perturbations.
+When ranking these recommender systems, Figure 1b allows for three possible results (R1 [?]
 
-7.99174514786
+7.58591628382
 
 ====================
-Existing approaches (surveyed in Related Work) focus on syntactic errors such as grammatical mistakes, which cannot help improve the text content, or overly simple models for picking feedback text [50].
+Although the statistical simulation of convolutions produces excellent results while also being easy to realise, we are facing a blatant run-time problem as soon as we are entering the realm of big data.
 
-7.97094260675
+7.58214550735
 
 ====================
-The first category, Informativeness, highlights trends across existing literature that show that both general length measures [4, 50, 55, 57, 82] as well as domain-specific jargon are highly predictive of quality [55, 57, 60].
+We adopt the idea of modelling user uncertainty by means of individual Gaussians following the argumentation in [26] for constructing our individual response models.
 
-7.96339592251
+7.56214680031
 
 ====================
-In contrast, we generate prescriptive, actionable explanations that, if followed, are expected to improve the text.
+In our contribution, we complete this theory and therefore allow a more differentiated analysis of recommender assessment.
 
-7.95226913232
+7.53963178034
 
 ====================
-We address the former challenge using a data-driven approach that learns a quality measure from data that has already been acquired.
+Unfortunately, human beings can not be deemed as constant functions.
 
-7.93461838513
+7.52553720484
 
 ====================
-For quantitative attributes, a common dataquality constraint is to ensure values are not out of bounds (e.g., human age should be above 0).
+Motivating Example.
 
-7.93297762628
+7.50031575973
 
 ====================
-Our contribution is to curate the subset of these features that can be generalized across text domains to improve writing quality, categorize them (Table 1), and integrate them into an open source feature library4 .
+In this contribution, we present a method by which the Magic Barrier can be estimated for any quality assessment metric.
 
-7.93278287471
+7.48385902408
 
 ====================
-Precog, which is complementary to post-hoc quality control techniques, collects >= 2x high-quality documents for the same budget as no feedback, and improves text quality by 14.3% on average.
+A comparison of Figure 3b and Figure 3d reveals that the number of ratings significantly affects the first two decimal places of the variance, whereas the influence of the rating uncertainty affects only the third and fourth decimal places at most.
 
-7.90381307176
+7.46951194797
 
 ====================
-For explanation functions, prior work showed that 75% of reasons for unhelpful reviews were covered by (in priority order) overly emotional/biased opinions, lack of information/not enough detail, irrelevant comments, and poor writing style [18].
+For this purpose, we will embed the Magic Barrier into a complete probabilistic framework and deduce a pragmatic theory through complexity reduction.
 
-7.86584059392
+7.45845469746
 
 ====================
-We then map these feature combinations to explanation functions that are executed to generate the final set of feedback text (Section 5).
+5  EXPERIMENTS  In this section, we examine our theoretical considerations in reality.
 
-7.85605873753
+7.4465306061
 
 ====================
-2.1  Pushing Data Constraints to the Interface  Precog extends existing crowdsourced databases that contain crowdsourced and non-crowdsourced base relations; a crowdsourced table [28] represents a subset of all possible records that may be stored in the table and the task is to acquire records to insert into the table.
+(4) Post hoc illustration of this sample by a normed histogram with b bins leads to an approximation for the density of Z .
 
-7.81340513012
+7.43971516717
 
 ====================
-Although it's possible to automatically perform pre-hoc quality control for simple constraints over simple data types, it is still unclear how this can be achieved for more complex data integrity constraints and data types.
+Therefrom, a paradigm shift has to be carried out, which is similar to the recent change of perspectives on measurement errors in metrology [8]: Every measurable quantity that is somehow related to human cognition is no longer considered as a single point (point-paradigm) but rather as a whole interval of possible values (set-paradigm) that is somehow distributed (distribution-paradigm).
 
-7.78542028843
+7.39805820463
 
 ====================
-Furthermore, while most approaches simply use the distribution of topics as a feature [57, 62], Precog computes several summary statistics (entropy, topic ID and probability of top-K topics, ranked by probability) not used in prior work that prove highly predictive in our experiments.
+These intervals result from the assumption of five repeated ratings (as happened in our experiments) with the commonly used 5-star scale.
 
-7.77406693124
+7.39397843432
 
 ====================
-We then synthesized existing research to write 4 explanation functions for each domain, with 3 overlapping between the two.
+3  MODELLING A MAGIC BARRIER  In this section, we embed human uncertainty into a mathematical construct and introduce an approach for estimating a Magic Barrier for a given evaluation metric.
 
-7.74213249361
+7.38079718194
 
 ====================
-Segmentation: Contributor rubrics across many social media services are structured around topics [2, 92, 96], and psychology research suggests that mentally processing the topical hierarchy of text is fundamental to the reading process [41].
+In the context of this paper, we will, therefore, consider user ratings as random variables.
 
-7.71777857985
+7.37140660249
 
 ====================
-Overview: In contrast to naive form validation, which simply rejects user inputs with an error message, Precog seeks to accommodate iterative improvements through feedback interfaces.
+Therefore, our considerations above - the indistinguishability of excellent systems close to the Magic Barrier - hold even for straightforward investigations.
 
-7.71183631134
+7.30992759689
 
 ====================
-The backend splits the review into coherent segments, identifies the low-quality segments, and generates document-level feedback.
+We received a rating tensor Ru,i,t with dim(R) = (67, 5, 5), having N = 1 675 ratings in total, where the coordinates (u, i, t) encode the rating that has been given to item i by user u in the t-th trial.
 
-7.68133612422
+7.29704981115
 
 ====================
-For instance, multi-paragraph text attributes such as product reviews, forum comments, or rental descriptions are particularly challenging for several reasons.
+As a consequence, systems with an RMSE near the "old" Magic Barrier might already be interfered by this Human Uncertainty and respectively, achieving an RMSE less than the "old" Magic Barrier does not always mean that this system is already interfered.
 
-7.6762608085
+7.25142948482
 
 ====================
-(e.g., readability, informativeness, etc), and implement a representative and extensible library of 47 text quality features.
+With this, we get same results but need only a mere fraction of the simulation runtime.
 
-7.66957644649
+7.22716957172
 
 ====================
-This can be achieved by dynamically identifying these constraint violations and providing feedback to the user.
+The methodology applied in our experiments is adopted from experimental psychology [15] and works on repeating rating scenarios for same users-items-pairs as done before in [2].
 
-7.6637011309
+7.21028008814
 
 ====================
-We then use explanation functions to transform the most responsible features into prescriptive feedback for the user.
+Based on these observations, we compute the RMSE for three recommender systems (designed by definition of their predictors p ) for each rating trial.
 
-7.65494254377
+7.19557264094
 
 ====================
-1  In fact, instances of pre-hoc quality control are already commonly used in practice, both in the survey design literature [36] and as form design throughout the Internet.
+The Magic Barrier Revisited: Accessing Natural Limitations of Recommender Assessment Experimental Designs.
 
-7.63701160137
+7.15530512435
 
 ====================
-Readability/Grammar is an aggregate of syntactic features shown predictive across multiple domains [23, 50, 60, 82].
+From this record we derive a unique rating distribution for each user-item-pair by considering tensor-slices in trial-dimension Ru,i := {Ru,i,t |t = 1, .
 
-7.62764722674
+7.13025312969
 
 ====================
-We then performed pairwise Tukey HSD post-hoc tests between each of the four conditions.
+Even though this approach accounts for Human Uncertainty, its influence - namely the uncertainty of the Magic Barrier itself - remains unconsidered.
 
-7.61252162118
+7.12547813097
 
 ====================
-Pre-hoc quality control occurs before data acquisition and naturally complements many existing post-hoc techniques to further improve the final data quality.
+For the green curve (representing 10% noise of difference), an x-value of 0.15 means  2.5  9 approximated simulated  8 7  Probability Density  Probability Density  2.0  1.5  1.0  6 5 4 3 2  0.5  1 0.0 0.0  0.5  1.0  1.5  2.0  Standard Deviation  Figure 5: Distribution of variances emerged from repeated ratings within our experiment  0 0.5  0.6  0.7  0.8  0.9  1.0  RMSE Score  Figure 6: Visual comparison of simulated and approximation Magic Barrier based on experimental data records  arXiv, 2017, https://arxiv.org/ E[RMSEbest ] - E[MB] = 0.8567 - 0.6687 = 0.1880 is greater than 6V[MB]1/2 = 0.1587, it can be assumed that the Magic Barrier has not yet been reached.
 
-7.59724042949
+7.08895833595
 
 ====================
-By default we use this library for learning quality measures from a corpus.
+We take this as a basis for our own modelling of uncertainty for addressing similar issues in the field of computer science.
 
-7.57004734782
+7.05590424326
 
 ====================
-Since good feedback can help the worker improve the text, it naturally improves the quality of the acquired data, and can reduce data acquisition costs.
+Concerning the distribution model, we investigate the degree similarity using the Jensen-Shannon-Divergence.
 
-7.56409885407
+7.04558586501
 
 ====================
-In isolation, existing approaches may find that the length is large and suggest reducing it, and that the emotion is high and suggest reducing it.
+We aim to generate concrete and action-oriented quantities that can easily be embedded in existing approaches to recommender assessment.
 
-7.54866062577
+7.03018682662
 
 ====================
-We validated generalizability of the model to domains not covered in prior work by evaluating it on reddit comments from the AskScience subreddit5 and predicted comment helpfulness on an evenly balanced sample with 80% accuracy6 .
+For the comparative assessment, different metrics are used to determine the prediction quality, such as the root mean squared error (RMSE), the mean absolute error (MAE), the mean average precision (MAP) along with many others [1, 7, 12].
 
-7.54095937367
+7.01767028885
 
 ====================
-Crowd-based feedback is effective, but can take 20 minutes to generate feedback [52] and are essentially posthoc because they create new crowd tasks to refine previously submitted ones.
+This naturally implies to deem those RMSE scores as single draws from distributions that are strongly overlapping.
 
-7.53208380715
+7.00066526158
 
 ====================
-We then normalize a feature's responsibility Sfdi by computing Snormdfi =  d Sf -uf  i  i  sf  .
+So there is a need for a decision criterion whether a system still has room for improvements.
 
-7.52515543129
+6.99518648152
 
 ====================
-]Rn  P(d) =  [  Rather than examining all possible perturbations, our heuristic to compute Sfdi restricts the set of perturbations with respect to the decision paths in the trees that increase d's utility.
+In the case of the Root Mean Square Error (RMSE) q I RMSE = N1 n (X n - pn )2 , (2) the comparison of a rating X n and a prediction pn [?]
 
-7.52172233672
+6.9909487529
 
 ====================
-As compared to other features libraries such as LIWC, Precog's main advantage is a high-concentration of data-driven features (topic modeling,  4  5  Available at http://cudbg.github.io/Dialectic  Category Informativeness Topic  # 8 5  Subjectivity  15  Readability and Grammar  15  Similarity  4  Description mined jargon word and named entity stats [64], length measures (word, sentence, etc.
+For the RMSE in particular, a criterion has recently been developed which allows for a dichotomous consideration (yes or no)[24].
 
-7.51176750785
+6.93819282322
 
 ====================
-Automated approaches such as auto-graders primarily focus on predicting quality rather than generating feedback [4, 25, 58, 89]; others are limited to syntactic analysis [27, 35, 63], or generate overly simple writing feedback [7, 10, 49].
+On this basis, we develop statistical methodologies that are to be explored hereinafter.
 
-7.50026780952
+6.9346546593
 
 ====================
-These statements complement existing task interface specifications that prior crowdsourcing systems [28, 59, 71] use for task generation by providing a way to augment them for data integrity constraints.
+However, the degree of this improvement decreases very rapidly.
 
-7.49304502319
+6.93018325525
 
 ====================
-All participants were US Residents with > 90% HIT accept rates.
+It becomes apparent at once that the RMSE itself yields a particular degree of uncertainty, emerged from uncertain user feedback.
 
-7.46754174674
+6.88171075795
 
 ====================
-A detailed explanation of the four conditions is shown in Section 7.2.2.
+Since we use the base 2 logarithm, the JSD yields the boundaries 0 <= JSD <= 2 log(2) or  JSD 0 <= 2 log(2) <=1  (21)  The outcomes for the normed JSD is shown in Figure 2.
 
-7.45906548848
+6.87962721098
 
 ====================
-Protocol and Rubric for Assessing Quality: Three independent evaluators (non-authors) coded the pre and post-feedback documents using a rubric based on prior work on review quality [18, 55, 67] and Airbnb profile quality [57].
+This might be totally different when considering the Mean Absolute Error (MAE), whose primary comparison is based on the function c(X n ) = |X n - pn |, reaching a minimum for its expectation when pn is the median of X n .
 
-7.44684083887
+6.86782187266
 
 ====================
-def notEnoughDetail(topics, featureCnt, textLen, text="", feats=[]): if featureCnt < 10 and textLen < threshold: return "Try adding information about: " + suggest_new_prod_feats(topics, text, feats) ...  We note that existing feedback systems [7,49,50] implicitly follow this model, however they bind individual features to static strings.
+Figure 1b depicts the RMSE outcomes and their frequency.
 
-7.4441189051
+6.82820506419
 
 ====================
-A developer first defines an explanation function that takes as input the list of attribute names and values for which the constraint is defined for (in order to support multi-attribute constraints) and the error message, and returns a string that is shown as feedback.
+Therefore, it would be useful to have a rule of thumb to find out whether a differentiated  10 Magic Barrier RMSE  Probability Density  8  6  4  2  0 0.5  0.6  0.7  0.8  0.9  1.0  1.1  RMSE SCORE  consideration is fruitful or not.
 
-7.44186575087
+6.7771775419
 
 ====================
-Second, it is ill-defined and applicationdependent, thus difficult to specify as a constraint.
+5.1  The Experiment  Our experiment is set up with Unipark's5 survey engine while our participants were committed from the crowdsourcing platform Clickworker6 .
 
-7.4398215664
+6.70800777135
 
 ====================
-REFERENCES  [25] N. Farra, S. Somasundaran, and J. Burstein.
+For this reason, metrologists typically apply statistical simulations.
 
-7.42666276492
+6.70314353371
 
 ====================
-We describe our experiments that show that it is possible to use these labels as a proxy for individual segments.
+This can be explained by the fact that the RMSE contains the sum of squared normal distributions, which is kh 2 -distributed, but quickly converges to the normal distribution 4 Samples  are only examples producing the minimum/maximum variance  Understanding the Magic Barrier  In this section, we will take a closer look at the properties of the Magic Barrier.
 
-7.42540584148
+6.69961581584
 
 ====================
-We first describe our extensible feature library that consolidates text features across literature in social media text analysis, essay grading, language psychology, and data mining research communities.
+", which allows for more differentiated evaluation of recommender systems.
 
-7.41421192072
+6.69292477964
 
 ====================
-The review rubric asks coders to scores reviews on helpfulness to laptop shoppers, and the host profile rubric asks coders to score profiles based on trustworthiness to potential tenants.
+Furthermore, we need a non-vanishing variance for a statistically sound decision whether a system can still be improved.
 
-7.41416687808
+6.6928923368
 
 ====================
-Rather than define a concrete quality measure, Precog automatically learns the quality measure from a training corpus that contains documents along with their quality labels (for the entire document, not each segment).
+2  RELATED WORK  Recommender Systems and Assessment.
 
-7.41012023318
+6.69217288227
 
 ====================
-We then sort the FEFs by their average scores and take the top k with a score above the threshold t.  7.
+For this reason, an analysis of possible improvements can not be answered by a dichotomous decision criterion (yes or no), but has to be answered by means of probabilities (How likely is it that my system can still be improved and what risk am I willing to accept?).
 
-7.38400043371
+6.69003435759
 
 ====================
-Precog: A PRECOG SYSTEM  As described in the introduction, Precog seeks to optimize the data collection interface in order to improve the quality of the collected data and ensure data quality constraints.
+Consequently, when assuming all X n ~ N (un , sn ) to be normally distributed (symmetric density function), the optimal recommender system does not differ for the RMSE and the MAE respectively.
 
-7.38137691985
+6.67753440853
 
 ====================
-We then select the maximal  No feedback needed if data point already has high utility.
+To compute the Magic Barrier on the Netflix test record (N = 2.8 * 106 ), we need about 35 hours.
 
-7.38099089281
+6.6758037831
 
 ====================
-The left column shows the feedback interface generated by default.
+However, in our example (Fig 1b) we have seen that the RMSE (esp.
 
-7.3803642615
+6.67069823416
 
 ====================
-The paths go from the document's current low quality classification to a high quality classification.
+For all other uses, contact the owner/author(s).
 
-7.35265083158
+6.66089411004
 
 ====================
-Each rubric rated documents on a 1-7 Likert scale using three specific aspects identified by prior work--Informativity, Subjectivity, Readability--for reviews--Ability, Benevolence, Integrity-for profile trustworthiness, as well as a holistic overall score.
+Figure 4 illustrates the interference of the Magic Barrier with a recommender system used in our experiments.
 
-7.35213435227
+6.62696595604
 
 ====================
-For instance, Amazon product reviews and users may be modeled using the following crowdbased DDL statements.
+In addition, we will generalise the dichotomous decision criterion from [24] and develop a pragmatic rule of thumb to ascertain whether a deeper consideration of the Magic Barrier seems worthwhile.
 
-7.34962368413
+6.62519348288
 
 ====================
-Purple arrows show the feedback process for hard constraints.
+As will be revealed later, recommender R1 is the Magic Barrier itself.
 
-7.3307551276
+6.61785139594
 
 ====================
-To summarize our contributions: * We present the argument for pre-hoc quality control and present its unique advantages as well as the challenges for multi-paragraph text.
+Each of these copies is gradually distorted by adding artificial noise to their predictors in such a way that the relative noise difference of both copies remain constant.
 
-7.32232939945
+6.57942053909
 
 ====================
-The prior work predicts the quality of Amazon DVD, AV player and Camera reviews with 83% accuracy; Precog's default model on the same setup predicts at 85% accuracy--the slight improvement is due to the additional features in the topic and similarity categories from other literature (Table 1).
+Now having the definition of an optimal recommender system, we need to deduce the probability density function of the evaluation metric for this optimum.
 
-7.31555860509
+6.57337558578
 
 ====================
-We then gave participants the opportunity to revise their submission; to avoid bias, we noted that they were not obligated to.
+One of the first works addressing Human Uncertainty and its impact on recommender systems was presented in [13], where users have been proven to give inconsistent ratings on movies.
 
-7.31507762324
+6.57096998784
 
 ====================
-However, recent study shows the promise of translating semantic features to textual feedback [50].
+This power-law distribution literally means, that many users have a low degree of uncertainty while only a few users have a very high degree of uncertainty.
 
-7.30410443431
+6.54766612848
 
 ====================
-Our goal is to provide the foundation for such content-specific semantic feedback by surveying and categorizing features from the writing analysis literature.
+Therefore, the crux is to recognise whether the prediction quality has really improved or is just some random artefact.
 
-7.29028851425
+6.54531328437
 
 ====================
-Figure 4 summarizes Precog into three levels based on the amount of customization needed by the developer.
+Finally, we have demonstrated the possibility to transfer our results onto other data records in order to make careful predictions of possible interference.
 
-7.28718873124
+6.53763709316
 
 ====================
-def exp_func(att1, val1, ..., attn, valn, err=None): return "custom error message" CREATE EXPLANATION <func> ON <table>(<att1>,..<attn>) FOR <CONSTRAINT NAME> USING <explanation function>;  Below is the specification to customize the feedback for a numeric domain constraint3 .
+The central role of recommender systems led to a lot of research and produced a variety of techniques and approaches.
 
-7.2824764007
+6.50056577316
 
 ====================
-Experimental Conditions: The purpose of experiments is to both show the Cost Saving benefits of Precog as well as to evaluate the effectiveness of it's two main features (segment-level feedback and TCruise explanation generation).
+Copyrights for third-party components of this work must be honored.
 
-7.28144928631
+6.49603978926
 
 ====================
-By default, Precog provides optimizations for constraints over numerical and categorical data types, and can be extended with custom optimizations.
+Consequently, we may assume that observed decisions are drawn from individual distributions, as a result of complex cognition processes, and influenced by multiple factors (e.g.
 
-7.28040932858
+6.478862452
 
 ====================
-The core challenges are to (1) identify a proxy for text quality that is consistent with the downstream application's needs, and (2) to generate effective feedback text.
+This model is described in [17].
 
-7.27675239795
+6.44369666413
 
 ====================
-NEW APPLICATION DOMAINS  EXPERIMENTS  We now evaluate how Precog improves high-quality data acquisition using live Mechanical Turk deployments.
+For this purpose, participants watched theatrical trailers of popular movies and television shows and provided ratings in five repetition trials7 .
 
-7.27225089865
+6.4411509683
 
 ====================
-Below, we describe how developers can express the three levels of Precog quality control for domain, foreign-key, uniqueness, and quality score constraints in Figure 4.
+(R) into its Taylor series d(X ) =  [?]
 
-7.26897486566
+6.41528567792
 
 ====================
-[28] M. J. Franklin, D. Kossmann, T. Kraska, S. Ramesh, and R. Xin.
+For a visual comparison of both distributions, Figure 6 depicts the simulated density as well as the approximation for our experiment with N = 213.
 
-7.26518385637
+6.37059534114
 
 ====================
-In this work, we restrict the analysis to perturbations that have the maximal influence.
+But while the uncertainty of users is considered, its influence on the precise localisation of the Magic Barrier is negated.
 
-7.25992976193
+6.36541618986
 
 ====================
-Third, it's unclear how to automatically generate the appropriate feedback text to show the user.
+In Figure 3a and 3b, one can observe the Magic Barrier's reaction to an increasing number N of ratings.
 
-7.24450601682
+6.36362198174
 
 ====================
-This provides the functionality for our automatic pre-hoc quality control system for free-form text attributes.
+Then we have to compute the probability density function of the evaluation metric which arises for this optimal recommender.
 
-7.24285022075
+6.35930572387
 
 ====================
-Our design is informed by the writing analysis and feedback literature, which emphasizes the value of providing immediate feedback [51], as well as finegrained feedback for specific portions of the text [17, 78, 83], as is common in coding environments.
+4E[Z ] 32E[Z ]3 4E[Z ]  p  E[Z ] -  (13) (14)  With additional assumption of normality (which is indeed a suitable model, as we will confirm soon), the approximated distribution of the Magic Barrier for the RMSE is !
 
-7.24236117327
+6.35691208005
 
 ====================
-Krause [50] was shown to outperform static explanations of important components of a helpful review (similar to a rubric) for students performing peer code-reviews and uses an outlier based approach described in Section 5.1.
+A feasible framework for computing these convolutions via Monte-Carlo-Simulation is given by [18].
 
-7.23701855007
+6.34329147724
 
 ====================
-Subjectivity assesses user bias using a variety of features ranging from sentiment analysis [32, 34, 56] to pronoun usage [73].
+For each of the user-item-pairs Ru,i , we compute the Gaussian ML-Parameters and consider the variances V(Ru,i ) as representations of the Human Uncertainty.
 
-7.23534287408
+6.32976662412
 
 ====================
-Although there might be a number of segments mislabeled, the model can tolerate their impact well and achieve good performance.
+The relevance of our contribution arises from the fact that the unavoidable human uncertainty sometimes has a vast influence on the evaluation of different prediction algorithms [3, 5].
 
-7.2278766049
+6.32386729264
 
 ====================
-CONCLUSION AND FUTURE WORK  This paper presented the design, implementation and evaluation of Precog, a pre-hoc quality control system.
+We will demonstrate this by using an example.
 
-7.21043665243
+6.31193823104
 
 ====================
-Fp is the subset of features that p perturbs:  Sfd  We are now ready to present the key technical problem for text acquisition feedback:  5.4  U (vij ) - U (M (d))  Our implementation indexes all paths in the random forest by their utility.
+In this example, we see that even for large data records the effort of considering the Magic Barrier as a distribution is quite meaningful.
 
-7.20499735777
+6.29885642174
 
 ====================
-Each worker was randomly assigned to one of three conditions, one for each of the interfaces shown in Figure 7.
+This idea is widely used in cognitive science and in statistical modelling of ordinal data [14].
 
-7.18385170342
+6.28989609587
 
 ====================
-For hard constraints (Purple), user inputs are sent to the  4  jargon usage, text similarity measures) that are trained to fit each developer's unique corpus.
+Having X n ~ G(an , bn ) being gamma-distributed instead, the optimal recommender may be different for both metrics, depending on the extent of asymmetry.
 
-7.18306321639
+6.26060135542
 
 ====================
-The primary features that we do not include are those that rely on application metadata such as the worker's history or location, which may be predictive of quality but not related to the writing content, and cannot be mapped to actionable writing feedback.
+In theory, this is done by a convolution of all density functions fi of X i , but what sounds simple at first, turns out to be quite laborious and inapplicable as demonstrated in [9].
 
-7.18190351697
+6.25490547955
 
 ====================
-The consistent results between all three comparisons suggest the efficacy of the segment-level classifier, and our end-to-end experimental results suggest that the predictive model is effective at providing segment level feedback.
+( n sn4 )/(2N n sn2 ) represents the traditionally neglected uncertainty of this Magic Barrier, emerged from uncertain user ratings.
 
-7.17363619821
+6.25010713249
 
 ====================
-For instance, len FEATURE len_extracton defines the feature returned by the user-defined function len_extracton.
+Later, this upper bound was mentioned once again in [12] and received the name Magic Barrier, which is still in use nowadays.
 
-7.17104862131
+6.24546103969
 
 ====================
-We compute a variety of similarity measures between the input document and a sample of high and low quality documents-using both the simple TF-IDF measure used in prior work [47] as well as occurrences of popular parts of speech appearing in a document (i.e top-K nouns in unhelpful documents that appear).
+In this section we will derive closed form approximations for the RMSE and therefore define q I MB = d(X 1 , .
 
-7.16585939695
+6.2333562336
 
 ====================
-For example, the following specify the star interface for rating and the autocomplete interface for product: CREATE INTERFACE ON reviews(rating) USING "stars" FROM "interfaces.js" AND explanation_function; CREATE INTERFACE ON reviews(product_id) USING "autocomplete" FROM "interfaces.js" AND explanation_function;  It addition, custom interfaces can be used to provide feedback that goes beyond textual feedback (e.g., visualizing distributions of common numerical values), or that is at a finer granularity than for the entire attribute.
+The complexity of human perception and cognition can be addressed by means of latent distributions [10].
 
-7.15253909003
+6.21642461299
 
 ====================
-[31] A. Ghose and P. G. Ipeirotis.
+However, Figure 3b reveals that the Magic Barrier's variance is heavily impacted by the number of ratings, i.e.
 
-7.15229952917
+6.20973916275
 
 ====================
-Rn be a data point (text document or segment) represented as a feature vector, where di corresponds to the value of fi .
+(12) N n N n N n n Now we can consider the Magic Barrier to be the image of the root function i.e.
 
-7.15054774429
+6.19707112209
 
 ====================
-The problem is exponential and we present an efficient solution that leverages the structure of random forest models to generate high-quality feedback in interactive time.
+The authors claim that it will never be possible to perfectly predict ratings and that there must exist an upper bound on rating prediction accuracy.
 
-7.13521700231
+6.19132649136
 
 ====================
-We showed this to be sufficient by testing on crowd-sourced labels; however more sophisticated techniques to classify segments could improve feedback.
+At this point, one may wonder how well this estimate actually matches the true state.
 
-7.12881534638
+6.17560980227
 
 ====================
-D and its vote vij is the majority label in Dij .
+Our Objective.
 
-7.12509887362
+6.17445198226
 
 ====================
-Similarly, auto-complete may be used to provide feedback about existing categories in order to avoid duplicates when collecting categorical text [28, 71] (e.g., ice cream flavors, presidents).
+For example, for N = 80 000 ratings, the simulation already takes up to an hour of runtime1 .
 
-7.10618703748
+6.17271543579
 
 ====================
-Finally, when the user hovers over a highlighted segment, more targeted feedback helps explain why it was identified as low quality and how it could be improved.
+This naturally  The Magic Barrier Revisited: Accessing Natural Limitations of Recommender Assessment involves research that connects the fields of behavioural decision making, cognitive psychology and recommender systems to create interdisciplinary synergy effects.
 
-7.10111867445
+6.17028917288
 
 ====================
-def numeric_exp(att, val, err): return "%s: '%s' should be a number" % (att, val) CREATE EXPLANATION ON reviews(rating) FOR reviews_rating_domain USING numeric_exp; CREATE EXPLANATION ON users(age) FOR users_age_domain USING numeric_exp;  Similar functions can easily be written for the foreign-key and uniqueness constraints in Figure 4: def product_exp(att, val, err): return "%s is not a product" % val def unique_exp(att, val, err): return "%s has been taken" % val  For text attributes, the explanation function is slightly different, which is defined on a FEATURE table.
+We observe that the mid-range of all outcomes is located between 0.01 and 0.08 confirming high similarity of the simulated distribution and the assumed Gaussian.
 
-7.09460315464
+6.16923610204
 
 ====================
-An example will be shown in Section 5.2.
+R and arbitrary random variable X  (9)  Goodness of Approximation  As mentioned above, the method presented here is merely an approximation, since we omit terms of higher orders.
 
-7.09448006031
+6.16598778799
 
 ====================
-def offTopic(topics, text="", feats=[]): if len(topics) < 5: sortedTopics = sorted(topics, key=topic.prob) return "Try discussing some of these topics: " + topK(sortedTopics, 5)  We used a similar process for host profiles and found that research emphasizes trustworthiness as the key quality metric [57, 94].
+We have so far only considered a smooth function with just one argument in order to guarantee an easy understanding of the methodology.
 
-7.09244080406
+6.16043188625
 
 ====================
-Finally, Precog explains why segments were predicted as low quality by selecting the feedback that is most relevant to changing the segment into a high quality prediction.
+Having several recommender systems whose RMSEs, for example, are lower than this Magic Barrier, every repetition of the rating proceeding would very likely result into rearrangements of the ranking order, i.e.
 
-7.08191758568
+6.1590625579
 
 ====================
-Although they are interpretable for simple constraints such as domain violations, the language for the uniqueness violation requires database familiarity and may not be accessible to non-technical experts.
+This reasoning can be understood heuristically: For each draw, there is a variety of possibilities for a single outcome x i of a random variable X i .
 
-7.0761837553
+6.1435881843
 
 ====================
-In the rest of this paper, we use the term document to refer to the value of the acquired text attribute.
+The idea of uncertainty is not only related to predictive data mining but also to measuring sciences such as metrology.
 
-7.07087853761
+6.13736660718
 
 ====================
-Our technical contribution is a pre-hoc feedback system for multi-paragraph text.
+Although the term "Magic Barrier" is related to the RMSE in particular, such a barrier does basically exist for any metric comparing (uncertain) user inputs with predicted scores.
 
-7.06984855477
+6.12195577313
 
 ====================
-Our model performs competitively with prior work [32].
+The Problem.
 
-7.06770836916
+6.1167176106
 
 ====================
-Unfortunately, this procedure is not effective for non-continuous or low cardinality features such as one-hot encoded features (e.g., each word is represented as a separate binary feature) common in text analysis.
+In summary, it can be said that the extent of Human Uncertainty alone is responsible for the location of the Magic Barrier, whilst its spread can be reduced by adding ratings.
 
-7.06709533215
+6.11401911987
 
 ====================
-To address this issue, we present a Segment-Predict-Explain pattern that  Architecture: Figure 5 depicts the system architecture.
+User ratings have been recorded for five out of ten fixed trailers so that remaining trailers act as distractors triggering the misinformation effect, i.e.
 
-7.0658897535
+6.10936376403
 
 ====================
-In NAACL, 2015.
+3.3  Magic Barrier Estimation  The Magic Barrier is defined as the minimum of an evaluation metric when explicitly accounting for Human Uncertainty.
 
-7.06449607399
+6.10398674257
 
 ====================
-Host-Profile Participants: For the profile description experiment, we recruited 92 workers on Amazon's Mechanical Turk (58.7% male, 41.3% female, ages 20-62 uage =33, sage =8.2); all completed the task.
+R3) [?]
 
-7.05503576132
+6.09246637171
 
 ====================
-Precog is easily extended to new domains, and increases the number of high-quality documents by >= 2x compared to not using pre-hoc techniques.
+Therefore, we first develop a general framework which will then be illustrated for the RMSE as a prominent example.
 
-7.05097141351
+6.07438252869
 
 ====================
-]P(d),pi 6=0  Putting this together, we can define the responsibility score Sed of a feature explanation function (FEF) e as the average of its bound features; where Fei [?]
+By increasing the noise for both copies whilst keeping their relative difference constant, we generate an offset (distance from the Magic Barrier).
 
-7.03119376813
+6.06155989333
 
 ====================
-The document-level feedback is shown to the user, and the low-quality segments are highlighted as light red in the interface.
+, x n of all random variables altogether result into a single outcome for the composed quantity Z by means of z = d(x 1 , .
 
-7.03109531515
+6.0558962607
 
 ====================
-Specifically, we ran a crowdsourced study to label 500 Amazon segments (250 drawn from helpful reviews, and 250 from unhelpful reviews), with human helpfulness labels (the median segment length of a review is 3).
+In addition, it may be possible that further repetitions of ratings would lead to even more ranking possibilities.
 
-7.02813410924
+6.05339890729
 
 ====================
-In contrast, Precog supports feature combinations and can dynamically generate feedback based on the  Responsibility: Our goal is to identify feature subsets of the test data point d that, if perturbed, will most improve 7  d's utility7 .
+In our experiment, the existence of Human Uncertainty is proven and it has been shown that it corresponds to a power-law distribution, i.e.
 
-7.01897260564
+6.05080466588
 
 ====================
-In this section, we describe our approach towards in-depth semantic feedback.
+denotes "better than".
 
-7.01874027254
+6.03334764063
 
 ====================
-Furthermore, in some settings where collecting more data is not an option (e.g., less popular products may not have enough users that are willing to, or equipped to, write reviews), it will be more important to apply pre-hoc quality control.
+Recently, a paradigm shift was initiated on the basis of a so far incomplete theory of error [8, 11].
 
-7.01711029083
+6.03007186903
 
 ====================
-We choose a random forest classifier, which has been shown effective in existing work [32], and select features using the recursive feature elimination algorithm [38].
+In doing so, we choose Gaussians as the underlying data model for our ratings.
 
-7.01652849359
+6.02832863263
 
 ====================
-One solution is 5 6  EXPLAIN  5.1  Problem Background  Our problem is closely related to model explanation, which generates explanations for a model's (mis-)prediction.
+For many repetitions, we receive a lot of simulated expectations/variances to be plotted against the approximated ones by means of linear regression.
 
-7.01590440633
+5.99965779693
 
 ====================
-For this reason, we first define the maximum influence perturbation set PF of a given subset of features F [?]
+This convergence is actually the true nature of the Magic Barrier, which could not have been shown without switching perspectives to the distribution-paradigm.
 
-7.00390739386
+5.99785329924
 
 ====================
-Developers commonly implement explanation functions to generate more user-friendly feedback (middle column).
+R2 [?]
 
-6.99849902852
+5.99020070445
 
 ====================
-To understand the contributing factors towards the quality improvements, we compared four feedback systems that varied along two dimensions: granularity varies the feedback to be at the document level (Doc), or at the document and segment level (Seg); explanation selection compares the single-feature outlier technique from [50] (Krause) with TCruise.
+Due to the linearity of the expectation2 , we yield "[?]
 
-6.99142631701
+5.98166419702
 
 ====================
-It can be integrated seamlessly into existing crowdsourcing applications or systems with post-hoc quality control, helping them to further improve quality.
+, X n ) of large amounts of uncertain arguments X i (random variables).
 
-6.98410249168
+5.969982555
 
 ====================
-Upon pressing the I'm Done Writing button, the interface displayed our document-level feedback under the text field; for users in the segmentation condition, low quality segments were highlighted red and the related feedback displayed when users hovered over the segment.
+when repeating draws infinitely) will then result in a variety of possible outcomes z.
 
-6.98356480516
+5.96075865686
 
 ====================
-Finally, the most sophisticated may change the input element itself in order to constrain or fully customize the feedback (right column).
+Dealing with Uncertainties.
 
-6.98056450592
+5.95596886568
 
 ====================
-For the sake of exposition, product_id is the textual name of the product.
+5.3  The Magic Barrier  Figure 3a shows that the expected value of the Magic Barrier depends solely on the Human Uncertainty.
 
-6.9805116238
+5.955738513
 
 ====================
-If the features topics, featureCnt, and textLen have high responsibility, then it will be called to recommend new product features that the worker should mention in the review; the recommendations are dynamically selected based on the text's topic distribution (topics) and the number of product features detected (featureCnt < 10):  Setup: Let d [?]
+For our five-star scale as well as its minimum and maximum variances, the expectation should - when equation 15 holds - be located in the interval [0.40 ; 1.55].
 
-6.97965976276
+5.95063080418
 
 ====================
-Figure 4: Examples of three levels of Precog quality control for four classes of data integrity constraints.
+Therefore, we must first specify an optimal recommender by defining its predictors.
 
-6.97188014652
+5.94633823768
 
 ====================
-Nevertheless, more studies are needed to fully evaluate this hypothesis across other text domains and document lengths.
+In the following sections, we will derive a pragmatic estimate for the desired density function of the Magic Barrier for arbitrary metrics.
 
-6.96845568061
+5.94484817019
 
 ====================
-5.3  Problem Statement  Intuition: Figure 6 depicts the main intuition behind the problem and our approach.
+The choice of predictors depends on the evaluation metric and the underlying data model.
 
-6.96827012066
+5.93429337442
 
 ====================
-For instance, we might replace the rating domain constraint with five stars similar to Yelp and other social websites.
+For the variance and its quasi-linearity3 , we yield # !2 [?]
 
-6.9637207617
+5.92945977
 
 ====================
-We implement a variety of length measures, and use the Apriori algorithm [75] to mine jargon based on the training data inputted into Precog, and identify its distribution across the sentences of an input document.
+(8)  4.2  Since we have to face multiple arguments, we would usually need a Taylor series in several variables, which is quite ugly for demonstration purposes.
 
-6.96258624721
+5.92485943071
 
 ====================
-4.2  Document-level Prediction  to manually label the generated segments, but this will be very costly and time-consuming.
+Thus, the more ratings we have, the more adequate is a Gaussian as the assumed density.
 
-6.95020767963
+5.91209392964
 
 ====================
-The Model Generator then trains two classification models to predict the quality of a user's overall text submission as well as its constituent segments; these are cached in the Model Store.
+For this purpose, the individual dependencies of the Magic Barrier and their effects are analysed in a sensitivity analysis.
 
-6.94545293344
+5.90972176424
 
 ====================
-Figure 2 augments this workflow with pre-hoc quality control.
+Performing an item-wise analysis, the fraction of tensor slices with non-zero variance ranges from 50 to 90% that is, only every second participant is able to reproduce its own decisions for the best case.
 
-6.94458679436
+5.88324300677
 
 ====================
-This problem is challenging because we must analyze potentially arbitrary text content.
+The usual approximation is to omit terms of higher orders, like E[d(X )]  =  d(u) + d 0 (u) * m 1 + .
 
-6.92233393272
+5.87297321351
 
 ====================
-To summarize, each participant was randomly assigned to one of four conditions: Doc+Krause, Seg+Krause, Doc+TCruise and Precog (Seg+TCruise ).
+Therefore, it is necessary to evaluate the degree of deviation of both distributions.
 
-6.90904422033
+5.87184962356
 
 ====================
-Indirect Quality Mechanisms: Indirect methods such as community standards and guidelines [2, 5, 70] help clarify quality standards, while up-votes and ratings provide social incentives [11, 66].
+Then, we yield a sample for the evaluation metric Z = d(X 1 , .
 
-6.9077219134
+5.86729976821
 
 ====================
-1 Similar to precogs in Minority Report [22], who identify and help "resolve" low-quality human action in the future, Precog identifies and helps resolve low-quality data before it is submitted in the future.
+Applying the one-dimensional Taylor approximation from equations 6 and 7 leads to  k =0  where the last line has been simplified by using the common identity V[(X - u)k ] = E[(X - u)2k ] - E[(X - u)k ]2 = m 2k -mk 2 .
 
-6.90050840628
+5.86678937902
 
 ====================
-Quality scores are intended for attribute values for which the definition of quality defined as a continuous measure to be improved, rather than a boolean constraint, and provides the framework for which we implement a model-based feedback system for performing Precog on text attributes (Section 3).
+In our example from Figure 4, this probability is around 0.33, i.e.
 
-6.89154698296
+5.85750295762
 
 ====================
-* We define the Prescriptive Explanation Problem to provide actionable feedback for text acquisition.
+, xnt } of t pseudo-random numbers (trials) that are drawn from a distribution (underlying data model).
 
-6.88681714809
+5.83726814661
 
 ====================
-Finally, we asked coders to subjectively rate their agreement from 1-7 to the statement "The post-feedback revisions improved on the pre-feedback document.
+A good introduction and overview is given by [16, 23].
 
-6.88159265141
+5.8326629788
 
 ====================
-We directly address this problem by selecting multi-feature explanation functions to prescribe improvements to the user's text.
+For example, financial resources may be invested in improving a system but the improvements achieved are purely random, which remains unnoticed.
 
-6.88055841975
+5.82983662545
 
 ====================
-We tested this hypothesis by running an experiment, using an existing corpus of Amazon reviews [61].
+First of all, the world of recommender assessment does not entirely consist of large-scale experiments, so that the variance can not be deemed to equal zero.
 
-6.87436029049
+5.82319664394
 
 ====================
-Let minp(d, qij ) return the minimum perturbation p (based on its L2 norm) such that d matches path qij .
+Hence, Yn := (X n - E[X n ])2 receives the expectation E[Yn ]  2 E[aX 3 V[aX  =  E[(sn I + un - un )2 ] = E[(sn I)2 ]  =  E[sn2 I2 ] = sn2 E[I2 ] = sn2 V[I] = sn2  + b] = aE[X ] + b holds for a, b [?]
 
-6.86958967545
+5.82064093417
 
 ====================
-[30] H. Garcia-Molina, M. Joglekar, A. Marcus, A. G. Parameswaran, and V. Verroios.
+1 Mac  mini, i5 processor, 8GB DDR3-RAM  arXiv, 2017, https://arxiv.org/ Estimation Analytics.
 
-6.86921122041
+5.81284637008
 
 ====================
-We first present the results of the fully featured Precog condition (Section 7.2.1) and then demonstrate the contribution of each Precog component (in Section 7.2.2).
+For example, all RMSE scores were given to the fourth decimal place in Netflix Prize [22].
 
-6.86863074144
+5.80460784686
 
 ====================
-In general, we must account for the amount that a feature must be perturbed, and the number of other features that must also be perturbed, in order to improve the classification.
+Only the extent of the uncertainty raises or lowers the mean value.
 
-6.86677084847
+5.79992472522
 
 ====================
-This means that for n features there are 2n possible sets of (maximal influence) perturbations to naively explore.
+Hence, the optimal recommender system with respect to the RMSE is defined by pn := E[X n ] for each user-item-pair n .
 
-6.8402608891
+5.79415726309
 
 ====================
-They pre-compute the "typical" values of each feature in the high quality corpus, then identify the "atypical" outliers in the test data's feature vector (e.g., a feature whose value is 1.5 standard deviations from the mean).
+k =0  mk  (6)  where mk is the k-th central moment.
 
-6.78478203341
+5.78716025124
 
 ====================
-We observe that document quality is sufficiently correlated with segment quality, and a document's label can be used to label its segments as training data for a segment classifier.
+The parameters of this Gaussian are " # 1 O 2 1 O 1 O Yn = E[Yn ] = s (11) E[Z ] = E N n N n N n n " # 1 O 1 O 2 O 4 V[Z ] = V Yn = 2 V[Yn ] = 2 s .
 
-6.77460934515
+5.78340996674
 
 ====================
-We compared a segment binary classifier trained under this assumption with human evaluation.
+The median corresponds to the expected value, only if a symmetrical distribution is chosen as the underlying data model.
 
-6.77217918534
+5.77278777346
 
 ====================
-Finally, the Similarity category reflects how many quality prediction approaches compare the input document to a gold-standard of text [47, 50].
+V[RMSE], which usually holds when both quantities are computed on the same data record, this criterion can be simplified to E[RMSE] - E[MB] < 6V[MB]1/2 .
 
-6.76583801645
+5.767691185
 
 ====================
-Consider a single tree in a random forest, consisting of decisions on two features, len and emotion.
+arXiv, 2017, https://arxiv.org/  REFERENCES [1] Amatriain, X., Ed.
 
-6.74887170215
+5.76232219554
 
 ====================
-We assume that the interface is a javascript function (say, as an AngularJS [19] or ReactJS [26] component); the constructor takes as input a Precog-provided getFeedback method that retrieves feedback from the Precog server.
+This group also includes a good average of lower, medium and higher educational levels.
 
-6.74259077261
+5.75945826364
 
 ====================
-The rest of this subsection describes the DDL statements that users can use to specify feedback and interfaces for Precog quality control.
+We are thus able to support the chosen data model and verify our approximation on a real data set.
 
-6.7254464306
+5.75483323593
 
 ====================
-The first states that user information is collected from the crowd (of Amazon users) and that the username must be unique.
+So the question changes from "Is the prediction quality interfered by Human Uncertainty?"
 
-6.72404854369
+5.74116921272
 
 ====================
-Quality Control in Crowdsourcing: Quality control is an important research topic in crowdsourced data management [16, 30, 54].
+Thus, the distribution of Z emerges as a convolution of n density functions with respect to the mapping d [17, 18].
 
-6.71989861044
+5.7396019641
 
 ====================
-Thus, we decompose the text into segments, and for each low-quality segment predicted by the model, we generate segment-specific feedback.
+R2),  (1)  where the relation [?]
 
-6.69175333321
+5.72900088482
 
 ====================
-Each measure is rated on a scale from 1 (Strongly Disagree) to 7 (Strongly Agree) based on coder agreement with a set of statements mapped to each criterion (i.e., "This person will stick to his/her word, and be there when I arrive instead of standing me up" for integrity).
+In fact, there is still the potential for about 20% of improvement when taking the winner as reference.
 
-6.68714887197
+5.72804890382
 
 ====================
-Survey Design and Optimization: The survey design literature has studied ways to re-ordering, and designing survey forms in order to reduce data entry errors.
+mood, media literacy, etc.)
 
-6.68315028469
+5.72559414063
 
 ====================
-It uses a sliding window to compute the LDA [8] topic distribution within each window and create a new segment when the distribution changes beyond a threshold.
+(R2 [?]
 
-6.6749998619
+5.72394471072
 
 ====================
-This groundwork reduces the task of applying Precog to new domains.
+R1 [?]
 
-6.67048515418
+5.7212346856
 
 ====================
-Figure 9 compares Precog against the baseline of not using Precog (naive review collection).
+( n sn2 /N )1/2 exactly meets the traditional Magic I I Barrier as defined in [24] and V[MB] [?]
 
-6.66659737487
+5.72020213491
 
 ====================
-In SIGMOD, 2011.
+Therefore, we first condense all ratings X 1 , .
 
-6.66565719641
+5.71823661657
 
 ====================
-TopicTiling outperformed other topic segmenters [44, 65] in terms of their WindowDiff score [74] as compared to a hand-segmented test corpus of 40 documents.
+(R1 [?]
 
-6.66423864563
+5.71668330926
 
 ====================
-[34] C. H. E. Gilbert.
+R3 [?]
 
-6.66272238542
+5.71178250662
 
 ====================
-We learn this quality measure by training a random forest model that predicts the quality of individual text segments.
+By this means, every rating X n ~ N (un , sn ) can be written as X n = sn I + un where I ~ N (0, 1).
 
-6.66009140235
+5.70490886616
 
 ====================
-For this, we next introduce DDL statements to specify custom interfaces.
+the Magic Barrier) itself follows a distribution due to Human Uncertainty.
 
-6.65325015225
+5.70402453173
 
 ====================
-The developer then binds an explanation fuction to the appropriate constraint.
+A first calculation of the Magic Barrier can be found in [24].
 
-6.6504212646
+5.69011157785
 
 ====================
-We describe this in Section 4.
+On a 5-star scale together with five re-ratings, the expected value yields limitations (green and red) due to the minimum and maximum variance possible.
 
-6.6467790566
+5.67277609554
 
 ====================
-For instance, the bottom row of Figure 4 illustrates fine-grained feedback in the form of both highlighted text and text feedback for individual segments that the user has written for reviews.review.
+The essence of our contribution is the revelation of the following problems: (1) People are not able to tell us what they really mean.
 
-6.64660121625
+5.66549487163
 
 ====================
-First, the quality measure is continuous (there is no "perfect document") and thus hard to identify a "violation".
+It is seen that the expectation remains unaffected by the number of uncertain ratings.
 
-6.64218779636
+5.64519338013
 
 ====================
-The classic approach is to use simple, interpretable models [13, 53, 88] or to learn an interpretable model using the training  https://www.reddit.com/r/askscience/ We define > 1 net up-votes as helpful and <= 1 as unhelpful.
+Under this condition, we will examine possible consequences on Netflix Prize as an example.
 
-6.63937903951
+5.6432405918
 
 ====================
-71.3% had written a prior product review; all had read a product review in the past.
+Altogether 67 people from Germany, Austria and Switzerland participated in this experiment.
 
-6.63843573268
+5.64312699717
 
 ====================
-One approach is to simply highlight the low-quality segment and provide generic/static feedback.
+Hence, Z becomes a random variable itself.
 
-6.61694303684
+5.64250541082
 
 ====================
-User-facing Interface: The custom interface column for the quality score in Figure 4 depicts the Precog interface in action.
+[4] Ashby, F. G. Multidimensional Models of Perception and Cognition (Scientific Psychology Series.
 
-6.61684784294
+5.64184699153
 
 ====================
-Based on this library, we develop document-level and segment-level prediction models.
+This basically means that a recommender system within a repeated process of improvement will certainly reach a prediction quality so that there is probably no sufficiently large amount of optimisation left, in order to distinguish further improvements from the old system with statistical evidence.
 
-6.61657667716
+5.63293198223
 
 ====================
-We created a simple Mechanical Turk task that asked workers to submit the product model of their cell phone along with a 1 to 5 rating for the phone's quality; each 9  worker was paid $0.05 to complete the task.
+The Magic Barrier.
 
-6.60720693691
+5.63280388986
 
 ====================
-Although the data cleaning literature has proposed ways to prescribe data cleaning operations [14], they are not applicable for text attributes.
+There are, however, some outliers which only occur for N = 50 ratings.
 
-6.60097150727
+5.63155250752
 
 ====================
-The following snippet sketches the Not Enough Detail function in our evaluation.
+Therefore, we vary one argument within reasonable boundaries while fixing all the other arguments at the same time.
 
-6.6001809006
+5.62933409756
 
 ====================
-All trustworthiness factors except friendliness directly corresponded to existing explanation functions.
+We keep the following simulations as general as possible.
 
-6.58722449397
+5.6284837793
 
 ====================
-To do so, we first define the impact I(d, p) for an individual perturbation p as the amount that it improves the utility function discounted by the amount of the perturbation [?
+Accounting for all the possibilities for x 1 , .
 
-6.58561485085
+5.61351947876
 
 ====================
-It does so by generating feedback or interface changes to help workers improve their data pre-submission.
+O f (k ) (u) (m 2k - m k2 ) (7) k! "
 
-6.57899207112
+5.6124087458
 
 ====================
-We defer this to future work.
+A perfect match between simulation and approximation would lead to the regression y = 1 * x + 0 with correlation coefficient R 2 = 1.
 
-6.57577357418
+5.61093667297
 
 ====================
-Once a library of features are given, the document-level prediction turns to be a typical classification problem.
+This offset is plotted against the probabilities of error when using the traditional point-paradigm ranking, which is given by the generalisation of equation 22.
 
-6.56747313384
+5.61047627664
 
 ====================
-Our approach is inspired by existing feedback systems--model features act as signals to identify text characteristics that the worker should change.
+In this contribution we opt for Gaussians since they are strongly associated to human characteristics [4] and have also been proven to be appropriate user models in [26].
 
-6.56282151793
+5.59539336942
 
 ====================
-The Journal of Forensic Psychiatry & Psychology, pages 1-21, 2017.
+r I 1 I 2 1 n sn4 MB ~ N s , (15) I N n n 2N n sn2  4 MAGIC BARRIER FOR THE RMSE 4.1 Application of Gaussian Error Propagation  I where E[MB] [?]
 
-6.56047158555
+5.59422317068
 
 ====================
-However, it leaves it up to the user to infer specific improvements to make.
+For example, the probability density for the Magic Barrier on the Netflix test record can be computed in less than 80 milliseconds.
 
-6.55213306973
+5.59421321763
 
 ====================
-This results in a 2x2 between-subjects design.
+As a result, we recognise the following: The distance from the Magic Barrier has a great influence on the overlaps in two constantly different recommender systems, i.e.
 
-6.54892000126
+5.59415563545
 
 ====================
-For both Product Review and Host Profiles, we performed Two-Way ANOVAs with both the Overall Quality Im11  knowledge, Precog is the first system that systematically supports Precog for a wide range of data types and quality specifications (constraints and quality scores).
+of a single random variable, I I h(Z ) := Z where Z ~ N ( N1 n sn2 , N22 n sn4 ).
 
-6.54247678909
+5.59344008906
 
 ====================
-Developers can bind the interface to an attribute using a CREATE INTERFACE statement.
+, X N ) via n o k S(Z ) = zk = d(x 1k , .
 
-6.54118566067
+5.58636304715
 
 ====================
-Rmxn represent the features bound to each of the m FEFs, where Aji = 1 if feature fi is bound to FEF ej , ~ e otherwise 0.
+For example, a possible criterion might be the intersection of the 99%-confidence intervals of the RMSE and the Magic Barrier.
 
-6.53771737857
+5.5826377092
 
 ====================
-We thus assign each participant to one of four conditions.
+Following [24], any improvement of a recommender system is pointless, if the RMSE score is below the Magic Barrier, i.e.
 
-6.53373942852
+5.5801971084
 
 ====================
-The green path (p1 ) must at least reduce emotion by -20; the blue path (p2 ) must at least increase length by 10 and at least reduce emotion by -15.  input text.
+On the basis of our data record, the simulation and approximation lead to well matching expectations (ca.
 
-6.53265614641
+5.57976554486
 
 ====================
-In order to generate targeted feedback, Precog automatically identifies topically coherent portions and segments the document in order to analyze each segment individually.
+The extent of rating uncertainty also leads to boundaries, but this influence gradually disappears for increasing N .
 
-6.53055811616
+5.57906267014
 
 ====================
-I(d, p) =  We instead present a heuristic solution called TCruise whose complexity is linear in the number of paths in the random forest model.
+arXiv, 2017, https://arxiv.org/  What is an optimal recommender?
 
-6.5247746378
+5.57605145914
 
 ====================
-While such approaches are often supervised in nature, requiring a manual topic ontology [57, 62], we use LDA [8] because it is unsupervised and can be quickly trained on any corpus without any cost to the developer.
+At this point it must be said that these problems are not grounded in this new perspective presented here, but have always been present in data analysis.
 
-6.51491115058
+5.57032874807
 
 ====================
-We found that combining segmentation and TCruise-based explanation outperformed all other conditions by a statistically significant margin for Product Reviews, and outperformed all but the next-best Doc+TCruise condition for Host Profiles.
+[10].
 
-6.5141438995
+5.56682557673
 
 ====================
-Fminp(d,q) = Fminp(d,q0 ) }  Problem 1 (Prescriptive Explanation).
+The growth behaviour of the expectation under rating uncertainty is asymptotic.
 
-6.50956303688
+5.56320815238
 
 ====================
-Figure 10 plots the mean change and 95% boostrap confidence interval for the four rubric scores.
+d(u)  V[d(X )]  =  d 0 (u)2m 1 + d 00 (u)2 (m 4 - m 22 )/4 + .
 
-6.50798819084
+5.55822824196
 
 ====================
-The Segment-PredictExplain component has a beige background: Blue arrows depict the offline training and storage process and Green arrows depict the online execution flow when a user submits.
+The underlying data model has also a great impact on the Magic Barrier but will be the discussed separately in further research.
 
-6.50790155495
+5.55110328482
 
 ====================
-In ACM SIGKDD workshop on human computation, 2010.
+The outcomes x 1 , .
 
-6.50085060999
+5.54934916022
 
 ====================
-The feedback literature suggests that precise, local feedback is effective [68].
+The core these estimations is to expand d [?]
 
-6.49908267389
+5.53134495659
 
 ====================
-The third coder was trained by being shown the Amazon or Airbnb corpus, examples across the quality spectrum, and the other two coders.
+Now we want to investigate the implicit influence, which affects any recommender comparison, even if the corresponding RMSE distributions are not directly overlapping with the Magic Barrier.
 
-6.49688663681
+5.52456409742
 
 ====================
-In summary, we find that TCruise is essential to improving document quality; combining TCruise with Segmentation empirically produces the best results across the board.
+, x n ).
 
-6.49131620272
+5.52375850931
 
 ====================
-In this example, there are two ways to perturb the feature vector: by reducing the emotion feature by at least 20, or by increasing the length by at least 10 and reducing the emotion by at least 15.
+Even before the technical possibilities of statistical simulations existed, metrologists had estimated the expected value and the variance of quantities Z = d(X ).
 
-6.48657177732
+5.51733097428
 
 ====================
-Custom Interface: Fully customizing the interface component is useful in order to directly prevent users from submitting invalid attribute values.
+In the case of large-scale experiments, the predefined accuracy of computed scores does matter quite a lot.
 
-6.48620432194
+5.51496179276
 
 ====================
-For instance, in a binary classification problem U may return 1 if the input is "high quality" and 0 otherwise; in a regression model, U may be the identity function.
+, x n (e.g.
 
-6.48235970702
+5.51263193489
 
 ====================
-By tackling low-quality data pre-acquisition, it can reduce or eliminate the need for post-hoc quality control.
+It is apparent, that the true values are located near the lower bound of the previously estimated intervals.
 
-6.47567404303
+5.5036949187
 
 ====================
-The online components (green arrows) send the contents of a text input widget, along with an optional corpus name, to the webserver.
+Therefore, we examine the possibility of applying the findings of our experiment to such data records.
 
-6.45606325268
+5.49638503597
 
 ====================
-Figure 11 shows a similar chart for the coder's subjective opinion of the improvement.
+What we have omitted here is the influence of the underlying data model and the applied rating scale.
 
-6.45332859616
+5.49251552434
 
 ====================
-Precog uses existing techniques to generate forms for crowd workers to fill out, and the form contents are inserted as new records into the corresponding crowd table.
+In the case of our experiment, we have N = 213 rating distributions with non-vanishing variance.
 
-6.44967321573
+5.49149286458
 
 ====================
-Feature Library for Text Quality  PREDICT  Precog takes as input a training corpus of documents and document-level quality labels, and trains two models-- document-level and segment-level prediction models--in order to provide document-level and fine-grained segment-level feedback.
+transferring our variances to other situations where no Human Uncertainty was explicitly measured).
 
-6.44705932126
+5.49079040745
 
 ====================
-Second, we evaluate Precog's Segment-Predict-Explain pattern for text acquisition in two domains--acquiring customer reviews for Amazon products [61] and acquiring profile descriptions for AirBnB host profiles [94].
+It is apparent, that two recommender systems can not be brought into a ranking order without considerable error probability if their relative difference is less than 15%, regardless of their basic prediction quality.
 
-6.44700292829
+5.48810805215
 
 ====================
-These plots show the effect size across all measures, and that the largest improvements were due to the combination of segmentation and TCruise-based explanation.
+When modelling the Magic Barrier, not only the expectation and the variance are of great importance, but rather the entire probability density.
 
-6.44385869784
+5.48553592744
 
 ====================
-Feedback systems are typically based on outlier detection [50].
+Sensitivity analysis.
 
-6.44340165429
+5.48342076177
 
 ====================
-For instance, F may be the text features described above, and a data point corresponds to the extracted text feature vector.
+Monte-Carlo-Simulation.
 
-6.43918812483
+5.47606292366
 
 ====================
-The second states that a review is written for a given product in the products table, and contains a numerical rating as well as the text of the review.
+Now having in mind that the variance of the Magic Barrier decreases for large N , one may ask if we really need the Magic Barrier to be a distribution rather that a single score.
 
-6.43711414696
+5.4749571536
 
 ====================
-We are optimistic about the Segment-Predict-Explain pattern, because adopting to new domains is simply a matter synthesizing existing research by adding features and creating simple explanation functions.
+We observe that the overall variance follows an exponential distribution V ~ Exp(l) with parameter l = 2.11.
 
-6.43232952249
+5.46708498956
 
 ====================
-Social computing and user-generated content: a game-theoretic approach.
+E[Z ] 8E[Z ]3/2 V[Z ] V[Z ]2 V[Z ] + +...
 
-6.42948254748
+5.45428850668
 
 ====================
-]Q (d) i i  The space of solutions for Problem 1 relies on enumerating all possible elements in the power set of the feature set F, which is exponential in size: 2|F | .
+In this article, we have lifted an existing theory of this Magic Barrier into a completely probabilistic methodology, providing a generalisation for any quality related metric.
 
-6.42944701409
+5.44786783074
 
 ====================
-The user writes a product review in the textbox; the content is sent to the Precog backend via getFeedback().
+Workshop on Recommendation Utitlity Evaluation: Beyond RMSE September (Dublin, Ireland, 9 2012), ACM.
 
-6.42627233655
+5.44620739587
 
 ====================
-In these examples, we simply define a python function.
+Do we need a Magic Distribution?
 
-6.42061011552
+5.44522782679
 
 ====================
-Each facet defines high quality at a different threshold; product reviews and host profiles are shown as the top and bottom rows, respectively.
+This distance (x-axis) represents the overall quality of a system, i.e.
 
-6.4154095643
+5.4376040309
 
 ====================
-We describe our process to extend Precog to two domains with different quality measures: product reviews that care about helpfulness to a shopper [3], and then host profiles that are judged by trustworthiness to renters [57].
+So far we have only discussed the explicit impact on the assessment of recommender systems, that is: How likely is it that a system can still be improved, just before the RMSE solely depends on Human Uncertainty itself.
 
-6.41082592731
+5.43709648458
 
 ====================
-Procedures: Participants writing product reviews were asked to write a review of their most recently owned laptop computer "as if they are trying to help someone else decide to buy that laptop or not and are writing on a review website like the Amazon store".
+, x N ) : k = 1, .
 
-6.40274945655
+5.42885161009
 
 ====================
-[26] A. Fedosejev.
+This can be explained by the power-law distribution, i.e.
 
-6.39836994372
+5.42494563002
 
 ====================
-Furthermore, controlling for the other variable, TCruise showed a statistically significant difference in improvement, while segmentation did not.
+International Conference on User Modeling, Adaptation, and Personalization (2009), 247-258.
 
-6.39778597897
+5.41016293688
 
 ====================
-[29] J. Gao, Q. Li, B. Zhao, W. Fan, and J. Han.
+, t .
 
-6.3941547566
+5.40780387067
 
 ====================
-Segment-Predict-Explain: Based on these observations, Precog automatically identifies low-quality portions of a document, and generates feedback to help improve the identified issues.
+The answer depends on many factors.
 
-6.39386068335
+5.39671286194
 
 ====================
-Existing feedback approaches are not directly applicable for Precog.
+5.2  Data Model and Uncertainties  Proving the data model.
 
-6.39336549044
+5.38954513162
 
 ====================
-Given a small test corpus of pre-segmented documents, Precog can benchmark the algorithms and recommend the one with the highest WindowDiff score.
+On the contrary, the better a system becomes, the more improvement does a revision need, in order to be detected with statistical evidence.
 
-6.39160226784
+5.38235230901
 
 ====================
-](p) and the model's prediction confidence C(d + p) [?]
+(k ) O d (u) k =0  k!
 
-6.38954353922
+5.38073630632
 
 ====================
-The default simply renders feedback generated from database constraint violations on tuple insertion (left column).
+(X - u)k  k =0  =  k =0  k!
 
-6.38194296079
+5.37857512109
 
 ====================
-Note that the same explanation 2  Note that the developer may express a CHECK constraint and the database can generate an (indecipherable) error message.
+Additionally, Gaussians exhibit maximum entropy along all distributions with finite mean/variance and support on R. For each recorded item, all tensor slices having a non-vanishing variance are checked for normality by means of a one-sample KStest [20] with confidence level a = 0.05.
 
-6.37640625921
+5.3687124856
 
 ====================
-62% had used AirBnb before.
+C [?]
 
-6.37370320351
+5.36705304194
 
 ====================
-* The design and implementation of Precog, which supports pre-hoc quality control for constraints over simple data types and quality measures over text and open-ended attributes.
+In our experiment, only few tensor slices contain constant ratings and hence lead to a vanishing variance.
 
-6.36935029241
+5.35830392178
 
 ====================
-At this point, users could click the Recompute Text Feedback button (median 1 click/participant), or press Submit to submit and finish the task.
+(3) This barrier also implicitly influences recommender assessments; the better our systems become, the more indistinguishable they become.
 
-6.36832275765
+5.35766655274
 
 ====================
-Feedback and interface customization acquire 1.7x and 1.9x more valid records than no Precog optimization.
+k =0 k =0 !2 [?]
 
-6.36346678787
+5.35597820426
 
 ====================
-* A data-driven approach to estimate quality for text attributes, including a categorization and implementation of 47 text quality features from a survey of the literature.
+(k ) i O d(k ) (u) O d (u) h k E[d(X )] = E (X - u) = E (X - u)k k!
 
-6.36148761326
+5.34866290267
 
 ====================
-Customized Feedback: Precog provides a DDL for developers to customize feedback.
+Furthermore, these problems do not only occur within our experiments, but have also been proven by other authors in different situations of user feedback.
 
-6.36098416355
+5.34672826817
 
 ====================
-F |pi 6= 0}  Finally, Sfdi computes the responsibility for fi as the sum of all maximal influence paths in all decision trees that improve the predicted utility U ().
+, 5} for which we compute MaximumLikelihood-Parameters given a predetermined data model (e.g.
 
-6.36053157607
+5.34202091964
 
 ====================
-When the topic within the window changes significantly, then TopicTiling creates a new segment.
+This may have far-reaching consequences, especially in the area of the recommender systems, when the selection of a supposedly better system is a monetary decision.
 
-6.35741966334
+5.3355540698
 
 ====================
-Through extensive MTurk experiments, we find that Precog collects >= 2x more high-quality documents and improves text quality by 14.3% compared to not using pre-hoc techniques.
+k!
 
-6.35234660556
+5.32901844993
 
 ====================
-8  We added LIWC API calls to Precog; the model tested on a balanced set of 300 AirBnB host profiles was competitive (79% accuracy) at predicting if a profile was >= median trustworthiness.
+This probability is given by [?]
 
-6.35088928069
+5.32305734305
 
 ====================
-al describe the meaning of the three Airbnb criteria in [57]: Ability "refers to the host's domain specific skills or competence."
+# [?]
 
-6.35047207569
+5.32046243576
 
 ====================
-Consider a review consisting of a long, angry diatribe about customer service.
+Due to normality, further analysis should be taken into consideration, when p p (23) E[MB] + 3 V[MB] > E[RMSE] - 3 V[RMSE].
 
-6.34968686222
+5.32042983711
 
 ====================
-Cost Savings  Figure 10: Improvement on Likert scores for both domains (reviews and profiles) and four quality criteria per domain.
+When is a differentiated consideration needed?
 
-6.34665579047
+5.30896870053
 
 ====================
-SEGMENT-PREDICT-EXPLAIN  The challenge with directly developing Precog quality control for text is that the quality score and explanation function is difficult to express as a concrete function, and they must be customized for the application domain.
+, X N ) [?]
 
-6.34621971574
+5.3089595675
 
 ====================
-In contrast to typical integrity constraints, which will reject an inserted record that violates the constraint, Precog seeks to maximize its value.
+Under these  The Magic Barrier Revisited: Accessing Natural Limitations of Recommender Assessment  arXiv, 2017, https://arxiv.org/  for N > 100.
 
-6.34560885995
+5.30261128633
 
 ====================
-reduces the developer's efforts by allowing them to express the quality score in terms of model features by defining a FEATURE table, and to define explanation functions over features of the text attribute.
+However, such a differentiated approach is not always worth it.
 
-6.34423822629
+5.29133389907
 
 ====================
-, Tt } is composed of a set of trees.
+To derive a user's rating distributions, we use the method of re-rating, which was successfully used in [2, 13] before.
 
-6.34318472947
+5.27561218258
 
 ====================
-3  function is used for domain constraints on reviews.rating and users.age.
+d 0 (u)2m 1 .
 
-6.34309518221
+5.26939919686
 
 ====================
-However, we may use a slider if for larger cardinalities.
+According to equation15, the variance of the Magic Barriers should be found in the interval [0.0008 ; 0.0113].
 
-6.34165294943
+5.26157750448
 
 ====================
-The offline components (blue arrows) take as input a corpus of training data in the form of user generated text documents and their labels--for instance, Amazon product reviews may be labeled by the ratio of "helpful" and "unhelpful" votes.
+(10)  E[MB]  =  V[MB]  =  p V[Z ] - .
 
-6.33990312342
+5.26155867129
 
 ====================
-Further, their analyses are per-feature and don't account for multi-feature interactions.
+On this basis, possible applications can be illustrated (e.g.
 
-6.33774473083
+5.25241732262
 
 ====================
-Since the quality score is not a boolean constraint, feedback is simply not generated for it2 .
+rep., BIPM, 2008.
 
-6.33766642072
+5.24601327437
 
 ====================
-This can be directly computed by examining the decision points along the path.
+A comparative analysis of offline and online evaluations and discussion of research paper recommender system evaluation.
 
-6.3352650253
+5.24471898847
 
 ====================
-The Feedback Generator then constructs feedback explanations for the low quality text, which are returned and displayed in the widget.
+Regression analysis.
 
-6.33271266359
+5.23905303322
 
 ====================
-7.2  Precog for Text Acquisition  Setup and Datasets: Precog is setup as described in Section 6: we train Precog using the laptop category of the Amazon product reviews corpus [61], and the AirBnb profile corpus [94] for their corresponding experiments.
+, X N ) := N1 n (X n - E[X n ])2 .
 
-6.33207792652
+5.21267646386
 
 ====================
-The Segmenter first splits each document into segments.
+, X N into a single random variable and then use the one-dimensional Taylor approximation.
 
-6.32910254774
+5.20875455147
 
 ====================
-Overall, each explanation function was 3-20 lines of python code.
+[5] Beel, J., Genzmehr, M., Langer, S., Nurnberger, A., and Gipp, B.
 
-6.32642682967
+5.20782830395
 
 ====================
-4.1  Existing automated writing feedback tools primarily focus on syntactic, simple errors [27, 35, 63].
+0.5  0.01 0.05 0.1 0.15 0.2 0.25  ErrorProbability  0.4  6  0.3  0.2  0.1  0.0 0.00  0.05  0.10  0.15  0.20  0.25  0.30  Distance from Magic Barrier by means of artificial noise  Figure 7: Error Probabilities for a point-paradigm ranking of systems with constant RMSE difference according to their overall distance to the Magic Barrier.
 
-6.32500008766
+5.19169489241
 
 ====================
-Additionally, our Segment-Predict-Explain pattern addresses on free-form text entry that complements their focus on simple data types.
+R and arbitrary random variable X + b] = a 2 V[X ] holds for a, b [?]
 
-6.32184242074
+5.18425109266
 
 ====================
-The document level feedback provides a global quality assessment.
+Since  DISCUSSION AND CONCLUSIONS  Discussion.
 
-6.32095507338
+5.17207317359
 
 ====================
-Specifically, we develop effective approaches to measure text quality at both document and segment levels, present an efficient technique to solve the prescriptive explanation problem, and discuss how to extend Precog to new domains.
+With our probabilistic approach, the true nature of the Magic Barrier can be demonstrated: When approaching the Magic Barrier, the distinguishability of many recommender systems automatically decreases, supporting the idea of one equivalence class of optimal systems.
 
-6.31760165859
+5.16879361628
 
 ====================
-As constraints become more complex, there is a need for customized messages.
+It is clear from Figure 3b  arXiv, 2017, https://arxiv.org/  that for this sample size, the distribution of the Human Uncertainty has a large impact on the variance of the Magic Barrier.
 
-6.31265709195
+5.15810745806
 
 ====================
-[36] R. M. Groves, F. J. Fowler Jr, M. P. Couper, J. M. Lepkowski, E. Singer, and R. Tourangeau.
+To estimate whether the contest winner [21] might interfere with the Magic Barrier, we use the simplification of Equation 23.
 
-6.31109079977
+5.15678286833
 
 ====================
-2  2.
+Journal of Research of the National Bureau of Standards 70, 4 (1966).
 
-6.31074736788
+5.14650672851
 
 ====================
-We did not require new features for product reviews; we simply label reviews with >= 60% helpful votes as high quality and low otherwise.
+While the simulated distribution arises naturally from convolution, it is predetermined for the approximation.
 
-6.30539692924
+5.14441106949
 
 ====================
-When we consider a user's edits, they are desirable if the edits will improve the document's quality--in other words, if it will cause the document to be reclassified as high quality.
+The matching between the simulated and the assumed data model of a Gaussian can be clearly confirmed in Figure 6.
 
-6.3032467589
+5.13082503279
 
 ====================
-Some constraints, such as domain constraints, are registered as syntax errors.
+A sensitivity analysis is used to determine how a quantity responds to the variation of its arguments.
 
-6.30065882488
+5.11956132098
 
 ====================
-Finally, we perform a detailed analysis of how segmentation and TCruise each contribute to improving the quality of the acquired text.
+Figure 5 depicts the distribution of variances emerged from repeated ratings within our experiment.
 
-6.29958187806
+5.11580764532
 
 ====================
-3 Note that databases automatically generate names for almost all integrity constraints.
+The rating scale limits the variance of a user and thus has a great impact of the possible location of the Magic Barrier.
 
-6.29262075686
+5.11556199854
 
 ====================
-Precog is agnostic to the specific segmentation algorithm, and developers can use their own.
+Jensen-Shannon-Divergence.
 
-6.28973217964
+5.11200098629
 
 ====================
-Thus, we wrote a friendliness explanation function that suggested writing more friendly and inclusive prose, and bound it to the relevant LIWC features (social, inclusive, etc).
+memory is becoming less accurate due to interference from post-event information.
 
-6.28850665723
+5.09338901883
 
 ====================
-In addition to boolean constraints such as domain, foreign key, and uniqueness constraints, Precog also supports quality scores.
+[15] Intraub, H. Presentation rate and the representation of briefly glimpsed pictures in memory.
 
-6.28607954732
+5.09080307408
 
 ====================
-In many cases, such as text attributes, it is desirable to provide feedback for specific segments of the text value.
+the precision of the Magic Barrier even gains when more uncertain ratings are added.
 
-6.2854385234
+5.08974925862
 
 ====================
-The key insight is that the predictive model is robust to noisy labels.
+the RMSE is interfering with the Magic Barrier in one of three outcomes.
 
-6.28464408832
+5.08481713659
 
 ====================
-Moreover, there have been many successful attempts to use topic distributions to predict quality [55, 57, 57].
+(2) Human Uncertainty creates a barrier from which below any assessment results are just random.
 
-6.28312041454
+5.0832417139
 
 ====================
-For instance, qualreview seeks to maximize the quality score as defined by qual_udf.
+The colours encode the relative difference [?]
 
-6.28277275768
+5.06908964272
 
 ====================
-In Eighth International AAAI Conference on Weblogs and Social Media, 2014.
+where F M B (x) denotes the cumulative distribution function.
 
-6.28109704322
+5.05856846244
 
 ====================
-The general approach is to survey quality assessment research in a domain to borrow useful features and explanations.
+The difference of expectations is about 0.2% while the difference of variances is about 1.2%.
 
-6.280536355
+5.05143179965
 
 ====================
-Although these user defined functions are powerful enough to support arbitrary analysis of an attribute value, such an approach is difficult to compose and extend, and the feedback is still limited to the entire attribute value.
+ P(MB > RMSE) = f RMSE (x) * 1 - F M B (x) dx (22) -[?]
 
-6.27786632864
+5.04398854987
 
 ====================
-Assuming that C() = 1, p1 's impact on the input document is I(d, p1 ) = 1-0 x1= 20 0.05, whereas p2 's impact is I(d, p2 ) = 1021-0 x 1 = 0.055.
+The rating frequency habits range from "rarely" to "often" in uniform distribution.
 
-6.27027394122
+5.03091910439
 
 ====================
-For these, Precog generates default names of the form <table>_<attribute>_<type>.
+In doing so, we generate two copies of the Magic Barrier (as the optimal recommender).
 
-6.26925258161
+5.02253141181
 
 ====================
-Document Labels for Segments: Despite generating topically coherent segments, we lack quality labels for training the predictive model at the segment level.
+For this reason, it becomes crucial to further examine the extent of impact of Human Uncertainty within this field of research.
 
-6.25707403123
+5.02212495361
 
 ====================
-Figure 7: Worker interfaces to evaluate no optimization, custom feedback Precog, and custom interface Precog for hard constraints.
+the larger this quantity, the worse the prediction quality.
 
-6.25227629676
+5.01152120805
 
 ====================
-In contrast, segment level feedback is needed in order to provide specific, actionable suggestions that may not be evident at the document level.
+For each of these ratings, we randomly assign a variance drawn from the Pareto distribution in Figure 5.
 
-6.24718670972
+5.01144238977
 
 ====================
-First, we validate the value of pre-hoc quality control by running a crowdsourced data acquisition experiment with different Precog optimizations for foreign key and domain constraints.
+The null hypothesis was never rejected, allowing to keep the Gaussian distribution as a possible model.
 
-6.24403643874
+5.00343843092
 
 ====================
-database, which checks that the input satisfies the integrity constraints.
+But since both quantities are distributed, their density functions may nevertheless overlap.
 
-6.23945802497
+4.99648630895
 
 ====================
-The resulting model (85% accuracy, balanced test set) was competitive with existing work [31].
+Gaussians, CUB-Models, etc.).
 
-6.23709556075
+4.98421570245
 
 ====================
-Both are important because they address different text quality factors.
+Although the decision criterion from [24] holds, there is a significant probability that the RMSE outcome is already affected by the Magic Barrier.
 
-6.22914087179
+4.97553228922
 
 ====================
-Section 3 describes the Segment-Predict-Explain pattern that helps developers easily customize interface for text attributes.
+[13] Hill, W., Stead, L., Rosenstein, M., and Furnas, G. Recommending and evaluating choices in a virtual community of use.
 
-6.2270538503
+4.96571674476
 
 ====================
-Although there are numerous segmentation algorithms, we describe the rationale for the choice of using a topic-based segmentation algorithm.
+designing sophisticated mechanisms to identify uncertainty and developing novel strategies to efficiently deal with it.
 
-6.22550165237
+4.9529688481
 
 ====================
-For instance, consider a document that contains a single segment--the segment may be high quality but the overall document is too short and is missing text for other topics.
+The approach used in this contribution is just able to make these problems visible.
 
-6.22393966416
+4.94463956333
 
 ====================
-The Segment-Predict-Explain component consists of offline and online components.
+Journal of the American statistical Association 46, 253 (1951), 68-78.
 
-6.22377796749
+4.9434641463
 
 ====================
-The key challenge is that training data only contains quality labels for entire documents (e.g., helpfulness for the full review), and it is unclear how to leverage them for training a segment-level model.
+Proceedings of the 30th annual international ACM SIGIR conference on Research and development in information retrieval (2007), 47-54.
 
-6.21721652808
+4.94265024532
 
 ====================
-3.
+[11] Grabe, M. Grundriss der Generalisierten Gauss'schen Fehlerrechnung.
 
-6.21596018126
+4.94217647921
 
 ====================
-Further, developers can easily extend the library with custom features.
+In Proceedings of the International Workshop on Reproducibility and Replication in Recommender Systems Evaluation (2013), RecSys '13, pp.
 
-6.21231978207
+4.93950157843
 
 ====================
-These naturally map to 4 of our feature categories, so we wrote explanation functions for each and bound them to the features in the corresponding category.
+[2] Amatriain, X., and Pujol, J.
 
-6.20852780207
+4.93730618303
 
 ====================
-Their work identified a subset of the Linguistic Inquiry and Word Count (LIWC) features [73] and other features as useful for measuring trustworthiness.
+E[RMSE] < E[MB].
 
-6.20576921179
+4.93302004732
 
 ====================
-6  data near the test point [76].
+5.4  Application  Implicit Impact on Recommender Assessment.
 
-6.20546495415
+4.90000018105
 
 ====================
-We evaluate Precog for product_id (foreign key constraint) and rating (domain constraint) from the reviews table.
+that system 1 has a noise of 15% whereas system 2 has a noise of 25%.
 
-6.20349968061
+4.89175415404
 
 ====================
-On violations, the feedback generator creates custom feedback (if specified in a DDL statement) and the default or customized interface displays the feedback.
+a lot of variances are near the minimum and only a few have got higher extents.
 
-6.19881096387
+4.8782005242
 
 ====================
-We identify five main categories across the existing literature (Table 1).
+We will continue to address these issues in further research.
 
-6.19714148232
+4.87611230755
 
 ====================
-However, such systems would not recognize that the review can be most improved by simultaneously reducing the emotion in the text and including more product details that ultimately increase the length.
+[?]
 
-6.19687723484
+4.86992904225
 
 ====================
-We now describe the prediction model we use for documentlevel prediction.
+Even though the standard deviation seems small, it is still in the range of Netflix's rounding accuracy of four decimal places.
 
-6.19680097132
+4.85892166288
 
 ====================
-To ensure fair comparison, we supplemented their features with domain-specific features for Informativeness (# of product features/jargon), Readability (Coleman-Liau index), and Friendliness (LIWC features related to friendliness) so that their features are comparable to those used in our feature library.
+Rate it again: Increasing recommendation accuracy by user re-rating.
 
-6.19226691041
+4.85801091005
 
 ====================
-A closely related work from the database community is Usher [15], which have similar goals to improve data collection quality.
+By assuming V[MB] [?]
 
-6.19037426448
+4.85518701253
 
 ====================
-Clearly, document quality assessment is a well-studied area.
+Our estimation provides processing of big data in little time while additionally being very precise.
 
-6.18921456894
+4.85234910426
 
 ====================
-A similar approach is applicable for regression models as well, where increasing the continuous prediction assigns the perturbation more responsibility.
+[8] Buffler, A., Allie, S., and Lubben, F. The development of first year physics students' ideas about measurement in terms of point and set paradigms.
 
-6.1822284754
+4.84898957084
 
 ====================
-Figure 5: Precog architecture.
+International Journal of Science Education 23, 11 (2001), 1137-1156.
 
-6.17990257226
+4.83951118749
 
 ====================
-Precog uses the models in the Model Store to identify whether the entire document and/or segments generated by the Segmenter are low quality.
+[7] Bobadilla, J., Ortega, F., Hernando, A., and Gutierrez, A. Recommender systems survey.
 
-6.17897794686
+4.83561520956
 
 ====================
-Precog uses the feature library to transform the input text into a feature vector of (len=10, emotion=30), and is thus classified as low quality.
+Likewise, essential properties of the Magic Barrier have been revealed, for example, the expectation does not change for a higher number of ratings.
 
-6.17531371392
+4.83480707452
 
 ====================
-4.3  Segment-level Prediction  There are two challenges in training a segment-level prediction model.
+Supplement 1 to the gum - propagation of distributions using a monte carlo method.
 
-6.1737510376
+4.81593975694
 
 ====================
-The final submission was considered the post-feedback submission, and the initial submission upon pressing the I'm Done Writing was the pre-feedback submission.
+[24] Said, A., Jain, B., Narr, S., and Plumbaum, T. Users and noise: The magic barrier of recommender systems.
 
-6.17299630926
+4.80972757539
 
 ====================
-Thus, Precog segments documents at topic-level units.
+For the worst case, only one out of ten participants is able to precisely reproduce a rating.
 
-6.1651172084
+4.80527732497
 
 ====================
-We trained workers on a separate sample of segments, along with explanations of why each segment was helpful or unhelpful.
+0.733) and variances (ca.
 
-6.16252777619
+4.80346225944
 
 ====================
-We address these challenges by proposing a novel segment-predict-explain pattern for detecting lowquality text and generating prescriptive explanations to help the user improve their text.
+This implies the existence of an offset within every prediction quality metric that emerges from Human Uncertainty, the so-called Magic Barrier.
 
-6.16044694814
+4.80345735
 
 ====================
-[39] D. Haas, J. Ansel, L. Gu, and A. Marcus.
+[3] Amatriain, X., Pujol, J. M., and Oliver, N. I like it... i like it not: Evaluating user ratings noise in recommender systems.
 
-6.15862911365
+4.78774994284
 
 ====================
-4.
+According to this data, the Magic Barrier can be estimated to MB ~ N (0.6687, 0.0007).
 
-6.15679200609
+4.78565939818
 
 ====================
-Features are individually mapped to pre-written feedback text [7, 10, 49].
+[6] Bevington, P., and Robinson, D. K. Data Reduction and Error Analysis for the Physical Sciences, 3rd ed.
 
-6.14721664061
+4.78148587995
 
 ====================
-Figure 8 plots the number of high quality tuples that were collected as a function of the number of completed tasks; we define a tuple as high quality if no constraints were violated.
+Figure 7 depicts the family of curves, mapping the distance from the Magic Barrier to the corresponding error probabilities.
 
-6.14625699329
+4.75832902269
 
 ====================
-](p) = |p|2 , the L2 norm of the perturbation vector.
+The corresponding normed JSD is 0.05.
 
-6.14615274321
+4.75760329974
 
 ====================
-Precog denotes the segment-level TCruise-based system.
+In Proceedings of the SIGCHI Conference on Human Factors in Computing Systems (1995), CHI '95, pp.
 
-6.14355188159
+4.74977119673
 
 ====================
-Ultimately, existing feedback and explanation approaches are descriptive of the prediction, rather than prescriptive of the changes that must be made.
+The corresponding y-value indicates the error probability for ranking both systems using the traditional point-paradigm.
 
-6.14255628911
+4.7437352626
 
 ====================
-Moreover, Precog also makes it easy for developers to add custom segmentation algorithms.
+[16] Jannach, D., Zanker, M., Felfernig, A., and Friedrich, G. Recommender Systems: An Introduction.
 
-6.14054623596
+4.73104671614
 
 ====================
-Estimating the helpfulness and economic impact of product reviews: Mining text and reviewer characteristics.
+In AAS/AIAA Space Flight Mechanics Meeting (2011), pp.
 
-6.13662490495
-
-====================
-Further, the set of maximum influence perturbations is the union of PF for all feature sets:  minp(d, qij ) = arg min |p|2 s.t.
-
-6.13515351467
-
-====================
-Given the feature vector of a data point d, prediction model M , a set of FEFs E = {e1 , * * * , em }, return the top k FEFs whose responsibility is above a threshold t:  Fp = {fi [?]
-
-6.13008902348
-
-====================
-[41] J. Hyona, R. F. Lorch Jr, and J. K. Kaakinen.
-
-6.12223083501
-
-====================
-[6] M. S. Bernstein, G. Little, R. C. Miller, B. Hartmann, M. S. Ackerman, D. R. Karger, D. Crowell, and K. Panovich.
-
-6.12072163861
-
-====================
-The second challenge is to determine how the available document-level labels can be used for training segment-level quality.
-
-6.11865812783
-
-====================
-The first one is how to split a document into segments.
-
-6.11543401497
-
-====================
-An FEF e : R|F| - text maps the feature vector for a subset of features F [?]
-
-6.11387763583
-
-====================
-The main idea is to scan each tree in the random forest and compute responsibility scores local to the tree.
-
-6.11273460849
-
-====================
-We now formally define these feature-oriented explanation functions (FEFs) and provide examples used in the experiments.
-
-6.1107473998
-
-====================
-81 completed the task.
-
-6.10827234929
-
-====================
-Feature Explanation Functions  Section 2 introduced explanation functions that can take as input features in a FEATURE table whose primary key references the desired text attribute.
-
-6.10756546983
-
-====================
-[9] R. Boim, O. Greenshpan, T. Milo, S. Novgorodov, N. Polyzotis, and W. C. Tan.
-
-6.1057208115
-
-====================
-Dij |yk = vij }| |Dij |  Qi (d) = {q [?]
-
-6.10453340117
-
-====================
-, dm } be the training dataset and Y = {y1 , .
-
-6.10259755813
-
-====================
-We assume that the domains of the features have been normalized between [0, 1].
-
-6.10142196011
-
-====================
-We describe how Precog automatically generates feedback text for low-quality text.
-
-6.10134407841
-
-====================
-Thus, it is clear that the emotion should be assigned a greater responsibility because there are more branches for which changing its value will contribute to a better classification.
-
-6.09539979115
-
-====================
-5.
-
-6.09275875881
-
-====================
-The average task completion time was 14 minutes, and payment was $2.5 (~ $10/hr).
-
-6.0895878301
-
-====================
-Precog can automatically control the generated feedback by reallocating responsibility.
-
-6.08726152463
-
-====================
-However, it still leaves it up to the user to infer specific improvements to make.
-
-6.08542775765
-
-====================
-A path is the sequence of decisions from the root of a tree to a leaf node.
-
-6.0844568641
-
-====================
-Let F be the set of n model features, and fi denote the ith feature.
-
-6.07971734621
-
-====================
-Pn j Aji is the average i=1 impact score of all features mapped to the jth FEF.
-
-6.07714079663
-
-====================
-Rn is a vector that modifies a data point.
-
-6.0720041806
-
-====================
-pi 6= 0 if fi is perturbed, otherwise pi = 0.
-
-6.07008196709
-
-====================
-Dij ), and the output of the random forest M (d) = arg maxv |{1|vij = v}| is the majority vote of its trees.
-
-6.06856635341
-
-====================
-Subjectivity is the extent that the review is fair and balanced but with enough helpful opinions for the buyer to make an informed decision: 1 means the review is an angry rant or lacks any opinions while 7 means it is a fair and balanced opinion.
-
-6.06625886237
-
-====================
-Precog is able to adopt to the domains' different quality measures (helpfulness vs trustworthiness) with small configuration changes.
-
-6.06600973993
-
-====================
-A model M : Rn - N classifies a data point as M (d) [?]
-
-6.06540544727
-
-====================
-TKDE, 2016.
-
-6.06477805769
-
-====================
-PVLDB, 2015.
-
-6.06463147901
-
-====================
-In future work, we hope to explore a broader range of applications (e.g., different social media domains or user contexts), and study how to optimize data-collection interfaces to meet more complex application needs.
-
-6.06392692814
-
-====================
-The full set of coder statements is described at length in [57].
-
-6.06028076008
-
-====================
-Intuitively, the FEF should be executed if its list of features F can take "highly responsibility" for improving the quality score.
-
-6.05933997507
-
-====================
-Truth discovery and crowdsourcing aggregation: A unified perspective.
-
-6.05377599091
-
-====================
-Recall the feedback in the custom Precog interface in Figure 4, it identifies that the segment is short on details and suggests new topics.
-
-6.04756701896
-
-====================
-]q0 [?
-
-6.04684760377
-
-====================
-Though Precog demonstrates the feasibility of such automated interfaces, it also reveals several areas of improvement.
-
-6.04682941964
-
-====================
-In practice, an FEF takes as input a list of features, as well as the text document and the full feature vector, and returns feedback text.
-
-6.03893415257
-
-====================
-F to feedback text.
-
-6.03861083484
-
-====================
-We conduct statistical tests to further investigate the results.
-
-6.034658945
-
-====================
-, ym } be their labels.
-
-6.03387676926
-
-====================
-A tree Ti is composed of a set of k decision paths qi1 , .
-
-6.02838075147
-
-====================
-In addition, rather than compute the impact for all possible perturbations, we only consider the minimal perturbation with respect to each path in the tree.
-
-6.02670523863
-
-====================
-Incentive mechanisms such as badges, scores [21, 33], status [97], or even money [42, 46] have also been used to keep good contributors.
-
-6.02620973288
-
-====================
-Normalization: We find that features closer to the root will happen to occur in more feature sets and have artificially higher scores, thus we need to adjust feature impact scores to reduce bias.
-
-6.02599023576
-
-====================
-N, and a utility function U : N - R maps a label to a utility value.
-
-6.02576575173
-
-====================
-Each defines the three main measures, and provides examples that contribute positively and negatively to each criteria.
-
-6.0220524601
-
-====================
-Let D = {d1 , .
-
-6.02101625913
-
-====================
-i  Picking FEFs: Once the feature scores have been computed, identifying the top-k FEFs is straightforward, and we compute each FEF's average impact score using a series of fast matrix operations.
-
-6.01950164535
-
-====================
-A perturbation p [?]
-
-6.01833528557
-
-====================
-However, the combination of segmentation and TCruise consistently produced larger effect sizes than all other conditions across both Host Profiles and Product Reviews: for Product Reviews Precog, which combines segmentation and TCruise, improved the overall measure (bottom left facet) by nearly 3.9x over the baseline (0.55 vs. 0.14 increase), and a 2.4x improvement over the next-best Doc+TCruise condition.
-
-6.01540110668
-
-====================
-]Fe  C(d) =  i  |Fe |  x C(d + minp(d, qij ))  |{dk [?]
-
-6.01468694559
-
-====================
-The confidence C(d) is the fraction of samples in Dij whose labels yk match the path's prediction vij .
-
-6.0133316119
-
-====================
-2 +15 However, there can be an infinite number of perturbations that all improve the utility--which should be selected?
-
-6.01048872562
-
-====================
-The key insight is to take advantage of the structure of the random forest model to constrain the types of perturbations and feature subsets to consider.
-
-6.00653199215
-
-====================
-The random forest model M = {T1 , .
-
-6.0022822863
-
-====================
-[0, 1].
-
-5.99991836851
-
-====================
-](p)  C can be chosen based on the model--for a random forest, we define C as the percentage of trees that vote for the majority label.
-
-5.99918815124
-
-====================
-For instance, the following defines the function for Off-Topic text:  7.1  Precog for Hard Constraints  Although it is intuitively obvious that form feedback and custom interfaces should improve quality, we quantify the amount using the example from Section 2.
-
-5.99874847432
-
-====================
-Further, review hierarchies were proposed for hierarchical crowdsourced quality control using expert crowds [39].
-
-5.99787273305
-
-====================
-Thus, the output of Ti (d) is the vote vij of the path that matches d (e.g., d [?]
-
-5.99555313891
-
-====================
-Overall Quality is the holistic helpfulness of the review for prospective buyers.
-
-5.9949286149
-
-====================
-The impact function I() is identical, however it takes a path qij as input and internally computes the minimum perturbation minp(d, qij ).
-
-5.99427341589
-
-====================
-It will cause the impact function to converge to 0 as the perturbations become larger.
-
-5.98407375345
-
-====================
-10  7.2.2  Ma et.
-
-5.97721499276
-
-====================
-For product reviews, Informativity is the extent that the review provides detailed information about the product, where 7 means that the review elaborates on all or almost all of the specifications of a product while 1 means that it states an opinion but fails to provide factual details (e.g., laptop specifications).
-
-5.97049955448
-
-====================
-Participants were told that upon submitting their writing, they may receive feedback and could optionally revise.
-
-5.97041960186
-
-====================
-[4] Y. Attali and J. Burstein.
-
-5.97033806899
-
-====================
-]E  Sfdi =  The TCruise Heuristic Solution  X  X  I(d, qij ) if U (vij ) > U (M (d))  Ti [?
-
-5.9687224414
-
-====================
-Crowddb: answering queries with crowdsourcing.
-
-5.96521231206
-
-====================
-These include guidelines and constraints on form elements [36, 69], as well as interface techniques such as double entry [20] commonly used for picking passwords.
-
-5.96314938789
-
-====================
-U (M (d + p)) - U (M (d)) x C(d + p) [?
-
-5.96158105827
-
-====================
-[23] M. Drouin, R. L. Boyd, J. T. Hancock, and A. James.
-
-5.96057450109
-
-====================
-For instance, a review that consists of many ambiguous phrases like "I have never done anything crazy with it and it still works."
-
-5.95935237428
-
-====================
-can be similarly defined in multiple ways.
-
-5.95835646784
+4.7260253473
 
 ====================
 .
 
-5.9578460418
+4.72108341465
 
 ====================
-Post-hoc Approaches for Text Acquisition: A dominant approach is to filter poor content [84] such as spam; sort and surface higher quality content [1, 37, 86] such as product reviews [67], answers to user comments [90, 95], or forum comments [82]; or edit user reviews for clarification or grammatical purposes [6, 42, 48].
+Proving Human Uncertainty.
 
-5.95542787402
+4.70767756485
 
 ====================
-The discount function [?]
+[17] JCGM.
 
-5.95477833782
+4.67236287056
 
 ====================
-For instance, consider [?
+0.003) for the Magic Barrier.
 
-5.95422807848
+4.63325425915
 
 ====================
-F is based on the responsibility of each perturbation that involves the feature.
+[9] Chan, F. K. Miss distance-generalized variance non-central chi distribution.
 
-5.95285828623
+4.63266709534
 
 ====================
-Rn where ~si = Snormdi , and matrix A [?]
+Transferability: The Netflix Prize.
 
-5.95085597688
+4.61974601888
 
 ====================
-Consider the perturbations p1 , p2 in Figure 6.
+Springer Berlin Heidelberg, 2011.
 
-5.94989531321
+4.61020041331
 
 ====================
-E * = topk Sed s.t.
+In Proceedings of the Third ACM Conference on Recommender Systems (2009), ACM, pp.
 
-5.94555053534
+4.60960641994
 
 ====================
-F as the set of perturbations that only perturbe features in F and have the maximal influence.
+Knowledge-based systems 46 (2013), 109-132.
 
-5.94428720006
+4.59015733825
 
 ====================
-Precog only marginally increases latency of each worker.
+for a fixed difference in prediction quality, they can be distinguished much better if they are bad systems, rather than good ones.
 
-5.94130829784
+4.58885577165
 
 ====================
-We used a post-study survey to collect demographic information as well as their subjective experience.
+Conclusion.
 
-5.93851106009
+4.58138698421
 
 ====================
-We now describe related work in terms of data acquisition interface optimizations, quality control in crowdsourcing and other post-hoc quality mechanisms specific for text acquisition.
+of two recommender systems among each other.
 
-5.93642013435
+4.50479754474
 
 ====================
-qij matches d + p p[?
+[10] D'Elia, A., and Piccolo, D. A mixture model for preferences data analysis.
 
-5.93625352716
+4.48560924272
 
 ====================
-]Rn  PF (d) = arg max I(d, p) s.t.
+It is also necessary to find proper solutions for these problems, e.g.
 
-5.9358779063
+4.48299363949
 
 ====================
-]F  Based on these definitions, the total responsibility of a given feature fi [?]
+McGraw-Hill Education, 2002.
 
-5.93099783496
+4.4815956732
 
 ====================
-]F / (pi = 0) p[?
+Computational Statistics & Data Analysis 49, 3 (2005), 917-934.
 
-5.92558794704
+4.46252789839
 
 ====================
-Given d and predicted utility U (M (d)), we retrieve and scan the paths with higher utility.
+[14] Iannario, M. Modelling uncertainty and overdispersion in ordinal data.
 
-5.92328017257
+4.40741851519
 
 ====================
-Thus, three of the FEFs, Informativeness, Topic, and Readability/Grammar, overlapped between the two domains.
+[23] Ricci, F., Rokach, L., and Shapira, B. Recommender Systems Handbook.
 
-5.92193018094
+4.39912012753
 
 ====================
-]fi [?
+Journal of Experimental Psychology 6, 1 (1990), 1-11.
 
-5.92016847627
+4.39237758316
 
 ====================
-[?
+The Netflix test record consists of N = 2.8 * 106 ratings in total.
 
-5.91762124049
+4.38935070332
 
 ====================
-PF (d)  F[?
+Unfortunately, existing records have not gathered Human Uncertainty.
 
-5.91688891646
+4.37935681414
 
 ====================
-F is the set of features bound to an FEF: P Sed =  fi [?
+a reliable ranking can not be built.
 
-5.91207460878
+4.37222304801
 
 ====================
-For each feature fi , we compute the responsibility for each low quality text, and aggregate their values to compute the sample mean ufi and standard deviation sfi .
+In contrast, the variance even decreases for an additional number of uncertain ratings and allows to locate the Magic Barrier more precisely.
 
-5.91201456346
+4.35147042832
 
 ====================
-Readability is the extent that the review facilitates or obfuscates the writer's meaning.
+there are many users having a small variance and there are only a few users having a large variance.
 
-5.9109898771
+4.28858714044
 
 ====================
-[43] P. G. Ipeirotis, F. Provost, and J. Wang.
+173-180.
 
-5.90437474933
+4.2406829412
 
 ====================
-]Ti I(d, q) >= I(d, q 0 ) [?]
+What are the consequences for the assessment of recommender systems in general?
 
-5.89942920565
+4.22719874049
 
 ====================
-For each scanned path q, we compute the change in the utility function, discount its value by the minimum perturbation p as well as the path's confidence.
+Communications in Statistics - Theory and Methods 43 (2014), 771-786.
 
-5.89670388095
+4.15823146059
 
 ====================
-Figure 9: # of documents where quality >= thresh, for varying thresholds; product reviews (top), host profiles (bottom).
+7-14.
 
-5.89659191976
+4.14730195233
 
 ====================
-Participants were randomly assigned to one condition group; with (21,26,22,23) participants in conditions (1,2,3,4), respectively.
+The kolmogorov-smirnov test for goodness of fit.
 
-5.89588570919
+4.13642243569
 
 ====================
-Ti |[?
+ACM Transactions on Information Systems 22, 1 (2004), 5-53.
 
-5.89377013049
+4.09501404559
 
 ====================
-Also, let ~e [?]
+The netflix prize rules.
 
-5.89017152004
+4.09214786819
 
 ====================
-We relaxed the foreign key constraint by ignoring case sensitivity of the product names.
+11-175.
 
-5.88812004881
+4.05841437381
 
 ====================
-Let ~s [?]
+[12] Herlocker.
 
-5.88804750077
+3.99509393941
 
 ====================
-Sed > t e[?
+Psychology Press, 1992.
 
-5.88734690751
+3.9862399311
 
 ====================
-](minp(d, qij ))  If two paths within a tree perturb the same set of features, we only consider the path with the maximal impact score.
+Evaluating collaborative filtering recommender systems.
 
-5.88465614798
+3.95532851707
 
 ====================
-Rm = A~s.
+194-201.
 
-5.88218907827
+3.93285480593
 
 ====================
-We define Qi as the set of maximal impact paths of a tree Ti , with at most one path for a given subset of features.
+[20] Massey Jr, F. J.
 
-5.88107836609
+3.90821418629
 
 ====================
-In addition, we do not compare paths across trees.
+Introduction to error analysis, the study of uncertainties in physical measurements.
 
-5.88103470598
+3.79674495272
 
 ====================
-]M q j [?
+Tech.
 
-5.8808976737
+3.77486141068
 
 ====================
-Argonaut: macrotask crowdsourcing for complex data processing.
+Efficient bayesian hierarchical user modeling for recommendation system.
 
-5.87427630269
+3.74430675593
 
 ====================
-7  [?
+Guide to the expression of uncertainty in measurement.
 
-5.87224126868
+3.66381851823
 
 ====================
-For the foreign key constraint, we populated a products table with all cell phone product models from the Amazon product corpus and a comprehensive list of phone models [93].
+Netflix leaderboard.
 
-5.87104113605
+3.62670879383
 
 ====================
-impact paths for each tree; for each path, we add the responsibility score of all features perturbed in its minimum perturbation p. The final scores are used to select from the library of explanation functions.
+[26] Zhang, Y., and Koren, J.
 
-5.86913715065
+3.61366549804
 
 ====================
-Other explanation functions (Topic, Informativeness) suggested specific content for the user to write about, mined from high-quality documents from each corpus (i.e., topics, jargon).
+[19] Ku, H. Notes on the use of propagation of error formulas.
 
-5.86852283159
+3.59131944152
 
 ====================
-Designing novel review ranking systems: predicting the usefulness and impact of reviews.
+Cambridge University Press, 2010.
 
-5.86101090828
+3.50120966618
 
 ====================
-Usher analyzes an existing corpus of collected data to dynamically learn soft constraints on data values, and focuses on input placement, re-asking, and some interface enhancements.
+237-248.
 
-5.85523621448
+3.40416088813
 
 ====================
-To do so, we draw a sample of text from the corpus that has been labeled as low quality.
+7379.
 
-5.85113094618
+3.39971517706
 
 ====================
-How much work does it take to add rich feedback support for text in a new domain?
+[18] JCGM.
 
-5.84687864654
+3.090436273
 
 ====================
-However this work either focuses on a particular application [91], or not intended to support custom interfaces [72].
+University Science Books, 1997.
 
-5.8450036827
+3.00716991248
 
 ====================
-Figure 11: Subjective agreement to: "The post-feedback revisions improved on the pre-feedback review."
+Springer, 11 2015.
 
-5.84472172017
+2.92155772655
 
 ====================
-The experiment was run until 100 workers had participated in each condition.
+[21] Netflix.
 
-5.83951975377
+2.82339004785
 
 ====================
-behind-the-enemy-lines.com/2011/04/want-to-improvesales-fix-grammar-and.html, 2016.
+[22] Netflix.
 
-5.83608742586
+2.73998286445
 
 ====================
-The average task completion time was 11 minutes, and payment was $2.5 (~ $13.6/hr).
+In User Modeling, Adaptation, and Personalization, vol.
 
-5.83262318558
+2.62935954394
 
 ====================
-To the best of our 12  10.
+Springer Berlin / Heidelberg, 2012, pp.
 
-5.82669595
+2.42942307212
 
 ====================
-Each measure is the average of the ratings from two coders--if they differed by >= 3, a third expert coder was used as the tie breaker and decided the final value.
+[25] Taylor, J.
 
-5.82577319059
-
-====================
-Figure 7 depicts the three interfaces that are created--naive with no Precog, customized feedback, and customized interface optimizations.
-
-5.81966549075
-
-====================
-We start with the feature library of 47 features and no explanation functions.
-
-5.81768079786
-
-====================
-Challenges in data crowdsourcing.
-
-5.81737222633
-
-====================
-The primary groups of features related to absence of detail and low topic diversity.
-
-5.81515496317
-
-====================
-6.
-
-5.81395908306
-
-====================
-Due to a small number of explanation functions, study participants found that repeatedly using the system began to provide redundant feedback; simplifying the development of more explanation functions may help the system produce more nuanced feedback.
-
-5.80668598884
-
-====================
-Packt Publishing Ltd, 2015.
-
-5.80357462715
-
-====================
-The experiment was IRB approved.
-
-5.80128495175
-
-====================
-is assigned 1 as it might require multiple readings to understand.
-
-5.78966165765
-
-====================
-Reading through their table of features, we also found that writing style and friendliness features were common.
-
-5.78714263139
-
-====================
-RELATED WORK  9.
-
-5.7848737132
-
-====================
-Participants were randomly assigned to one condition group; all conditions had 21 subjects except the Precog condition which had 22.
-
-5.77896566505
-
-====================
-Check spelling and grammar in google docs.
-
-5.77519911166
-
-====================
-For the reviews and profiles experiments, Precog acquires >= 2x and >= 2.6x more high quality documents than the baseline for thresholds of 5.5 and 6, respectively.
-
-5.77020816018
-
-====================
-The average host profile took 6.8 minutes to complete without Precog, and 11.1 minutes with the additional feedback from Precog.
-
-5.76968172459
-
-====================
-For Host Profiles Precog improved the overall measure by nearly 7.1x over the baseline (0.65 vs. 0.07 increase), and a 1.7x improvement over the next-best Doc+TCruise condition.
-
-5.76374838388
-
-====================
-Participants writing Airbnb profiles were asked to "pretend that [they] are interesting in being a host on Airbnb" and to "write an Airbnb profile for [themselves]".
-
-5.75895422372
-
-====================
-[8] D. M. Blei, A. Y. Ng, and M. I. Jordan.
-
-5.75822690083
-
-====================
-A method to automatically choose suggestions to improve perceived quality of peer reviews based on linguistic features.
-
-5.75682587976
-
-====================
-Figure 8: # records satisfying both constraints vs budget.
-
-5.75509659362
-
-====================
-[18] L. Connors, S. M. Mudambi, and D. Schuff.
-
-5.74862566143
-
-====================
-We used a qualification task to ensure participants had ever owned a laptop.
-
-5.74293660091
-
-====================
-No participant had used Precog before.
-
-5.73672300174
-
-====================
-provement and Subjective Coder Improvement Scores as the dependent variables, and TCruise and segmentation as the independent variables.
-
-5.735398794
-
-====================
-Feedback and interface customization acquire 1.7x and 1.9x more high quality tuples than no Precog optimization.
-
-5.73327868891
-
-====================
-The institutionalization of youtube: From user-generated content to professionally generated content.
-
-5.73110452272
-
-====================
-Similarly, Airbnb profiles took an average of 10.2 minutes to complete without Precog and 15.3 minutes to complete with Precog.
-
-5.72336853939
-
-====================
-Such latency difference is relatively small if we compare the end-to-end time of two systems since the majority of the time was spent on worker recruitment.
-
-5.71873884415
-
-====================
-ACM, 2012.
-
-5.7167873625
-
-====================
-The change in these measures between pre and post-feedback suggests the utility of the feedback.
-
-5.71588798487
-
-====================
-There are some works that apply pre-hoc quality control to improving crowd quality [72,87,91].
-
-5.71562362672
-
-====================
-Write smarter emails.
-
-5.70108203162
-
-====================
-We plot CDF curves for the number of high quality documents as the task budget increases.
-
-5.70060775513
-
-====================
-[71] A. G. Parameswaran, H. Park, H. Garcia-Molina, N. Polyzotis, and J. Widom.
-
-5.68707047584
-
-====================
-Scoring persuasive essays using opinions and their targets.
-
-5.68625916365
-
-====================
-for product reviews, and "The post-feedback revisions are more trustworthy than the prefeedback profile."
-
-5.6817601465
-
-====================
-The interface was the same for all conditions--only the feedback content changed.
-
-5.67647981215
-
-====================
-Crowdforge: Crowdsourcing complex work.
-
-5.67381521241
-
-====================
-Are both Segment and Explain necessary in the SegmentPredict-Explain pattern?
-
-5.67199456894
-
-====================
-[54] G. Li, J. Wang, Y. Zheng, and M. J. Franklin.
-
-5.67122380995
-
-====================
-Intelligible models for healthcare: Predicting pneumonia risk and hospital 30-day readmission.
-
-5.66717549689
-
-====================
-Benevolence "refers to the host's domain specific skills or competence."
-
-5.660475605
-
-====================
-Ability "refers to the host's domain specific skills or competence."
-
-5.65811972752
-
-====================
-Overall Quality is the holistic trustworthiness of the host for prospective tenants.
-
-5.6575419638
-
-====================
-Crowdsourced data management: A survey.
-
-5.65287850197
-
-====================
-In ETS Research Report Series.
-
-5.65243418101
-
-====================
-", or 0 if the document did not change.
-
-5.645832119
-
-====================
-The coders labeled documents in random order and did not have access to any other information about the documents.
-
-5.6442375076
-
-====================
-Social recommender systems.
-
-5.63856699435
-
-====================
-7.2.1  Segment, Explain, or Both?
-
-5.6345800815
-
-====================
-[38] I. Guyon, J. Weston, S. Barnhill, and V. Vapnik.
-
-5.63423252685
-
-====================
-Note that the quality criteria differ across domains.
-
-5.62207157286
-
-====================
-These approaches incur additional quality control costs and are complementary to Precog.
-
-5.62041642307
-
-====================
-It has been extensively studied in recent years [9,12,24,29,39,80,98].
-
-5.61969167546
-
-====================
-[49] J. Krause, A. Perer, and K. Ng.
-
-5.61963499478
-
-====================
-Texttiling: Segmenting text into multi-paragraph subtopic passages.
-
-5.61590975168
-
-====================
-Precog is more effective than no Precog when the desired quality is high.
-
-5.61491061701
-
-====================
-[40] M. A. Hearst.
-
-5.61310573063
-
-====================
-[1] E. Agichtein, C. Castillo, D. Donato, A. Gionis, and G. Mishne.
-
-5.60611800127
-
-====================
-[11] A. Bosu, C. S. Corley, D. Heaton, D. Chatterji, J. C. Carver, and N. A. Kraft.
-
-5.59898895385
-
-====================
-When the threshold is low, it is easy to acquire low-quality text and both approaches are the same.
-
-5.59581884365
-
-====================
-Vader: A parsimonious rule-based model for sentiment analysis of social media text.
-
-5.59541974323
-
-====================
-In ACM SIGecom Exchanges.
-
-5.59193478867
-
-====================
-Note that the baseline does not acquire any high quality reviews when thresh >= 6.
-
-5.59153826391
-
-====================
-However, Precog is more effective when the threshold increases.
-
-5.58731950298
-
-====================
-These methods focus more on finding good contributors and lack content-specific feedback (e.g., discuss camera quality for a phone).
-
-5.58240519998
-
-====================
-To contrast, we focus on using explicit constraints and ambiguous quality measures (for text) and provide explicit DDL statements to push them to the input interface.
-
-5.58025570384
-
-====================
-[13] R. Caruana, Y. Lou, J. Gehrke, P. Koch, M. Sturm, and N. Elhadad.
-
-5.57884427635
-
-====================
-In the long term, we envision Precog as an example of automatically applying pre-hoc quality control (e.g., writing feedback) based on downstream application needs (e.g., quality reviews).
-
-5.57629467515
-
-====================
-We also used document-quality labels to train the segment classifier.
-
-5.56713951534
-
-====================
-Sections 4 and 5 surveyed work related to text quality prediction and writing feedback.
-
-5.56640531934
-
-====================
-Asking the right questions in crowd data sourcing.
-
-5.56180788808
-
-====================
-[47] S.-M. Kim, P. Pantel, T. Chklovski, and M. Pennacchiotti.
-
-5.5599042851
-
-====================
-for host profiles.
-
-5.55606236101
-
-====================
-[48] A. Kittur, B. Smus, S. Khamkar, and R. E. Kraut.
-
-5.55245471196
-
-====================
-These can be integrated as feedback and interface customizations in Precog.
-
-5.55232955039
-
-====================
-Individual differences in reading to summarize expository text: Evidence from eye fixation patterns.
-
-5.54936038808
-
-====================
-In reality, there is often a long tail of topics without sufficient content for such approaches to be effective [61, 79].
-
-5.54751601472
-
-====================
-They also assume a large corpus that contains high quality content for every topic (e.g., product or question).
-
-5.54632996982
-
-====================
-For such cases, improving quality during user input process may be more effective.
-
-5.5420474188
-
-====================
-Unanswered quora.
-
-5.54160571216
-
-====================
-In UIST, 2011.
-
-5.53961455663
-
-====================
-[27] FoxType.
-
-5.53253902453
-
-====================
-[53] B. Letham, C. Rudin, T. H. McCormick, D. Madigan, et al.
-
-5.52819519482
-
-====================
-The basic idea is to push data-quality constraints down to the data collection interface and improve data quality before acquisition.
-
-5.52608968466
-
-====================
-8.
-
-5.52233065656
-
-====================
-While the idea is easy to achieve for simple data types and constraints, it faces significant challenges for text documents.
-
-5.51093643477
-
-====================
-[7] O. Biran and K. McKeown.
-
-5.50830160675
-
-====================
-js Essentials.
-
-5.49474688304
-
-====================
-[44] J. C. T. Ji-Wei Wu.
-
-5.49061155133
-
-====================
-These ideas can be viewed as instances of Precog.
-
-5.48733836508
-
-====================
-Linguistic analysis of chat transcripts from child predator undercover sex stings.
-
-5.48430585526
-
-====================
-[37] I.
-
-5.47907075205
-
-====================
-Moreover, none focus on multi-paragraph text attributes such as product reviews or forum comments.
-
-5.47846796386
-
-====================
-American Psychological Association, 2002.
-
-5.47613326593
-
-====================
-She, Y. Tong, and L. Chen.
-
-5.47093153178
-
-====================
-Quality management on amazon mechanical turk.
-
-5.4678887617
-
-====================
-Interacting with predictions: Visual inspection of black-box machine learning models.
-
-5.46110004685
-
-====================
-MIT Press, 1997.
-
-5.45695792354
-
-====================
-Scale-driven automatic hint generation for coding style.
-
-5.45289741276
-
-====================
-In MSR, 2013.
-
-5.44978369515
-
-====================
-Double data entry: what value, what price?
-
-5.44246873422
-
-====================
-In EC, 2007.
-
-5.43817923463
-
-====================
-Survey methodology, volume 561.
-
-5.43309219756
-
-====================
-In Recommender Systems Handbook.
-
-5.43276645336
-
-====================
-[33] A. Ghosh.
-
-5.42950816525
-
-====================
-[12] C. C. Cao, J.
-
-5.4180784272
-
-====================
-In WWW, 2010.
-
-5.41342941281
-
-====================
-support.google.com/docs/answer/57859, 2016.
-
-5.41150460362
-
-====================
-John Wiley & Sons, 2011.
-
-5.41057964539
-
-====================
-React.
-
-5.40896539967
-
-====================
-Fix reviews' grammar, improve sales.
-
-5.40522126029
-
-====================
-Gene selection for cancer classification using support vector machines.
-
-5.40305503623
-
-====================
-[14] A. Chalamalla, I. F. Ilyas, M. Ouzzani, and P. Papotti.
-
-5.40182912804
-
-====================
-[5] E. Bakshy, B. Karrer, and L. A. Adamic.
-
-5.39708843511
-
-====================
-Deriving the pricing power of product features by mining consumer reviews.
-
-5.38973791993
-
-====================
-Automatically assessing review helpfulness.
-
-5.38411765528
-
-====================
-Peerstudio: Rapid peer feedback emphasizes revision and improves performance.
-
-5.38232598446
-
-====================
-Wiley e-rater Online Library, 2004.
-
-5.37172408207
-
-====================
-Automated essay scoring with R v. 2.0.
-
-5.3695308516
-
-====================
-Springer, 2015.
-
-5.36464208186
-
-====================
-A. Kulik and C.-L. C. Kulik.
-
-5.36412310819
-
-====================
-Latent dirichlet allocation.
-
-5.36348095995
-
-====================
-[61] J. McAuley, R. Pandey, and J. Leskovec.
-
-5.36293538198
-
-====================
-Springer, 2002.
-
-5.36032329354
-
-====================
-In System Sciences (HICSS), 2011 44th Hawaii International Conference on, pages 1-10.
-
-5.35810373586
-
-====================
-An efficient linear text segmentation algorithm using hierarchical agglomerative clustering.
-
-5.35687573081
-
-====================
-Building reputation in stackoverflow: an empirical investigation.
-
-5.35491436495
-
-====================
-[32] A. Ghose and P. G. Ipeirotis.
-
-5.35455453991
-
-====================
-iCrowd: an adaptive crowdsourcing framework.
-
-5.35320105418
-
-====================
-A survey of general-purpose crowdsourcing techniques.
-
-5.34429395455
-
-====================
-In TKDE, 2011.
-
-5.34158057168
-
-====================
-In Machine learning.
-
-5.34042374347
-
-====================
-[35] Google.
-
-5.33920261845
-
-====================
-[46] J. Kim.
-
-5.33832738703
-
-====================
-Sage Publications, 2012.
-
-5.33283530226
-
-====================
-https://www.amazon.com/gp/help/customer/display.
-
-5.33241320872
-
-====================
-rfk/pyenchant, Jan 2011.
-
-5.33025785348
-
-====================
-Guy.
-
-5.32726179893
-
-====================
-[21] S. Deterding, D. Dixon, R. Khaled, and L. Nacke.
-
-5.31694157013
-
-====================
-Justification narratives for individual classifications.
-
-5.31517356112
-
-====================
-[57] X. Ma, J. T. Hancock, K. L. Mingjie, and M. Naaman.
-
-5.31269377764
-
-====================
-In CIS, 2011.
-
-5.30407660859
-
-====================
-Self-disclosure and perceived trustworthiness of airbnb host profiles.
-
-5.30130787022
-
-====================
-Controlled clinical trials, 19(1):15-24, 1998.
-
-5.29663884268
-
-====================
-[45] R. Kelly.
-
-5.29517137073
-
-====================
-Respondable: Personal ai assistant for writing better emails.
-
-5.28391633807
-
-====================
-In WSDM, 2008.
-
-5.28367963804
-
-====================
-In ICDE, 2012.
-
-5.27005952426
-
-====================
-Fan, G. Li, B. C. Ooi, K. Tan, and J. Feng.
-
-5.2694734615
-
-====================
-In Media, Culture & Society.
-
-5.26031391896
-
-====================
-[69] K. Norman, S. Lee, P. Moore, G. Murry, W. Rivadeneira, B. Smith, and P. Verdines.
-
-5.25491604523
-
-====================
-VLDB, 2015.
-
-5.25304673147
-
-====================
-In HCI, 2016.
-
-5.25023912324
-
-====================
-Soylent: A word processor with a crowd inside.
-
-5.24557552341
-
-====================
-In HCOMP, 2015.
-
-5.23966717964
-
-====================
-Interpretable classifiers using rules and bayesian analysis: Building a better stroke prediction model.
-
-5.23933317632
-
-====================
-In SIGMOD, pages 445-456, 2014.
-
-5.23712825361
-
-====================
-Social influence and the diffusion of user-created content.
-
-5.22866180502
-
-====================
-[42] P. Ipeirotis.
-
-5.22552077798
-
-====================
-html?nodeId=201929730, 2016.
-
-5.219342952
-
-====================
-[3] N. Archak, A. Ghose, and P. G. Ipeirotis.
-
-5.21883264597
-
-====================
-In Review of educational research, 1988.
-
-5.2165420222
-
-====================
-jury selection for decision making tasks on micro-blog services.
-
-5.21625694054
-
-====================
-Lin, Y. Huang, and M. Zhou.
-
-5.21137895386
-
-====================
-In Management Science.
-
-5.2030478801
-
-====================
-INFORMS, 2011.
-
-5.19967672672
-
-====================
-In JMLR, 2003.
-
-5.19595818882
-
-====================
-[22] P. K. Dick, S. Spielberg, T. Cruise, and S. Morton.
-
-5.19481735203
-
-====================
-[20] S. Day, P. Fayers, and D. Harvey.
-
-5.19082176165
-
-====================
-Amazon: Community guidelines.
-
-5.17883811221
-
-====================
-[15] C. C. Chen and Y.-D. Tseng.
-
-5.17632448896
-
-====================
-In ACL, 2006.
-
-5.17112941106
-
-====================
-[16] A. I. Chittilappilly, L. Chen, and S. Amer-Yahia.
-
-5.16667627195
-
-====================
-Finding high-quality content in social media.
-
-5.1637805056
-
-====================
-Journal of Language and Social Psychology, 35(4):435-445, 2016.
-
-5.1570735316
-
-====================
-[17] R. R. Choudhury, H. Yin, and A.
-
-5.14931981327
-
-====================
-In AutoML, 2014.
-
-5.14800784631
-
-====================
-[50] M. Krause.
-
-5.13709941684
-
-====================
-a multi-method approach to determine the antecedents of online review helpfulness.
-
-5.13119274568
-
-====================
-[10] Boomerang.
-
-5.12316291219
-
-====================
-http://www.boomeranggmail.com/respondable/, 2016.
-
-5.12204318217
-
-====================
-[19] P. B. Darwin and P. Kozlowski.
-
-5.11377095843
-
-====================
-[2] Amazon.
-
-5.11189745277
-
-====================
-[65] H. Misra, F. Yvon, O. Cappe, and J. Jose.
-
-5.10096438976
-
-====================
-From game design elements to gamefulness: defining gamification.
-
-5.08858233516
-
-====================
-Whom to ask?
-
-5.08858128107
-
-====================
-Minority report.
-
-5.0606588256
-
-====================
-[76] M. T. Ribeiro, S. Singh, and C. Guestrin.
-
-5.05818816377
-
-====================
-In EC, 2009.
-
-5.0523383588
-
-====================
-Deco: declarative crowdsourcing.
-
-5.0414364022
-
-====================
-In UIST, 2010.
-
-5.03429145815
-
-====================
-[52] C. E. Kulkarni, M. S. Bernstein, and S. R. Klemmer.
-
-5.01363421879
-
-====================
-Descriptive and prescriptive data cleaning.
-
-5.00996399008
-
-====================
-In Decision Support Systems.
-
-5.00916634272
-
-====================
-Human-powered sorts and joins.
-
-5.00644857267
-
-====================
-In ITS, 2016.
-
-4.99877342391
-
-====================
-In Learning Research and Development Center, 2007.
-
-4.99253779092
-
-====================
-Timing of feedback and verbal learning.
-
-4.98793411158
-
-====================
-Packt Publ., 2013.
-
-4.96782395254
-
-====================
-Low-quality product review detection in opinion summarization.
-
-4.96466459936
-
-====================
-[55] J. Liu, Y. Cao, C.-Y.
-
-4.94292553909
-
-====================
-Quality evaluation of product reviews using an information quality framework.
-
-4.93792198616
-
-====================
-In MindTrek, 2011.
-
-4.93607964229
-
-====================
-PVLDB, 2012.
-
-4.93570537853
-
-====================
-[58] N. Madnani and A. Cahill.
-
-4.92609585412
-
-====================
-http://www.imdb.com/title/tt0181689/, 2002.
-
-4.9237190498
-
-====================
-An explicit feedback system for preposition errors based on wikipedia revisions.
-
-4.92161621164
-
-====================
-[82] S. Siersdorfer, S. Chelaru, W. Nejdl, and J. San Pedro.
-
-4.90746912086
-
-====================
-Textblob: Simplified text processing.
-
-4.89757849657
-
-====================
-Inferring networks of substitutable and complementary products.
-
-4.89311661095
-
-====================
-Linguistic obfuscation in fraudulent science.
-
-4.88561791967
-
-====================
-[66] L. Muchnik, S. Aral, and S. J. Taylor.
-
-4.86978460963
-
-====================
-Is it the review or the reviewer?
-
-4.86773302784
-
-====================
-The Annals of Applied Statistics, 2015.
-
-4.85911008507
-
-====================
-Fox.
-
-4.85155574909
-
-====================
-IEEE, 2011.
-
-4.83248980379
-
-====================
-AngularJS web application development.
-
-4.827935804
-
-====================
-In EMNLP-CoNLL, 2007.
-
-4.78751991466
-
-====================
-[56] S. Loria.
-
-4.78728756056
-
-====================
-https://textblob.readthedocs.io/en/dev, 2014.
-
-4.78317698881
-
-====================
-In Advances in neural information processing systems, pages 121-128, 2008.
-
-4.77300271672
-
-====================
-In CSCW, 2017.
-
-4.75124708691
-
-====================
-[70] O. Nov. What motivates wikipedians?
-
-4.75023953486
-
-====================
-Winning arguments: Interaction dynamics and persuasion strategies in good-faith online discussions.
-
-4.74920602549
-
-====================
-[59] A. Marcus, E. Wu, D. Karger, S. Madden, and R. Miller.
-
-4.74768413108
-
-====================
-In MIS quarterly, 2010.
-
-4.74099147043
-
-====================
-[68] M. Nelson and C. Schunn.
-
-4.73502190072
-
-====================
-[60] D. M. Markowitz and J. T. Hancock.
-
-4.72577297861
-
-====================
-[24] J.
-
-4.71915792372
-
-====================
-13  [51] J.
-
-4.70247589602
-
-====================
-[62] J. D. Mcauliffe and D. M. Blei.
-
-4.68549474909
-
-====================
-Check spelling and grammar in office 2010 and later.
-
-4.66756526745
-
-====================
-Towards globally optimal crowdsourcing quality management: The uniform worker setting.
-
-4.66455605691
-
-====================
-In L@S, 2015.
-
-4.66429494353
-
-====================
-[73] J. W. Pennebaker, R. L. Boyd, K. Jordan, and K. Blackburn.
-
-4.66343733283
-
-====================
-The development and psychometric properties of liwc2015.
-
-4.65138574501
-
-====================
-support.office.com, 2016.
-
-4.63990688219
-
-====================
-[64] B. L. Minqing Hu.
-
-4.62707662724
-
-====================
-Technical report, 2015.
-
-4.61728046782
-
-====================
-Supervised topic models.
-
-4.61637067019
-
-====================
-The nature of feedback: Investigating how different types of feedback affect writing performance.
-
-4.59526815373
-
-====================
-American Association for the Advancement of Science, 2013.
-
-4.58237030259
-
-====================
-In Computational Linguistics.
-
-4.56711553463
-
-====================
-Topictiling: a text segmentation algorithm based on lda.
-
-4.56179310491
-
-====================
-[77] M. Riedl and C. Biemann.
-
-4.5616775739
-
-====================
-[75] R. S. Rakesh Agrawal.
-
-4.55334049915
-
-====================
-In NAACL, 2014.
-
-4.53754988259
-
-====================
-[78] K. Rivers and K. R. Koedinger.
-
-4.53516507787
-
-====================
-Elsevier, 2011.
-
-4.53287769629
-
-====================
-What makes a helpful review?
-
-4.53067289321
-
-====================
-[63] Microsoft.
-
-4.52286636627
-
-====================
-VLDB, 2011.
-
-4.50859820098
-
-====================
-QASCA: A quality-aware task assignment system for crowdsourcing applications.
-
-4.50691940744
-
-====================
-[89] S. Valenti, F. Neri, and R. Cucchiarelli.
-
-4.49399988177
-
-====================
-In Information Processing & Management.
-
-4.48271066045
-
-====================
-CrowdFill: collecting structured data from the crowd.
-
-4.47608769794
-
-====================
-In KDD, 2015.
-
-4.46257985608
-
-====================
-In CIKM, 2012.
-
-4.45532692349
-
-====================
-Social influence bias: A randomized experiment.
-
-4.43455127716
-
-====================
-[74] L. Pevzner and M. A. Hearst.
-
-4.41578988856
-
-====================
-[83] R. Singh, S. Gulwani, and A. Solar-Lezama.
-
-4.41268051053
-
-====================
-Mining opinion features in customer reviews.
-
-4.41258774526
-
-====================
-In AAAI, 2004.
-
-4.39488762887
-
-====================
-Text segmentation: A topic modeling perspective.
-
-4.39121234698
-
-====================
-[94] M. N. Xiao Ma, Trishala Neeraj.
-
-4.37482446209
-
-====================
-[85] C. Tan, V. Niculae, C. Danescu-Niculescu-Mizil, and L. Lee.
-
-4.35943307965
-
-====================
-": Explaining the predictions of any classifier.
-
-4.34191437124
-
-====================
-[67] S. M. Mudambi and D. Schuff.
-
-4.33231373149
-
-====================
-a study of customer reviews on amazon.com.
-
-4.31627805345
-
-====================
-Fast algorithm for mining association rules.
-
-4.315057476
-
-====================
-Automating hint generation with solution space path construction.
-
-4.31495818667
-
-====================
-In Science.
-
-4.31457745354
-
-====================
-[87] B. Trushkowsky, T. Kraska, M. J. Franklin, and P. Sarkar.
-
-4.29958173331
-
-====================
-In Communications of the ACM, 2007.
-
-4.29745640858
-
-====================
-A critique and improvement of an evaluation metric for text segmentation.
-
-4.28214985932
-
-====================
-What in the hay is a zappos premier reviewer?
-
-4.28170168761
-
-====================
-improving data quality and data mining using multiple, noisy labelers.
-
-4.2779561622
-
-====================
-quora.com/What-percentageof-questions-on-Quora-have-no-answers, 2016.
-
-4.25513667697
-
-====================
-In ICITS, 2014.
-
-4.25135245595
-
-====================
-[79] G. Saito.
-
-4.24891113627
-
-====================
-Online survey design guide, 2003.
-
-4.244094509
-
-====================
-Supersparse linear integer models for optimized medical scoring systems.
-
-4.24209946636
-
-====================
-[90] G. Wang, K. Gill, M. Mohanlal, H. Zheng, and B. Y. Zhao.
-
-4.20820300182
-
-====================
-[81] V. S. Sheng, F. Provost, and P. G. Ipeirotis.
-
-4.19761884641
-
-====================
-[72] H. Park and J. Widom.
-
-4.19526132635
-
-====================
-[80] A. D. Sarma, A. G. Parameswaran, and J. Widom.
-
-4.16217619843
-
-====================
-In SIGMOD, 2014.
-
-4.15030804478
-
-====================
-Crowdsourced enumeration queries.
-
-4.14773807801
-
-====================
-How useful are your comments?
-
-4.1409780441
-
-====================
-List of nfc phones.
-
-4.12332169032
-
-====================
-en.wikipedia.org/wiki/Wikipedia: Policies_and_guidelines, 2016.
-
-4.12200825908
-
-====================
-In VLDB, 1994.
-
-4.08186910097
-
-====================
-[84] N. Spirin and J. Han.
-
-4.07984378105
-
-====================
-MIT Press, 2002.
-
-4.06786549644
-
-====================
-Technical report, Stanford InfoLab, 2012.
-
-4.05536630494
-
-====================
-"why should I trust you?
-
-4.00644793125
-
-====================
-In SIGKDD, 2016.
-
-3.98113054244
-
-====================
-An overview of current research on automated essay grading.
-
-3.9490917841
-
-====================
-In Journal of Information Technology Education, 2003.
-
-3.94869937749
-
-====================
-Recommending the world's knowledge: Application of recommender systems at quora.
-
-3.94508794239
-
-====================
-In ACL, 2012.
-
-3.94391851962
-
-====================
-In SNAM.
-
-3.94057030013
-
-====================
-preprint maxiao.info, 2017.
-
-3.93356438741
-
-====================
-[88] B. Ustun and C. Rudin.
-
-3.90906802694
-
-====================
-: analyzing and predicting youtube comments and comment ratings.
-
-3.8662624876
-
-====================
-Compare me maybe: Crowd entity resolution interfaces.
-
-3.85743086386
-
-====================
-Wisdom in the social crowd: an analysis of quora.
-
-3.8299408593
-
-====================
-Get another label?
-
-3.82304296652
-
-====================
-In SIGMOD, 2016.
-
-3.81503452821
-
-====================
-[91] S. E. Whang, J. McAuley, and H. Garcia-Molina.
-
-3.79893460996
-
-====================
-[86] J. Tang, X. Hu, and H. Liu.
-
-3.79445834126
-
-====================
-Automated semantic grading of programs.
-
-3.79322212891
-
-====================
-[95] L. Yang and X. Amatriain.
-
-3.77938933606
-
-====================
-Survey on web spam detection: principles and algorithms.
-
-3.7774953992
-
-====================
-In KDD, 2008.
-
-3.74060040203
-
-====================
-Editor guidelines.
-
-3.6893576916
-
-====================
-Technical report, MIT, 2012.
-
-3.65894396698
-
-====================
-https://www.nfcworld.com/nfc-phones-list/, 2016.
-
-3.62416300606
-
-====================
-In KDD, 2012.
-
-3.56605328338
-
-====================
-Social recommendation: a review.
-
-3.52661472681
-
-====================
-In WWW, 2016.
-
-3.50339360096
-
-====================
-[92] Wikipedia.
-
-3.48340604973
-
-====================
-In RecSys, 2016.
-
-3.48015780981
-
-====================
-yelp.com/guidelines, 2016.
-
-3.43700636867
-
-====================
-Springer, 2013.
-
-3.42526589502
-
-====================
-http://www.zappos.com/premier-reviewers, 2016.
-
-3.39444430572
-
-====================
-In ICDE, 2013.
-
-3.35822714832
-
-====================
-Machine Learning, 2016.
-
-3.33633895572
-
-====================
-Content guidelines.
-
-3.24356770002
-
-====================
-[98] Y. Zheng, J. Wang, G. Li, R. Cheng, and J. Feng.
-
-3.16316540149
-
-====================
-In WWW, 2013.
-
-3.09778837182
-
-====================
-[93] N. World.
-
-2.99501030489
-
-====================
-A computational approach to perceived trustworthiness of airbnb host profiles.
-
-2.91837640491
-
-====================
-[96] Yelp.
-
-2.36143859981
-
-====================
-[97] Zappos.
-
-2.3206851094
-
-====================
-In SIGMOD, 2015.
-
-1.77491724569
-
-====================
-14
-
-1.44159863921
+2.23303283995
 
 None
