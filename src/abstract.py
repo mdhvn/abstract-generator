@@ -11,16 +11,16 @@ from unidecode import unidecode
 DATA_DIRECTORY_PATH = "../data/"
 COMPUTER_SCIENCE_CORPUS_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus"
 
-words = ["goal",
+special_words = ["goal",
 	 "summary",
 	 "research",
 	 "conclusion",
 	 "to this end",
-         "then",
+         #"then",
          "we then",
 	 "show",
          "believe",
-	 "in",
+	 #"in",
 	 "this",
 	 "paper",
 	 "in this paper",
@@ -34,7 +34,15 @@ words = ["goal",
          "our",
          "explore",
          "try",
-         "reveal"]
+         "reveal",
+         "show",
+         "prior",
+         "previous",
+	 "described",
+	 "achieves",
+         "in conclusion",
+         "finally",
+	 "%"]
 
 # Go through a lot of abstracts and count the frequencies of all the words
 # that occur over the entire collection of abstracts. Weigh (sentences with)
@@ -51,6 +59,7 @@ words = ["goal",
 # Weigh words/sentences more heavily for having:
 #	- Words that occur in the title
 # 	- Words that feature commonly in abstracts
+
 # https://arxiv.org/pdf/1704.00999.pdf
 # https://arxiv.org/pdf/1704.07661.pdf
 # https://arxiv.org/pdf/1704.07649.pdf
@@ -125,7 +134,7 @@ class Abstract(object):
         self.word_tf_idf_scores = dict(self.sorted_word_tf_idf_scores)
 
     def calculateSentenceScores(self):
-        self.sentence_scores = { }
+        self.sentence_tf_idf_scores = { }
 
 	for sentence in self.sentences:
 		sentence_score = 0
@@ -134,73 +143,137 @@ class Abstract(object):
 			if word in self.word_tf_idf_scores:
 				sentence_score = sentence_score + self.word_tf_idf_scores[word]
 
-		self.sentence_scores[sentence] = sentence_score
+		self.sentence_tf_idf_scores[sentence] = sentence_score
 
-	
-        
-  #       for word_score_tuple in self.sorted_word_tf_idf_scores:
-  #           word = word_score_tuple[0]
-  #           score = word_score_tuple[1]
-  #           #print (word, score)
-            
-  #           for sentence in self.sentences:
-		# print sentence
-		# continue
 
-  #               if word in sentence:
-  #                   if sentence in self.sentence_scores:
-  #                       self.sentence_scores[sentence] += score
-  #                       break
+        self.sorted_sentence_tf_idf_scores = sorted(self.sentence_tf_idf_scores.items(),
+                                                    key = operator.itemgetter(1),
+                                                    reverse = True)
 
-  #                   else:
-  #                       self.sentence_scores[sentence] = score
-  #                       break
+    def getAverageSentenceTFIDFScore(self):
+	total_tf_idf_score = 0
 
-        sorted_sentence_scores = sorted(self.sentence_scores.items(),
-                                        key = operator.itemgetter(1),
-                                        reverse = True)
+	for sentence in self.sentence_tf_idf_scores:
+		total_tf_idf_score = total_tf_idf_score + self.sentence_tf_idf_scores[sentence]
 
-        #for sentence_score_tuple in sorted_sentence_scores:
-		#print sentence_score_tuple[1]
-		#print "\t - ", sentence_score_tuple[0]
-		#print ""
-		#print ""
+	return (total_tf_idf_score / len(self.sentence_tf_idf_scores))
+
+    def selectSentences(self):
+	# Set up a score for each sentence in this document. 
+        # This dictionary stores the main score for each sentence, which 
+        # is derived of/from other (smaller) subscores. The sentences with the
+        # highest scores are used to form a summary for this document.
+	self.sentence_scores = { }
+
+	# To begin with, score each sentence based on where in the paper (how early)
+        # it occurs. The earlier it occurs, the higher its score. This score arises
+        # from the observation that most abstracts tend to have same order and logical 
+	# flow as the (rest of the) paper to which they belong.
+	for sentence_index in range(0, len(self.sentences)):
+		sentence = self.sentences[sentence_index]
+		self.sentence_scores[sentence] = len(self.sentences) - sentence_index
+		#self.sentence_scores[sentence] = math.pow(self.sentence_scores[sentence], 2)
+		self.sentence_scores[sentence] = math.pow(2, self.sentence_scores[sentence])
+
+	# Add each sentence's tf-idf score to its overall score.
+	for sentence in self.sentence_tf_idf_scores:
+		# +1 to tf_idf_score
+		tf_idf_score = math.pow(self.sentence_tf_idf_scores[sentence] + 1, 1)
+		self.sentence_scores[sentence] = self.sentence_scores[sentence] * tf_idf_score
+
+	# Increase each sentence's score by a factor of 1.5 for every word it
+        # contains that is in the title of the document.
+	for sentence_index in range(0, len(self.sentences)):
+		sentence = self.sentences[sentence_index]
+		sentence_tokens = sentence.lower().split()
+		
+		for token in sentence_tokens:
+			if token in self.title_tokens:
+				self.sentence_scores[sentence] = self.sentence_scores[sentence] * 4
+
+	# Take the logarithm of each score.
+	for sentence in self.sentence_scores:
+		self.sentence_scores[sentence] = math.log(self.sentence_scores[sentence])
+
+	# For every word w, add w's tf-idf score to the sentence it 
+        # first occurs in.
+	for word_score_tuple in self.sorted_word_tf_idf_scores:
+		word = word_score_tuple[0]
+		score = word_score_tuple[1]
+		
+		for sentence in self.sentences:
+			if word in sentence:
+				score = math.pow(score, 2)
+				self.sentence_scores[sentence] = self.sentence_scores[sentence] + score
+				break
+
+	for sentence in self.sentences:
+		sentence_lowercase = sentence.lower()
+
+		for word in special_words:
+			word = word.lower()
+
+			if word in sentence_lowercase:
+				word_tokens = word.split()
+				multiplier = math.pow(len(word_tokens), 2) + 0.5
+				#print multiplier
+				self.sentence_scores[sentence] = self.sentence_scores[sentence] * multiplier
+
+	########## Output ##########
+	for sentence in self.sentence_scores:
+		self.sentence_scores[sentence] = math.log(self.sentence_scores[sentence])
+
+	self.sorted_sentence_scores = sorted(self.sentence_scores.items(),
+                                             key = operator.itemgetter(1),
+                                             reverse = True)
+
+
+	for sentence_score_tuple in self.sorted_sentence_scores:
+		sentence = sentence_score_tuple[0]
+		score = sentence_score_tuple[1]
+
+		print "===================="
+		print sentence
+		print ""
+		print score
+		print ""
+
         
     def createAbstract(self):
-        self.calculateTFIDF()
-        self.calculateSentenceScores()
+        self.calculateTFIDF()               # Calculate the tf-idf score for every word in this document.
+        self.calculateSentenceScores()      # Calculate the total tf-idf score for every sentence in this document.
+	
+	#for word_score_tuple in self.sorted_word_tf_idf_scores:
+	#	print word_score_tuple
 
-	for word_score_tuple in self.sorted_word_tf_idf_scores:
-		word = word_score_tuple[0]
-		#print word_score_tuple, 
-		#print "(document:", self.word_frequencies[word], ",",
-		#print "corpus:", self.corpus.wordFrequency(word), ")"
+	self.selectSentences()
 
 	####################
-	sentences_seen = { }
+	# sentences_seen = { }
 
-	for word_score_tuple in self.sorted_word_tf_idf_scores:
-		word = word_score_tuple[0]
+	# for word_score_tuple in self.sorted_word_tf_idf_scores:
+	# 	word = word_score_tuple[0]
 
-		for sentence in self.sentences:
-			if (word in sentence):
-                        	if sentence in sentences_seen:
-					sentences_seen[sentence] = sentences_seen[sentence] + 1
-				else:	
-					print "===================="
-					print sentence
-					sentences_seen[sentence] = 1
-				break
+	# 	for sentence in self.sentences:
+	# 		if (word in sentence):
+ 	#                       if sentence in sentences_seen:
+	# 				sentences_seen[sentence] = sentences_seen[sentence] + 1
+	# 			else:	
+	# 				print "===================="
+	# 				print sentence
+	# 				sentences_seen[sentence] = 1
+	# 			break
 					
-		if (len(sentences_seen) > 10):
-			break
+	# 	if (len(sentences_seen) > 10):
+	# 		break
 
     def getTitle(self):
+	#print "First sentence: ", self.sentences[0]
         first_whitespace = self.document.find(" ")
         first_newline = self.document.find("\n")
         
         #print first_newline
-
+	
         return self.document[0 : first_newline]
 
     def removeReferences(self):
@@ -249,17 +322,19 @@ class Abstract(object):
     def cleanSentences(self):
         for sentence in range(0, len(self.sentences)):
             self.sentences[sentence] = self.sentences[sentence].strip()
-            self.sentences[sentence] = self.sentences[sentence].replace(r'\n', '')
-            self.sentences[sentence] = self.sentences[sentence].replace(r'\t', '')
+            self.sentences[sentence] = self.sentences[sentence].replace('\n', ' ')
+            self.sentences[sentence] = self.sentences[sentence].replace('\t', ' ')
     
     def processDocument(self):
         self.title = self.getTitle()
+	self.title_tokens = self.title.lower().split()
 
         print "Title: ", self.title
         print ""
         
         # Start the document at the introduction(?)
-        # Fix se
+        # Fix section identification
+	# skip past the abstract
         introduction_index = self.document.find("INTRODUCTION")
         self.original_document = self.document
         self.document = self.document[introduction_index : len(self.document)]
@@ -268,7 +343,7 @@ class Abstract(object):
         self.cleanTokens()
         
         self.sentences = sent_tokenize(self.document)
-        #self.cleanSentences()
+        self.cleanSentences()
         
         self.frequency_distribution = FreqDist(self.tokens)
         self.number_of_unique_tokens = self.frequency_distribution.N()
