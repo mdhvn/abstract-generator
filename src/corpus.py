@@ -43,8 +43,8 @@ class Corpus(object):
 	def wordFrequency(self, word):
 		if word in self.corpus:
 			return self.corpus[word]
-		else:
-			return 0
+
+		return 0
 
 	def documentsByCategory(self, category):
 		documents = [ ]
@@ -104,6 +104,8 @@ class Corpus(object):
 				if not self.containsDocument(document):
 					document_id = document["id"]
 					document_text_file_path = ""
+				
+					time.sleep(5)
 
 					try:
 						document_text_file_path = document_retriever.getDocumentTextFile(document)
@@ -144,7 +146,7 @@ class Corpus(object):
 
 			#del document_retriever
 	
-			time.sleep(5)
+			time.sleep(60)
 	
 	def clearCorpus(self):
 		self.corpus_file = open(self.corpus_path, "w").close()
@@ -185,7 +187,7 @@ def main():
 	#print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
 	#print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
 	#print "Number of documents on 'Databases': ", computer_science_corpus.wordFrequency("cs.DB")
-	#computer_science_corpus.buildCorpus()
+	computer_science_corpus.buildCorpus()
 	#computer_science_corpus.clearCorpus()
 
 	
