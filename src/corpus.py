@@ -49,9 +49,7 @@ class Corpus(object):
 	def documentsByCategory(self, category):
 		documents = [ ]
 
-		for document in self.metadata:
-			if category == document["category"]:
-				documents.append(document)
+                #
 
 		return documents
 				
@@ -173,21 +171,16 @@ class Corpus(object):
 def main():
 	computer_science_corpus = Corpus(COMPUTER_SCIENCE_CORPUS_PATH)
 	print "Total documents: ", computer_science_corpus.numberOfDocuments()
-	#print "Total words: ", computer_science_corpus.totalWords()
-	#print "Frequency of 'the': ", computer_science_corpus.wordFrequency("the")
-	#print "Frequency of 'algorithm': ", computer_science_corpus.wordFrequency("algorithm")
-	#print "Frequency of 'philosophy': ", computer_science_corpus.wordFrequency("philosophy")
-	#print "Frequency of 'Donald': ", computer_science_corpus.wordFrequency("Donald")
-	#print "Frequency of 'Knuth': ", computer_science_corpus.wordFrequency("Knuth")
-	#print "Frequency of 'artificial': ", computer_science_corpus.wordFrequency("artificial")
-	#print "Frequency of 'intelligence': ", computer_science_corpus.wordFrequency("intelligence")
-	#print "Frequency of 'India': ", computer_science_corpus.wordFrequency("India")
-	#print "Number of documents on 'Formal Languages': ", computer_science_corpus.wordFrequency("cs.FL")
-	#print "Number of documents on 'Distributed and Parallel Computing': ", computer_science_corpus.wordFrequency("cs.DC")
-	#print "Number of documents on 'Artificial Intellgience': ", computer_science_corpus.wordFrequency("cs.AI")
-	#print "Number of documents on 'Hardware Architecture': ", computer_science_corpus.wordFrequency("cs.AR")
-	#print "Number of documents on 'Databases': ", computer_science_corpus.wordFrequency("cs.DB")
-	computer_science_corpus.buildCorpus()
+	print "Total words: ", computer_science_corpus.totalWords()
+	print "Frequency of 'the': ", computer_science_corpus.wordFrequency("the")
+	print "Frequency of 'algorithm': ", computer_science_corpus.wordFrequency("algorithm")
+	print "Frequency of 'philosophy': ", computer_science_corpus.wordFrequency("philosophy")
+	print "Frequency of 'Donald': ", computer_science_corpus.wordFrequency("Donald")
+	print "Frequency of 'Knuth': ", computer_science_corpus.wordFrequency("Knuth")
+	print "Frequency of 'artificial': ", computer_science_corpus.wordFrequency("artificial")
+	print "Frequency of 'intelligence': ", computer_science_corpus.wordFrequency("intelligence")
+	print "Frequency of 'India': ", computer_science_corpus.wordFrequency("India")
+        #computer_science_corpus.buildCorpus()
 	#computer_science_corpus.clearCorpus()
 
 	

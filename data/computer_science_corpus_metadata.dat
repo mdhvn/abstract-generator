@@ -4007,19 +4007,19 @@ g1430
 sg8
 VEfficient Computation of Visibility Polygons
 p1434
-ssVhttp://arxiv.org/abs/1211.1604v1
+ssVhttp://arxiv.org/abs/1501.06754v1
 p1435
 (dp1436
 g3
-Vmath.GT
+Vmath.CO
 p1437
 sg5
-VIn arXiv:1207.0332 [cs.LO] was proposed a graphic lambda calculus formalism,\u000awhich has sectors corresponding to untyped lambda calculus and emergent\u000aalgebras.\u000a  Here we explore the sector covering knot diagrams, which are constructed as\u000amacros over the graphic lambda calculus.
+VWe generalize some homotopy calculation techniques such as splittings and\u000amatching trees that are introduced for the computations in the case of the\u000aindependence complexes of graphs to arbitrary simplicial complexes, and\u000aexemplify their efficiency on some simplicial complexes, the devoid complexes\u000aof graphs, which are simplicial complexes parametrized by graphs. Additionally,\u000awe compute the homotopy type of dominance complexes of chordal graphs.
 p1438
 sg7
 g1435
 sg8
-VGraphic lambda calculus and knot diagrams
+VMatching trees for simplicial complexes and homotopy type of devoid\u000a  complexes of graphs
 p1439
 ssVhttp://arxiv.org/abs/1402.1467v1
 p1440
@@ -4763,19 +4763,19 @@ g1700
 sg8
 VLearning Similarity for Character Recognition and 3D Object Recognition
 p1704
-ssVhttp://arxiv.org/abs/1501.06754v1
+ssVhttp://arxiv.org/abs/1211.1604v1
 p1705
 (dp1706
 g3
-Vmath.CO
+Vmath.GT
 p1707
 sg5
-VWe generalize some homotopy calculation techniques such as splittings and\u000amatching trees that are introduced for the computations in the case of the\u000aindependence complexes of graphs to arbitrary simplicial complexes, and\u000aexemplify their efficiency on some simplicial complexes, the devoid complexes\u000aof graphs, which are simplicial complexes parametrized by graphs. Additionally,\u000awe compute the homotopy type of dominance complexes of chordal graphs.
+VIn arXiv:1207.0332 [cs.LO] was proposed a graphic lambda calculus formalism,\u000awhich has sectors corresponding to untyped lambda calculus and emergent\u000aalgebras.\u000a  Here we explore the sector covering knot diagrams, which are constructed as\u000amacros over the graphic lambda calculus.
 p1708
 sg7
 g1705
 sg8
-VMatching trees for simplicial complexes and homotopy type of devoid\u000a  complexes of graphs
+VGraphic lambda calculus and knot diagrams
 p1709
 ssVhttp://arxiv.org/abs/0902.1259v1
 p1710
