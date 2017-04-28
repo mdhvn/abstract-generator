@@ -160,6 +160,9 @@ class Abstract(object):
                                                 key = operator.itemgetter(1),
                                                 reverse = True)
 
+        for word_score_tuple in self.sorted_word_tf_idf_scores:
+            print word_score_tuple
+
         self.word_tf_idf_scores = dict(self.sorted_word_tf_idf_scores)
 
     def calculateSentenceScores(self):
