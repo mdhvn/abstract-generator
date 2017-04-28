@@ -244,7 +244,7 @@ class Abstract(object):
 	
 		#print number_of_title_words, seen_in_title, sentence
 
-		self.sentence_scores[sentence] = self.sentence_scores[sentence] * (1 + number_of_title_words)
+		self.sentence_scores[sentence] = self.sentence_scores[sentence] * math.pow(1.1, number_of_title_words)
 
 	# Take the logarithm of each score.
 	# for sentence in self.sentence_scores:
