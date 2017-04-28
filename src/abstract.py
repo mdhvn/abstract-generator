@@ -12,6 +12,7 @@ from unidecode import unidecode
 
 DATA_DIRECTORY_PATH = "../data/"
 COMPUTER_SCIENCE_CORPUS_PATH = DATA_DIRECTORY_PATH + "computer_science_corpus"
+STOP_WORDS_PATH = DATA_DIRECTORY_PATH + "stop_words.txt"
 
 special_words = ["goal",
 	 "summary",
@@ -93,7 +94,7 @@ class Abstract(object):
         # For now, always use the Computer Science corpus.
         self.corpus = Corpus(COMPUTER_SCIENCE_CORPUS_PATH)
         
-        #self.abstract = self.createAbstract()
+        self.abstract = self.createAbstract()
         
     def getDocumentContents(self, filename):
         document_file = codecs.open(filename, "r", "utf-8")
@@ -138,11 +139,22 @@ class Abstract(object):
 
         return tf_idf
 
+
+    def getStopWords(self):
+		stop_words_file = open(STOP_WORDS_PATH, "r")
+		stop_words = stop_words_file.read().splitlines()
+		
+		return stop_words
+
     def calculateTFIDF(self):
         word_tf_idf_scores = { }
+        stop_words = self.getStopWords()
 
         for word in self.word_frequencies:
-            word_tf_idf_scores[word] = self.tf_idf(word)
+            if word in stop_words:
+                word_tf_idf_scores[word] = 0
+            else:
+                word_tf_idf_scores[word] = self.tf_idf(word)
 
         self.sorted_word_tf_idf_scores = sorted(word_tf_idf_scores.items(),
                                                 key = operator.itemgetter(1),
@@ -181,7 +193,7 @@ class Abstract(object):
         # is derived of/from other (smaller) subscores. The sentences with the
         # highest scores are used to form a summary for this document.
 	self.sentence_scores = { }
-	
+                
 	# Initialize every sentence's score to 0.
 	for sentence in self.sentences:
 		self.sentence_scores[sentence] = 0
@@ -419,12 +431,9 @@ class Abstract(object):
 		introduction_index = self.document.find("Introduction")
 	if (introduction_index == -1):
 		introduction_index = 0
-	
-
-	print ""
-	print self.document[introduction_index : len(self.document)]
-	
-
+		
+	#print ""
+	#print self.document[introduction_index : len(self.document)]
 	
         self.original_document = self.document
         self.document = self.document[introduction_index : len(self.document)]
@@ -456,10 +465,10 @@ class Abstract(object):
         #    print "===================="
 
 def main():
-        document_path = "../data/test/page_rank.txt"
+        document_path = "../data/test/human_computer_interaction.txt"
 
         abstract = Abstract(document_path)
-        #print abstract.getAbstract()
+        print abstract.getAbstract()
 
 if __name__ == "__main__":
     main()

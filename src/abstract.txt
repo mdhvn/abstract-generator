@@ -1,789 +1,4184 @@
-Title:  The PageRank Citation Ranking:
-
-
-Introduction and Motivation
-The World Wide Web creates many new challenges for information retrieval. It is very large and
-heterogeneous. Current estimates are that there are over 150 million web pages with a doubling
-life of less than one year. More importantly, the web pages are extremely diverse, ranging from
-"What is Joe having for lunch today?" to journals about information retrieval. In addition to these
-major challenges, search engines on the Web must also contend with inexperienced users and pages
-engineered to manipulate search engine ranking functions.
-However, unlike "at" document collections, the World Wide Web is hypertext and provides
-considerable auxiliary information on top of the text of the web pages, such as link structure and
-link text. In this paper, we take advantage of the link structure of the Web to produce a global
-\importance" ranking of every web page. This ranking, called PageRank, helps search engines and
-users quickly make sense of the vast heterogeneity of the World Wide Web.
-
-1.1 Diversity of Web Pages
-
-Although there is already a large literature on academic citation analysis, there are a number
-of signicant dierences between web pages and academic publications. Unlike academic papers
-which are scrupulously reviewed, web pages proliferate free of quality control or publishing costs.
-With a simple program, huge numbers of pages can be created easily, articially inating citation
-counts. Because the Web environment contains competing prot seeking ventures, attention getting
-strategies evolve in response to search engine algorithms. For this reason, any evaluation strategy
-which counts replicable features of web pages is prone to manipulation. Further, academic papers
-are well dened units of work, roughly similar in quality and number of citations, as well as in
-their purpose { to extend the body of knowledge. Web pages vary on a much wider scale than
-academic papers in quality, usage, citations, and length. A random archived message posting
-1
-
-asking an obscure question about an IBM computer is very dierent from the IBM home page. A
-research article about the eects of cellular phone use on driver attention is very dierent from an
-advertisement for a particular cellular provider. The average web page quality experienced by a
-user is higher than the quality of the average web page. This is because the simplicity of creating
-and publishing web pages results in a large fraction of low quality web pages that users are unlikely
-to read.
-There are many axes along which web pages may be dierentiated. In this paper, we deal
-primarily with one - an approximation of the overall relative importance of web pages.
-
-1.2 PageRank
-
-In order to measure the relative importance of web pages, we propose PageRank, a method for
-computing a ranking for every web page based on the graph of the web. PageRank has applications
-in search, browsing, and trac estimation.
-Section 2 gives a mathematical description of PageRank and provides some intuitive justication. In Section 3, we show how we eciently compute PageRank for as many as 518 million
-hyperlinks. To test the utility of PageRank for search, we built a web search engine called Google
-(Section 5). We also demonstrate how PageRank can be used as a browsing aid in Section 7.3.
-
-2 A Ranking for Every Page on the Web
-2.1 Related Work
-
-There has been a great deal of work on academic citation analysis [Gar95]. Goman [Gof71] has
-published an interesting theory of how information ow in a scientic community is an epidemic
-process.
-There has been a fair amount of recent activity on how to exploit the link structure of large
-hypertext systems such as the web. Pitkow recently completed his Ph.D. thesis on \Characterizing
-World Wide Web Ecologies" [Pit97, PPR96] with a wide variety of link based analysis. Weiss
-discuss clustering methods that take the link structure into account [WVS+ 96]. Spertus [Spe97]
-discusses information that can be obtained from the link structure for a variety of applications.
-Good visualization demands added structure on the hypertext and is discussed in [MFH95, MF95].
-Recently, Kleinberg [Kle98] has developed an interesting model of the web as Hubs and Authorities,
-based on an eigenvector calculation on the co-citation matrix of the web.
-Finally, there has been some interest in what \quality" means on the net from a library community [Til].
-It is obvious to try to apply standard citation analysis techniques to the web's hypertextual
-citation structure. One can simply think of every link as being like an academic citation. So,
-a major page like http://www.yahoo.com/ will have tens of thousands of backlinks (or citations)
-pointing to it.
-This fact that the Yahoo home page has so many backlinks generally imply that it is quite
-important. Indeed, many of the web search engines have used backlink count as a way to try to bias
-their databases in favor of higher quality or more important pages. However, simple backlink counts
-have a number of problems on the web. Some of these problems have to do with characteristics of
-the web which are not present in normal academic citation databases.
-
-2
-
-2.2 Link Structure of the Web
-
-While estimates vary, the current graph of the crawlable Web has roughly 150 million nodes (pages)
-and 1.7 billion edges (links). Every page has some number of forward links (outedges) and backlinks
-(inedges) (see Figure 1). We can never know whether we have found all the backlinks of a particular
-page but if we have downloaded it, we know all of its forward links at that time.
-A
-C
-
-B
-
-Figure 1: A and B are Backlinks of C
-Web pages vary greatly in terms of the number of backlinks they have. For example, the
-Netscape home page has 62,804 backlinks in our current database compared to most pages which
-have just a few backlinks. Generally, highly linked pages are more \important" than pages with
-few links. Simple citation counting has been used to speculate on the future winners of the Nobel
-Prize [San95]. PageRank provides a more sophisticated method for doing citation counting.
-The reason that PageRank is interesting is that there are many cases where simple citation
-counting does not correspond to our common sense notion of importance. For example, if a web
-page has a link o the Yahoo home page, it may be just one link but it is a very important one.
-This page should be ranked higher than many pages with more links but from obscure places.
-PageRank is an attempt to see how good an approximation to \importance" can be obtained just
-from the link structure.
-
-2.3 Propagation of Ranking Through Links
-
-Based on the discussion above, we give the following intuitive description of PageRank: a page has
-high rank if the sum of the ranks of its backlinks is high. This covers both the case when a page
-has many backlinks and when a page has a few highly ranked backlinks.
+Title:  PreCog: Improving Crowdsourced Data Quality
 
-2.4 Denition of PageRank
+['precog:', 'improving', 'crowdsourced', 'data', 'quality']
+====================
+To this end, we present Precog1 , a crowdsourced data acquisition system that supports pre-hoc quality control for both simple data types and multi-paragraph text attributes.
 
-Let u be a web page. Then let F be the set of pages u points to and B be the set of pages that
-point to u. Let N = jF j be the number of links from u and let c be a factor used for normalization
-(so that the total rank of all web pages is constant).
-We begin by dening a simple ranking, R which is a slightly simplied version of PageRank:
-R (v )
-R(u) = c
-u
+84218.6468302
 
-u
+====================
+We further show that Precog's unique approach to combining prescriptive explanations and segment-level feedback improves text quality by 14.3%, and over 3x better than a state-of-the-art feedback system [50].
 
-u
+68207.1947009
 
-u
+====================
+To build high-quality models, we survey and categorize features from the writing analysis literature into 5 categories  1. user input  2. segment by topic  3. estimate quality  4. targeted feedback  Figure 3: The Segment-Predict-Explain pattern: Precog splits user input into coherent segments; estimates the quality of each segment and the text as a whole; and generates and shows suggested improvements to the user.
 
-X
+29925.2667034
 
-u
+====================
+In addition to evaluating Precog for hard constraints and simple data types, we evaluate Precog's text feedback through extensive MTurk experiments on two real application domains--product reviews and rental host profiles.
 
-v 2B
+25101.2360538
 
-3
+====================
+In this paper, we argue for pre-hoc quality control systems.
 
-N
+18638.0009093
 
-v
+====================
+Our experiments and prior work [52] show that this is less effective than a more customized approach.
 
-100
+15894.2924121
 
-50
+====================
+The fourth FEF for product reviews was mapped to Subjectivity features in (Table 1) and the fourth host profiles FEF was mapped to Friendliness LIWC features shown in [94], with each returning text suggesting that the user improves the respective facet of their submission (i.e., "Please make your writing more balanced and neutral").
 
-53
+14497.3957787
 
-3
-50
-50
+====================
+Experimental Conditions: The purpose of experiments is to both show the Cost Saving benefits of Precog as well as to evaluate the effectiveness of it's two main features (segment-level feedback and TCruise explanation generation).
 
-9
-3
-3
+12827.0985985
 
-Figure 2: Simplied PageRank Calculation
-This formalizes the intuition in the previous section. Note that the rank of a page is divided
-among its forward links evenly to contribute to the ranks of the pages they point to. Note that
-c < 1 because there are a number of pages with no forward links and their weight is lost from the
-system (see section 2.7). The equation is recursive but it may be computed by starting with any set
-of ranks and iterating the computation until it converges. Figure 2 demonstrates the propagation
-of rank from one pair of pages to another. Figure 3 shows a consistent steady state solution for a
-set of pages.
-Stated another way, let A be a square matrix with the rows and column corresponding to web
-pages. Let A = 1=N if there is an edge from u to v and A = 0 if not. If we treat R as a
-vector over web pages, then we have R = cAR. So R is an eigenvector of A with eigenvalue c. In
-fact, we want the dominant eigenvector of A. It may be computed by repeatedly applying A to any
-nondegenerate start vector.
-There is a small problem with this simplied ranking function. Consider two web pages that
-point to each other but to no other page. And suppose there is some web page which points to
-one of them. Then, during iteration, this loop will accumulate rank but never distribute any rank
-(since there are no outedges). The loop forms a sort of trap which we call a rank sink.
-To overcome this problem of rank sinks, we introduce a rank source:
-Denition 1 Let E (u) be some vector over the Web pages that corresponds to a source of rank.
-Then, the PageRank of a set of Web pages is an assignment, R , to the Web pages which satises
-u;v
+====================
+NEW APPLICATION DOMAINS  EXPERIMENTS  We now evaluate how Precog improves high-quality data acquisition using live Mechanical Turk deployments.
 
-u
+10953.6644083
 
-u;v
+====================
+For explanation functions, prior work showed that 75% of reasons for unhelpful reviews were covered by (in priority order) overly emotional/biased opinions, lack of information/not enough detail, irrelevant comments, and poor writing style [18].
 
-0
+9153.16319655
 
-R (u) = c
-0
+====================
+Precog, which is complementary to post-hoc quality control techniques, collects >= 2x high-quality documents for the same budget as no feedback, and improves text quality by 14.3% on average.
 
-X R (v) + cE(u)
-0
+8500.58473507
 
-u
+====================
+For example, task replication [43, 80] assigns the same task to multiple workers and aggregates them into a single result; multi-stage workflow design [6, 48] uses additional crowd tasks to (iteratively) refine previously submitted tasks; in text acquisition, filtering/ranking [1, 37, 67, 82, 84, 86, 90, 95] uses crowd tasks to assess each document's quality and either rank them by quality or filter out low-quality documents.
 
-v 2B
+7191.45062192
 
-(1)
+====================
+The first category, Informativeness, highlights trends across existing literature that show that both general length measures [4, 50, 55, 57, 82] as well as domain-specific jargon are highly predictive of quality [55, 57, 60].
 
-N
+6936.92303926
 
-v
+====================
+Through extensive MTurk experiments, we find that Precog collects >= 2x more high-quality documents and improves text quality by 14.3% compared to not using pre-hoc techniques.
 
-such that c is maximized and jjR jj1 = 1 (jjR jj1 denotes the L1 norm of R ).
-0
+6567.74168589
 
-0
+====================
+We believe our assumption about the availability of a training corpus is reasonable in data acquisition settings, because such quality labels are already gathered in order to rank documents (e.g., Amazon helpful/unhelpful reviews, Reddit comment up/down votes).
 
-4
+5913.03643028
 
-0
+====================
+Furthermore, while most approaches simply use the distribution of topics as a feature [57, 62], Precog computes several summary statistics (entropy, topic ID and probability of top-K topics, ranked by probability) not used in prior work that prove highly predictive in our experiments.
 
-A
-0.4
+5885.78843512
 
-B
-0.2
+====================
+We describe our experiments that show that it is possible to use these labels as a proxy for individual segments.
 
-0.2
-0.2
-0.2
-C
-0.4
+5801.37277989
 
-0.4
+====================
+We directly address this problem by selecting multi-feature explanation functions to prescribe improvements to the user's text.
 
-Figure 3: Simplied PageRank Calculation
+5698.23348147
 
-[?]
+====================
+Although crowdsourcing is used to collect labels and simple data for machine learning applications, many popular online communities such as Amazon, AirBnB, Quora, Reddit, and others also rely on collecting and presenting high quality, open-ended content that is crowdsourced from their users.
 
-[?]
+5446.39180315
 
-[?]
+====================
+To this end, we performed a survey of literature spanning of social media text analysis [32, 55, 57, 82, 85], essay grading [4,25,58,89], deception detection [23,60], and information retrieval [64, 84].
 
-Figure 4: Loop Which Acts as a Rank Sink
-where E (u) is some vector over the web pages that corresponds to a source of rank (see Section 6). Note that if E is all positive, c must be reduced to balance the equation. Therefore, this
-technique corresponds to a decay factor. In matrix notation we have R = c(AR + E ). Since
-jjR jj1 = 1, we can rewrite this as R = c(A + E  1)R where 1 is the vector consisting of all ones.
-So, R is an eigenvector of (A + E  1).
-0
+5311.48100451
 
-0
+====================
+In this section, we first describe how users express Precog quality control for common data integrity constraints, as well as quality scores on a crowd-sourced table.
 
-0
+5051.93683121
 
-0
+====================
+For example, Amazon crowdsources product reviews by asking customers to rate products and write reviews for them; rental services (e.g., AirbnB) relies on rental hosts to describe their rental properties in quantitative (e.g., number of bed rooms, wireless) as well as qualitative terms (e.g., textual description).
 
-0
+4510.0940032
 
-0
+====================
+We validated generalizability of the model to domains not covered in prior work by evaluating it on reddit comments from the AskScience subreddit5 and predicted comment helpfulness on an evenly balanced sample with 80% accuracy6 .
 
-2.5 Random Surfer Model
+4506.83191502
 
-The denition of PageRank above has another intuitive basis in random walks on graphs. The
-simplied version corresponds to the standing probability distribution of a random walk on the
-graph of the Web. Intuitively, this can be thought of as modeling the behavior of a \random
-surfer". The \random surfer" simply keeps clicking on successive links at random. However, if a
-real Web surfer ever gets into a small loop of web pages, it is unlikely that the surfer will continue
-in the loop forever. Instead, the surfer will jump to some other page. The additional factor E can
-be viewed as a way of modeling this behavior: the surfer periodically \gets bored" and jumps to a
-5
+====================
+* Extensive MTurk experiments on two real-world domains with different quality measures: helpfulness for Amazon product reviews and trustworthiness for AirBnB housing profiles.
 
-random page chosen based on the distribution in E .
-So far we have left E as a user dened parameter. In most tests we let E be uniform over all
-web pages with value . However, in Section 6 we show how dierent values of E can generate
-\customized" page ranks.
+3986.17630461
 
-2.6 Computing PageRank
+====================
+Since good feedback can help the worker improve the text, it naturally improves the quality of the acquired data, and can reduce data acquisition costs.
 
-The computation of PageRank is fairly straightforward if we ignore the issues of scale. Let S be
-almost any vector over Web pages (for example E ). Then PageRank may be computed as follows:
+3697.42090712
 
-R0
+====================
+Most studies focus on post-hoc quality control, often using additional crowdsourced tasks to assess and improve the quality.
 
-loop :
+3339.52379989
 
-R +1
-d
-R +1
-
-while  > 
-i
+====================
+def offTopic(topics, text="", feats=[]): if len(topics) < 5: sortedTopics = sorted(topics, key=topic.prob) return "Try discussing some of these topics: " + topK(sortedTopics, 5)  We used a similar process for host profiles and found that research emphasizes trustworthiness as the key quality metric [57, 94].
 
-i
+3335.94477148
 
-S
-AR
-jjR jj1 , jjR +1jj1
-R +1 + dE
-jjR +1 , R jj1
-i
+====================
+We define this as the Prescriptive Explanation problem, and find that the search space of solutions for the problem is exponential in the number of model features.
 
-i
-
-i
+3222.71938343
 
-i
+====================
+These plots show the effect size across all measures, and that the largest improvements were due to the combination of segmentation and TCruise-based explanation.
 
-i
+3143.36420078
 
-i
+====================
+The only change is the beige component, which augments the data collection interface (task interface) to estimate the quality of the user's (in this case) text, and automatically provide feedback if the predicted quality is low.
 
-Note that the d factor increases the rate of convergence and maintains jjRjj1 . An alternative
-normalization is to multiply R by the appropriate factor. The use of d may have a small impact
-on the inuence of E .
+3110.37144153
 
-2.7 Dangling Links
+====================
+The problem is exponential and we present an efficient solution that leverages the structure of random forest models to generate high-quality feedback in interactive time.
 
-One issue with this model is dangling links. Dangling links are simply links that point to any page
-with no outgoing links. They aect the model because it is not clear where their weight should
-be distributed, and there are a large number of them. Often these dangling links are simply pages
-that we have not downloaded yet, since it is hard to sample the entire web (in our 24 million pages
-currently downloaded, we have 51 million URLs not downloaded yet, and hence dangling). Because
-dangling links do not aect the ranking of any other page directly, we simply remove them from
-the system until all the PageRanks are calculated. After all the PageRanks are calculated, they
-can be added back in, without aecting things signicantly. Notice the normalization of the other
-links on the same page as a link which was removed will change slightly, but this should not have
-a large eect.
+3013.41354622
 
-3 Implementation
-As part of the Stanford WebBase project [PB98], we have built a complete crawling and indexing
-system with a current repository of 24 million web pages. Any web crawler needs to keep a database
-of URLs so it can discover all the URLs on the web. To implement PageRank, the web crawler
-simply needs to build an index of links as it crawls. While a simple task, it is non-trivial because
-of the huge volumes involved. For example, to index our current 24 million page database in about
-ve days, we need to process about 50 web pages per second. Since there about about 11 links on
-an average page (depending on what you count as a link) we need to process 550 links per second.
-Also, our database of 24 million pages references over 75 million unique URLs which each link must
-be compared against.
-6
+====================
+We showed this to be sufficient by testing on crowd-sourced labels; however more sophisticated techniques to classify segments could improve feedback.
 
-Much time has been spent making the system resilient in the face of many deeply and intricately
-awed web artifacts. There exist innitely large sites, pages, and even URLs. A large fraction of
-web pages have incorrect HTML, making parser design dicult. Messy heuristics are used to help
-the crawling process. For example, we do not crawl URLs with /cgi-bin/ in them. Of course it
-is impossible to get a correct sample of the "entire web" since it is always changing. Sites are
-sometimes down, and some people decide to not allow their sites to be indexed. Despite all this, we
-believe we have a reasonable representation of the actual link structure of publicly accessible web.
+2942.51240968
 
-3.1 PageRank Implementation
+====================
+Precog takes long form text from a crowd worker, decomposes it into coherent portions (segments) based on their topics, predicts the quality of each segment, and automatically generates immediate feedback to explain how these segments can be improved.
 
-We convert each URL into a unique integer, and store each hyperlink in a database using the integer
-IDs to identify pages. Details of our implementation are in [PB98]. In general, we have implemented
-PageRank in the following manner. First we sort the link structure by Parent ID. Then dangling
-links are removed from the link database for reasons discussed above (a few iterations removes the
-vast majority of the dangling links). We need to make an initial assignment of the ranks. This
-assignment can be made by one of several strategies. If it is going to iterate until convergence, in
-general the initial values will not aect nal values, just the rate of convergence. But we can speed
-up convergence by choosing a good initial assignment. We believe that careful choice of the initial
-assignment and a small nite number of iterations may result in excellent or improved performance.
-Memory is allocated for the weights for every page. Since we use single precision oating point
-values at 4 bytes each, this amounts to 300 megabytes for our 75 million URLs. If insucient
-RAM is available to hold all the weights, multiple passes can be made (our implementation uses
-half as much memory and two passes). The weights from the current time step are kept in memory,
-and the previous weights are accessed linearly on disk. Also, all the access to the link database,
-A, is linear because it is sorted. Therefore, A can be kept on disk as well. Although these data
-structures are very large, linear disk access allows each iteration to be completed in about 6 minutes
-on a typical workstation. After the weights have converged, we add the dangling links back in and
-recompute the rankings. Note after adding the dangling links back in, we need to iterate as many
-times as was required to remove the dangling links. Otherwise, some of the dangling links will have
-a zero weight. This whole process takes about ve hours in the current implementation. With less
-strict convergence criteria, and more optimization, the calculation could be much faster. Or, more
-ecient techniques for estimating eigenvectors could be used to improve performance. However, it
-should be noted that the cost required to compute the PageRank is insignicant compared to the
-cost required to build a full text index.
+2937.15827998
 
-4 Convergence Properties
-As can be seen from the graph in Figure 4 PageRank on a large 322 million link database converges
-to a reasonable tolerance in roughly 52 iterations. The convergence on half the data takes roughly
-45 iterations. This graph suggests that PageRank will scale very well even for extremely large
-collections as the scaling factor is roughly linear in log n.
-One of the interesting ramications of the fact that the PageRank calculation converges rapidly
-is that the web is an expander-like graph. To understand this better, we give a brief overview of
-the theory of random walks on graphs; refer to Motwani-Raghavan [MR95] for further details. A
-random walk on a graph is a stochastic process where at any given time step we are at a particular
-node of the graph and choose an outedge uniformly at random to determine the node to visit at
-the next time step. A graph is said to be an expander if it is the case that every (not too large)
-subset of nodes S has a neighborhood (set of vertices accessible via outedges emanating from nodes
-7
+====================
+Fp is the subset of features that p perturbs:  Sfd  We are now ready to present the key technical problem for text acquisition feedback:  5.4  U (vij ) - U (M (d))  Our implementation indexes all paths in the random forest by their utility.
 
-in S ) that is larger than some factor  times jS j; here,  is called the expansion factor. It is the
-case that a graph has a good expansion factor if and only if the largest eigenvalue is suciently
-larger than the second-largest eigenvalue. A random walk on a graph is said to be rapidly-mixing
-if it quickly (time logarithmic in the size of the graph) converges to a limiting distribution on the
-set of nodes in the graph. It is also the case that a random walk is rapidly-mixing on a graph if
-and only if the graph is an expander or has an eigenvalue separation.
-To relate all this to the PageRank computation, note that it is essentially the determination of
-the limiting distribution of a random walk on the Web graph. The importance ranking of a node
-is essentially the limiting probability that the random walk will be at that node after a suciently
-large time. The fact that the PageRank computation terminates in logarithmic time is equivalent to
-saying that the random walk is rapidly mixing or that the underlying graph has a good expansion
-factor. Expander graphs have many desirable properties that we may be able to exploit in the
-future in computations involving the Web graph.
-
-Convergence of PageRank Computation
-Total Difference from Previous Iteration
-
-100000000
-322 Million Links
-161 Million Links
-
-10000000
-
-1000000
-
-100000
-
-10000
-
-1000
-
-100
-
-10
-0
-
-7.5
-
-15
-
-22.5
-
-30
-
-37.5
-
-45
-
-52.5
-
-Number of Iterations
-
-Figure 5: Rates of Convergence for Full Size and Half Size Link Databases
-
-5 Searching with PageRank
-A major application of PageRank is searching. We have implemented two search engines which use
-PageRank. The rst one we will discuss is a simple title-based search engine. The second search
-engine is a full text search engine called Google [BP]. Google utilizes a number of factors to rank
-search results including standard IR measures, proximity, anchor text (text of links pointing to web
-pages), and PageRank. While a comprehensive user study of the benets of PageRank is beyond
-the scope of this paper, we have performed some comparative experiments and provide some sample
-results in this paper.
-8
-
-The benets of PageRank are the greatest for underspecied queries. For example, a query
-for \Stanford University" may return any number of web pages which mention Stanford (such as
-publication lists) on a conventional search engine, but using PageRank, the university home page
-is listed rst.
-
-5.1 Title Search
-
-To test the usefulness of PageRank for search we implemented a search engine that used only the
-titles of 16 million web pages. To answer a query, the search engine nds all the web pages whose
-titles contain all of the query words. Then it sorts the results by PageRank. This search engine
-is very simple and cheap to implement. In informal tests, it worked remarkably well. As can be
-seen in Figure 6, a search for \University" yields a list of top universities. This gure shows our
-MultiQuery system which allows a user to query two search engines at the same time. The search
-engine on the left is our PageRank based title search engine. The bar graphs and percentages shown
-are a log of the actual PageRank with the top page normalized to 100%, not a percentile which is
-used everywhere else in this paper. The search engine on the right is Altavista. You can see that
-Altavista returns random looking web pages that match the query \University" and are the root
-page of the server (Altavista seems to be using URL length as a quality heuristic).
-
-Figure 6: Comparison of Query for \University"
-
-9
-
-Web Page
-PageRank (average is 1.0)
-Download Netscape Software
-11589.00
-http://www.w3.org/
-10717.70
-Welcome to Netscape
-8673.51
-Point: It's What You're Searching For
-7930.92
-Web-Counter Home Page
-7254.97
-The Blue Ribbon Campaign for Online Free Speech
-7010.39
-CERN Welcome
-6562.49
-Yahoo!
-6561.80
-Welcome to Netscape
-6203.47
-Wusage 4.1: A Usage Statistics System For Web Servers
-5963.27
-The World Wide Web Consortium (W3C)
-5672.21
-Lycos, Inc. Home Page
-4683.31
-Starting Point
-4501.98
-Welcome to Magellan!
-3866.82
-Oracle Corporation
-3587.63
-Table 1: Top 15 Page Ranks: July 1996
-
-5.2 Rank Merging
-
-The reason that the title based PageRank system works so well is that the title match ensures
-high precision, and the PageRank ensures high quality. When matching a query like \University"
-on the web, recall is not very important because there is far more than a user can look at. For
-more specic searches where recall is more important, the traditional information retrieval scores
-over full-text and the PageRank should be combined. Our Google system does this type of rank
-merging. Rank merging is known to be a very dicult problem, and we need to spend considerable
-additional eort before we will be able to do a reasonable evaluation of these types of queries.
-However, we do believe that using PageRank as a factor in these queries is quite benecial.
-
-5.3 Some Sample Results
-
-We have experimented considerably with Google, a full-text search engine which uses PageRank.
-While a full-scale user study is beyond the scope of this paper, we provide a sample query in
-Appendix A. For more queries, we encourage the reader to test Google themselves [BP].
-Table 1 shows the top 15 pages based on PageRank. This particular listing was generated in
-July 1996. In a more recent calculation of PageRank, Microsoft has just edged out Netscape for
-the highest PageRank.
-
-5.4 Common Case
-
-One of the design goals of PageRank was to handle the common case for queries well. For example,
-a user searched for \wolverine", remembering that the University of Michigan system used for all
-administrative functions by students was called something with a wolverine in it. Our PageRank
-based title search system returned the answer \Wolverine Access" as the rst result. This is sensible
-since all the students regularly use the Wolverine Access system, and a random user is quite likely
-to be looking for it given the query \wolverine". The fact that the Wolverine Access site is a good
-common case is not contained in the HTML of the page. Even if there were a way of dening good
-10
-
-meta-information of this form within a page, it would be problematic since a page author could
-not be trusted with this kind of evaluation. Many web page authors would simply claim that their
-pages were all the best and most used on the web.
-It is important to note that the goal of nding a site that contains a great deal of information
-about wolverines is a very dierent task than nding the common case wolverine site. There is an
-interesting system [Mar97] that attempts to nd sites that discuss a topic in detail by propagating
-the textual matching score through the link structure of the web. It then tries to return the page
-on the most central path. This results in good results for queries like \ower"; the system will
-return good navigation pages from sites that deal with the topic of owers in detail. Contrast that
-with the common case approach which might simply return a commonly used commercial site that
-had little information except how to buy owers. It is our opinion that both of these tasks are
-important, and a general purpose web search engine should return results which fulll the needs
-of both of these tasks automatically. In this paper, we are concentrating only on the common case
-approach.
-
-5.5 Subcomponents of Common Case
-
-It is instructive to consider what kind of common case scenarios PageRank can help represent.
-Besides a page which has a high usage, like the Wolverine Access cite, PageRank can also represent
-a collaborative notion of authority or trust. For example, a user might prefer a news story simply
-because it is linked is linked directly from the New York Times home page. Of course such a story
-will receive quite a high PageRank simply because it is mentioned by a very important page. This
-seems to capture a kind of collaborative trust, since if a page was mentioned by a trustworthy
-or authoritative source, it is more likely to be trustworthy or authoritative. Similarly, quality or
-importance seems to t within this kind of circular denition.
-
-6 Personalized PageRank
-An important component of the PageRank calculation is E { a vector over the Web pages which
-is used as a source of rank to make up for the rank sinks such as cycles with no outedges (see
-Section 2.4). However, aside from solving the problem of rank sinks, E turns out to be a powerful
-parameter to adjust the page ranks. Intuitively the E vector corresponds to the distribution of web
-pages that a random surfer periodically jumps to. As we see below, it can be used to give broad
-general views of the Web or views which are focussed and personalized to a particular individual.
-We have performed most experiments with an E vector that is uniform over all web pages with
-jjE jj1 = 0:15. This corresponds to a random surfer periodically jumping to a random web page.
-This is a very democratic choice for E since all web pages are valued simply because they exist.
-Although this technique has been quite successful, there is an important problem with it. Some
-Web pages with many related links receive an overly high ranking. Examples of these include
-copyright warnings, disclaimers, and highly interlinked mailing list archives.
-Another extreme is to have E consist entirely of a single web page. We tested two such E 's {
-the Netscape home page, and the home page of a famous computer scientist, John McCarthy. For
-the Netscape home page, we attempt to generate page ranks from the perspective of a novice user
-who has Netscape set as the default home page. In the case of John McCarthy's home page we
-want to calculate page ranks from the perspective of an individual who has given us considerable
-contextual information based on the links on his home page.
-In both cases, the mailing list problem mentioned above did not occur. And, in both cases, the
-respective home page got the highest PageRank and was followed by its immediate links. From
-11
-
-Web Page
-John McCarthy's View
-Netscape's View
-Title
-PageRank Percentile PageRank Percentile
-John McCarthy's Home Page
-100.00%
-99.23%
-John Mitchell (Stanford CS Theory Group)
-100.00%
-93.89%
-Venture Law (Local Startup Law Firm)
-99.94%
-99.82%
-Stanford CS Home Page
-100.00%
-99.83%
-University of Michigan AI Lab
-99.95%
-99.94%
-University of Toronto CS Department
-99.99%
-99.09%
-Stanford CS Theory Group
-99.99%
-99.05%
-Leadershape Institute
-95.96%
-97.10%
-Table 2: Page Ranks for Two Dierent Views: Netscape vs. John McCarthy
-that point, the disparity decreased. In Table 2, we show the resulting page rank percentiles for
-an assortment of dierent pages. Pages related to computer science have a higher McCarthy-rank
-than Netscape-rank and pages related to computer science at Stanford have a considerably higher
-McCarthy-rank. For example, the Web page of another Stanford Computer Science Dept. faculty
-member is more than six percentile points higher on the McCarthy-rank. Note that the page ranks
-are displayed as percentiles. This has the eect of compressing large dierences in PageRank at
-the top of the range.
-Such personalized page ranks may have a number of applications, including personal search
-engines. These search engines could save users a great deal of trouble by eciently guessing a
-large part of their interests given simple input such as their bookmarks or home page. We show an
-example of this in Appendix A with the \Mitchell" query. In this example, we demonstrate that
-while there are many people on the web named Mitchell, the number one result is the home page
-of a colleague of John McCarthy named John Mitchell.
-
-6.1 Manipulation by Commercial Interests
-
-These types of personalized PageRanks are virtually immune to manipulation by commercial interests. For a page to get a high PageRank, it must convince an important page, or a lot of
-non-important pages to link to it. At worst, you can have manipulation in the form of buying
-advertisements(links) on important sites. But, this seems well under control since it costs money.
-This immunity to manipulation is an extremely important property. This kind of commercial manipulation is causing search engines a great deal of trouble, and making features that would be great
-to have very dicult to implement. For example fast updating of documents is a very desirable
-feature, but it is abused by people who want to manipulate the results of the search engine.
-A compromise between the two extremes of uniform E and single page E is to let E consist of
-all the root level pages of all web servers. Notice this will allow some manipulation of PageRanks.
-Someone who wished to manipulate this system could simply create a large number of root level
-servers all pointing at a particular site.
-
-12
-
-7 Applications
-
-7.1 Estimating Web Trac
-
-Because PageRank roughly corresponds to a random web surfer (see Section 2.5), it is interesting
-to see how PageRank corresponds to actual usage. We used the counts of web page accesses from
-NLANR [NLA] proxy cache and compared these to PageRank. The NLANR data was from several
-national proxy caches over the period of several months and consisted of 11,817,665 unique URLs
-with the highest hit count going to Altavista with 638,657 hits. There were 2.6 million pages in the
-intersection of the cache data and our 75 million URL database. It is extremely dicult to compare
-these datasets analytically for a number of dierent reasons. Many of the URLs in the cache access
-data are people reading their personal mail on free email services. Duplicate server names and page
-names are a serious problem. Incompleteness and bias a problem is both the PageRank data and
-the usage data. However, we did see some interesting trends in the data. There seems to be a high
-usage of pornographic sites in the cache data, but these sites generally had low PageRanks. We
-believe this is because people do not want to link to pornographic sites from their own web pages.
-Using this technique of looking for dierences between PageRank and usage, it may be possible to
-nd things that people like to look at, but do not want to mention on their web pages. There are
-some sites that have a very high usage, but low PageRank such as netscape.yahoo.com. We believe
-there is probably an important backlink which simply is omitted from our database (we only have
-a partial link structure of the web). It may be possible to use usage data as a start vector for
-PageRank, and then iterate PageRank a few times. This might allow lling in holes in the usage
-data. In any case, these types of comparisons are an interesting topic for future study.
-
-7.2 PageRank as Backlink Predictor
-
-One justication for PageRank is that it is a predictor for backlinks. In [CGMP98] we explore the
-issue of how to crawl the web eciently, trying to crawl better documents rst. We found on tests
-of the Stanford web that PageRank is a better predictor of future citation counts than citation
-counts themselves.
-The experiment assumes that the system starts out with only a single URL and no other
-information, and the goal is to try to crawl the pages in as close to the optimal order as possible.
-The optimal order is to crawl pages in exactly the order of their rank according to an evaluation
-function. For the purposes here, the evaluation function is simply the number of citations, given
-complete information. The catch is that all the information to calculate the evaluation function is
-not available until after all the documents have been crawled. It turns out using the incomplete
-data, PageRank is a more eective way to order the crawling than the number of known citations.
-In other words, PageRank is a better predictor than citation counting even when the measure is
-the number of citations! The explanation for this seems to be that PageRank avoids the local
-maxima that citation counting gets stuck in. For example, citation counting tends to get stuck in
-local collections like the Stanford CS web pages, taking a long time to branch out and nd highly
-cited pages in other areas. PageRank quickly nds the Stanford homepage is important, and gives
-preference to its children resulting in an ecient, broad search.
-This ability of PageRank to predict citation counts is a powerful justication for using PageRank. Since it is very dicult to map the citation structure of the web completely, PageRank may
-even be a better citation count approximation than citation counts themselves.
-
-13
-
-Figure 7: PageRank Proxy
-
-7.3 User Navigation: The PageRank Proxy
-
-We have developed a web proxy application that annotates each link that a user sees with its
-PageRank. This is quite useful, because users receive some information about the link before they
-click on it. In Figure 7 is a screen shot from the proxy. The length of the red bars is the log of the
-URL's PageRank. We can see that major organizations, like Stanford University, receive a very
-high ranking followed by research groups, and then people, with professors at the high end of the
-people scale. Also notice ACM has a very high PageRank, but not as high as Stanford University.
-Interestingly, this PageRank annotated view of the page makes an incorrect URL for one of the
-professors glaringly obvious since the professor has a embarrassingly low PageRank. Consequently
-this tool seems useful for authoring pages as well as navigation. This proxy is very helpful for
-looking at the results from other search engines, and pages with large numbers of links such as
-Yahoo's listings. The proxy can help users decide which links in a long listing are more likely to
-be interesting. Or, if the user has some idea where the link they are looking for should fall in the
-\importance" spectrum, they should be able to scan for it much more quickly using the proxy.
+2913.83996896
 
+====================
+The consistent results between all three comparisons suggest the efficacy of the segment-level classifier, and our end-to-end experimental results suggest that the predictive model is effective at providing segment level feedback.
+
+2899.43322021
+
+====================
+As illustrated in Figure 3, we employ a novel SegmentPredict-Explain pattern to generate customized feedback on an individual segment (rather than document) level.
+
+2812.96234253
+
+====================
+We describe our process to extend Precog to two domains with different quality measures: product reviews that care about helpfulness to a shopper [3], and then host profiles that are judged by trustworthiness to renters [57].
+
+2748.92831101
+
+====================
+count) LDA topic distribution and top topics [8], entropy across topic distribution opinion sentence distribution stats [64], valence, polarity, and subjectivity scores and distribution across sentences [32, 34, 56], % upper case characters, first person usage, adjectives spelling errors [45], ARI, Gunning index, Coleman-Liau index, Flesch Reading tests, SMOG, punctuation, parts of speech distribution, lexical diversity measures, LIWC grammar features various TF-IDF and top parts of speech comparisons with sample of low and high utility documents  Table 1: Summary of feature library for text quality.
+
+2670.98564376
+
+====================
+We then computed pairwise accuracies between the document labels, classifier predictions, and crowd labels: 71.1% (Classifier predicting Crowd Label), 72.5% (Classifier predicting Document label), and 69.5% (Document label predicting Crowd Label).
+
+2621.62319626
+
+====================
+Quality scores are intended for attribute values for which the definition of quality defined as a continuous measure to be improved, rather than a boolean constraint, and provides the framework for which we implement a model-based feedback system for performing Precog on text attributes (Section 3).
+
+2541.05863836
+
+====================
+To summarize our contributions: * We present the argument for pre-hoc quality control and present its unique advantages as well as the challenges for multi-paragraph text.
+
+2518.32903625
+
+====================
+Second, we evaluate Precog's Segment-Predict-Explain pattern for text acquisition in two domains--acquiring customer reviews for Amazon products [61] and acquiring profile descriptions for AirBnB host profiles [94].
+
+2411.68431086
+
+====================
+Third, it's unclear how to automatically generate the appropriate feedback text to show the user.
+
+2325.45222776
+
+====================
+Figure 1 illustrates a typical text acquisition workflow: the crowd generates text documents, more tasks are used to estimate the text quality, low-quality documents are removed, and this may ultimately trigger the need to collect more data.
+
+2301.08838098
+
+====================
+def notEnoughDetail(topics, featureCnt, textLen, text="", feats=[]): if featureCnt < 10 and textLen < threshold: return "Try adding information about: " + suggest_new_prod_feats(topics, text, feats) ...  We note that existing feedback systems [7,49,50] implicitly follow this model, however they bind individual features to static strings.
+
+2299.73483269
+
+====================
+All participants were US Residents with > 90% HIT accept rates.
+
+2292.76601853
+
+====================
+def numeric_exp(att, val, err): return "%s: '%s' should be a number" % (att, val) CREATE EXPLANATION ON reviews(rating) FOR reviews_rating_domain USING numeric_exp; CREATE EXPLANATION ON users(age) FOR users_age_domain USING numeric_exp;  Similar functions can easily be written for the foreign-key and uniqueness constraints in Figure 4: def product_exp(att, val, err): return "%s is not a product" % val def unique_exp(att, val, err): return "%s has been taken" % val  For text attributes, the explanation function is slightly different, which is defined on a FEATURE table.
+
+2280.30404365
+
+====================
+2.1  Pushing Data Constraints to the Interface  Precog extends existing crowdsourced databases that contain crowdsourced and non-crowdsourced base relations; a crowdsourced table [28] represents a subset of all possible records that may be stored in the table and the task is to acquire records to insert into the table.
+
+2272.08226825
+
+====================
+Precog: A PRECOG SYSTEM  As described in the introduction, Precog seeks to optimize the data collection interface in order to improve the quality of the collected data and ensure data quality constraints.
+
+2218.15690715
+
+====================
+To this end, we define the responsibility Sfdi of a feature fi for input point d as the sum of all maximum influence perturbations that involve fi (e.g., the perturbation pi 6= 0): X  Sfdi =  I(d, p)  I(d, qij ) =  p[?
+
+2131.11474541
+
+====================
+We first describe our extensible feature library that consolidates text features across literature in social media text analysis, essay grading, language psychology, and data mining research communities.
+
+2068.45917322
+
+====================
+To understand the contributing factors towards the quality improvements, we compared four feedback systems that varied along two dimensions: granularity varies the feedback to be at the document level (Doc), or at the document and segment level (Seg); explanation selection compares the single-feature outlier technique from [50] (Krause) with TCruise.
+
+2064.39414268
+
+====================
+When we consider a user's edits, they are desirable if the edits will improve the document's quality--in other words, if it will cause the document to be reclassified as high quality.
+
+2042.45306523
+
+====================
+The prior work predicts the quality of Amazon DVD, AV player and Camera reviews with 83% accuracy; Precog's default model on the same setup predicts at 85% accuracy--the slight improvement is due to the additional features in the topic and similarity categories from other literature (Table 1).
+
+1939.18417285
+
+====================
+A developer first defines an explanation function that takes as input the list of attribute names and values for which the constraint is defined for (in order to support multi-attribute constraints) and the error message, and returns a string that is shown as feedback.
+
+1860.82408703
+
+====================
+In contrast, Precog supports feature combinations and can dynamically generate feedback based on the  Responsibility: Our goal is to identify feature subsets of the test data point d that, if perturbed, will most improve 7  d's utility7 .
+
+1843.60615273
+
+====================
+Pre-hoc quality control occurs before data acquisition and naturally complements many existing post-hoc techniques to further improve the final data quality.
+
+1832.98846388
+
+====================
+Precog is easily extended to new domains, and increases the number of high-quality documents by >= 2x compared to not using pre-hoc techniques.
+
+1815.43425523
+
+====================
+We first introduce the Prescriptive Explanation problem, which assigns responsibility to each model feature proportional to the amount that it will contribute to improving the predicted text quality.
+
+1752.76719291
+
+====================
+Pre-hoc methods improve quality before the data is acquired (submitted); Post-hoc methods improve quality after data acquisition (i.e., after submission).
+
+1748.44794562
+
+====================
+To this end, we use a technique called TopicTiling [77], an extension to TextTiling [40].
+
+1727.95338513
+
+====================
+Furthermore, controlling for the other variable, TCruise showed a statistically significant difference in improvement, while segmentation did not.
+
+1696.73263963
+
+====================
+A dominant use case for crowdsourcing is to collect data-- labels, opinions, text extraction, ratings--from large groups of workers.
+
+1688.68133089
+
+====================
+For this, we use TopicTiling [77], a sliding window-based segmentation algorithm that computes the dominant topics within the window using LDA [8].
+
+1680.23413713
+
+====================
+Our contribution is to curate the subset of these features that can be generalized across text domains to improve writing quality, categorize them (Table 1), and integrate them into an open source feature library4 .
+
+1666.84698541
+
+====================
+Existing approaches (surveyed in Related Work) focus on syntactic errors such as grammatical mistakes, which cannot help improve the text content, or overly simple models for picking feedback text [50].
+
+1661.40984422
+
+====================
+For this, we next introduce DDL statements to specify custom interfaces.
+
+1648.47195642
+
+====================
+It can be integrated seamlessly into existing crowdsourcing applications or systems with post-hoc quality control, helping them to further improve quality.
+
+1631.46373309
+
+====================
+These statements complement existing task interface specifications that prior crowdsourcing systems [28, 59, 71] use for task generation by providing a way to augment them for data integrity constraints.
+
+1623.58789768
+
+====================
+CONCLUSION AND FUTURE WORK  This paper presented the design, implementation and evaluation of Precog, a pre-hoc quality control system.
+
+1598.94278271
+
+====================
+This problem is challenging because we must analyze potentially arbitrary text content.
+
+1596.91757993
+
+====================
+Readability/Grammar is an aggregate of syntactic features shown predictive across multiple domains [23, 50, 60, 82].
+
+1587.67417203
+
+====================
+7.2  Precog for Text Acquisition  Setup and Datasets: Precog is setup as described in Section 6: we train Precog using the laptop category of the Amazon product reviews corpus [61], and the AirBnb profile corpus [94] for their corresponding experiments.
+
+1582.88037843
+
+====================
+Below, we describe how developers can express the three levels of Precog quality control for domain, foreign-key, uniqueness, and quality score constraints in Figure 4.
+
+1582.62976589
+
+====================
+We compute a variety of similarity measures between the input document and a sample of high and low quality documents-using both the simple TF-IDF measure used in prior work [47] as well as occurrences of popular parts of speech appearing in a document (i.e top-K nouns in unhelpful documents that appear).
+
+1572.84612043
+
+====================
+To ensure fair comparison, we supplemented their features with domain-specific features for Informativeness (# of product features/jargon), Readability (Coleman-Liau index), and Friendliness (LIWC features related to friendliness) so that their features are comparable to those used in our feature library.
+
+1527.34148086
+
+====================
+We first present the results of the fully featured Precog condition (Section 7.2.1) and then demonstrate the contribution of each Precog component (in Section 7.2.2).
+
+1492.81202158
+
+====================
+8  We added LIWC API calls to Precog; the model tested on a balanced set of 300 AirBnB host profiles was competitive (79% accuracy) at predicting if a profile was >= median trustworthiness.
+
+1484.03882681
+
+====================
+However, recent study shows the promise of translating semantic features to textual feedback [50].
+
+1481.35124432
+
+====================
+To do so, we first define the impact I(d, p) for an individual perturbation p as the amount that it improves the utility function discounted by the amount of the perturbation [?
+
+1468.295177
+
+====================
+Companies (e.g., Amazon, Zappos) use this post-hoc technique by asking users to assess whether a product review is "helpful" or "not helpful", and ranks and displays reviews based on this measure.
+
+1430.0960388
+
+====================
+Finally, we asked coders to subjectively rate their agreement from 1-7 to the statement "The post-feedback revisions improved on the pre-feedback document.
+
+1424.11904461
+
+====================
+To do so, we develop a novel perturbation-based analysis to identify the combination of features that, when changed, will most likely reclassify the text as high quality.
+
+1414.47672715
+
+====================
+In this work, we restrict the analysis to perturbations that have the maximal influence.
+
+1395.106952
+
+====================
+Krause [50] was shown to outperform static explanations of important components of a helpful review (similar to a rubric) for students performing peer code-reviews and uses an outlier based approach described in Section 5.1.
+
+1364.3048824
+
+====================
+First, we validate the value of pre-hoc quality control by running a crowdsourced data acquisition experiment with different Precog optimizations for foreign key and domain constraints.
+
+1338.53701338
+
+====================
+Specifically, we ran a crowdsourced study to label 500 Amazon segments (250 drawn from helpful reviews, and 250 from unhelpful reviews), with human helpfulness labels (the median segment length of a review is 3).
+
+1332.43453989
+
+====================
+We implement a variety of length measures, and use the Apriori algorithm [75] to mine jargon based on the training data inputted into Precog, and identify its distribution across the sentences of an input document.
+
+1315.94300042
+
+====================
+In contrast, we generate prescriptive, actionable explanations that, if followed, are expected to improve the text.
+
+1307.19141064
+
+====================
+We learn this quality measure by training a random forest model that predicts the quality of individual text segments.
+
+1275.73332786
+
+====================
+It does so by generating feedback or interface changes to help workers improve their data pre-submission.
+
+1270.24329523
+
+====================
+Although it's possible to automatically perform pre-hoc quality control for simple constraints over simple data types, it is still unclear how this can be achieved for more complex data integrity constraints and data types.
+
+1261.93705212
+
+====================
+5.3  Problem Statement  Intuition: Figure 6 depicts the main intuition behind the problem and our approach.
+
+1256.75726763
+
+====================
+We then map these feature combinations to explanation functions that are executed to generate the final set of feedback text (Section 5).
+
+1242.20218636
+
+====================
+We choose a random forest classifier, which has been shown effective in existing work [32], and select features using the recursive feature elimination algorithm [38].
+
+1221.27033017
+
+====================
+To address this issue, we present a Segment-Predict-Explain pattern that  Architecture: Figure 5 depicts the system architecture.
+
+1186.45678787
+
+====================
+We then randomly assigned each worker 50 segments to label, and collected labels until each segment had >= 3 labels, and determined the final label of each segment using the Get Another Label algorithm [81].
+
+1179.79593983
+
+====================
+However, the combination of segmentation and TCruise consistently produced larger effect sizes than all other conditions across both Host Profiles and Product Reviews: for Product Reviews Precog, which combines segmentation and TCruise, improved the overall measure (bottom left facet) by nearly 3.9x over the baseline (0.55 vs. 0.14 increase), and a 2.4x improvement over the next-best Doc+TCruise condition.
+
+1167.95629067
+
+====================
+def exp_func(att1, val1, ..., attn, valn, err=None): return "custom error message" CREATE EXPLANATION <func> ON <table>(<att1>,..<attn>) FOR <CONSTRAINT NAME> USING <explanation function>;  Below is the specification to customize the feedback for a numeric domain constraint3 .
+
+1155.48302893
+
+====================
+Precog also achieves 79% accuracy at predicting if an Airbnb profile is above or below median trustworthiness, using trustworthiness data from [94].
+
+1140.91999382
+
+====================
+CREATE CROWD TABLE users ( id autoincrement primary key, username text UNIQUE, age int CHECK age > 0 AND age < 100, CHECK(username matches \w+) ); CREATE CROWD TABLE reviews( id autoincrement primary key, product_id text, rating int CHECK rating > 0 AND rating <= 5, review text, QUALITY SCORE qualreview qual_udf(review), FOREIGN KEY product_id REF products(id) ); CREATE FEATURE TABLE review_feats( review text primary key references reviews.review, topics FEATURE topic_extractor, len FEATURE len_extracton, ... );  Generic Feedback: Precog automatically generates feedback based on the error message that the underlying database generates when the INSERT violates a constraint.
+
+1131.81239448
+
+====================
+We address these challenges by proposing a novel segment-predict-explain pattern for detecting lowquality text and generating prescriptive explanations to help the user improve their text.
+
+1131.02072197
+
+====================
+In summary, we find that TCruise is essential to improving document quality; combining TCruise with Segmentation empirically produces the best results across the board.
+
+1126.01058777
+
+====================
+Specifically, we develop effective approaches to measure text quality at both document and segment levels, present an efficient technique to solve the prescriptive explanation problem, and discuss how to extend Precog to new domains.
+
+1124.61676983
+
+====================
+Our goal is to provide the foundation for such content-specific semantic feedback by surveying and categorizing features from the writing analysis literature.
+
+1121.70037149
+
+====================
+Nevertheless, more studies are needed to fully evaluate this hypothesis across other text domains and document lengths.
+
+1119.50332878
+
+====================
+Our design is informed by the writing analysis and feedback literature, which emphasizes the value of providing immediate feedback [51], as well as finegrained feedback for specific portions of the text [17, 78, 83], as is common in coding environments.
+
+1111.04953186
+
+====================
+In future work, we hope to explore a broader range of applications (e.g., different social media domains or user contexts), and study how to optimize data-collection interfaces to meet more complex application needs.
+
+1099.08941806
+
+====================
+* We define the Prescriptive Explanation Problem to provide actionable feedback for text acquisition.
+
+1097.47888497
+
+====================
+Product-Review Participants: For the laptop review experiment, we recruited 85 workers on Amazon's Mechanical Turk (61.2% male, 38.8% female, ages 20-65 uage =32, sage =8.5).
+
+1086.68426019
+
+====================
+Figure 2 augments this workflow with pre-hoc quality control.
+
+1077.36422579
+
+====================
+Host-Profile Participants: For the profile description experiment, we recruited 92 workers on Amazon's Mechanical Turk (58.7% male, 41.3% female, ages 20-62 uage =33, sage =8.2); all completed the task.
+
+1070.80797296
+
+====================
+* The design and implementation of Precog, which supports pre-hoc quality control for constraints over simple data types and quality measures over text and open-ended attributes.
+
+1069.4203805
+
+====================
+The final FEATURE table review_feats is used in the later sections to represent the features extracted from the value of the primary key (review).
+
+1065.91380418
+
+====================
+We tested this hypothesis by running an experiment, using an existing corpus of Amazon reviews [61].
+
+1063.74040443
+
+====================
+We then performed pairwise Tukey HSD post-hoc tests between each of the four conditions.
+
+1060.18307395
+
+====================
+Each rubric rated documents on a 1-7 Likert scale using three specific aspects identified by prior work--Informativity, Subjectivity, Readability--for reviews--Ability, Benevolence, Integrity-for profile trustworthiness, as well as a holistic overall score.
+
+1040.02721286
+
+====================
+In the rest of this paper, we use the term document to refer to the value of the acquired text attribute.
+
+1020.50016661
+
+====================
+Finally, we perform a detailed analysis of how segmentation and TCruise each contribute to improving the quality of the acquired text.
+
+968.473635852
+
+====================
+The rest of this subsection describes the DDL statements that users can use to specify feedback and interfaces for Precog quality control.
+
+955.349851753
+
+====================
+Cost Savings  Figure 10: Improvement on Likert scores for both domains (reviews and profiles) and four quality criteria per domain.
+
+947.123943903
+
+====================
+This can be achieved by dynamically identifying these constraint violations and providing feedback to the user.
+
+946.046192684
+
+====================
+We are optimistic about the Segment-Predict-Explain pattern, because adopting to new domains is simply a matter synthesizing existing research by adding features and creating simple explanation functions.
+
+933.935322075
+
+====================
+Quality control for crowdsourcing has been extensively studied [54] and can be modeled in two phases.
+
+926.904778181
+
+====================
+In this section, we describe our approach towards in-depth semantic feedback.
+
+926.73589581
+
+====================
+By default we use this library for learning quality measures from a corpus.
+
+905.826132188
+
+====================
+Finally, Precog explains why segments were predicted as low quality by selecting the feedback that is most relevant to changing the segment into a high quality prediction.
+
+890.358040121
+
+====================
+Our efficient solution called TCruise leverages the structure of random forest models to generate explanations in interactive time.
+
+890.104815508
+
+====================
+Furthermore, in some settings where collecting more data is not an option (e.g., less popular products may not have enough users that are willing to, or equipped to, write reviews), it will be more important to apply pre-hoc quality control.
+
+886.323379436
+
+====================
+Quality Control in Crowdsourcing: Quality control is an important research topic in crowdsourced data management [16, 30, 54].
+
+871.779526196
+
+====================
+I(d, p) =  We instead present a heuristic solution called TCruise whose complexity is linear in the number of paths in the random forest model.
+
+867.888173697
+
+====================
+By default, Precog provides optimizations for constraints over numerical and categorical data types, and can be extended with custom optimizations.
+
+864.71033398
+
+====================
+We then sort the FEFs by their average scores and take the top k with a score above the threshold t.  7.
+
+864.57345247
+
+====================
+Upon pressing the I'm Done Writing button, the interface displayed our document-level feedback under the text field; for users in the segmentation condition, low quality segments were highlighted red and the related feedback displayed when users hovered over the segment.
+
+854.103756897
+
+====================
+F |pi 6= 0}  Finally, Sfdi computes the responsibility for fi as the sum of all maximal influence paths in all decision trees that improve the predicted utility U ().
+
+844.85395219
+
+====================
+This results in a 2x2 between-subjects design.
+
+810.533905531
+
+====================
+In addition, rather than compute the impact for all possible perturbations, we only consider the minimal perturbation with respect to each path in the tree.
+
+810.047153649
+
+====================
+We now describe related work in terms of data acquisition interface optimizations, quality control in crowdsourcing and other post-hoc quality mechanisms specific for text acquisition.
+
+804.018329357
+
+====================
+Overview: In contrast to naive form validation, which simply rejects user inputs with an error message, Precog seeks to accommodate iterative improvements through feedback interfaces.
+
+803.370583513
+
+====================
+INTRODUCTION Figure 2: Text acquisition with pre-hoc (beige background) and post-hoc quality control.
+
+786.43476733
+
+====================
+Our technical contribution is a pre-hoc feedback system for multi-paragraph text.
+
+782.364860692
+
+====================
+The document-level feedback is shown to the user, and the low-quality segments are highlighted as light red in the interface.
+
+773.387391331
+
+====================
+1 Similar to precogs in Minority Report [22], who identify and help "resolve" low-quality human action in the future, Precog identifies and helps resolve low-quality data before it is submitted in the future.
+
+768.083010792
+
+====================
+Based on this library, we develop document-level and segment-level prediction models.
+
+763.024052287
+
+====================
+Our approach is inspired by existing feedback systems--model features act as signals to identify text characteristics that the worker should change.
+
+762.977317608
+
+====================
+However, it leaves it up to the user to infer specific improvements to make.
+
+752.241206937
+
+====================
+For instance, multi-paragraph text attributes such as product reviews, forum comments, or rental descriptions are particularly challenging for several reasons.
+
+740.690486231
+
+====================
+Similarly, auto-complete may be used to provide feedback about existing categories in order to avoid duplicates when collecting categorical text [28, 71] (e.g., ice cream flavors, presidents).
+
+729.94965287
+
+====================
+We then synthesized existing research to write 4 explanation functions for each domain, with 3 overlapping between the two.
+
+729.472472385
+
+====================
+Thus, three of the FEFs, Informativeness, Topic, and Readability/Grammar, overlapped between the two domains.
+
+704.057101599
+
+====================
+Feature Library for Text Quality  PREDICT  Precog takes as input a training corpus of documents and document-level quality labels, and trains two models-- document-level and segment-level prediction models--in order to provide document-level and fine-grained segment-level feedback.
+
+695.678546406
+
+====================
+A detailed explanation of the four conditions is shown in Section 7.2.2.
+
+683.477816493
+
+====================
+One solution is 5 6  EXPLAIN  5.1  Problem Background  Our problem is closely related to model explanation, which generates explanations for a model's (mis-)prediction.
+
+682.607619868
+
+====================
+(e.g., readability, informativeness, etc), and implement a representative and extensible library of 47 text quality features.
+
+678.71226524
+
+====================
+We now formally define these feature-oriented explanation functions (FEFs) and provide examples used in the experiments.
+
+673.051774124
+
+====================
+Thus, we decompose the text into segments, and for each low-quality segment predicted by the model, we generate segment-specific feedback.
+
+665.910248437
+
+====================
+This provides the functionality for our automatic pre-hoc quality control system for free-form text attributes.
+
+663.746247487
+
+====================
+As compared to other features libraries such as LIWC, Precog's main advantage is a high-concentration of data-driven features (topic modeling,  4  5  Available at http://cudbg.github.io/Dialectic  Category Informativeness Topic  # 8 5  Subjectivity  15  Readability and Grammar  15  Similarity  4  Description mined jargon word and named entity stats [64], length measures (word, sentence, etc.
+
+656.256601673
+
+====================
+The second states that a review is written for a given product in the products table, and contains a numerical rating as well as the text of the review.
+
+652.775394992
+
+====================
+reduces the developer's efforts by allowing them to express the quality score in terms of model features by defining a FEATURE table, and to define explanation functions over features of the text attribute.
+
+646.862770512
+
+====================
+In addition to boolean constraints such as domain, foreign key, and uniqueness constraints, Precog also supports quality scores.
+
+646.099019112
+
+====================
+For instance, Amazon product reviews and users may be modeled using the following crowdbased DDL statements.
+
+634.375598915
+
+====================
+Figure 11 shows a similar chart for the coder's subjective opinion of the improvement.
+
+632.20229998
+
+====================
+3  function is used for domain constraints on reviews.rating and users.age.
+
+614.637265329
+
+====================
+Segment-Predict-Explain: Based on these observations, Precog automatically identifies low-quality portions of a document, and generates feedback to help improve the identified issues.
+
+611.580318714
+
+====================
+The left column shows the feedback interface generated by default.
+
+605.324295099
+
+====================
+The offline components (blue arrows) take as input a corpus of training data in the form of user generated text documents and their labels--for instance, Amazon product reviews may be labeled by the ratio of "helpful" and "unhelpful" votes.
+
+600.510416673
+
+====================
+For instance, Amazon already has a corpus of high and low-quality reviews, and similarly for other applications.
+
+598.833698097
+
+====================
+For both Product Review and Host Profiles, we performed Two-Way ANOVAs with both the Overall Quality Im11  knowledge, Precog is the first system that systematically supports Precog for a wide range of data types and quality specifications (constraints and quality scores).
+
+589.644113677
+
+====================
+](minp(d, qij ))  If two paths within a tree perturb the same set of features, we only consider the path with the maximal impact score.
+
+583.956450897
+
+====================
+2 +15 However, there can be an infinite number of perturbations that all improve the utility--which should be selected?
+
+583.685603289
+
+====================
+]Rn  P(d) =  [  Rather than examining all possible perturbations, our heuristic to compute Sfdi restricts the set of perturbations with respect to the decision paths in the trees that increase d's utility.
+
+580.592398941
+
+====================
+Rather than define a concrete quality measure, Precog automatically learns the quality measure from a training corpus that contains documents along with their quality labels (for the entire document, not each segment).
+
+569.370473895
+
+====================
+The primary features that we do not include are those that rely on application metadata such as the worker's history or location, which may be predictive of quality but not related to the writing content, and cannot be mapped to actionable writing feedback.
+
+559.166695084
+
+====================
+For instance, the following defines the function for Off-Topic text:  7.1  Precog for Hard Constraints  Although it is intuitively obvious that form feedback and custom interfaces should improve quality, we quantify the amount using the example from Section 2.
+
+556.107356762
+
+====================
+Although they are interpretable for simple constraints such as domain violations, the language for the uniqueness violation requires database familiarity and may not be accessible to non-technical experts.
+
+549.295855892
+
+====================
+Protocol and Rubric for Assessing Quality: Three independent evaluators (non-authors) coded the pre and post-feedback documents using a rubric based on prior work on review quality [18, 55, 67] and Airbnb profile quality [57].
+
+546.680108845
+
+====================
+Segmentation: Contributor rubrics across many social media services are structured around topics [2, 92, 96], and psychology research suggests that mentally processing the topical hierarchy of text is fundamental to the reading process [41].
+
+539.845264336
+
+====================
+We then gave participants the opportunity to revise their submission; to avoid bias, we noted that they were not obligated to.
+
+538.817703249
+
+====================
+The third coder was trained by being shown the Amazon or Airbnb corpus, examples across the quality spectrum, and the other two coders.
+
+537.0793767
+
+====================
+While such approaches are often supervised in nature, requiring a manual topic ontology [57, 62], we use LDA [8] because it is unsupervised and can be quickly trained on any corpus without any cost to the developer.
+
+531.58536109
+
+====================
+The basic idea is to push data-quality constraints down to the data collection interface rather than validate them after data acquisition.
+
+522.666273323
+
+====================
+We address the former challenge using a data-driven approach that learns a quality measure from data that has already been acquired.
+
+522.13296139
+
+====================
+Unfortunately, this procedure is not effective for non-continuous or low cardinality features such as one-hot encoded features (e.g., each word is represented as a separate binary feature) common in text analysis.
+
+516.434608734
+
+====================
+Although developers can easily implement their own FEFs, Precog is pre-populated with 5 FEFs that work across the two application domains used for evaluation.
+
+512.494434503
+
+====================
+behind-the-enemy-lines.com/2011/04/want-to-improvesales-fix-grammar-and.html, 2016.
+
+509.856968042
+
+====================
+For instance, we might replace the rating domain constraint with five stars similar to Yelp and other social websites.
+
+509.18986828
+
+====================
+SEGMENT-PREDICT-EXPLAIN  The challenge with directly developing Precog quality control for text is that the quality score and explanation function is difficult to express as a concrete function, and they must be customized for the application domain.
+
+508.644865659
+
+====================
+The key challenge is that training data only contains quality labels for entire documents (e.g., helpfulness for the full review), and it is unclear how to leverage them for training a segment-level model.
+
+506.442901783
+
+====================
+Additionally, our Segment-Predict-Explain pattern addresses on free-form text entry that complements their focus on simple data types.
+
+499.924345268
+
+====================
+The key insight is to take advantage of the structure of the random forest model to constrain the types of perturbations and feature subsets to consider.
+
+498.444400296
+
+====================
+Post-hoc Approaches for Text Acquisition: A dominant approach is to filter poor content [84] such as spam; sort and surface higher quality content [1, 37, 86] such as product reviews [67], answers to user comments [90, 95], or forum comments [82]; or edit user reviews for clarification or grammatical purposes [6, 42, 48].
+
+485.258424778
+
+====================
+For example, the following specify the star interface for rating and the autocomplete interface for product: CREATE INTERFACE ON reviews(rating) USING "stars" FROM "interfaces.js" AND explanation_function; CREATE INTERFACE ON reviews(product_id) USING "autocomplete" FROM "interfaces.js" AND explanation_function;  It addition, custom interfaces can be used to provide feedback that goes beyond textual feedback (e.g., visualizing distributions of common numerical values), or that is at a finer granularity than for the entire attribute.
+
+474.801661621
+
+====================
+Procedures: Participants writing product reviews were asked to write a review of their most recently owned laptop computer "as if they are trying to help someone else decide to buy that laptop or not and are writing on a review website like the Amazon store".
+
+473.780187518
+
+====================
+Section 3 describes the Segment-Predict-Explain pattern that helps developers easily customize interface for text attributes.
+
+473.729714302
+
+====================
+We found that combining segmentation and TCruise-based explanation outperformed all other conditions by a statistically significant margin for Product Reviews, and outperformed all but the next-best Doc+TCruise condition for Host Profiles.
+
+472.805030914
+
+====================
+However, such systems would not recognize that the review can be most improved by simultaneously reducing the emotion in the text and including more product details that ultimately increase the length.
+
+472.169050688
+
+====================
+We identify five main categories across the existing literature (Table 1).
+
+469.189525222
+
+====================
+* A data-driven approach to estimate quality for text attributes, including a categorization and implementation of 47 text quality features from a survey of the literature.
+
+463.004320354
+
+====================
+Each worker was randomly assigned to one of three conditions, one for each of the interfaces shown in Figure 7.
+
+460.937676568
+
+====================
+Crowd-based feedback is effective, but can take 20 minutes to generate feedback [52] and are essentially posthoc because they create new crowd tasks to refine previously submitted ones.
+
+460.17649268
+
+====================
+We assume that the interface is a javascript function (say, as an AngularJS [19] or ReactJS [26] component); the constructor takes as input a Precog-provided getFeedback method that retrieves feedback from the Precog server.
+
+458.645458967
+
+====================
+]P(d),pi 6=0  Putting this together, we can define the responsibility score Sed of a feature explanation function (FEF) e as the average of its bound features; where Fei [?]
+
+447.872054326
+
+====================
+1  In fact, instances of pre-hoc quality control are already commonly used in practice, both in the survey design literature [36] and as form design throughout the Internet.
+
+435.300315945
+
+====================
+The main idea is to scan each tree in the random forest and compute responsibility scores local to the tree.
+
+429.559108524
+
+====================
+These include guidelines and constraints on form elements [36, 69], as well as interface techniques such as double entry [20] commonly used for picking passwords.
+
+428.279822803
+
+====================
+We conduct statistical tests to further investigate the results.
+
+425.784425228
+
+====================
+We evaluate Precog for product_id (foreign key constraint) and rating (domain constraint) from the reviews table.
+
+415.811038118
+
+====================
+The general approach is to survey quality assessment research in a domain to borrow useful features and explanations.
+
+412.02863659
+
+====================
+Precog is able to adopt to the domains' different quality measures (helpfulness vs trustworthiness) with small configuration changes.
+
+407.880152015
+
+====================
+In general, we must account for the amount that a feature must be perturbed, and the number of other features that must also be perturbed, in order to improve the classification.
+
+406.514467007
+
+====================
+The review rubric asks coders to scores reviews on helpfulness to laptop shoppers, and the host profile rubric asks coders to score profiles based on trustworthiness to potential tenants.
+
+399.105281048
+
+====================
+This groundwork reduces the task of applying Precog to new domains.
+
+399.044457263
+
+====================
+al describe the meaning of the three Airbnb criteria in [57]: Ability "refers to the host's domain specific skills or competence."
+
+392.673507822
+
+====================
+We trained workers on a separate sample of segments, along with explanations of why each segment was helpful or unhelpful.
+
+390.539473402
+
+====================
+To summarize, each participant was randomly assigned to one of four conditions: Doc+Krause, Seg+Krause, Doc+TCruise and Precog (Seg+TCruise ).
+
+387.965671839
+
+====================
+We then normalize a feature's responsibility Sfdi by computing Snormdfi =  d Sf -uf  i  i  sf  .
+
+385.087732698
+
+====================
+We then use explanation functions to transform the most responsible features into prescriptive feedback for the user.
+
+384.082711406
+
+====================
+The online components (green arrows) send the contents of a text input widget, along with an optional corpus name, to the webserver.
+
+383.224002097
+
+====================
+Participants writing Airbnb profiles were asked to "pretend that [they] are interesting in being a host on Airbnb" and to "write an Airbnb profile for [themselves]".
+
+382.936590136
+
+====================
+In order to generate targeted feedback, Precog automatically identifies topically coherent portions and segments the document in order to analyze each segment individually.
+
+382.07088315
+
+====================
+[6] M. S. Bernstein, G. Little, R. C. Miller, B. Hartmann, M. S. Ackerman, D. R. Karger, D. Crowell, and K. Panovich.
+
+374.582121487
+
+====================
+Finally, the Similarity category reflects how many quality prediction approaches compare the input document to a gold-standard of text [47, 50].
+
+365.296179183
+
+====================
+For Host Profiles Precog improved the overall measure by nearly 7.1x over the baseline (0.65 vs. 0.07 increase), and a 1.7x improvement over the next-best Doc+TCruise condition.
+
+362.929701691
+
+====================
+Automated approaches such as auto-graders primarily focus on predicting quality rather than generating feedback [4, 25, 58, 89]; others are limited to syntactic analysis [27, 35, 63], or generate overly simple writing feedback [7, 10, 49].
+
+360.312933061
+
+====================
+For quantitative attributes, a common dataquality constraint is to ensure values are not out of bounds (e.g., human age should be above 0).
+
+360.173117836
+
+====================
+Finally, when the user hovers over a highlighted segment, more targeted feedback helps explain why it was identified as low quality and how it could be improved.
+
+359.652250896
+
+====================
+Each facet defines high quality at a different threshold; product reviews and host profiles are shown as the top and bottom rows, respectively.
+
+357.490664573
+
+====================
+Figure 4: Examples of three levels of Precog quality control for four classes of data integrity constraints.
+
+355.021720534
+
+====================
+The classic approach is to use simple, interpretable models [13, 53, 88] or to learn an interpretable model using the training  https://www.reddit.com/r/askscience/ We define > 1 net up-votes as helpful and <= 1 as unhelpful.
+
+352.388416871
+
+====================
+Further, review hierarchies were proposed for hierarchical crowdsourced quality control using expert crowds [39].
+
+350.875890128
+
+====================
+Crowddb: answering queries with crowdsourcing.
+
+346.551151038
+
+====================
+The Model Generator then trains two classification models to predict the quality of a user's overall text submission as well as its constituent segments; these are cached in the Model Store.
+
+344.567972979
+
+====================
+Figure 10 plots the mean change and 95% boostrap confidence interval for the four rubric scores.
+
+342.996558259
+
+====================
+Feature Explanation Functions  Section 2 introduced explanation functions that can take as input features in a FEATURE table whose primary key references the desired text attribute.
+
+342.868242163
+
+====================
+By tackling low-quality data pre-acquisition, it can reduce or eliminate the need for post-hoc quality control.
+
+340.138165155
+
+====================
+We describe this in Section 4.
+
+337.020882187
+
+====================
+We then select the maximal  No feedback needed if data point already has high utility.
+
+335.065142901
+
+====================
+A similar approach is applicable for regression models as well, where increasing the continuous prediction assigns the perturbation more responsibility.
+
+333.015114345
+
+====================
+Each measure is rated on a scale from 1 (Strongly Disagree) to 7 (Strongly Agree) based on coder agreement with a set of statements mapped to each criterion (i.e., "This person will stick to his/her word, and be there when I arrive instead of standing me up" for integrity).
+
+330.043211726
+
+====================
+Thus, we wrote a friendliness explanation function that suggested writing more friendly and inclusive prose, and bound it to the relevant LIWC features (social, inclusive, etc).
+
+329.566992046
+
+====================
+Document Labels for Segments: Despite generating topically coherent segments, we lack quality labels for training the predictive model at the segment level.
+
+328.580144036
+
+====================
+For instance, consider a document that contains a single segment--the segment may be high quality but the overall document is too short and is missing text for other topics.
+
+324.414366438
+
+====================
+impact paths for each tree; for each path, we add the responsibility score of all features perturbed in its minimum perturbation p. The final scores are used to select from the library of explanation functions.
+
+321.565743638
+
+====================
+Consider a single tree in a random forest, consisting of decisions on two features, len and emotion.
+
+319.007944898
+
+====================
+This means that for n features there are 2n possible sets of (maximal influence) perturbations to naively explore.
+
+306.018520171
+
+====================
+We created a simple Mechanical Turk task that asked workers to submit the product model of their cell phone along with a 1 to 5 rating for the phone's quality; each 9  worker was paid $0.05 to complete the task.
+
+305.101571631
+
+====================
+i  Picking FEFs: Once the feature scores have been computed, identifying the top-k FEFs is straightforward, and we compute each FEF's average impact score using a series of fast matrix operations.
+
+302.938135904
+
+====================
+provement and Subjective Coder Improvement Scores as the dependent variables, and TCruise and segmentation as the independent variables.
+
+298.38597552
+
+====================
+Though Precog demonstrates the feasibility of such automated interfaces, it also reveals several areas of improvement.
+
+297.968736899
+
+====================
+Finally, the most sophisticated may change the input element itself in order to constrain or fully customize the feedback (right column).
+
+295.528242212
+
+====================
+For hard constraints (Purple), user inputs are sent to the  4  jargon usage, text similarity measures) that are trained to fit each developer's unique corpus.
+
+295.31826248
+
+====================
+Normalization: We find that features closer to the root will happen to occur in more feature sets and have artificially higher scores, thus we need to adjust feature impact scores to reduce bias.
+
+293.960761488
+
+====================
+An alternative is to use existing model explanation algorithms [76] to describe the prediction.
+
+293.570987464
+
+====================
+Participants were randomly assigned to one condition group; with (21,26,22,23) participants in conditions (1,2,3,4), respectively.
+
+293.048549162
+
+====================
+For instance, len FEATURE len_extracton defines the feature returned by the user-defined function len_extracton.
+
+292.793748177
+
+====================
+Once a library of features are given, the document-level prediction turns to be a typical classification problem.
+
+292.584786079
+
+====================
+We compared a segment binary classifier trained under this assumption with human evaluation.
+
+292.148035394
+
+====================
+For the reviews and profiles experiments, Precog acquires >= 2x and >= 2.6x more high quality documents than the baseline for thresholds of 5.5 and 6, respectively.
+
+291.767657081
+
+====================
+We observe that document quality is sufficiently correlated with segment quality, and a document's label can be used to label its segments as training data for a segment classifier.
+
+288.08121565
+
+====================
+The impact function I() is identical, however it takes a path qij as input and internally computes the minimum perturbation minp(d, qij ).
+
+288.0305261
+
+====================
+The core challenges are to (1) identify a proxy for text quality that is consistent with the downstream application's needs, and (2) to generate effective feedback text.
+
+283.28359699
+
+====================
+Peerstudio: Rapid peer feedback emphasizes revision and improves performance.
+
+273.387437506
+
+====================
+Note that the same explanation 2  Note that the developer may express a CHECK constraint and the database can generate an (indecipherable) error message.
+
+272.557167672
+
+====================
+[36] R. M. Groves, F. J. Fowler Jr, M. P. Couper, J. M. Lepkowski, E. Singer, and R. Tourangeau.
+
+267.860194544
+
+====================
+However, it still leaves it up to the user to infer specific improvements to make.
+
+265.114872728
+
+====================
+In this example, there are two ways to perturb the feature vector: by reducing the emotion feature by at least 20, or by increasing the length by at least 10 and reducing the emotion by at least 15.
+
+256.217233956
+
+====================
+Although these user defined functions are powerful enough to support arbitrary analysis of an attribute value, such an approach is difficult to compose and extend, and the feedback is still limited to the entire attribute value.
+
+254.015921858
+
+====================
+Our model performs competitively with prior work [32].
+
+252.812323474
+
+====================
+Precog uses existing techniques to generate forms for crowd workers to fill out, and the form contents are inserted as new records into the corresponding crowd table.
+
+252.708487952
+
+====================
+The final submission was considered the post-feedback submission, and the initial submission upon pressing the I'm Done Writing was the pre-feedback submission.
+
+250.373776335
+
+====================
+In these examples, we simply define a python function.
+
+249.779276175
+
+====================
+Survey Design and Optimization: The survey design literature has studied ways to re-ordering, and designing survey forms in order to reduce data entry errors.
+
+247.693018679
+
+====================
+If the features topics, featureCnt, and textLen have high responsibility, then it will be called to recommend new product features that the worker should mention in the review; the recommendations are dynamically selected based on the text's topic distribution (topics) and the number of product features detected (featureCnt < 10):  Setup: Let d [?]
+
+246.759848317
+
+====================
+The first states that user information is collected from the crowd (of Amazon users) and that the username must be unique.
+
+242.77027198
+
+====================
+The backend splits the review into coherent segments, identifies the low-quality segments, and generates document-level feedback.
+
+242.238970157
+
+====================
+At this point, users could click the Recompute Text Feedback button (median 1 click/participant), or press Submit to submit and finish the task.
+
+239.565733435
+
+====================
+For this reason, we first define the maximum influence perturbation set PF of a given subset of features F [?]
+
+238.782049118
+
+====================
+]Q (d) i i  The space of solutions for Problem 1 relies on enumerating all possible elements in the power set of the feature set F, which is exponential in size: 2|F | .
+
+237.669723436
+
+====================
+However this work either focuses on a particular application [91], or not intended to support custom interfaces [72].
+
+237.591871083
+
+====================
+We did not require new features for product reviews; we simply label reviews with >= 60% helpful votes as high quality and low otherwise.
+
+236.92880369
+
+====================
+Indirect Quality Mechanisms: Indirect methods such as community standards and guidelines [2, 5, 70] help clarify quality standards, while up-votes and ratings provide social incentives [11, 66].
+
+235.440911339
+
+====================
+A closely related work from the database community is Usher [15], which have similar goals to improve data collection quality.
+
+233.114905564
+
+====================
+TKDE, 2016.
+
+231.341566395
+
+====================
+4.2  Document-level Prediction  to manually label the generated segments, but this will be very costly and time-consuming.
+
+231.269838229
+
+====================
+Further, developers can easily extend the library with custom features.
+
+230.200328858
+
+====================
+The resulting model (85% accuracy, balanced test set) was competitive with existing work [31].
+
+228.493044673
+
+====================
+One approach is to simply highlight the low-quality segment and provide generic/static feedback.
+
+225.967397327
+
+====================
+We assume that the domains of the features have been normalized between [0, 1].
+
+225.024118401
+
+====================
+We define Qi as the set of maximal impact paths of a tree Ti , with at most one path for a given subset of features.
+
+221.544553285
+
+====================
+In practice, an FEF takes as input a list of features, as well as the text document and the full feature vector, and returns feedback text.
+
+221.120907171
+
+====================
+These naturally map to 4 of our feature categories, so we wrote explanation functions for each and bound them to the features in the corresponding category.
+
+217.584615154
+
+====================
+When the topic within the window changes significantly, then TopicTiling creates a new segment.
+
+217.384345093
+
+====================
+An example will be shown in Section 5.2.
+
+216.815529626
+
+====================
+In contrast to typical integrity constraints, which will reject an inserted record that violates the constraint, Precog seeks to maximize its value.
+
+207.741482565
+
+====================
+Customized Feedback: Precog provides a DDL for developers to customize feedback.
+
+207.112834971
+
+====================
+]E  Sfdi =  The TCruise Heuristic Solution  X  X  I(d, qij ) if U (vij ) > U (M (d))  Ti [?
+
+206.33579842
+
+====================
+Participants were randomly assigned to one condition group; all conditions had 21 subjects except the Precog condition which had 22.
+
+205.728066142
+
+====================
+The Journal of Forensic Psychiatry & Psychology, pages 1-21, 2017.
+
+205.575841055
+
+====================
+support.google.com/docs/answer/57859, 2016.
+
+203.130354967
+
+====================
+As constraints become more complex, there is a need for customized messages.
+
+203.096694081
+
+====================
+Figure 8 plots the number of high quality tuples that were collected as a function of the number of completed tasks; we define a tuple as high quality if no constraints were violated.
+
+202.076535736
+
+====================
+To contrast, we focus on using explicit constraints and ambiguous quality measures (for text) and provide explicit DDL statements to push them to the input interface.
+
+201.746032545
+
+====================
+Developers commonly implement explanation functions to generate more user-friendly feedback (middle column).
+
+199.36750448
+
+====================
+We thus assign each participant to one of four conditions.
+
+196.522294926
+
+====================
+Although there are numerous segmentation algorithms, we describe the rationale for the choice of using a topic-based segmentation algorithm.
+
+196.485847592
+
+====================
+Further, the set of maximum influence perturbations is the union of PF for all feature sets:  minp(d, qij ) = arg min |p|2 s.t.
+
+195.263392651
+
+====================
+The full set of coder statements is described at length in [57].
+
+195.08727637
+
+====================
+71.3% had written a prior product review; all had read a product review in the past.
+
+194.974098824
+
+====================
+Although there might be a number of segments mislabeled, the model can tolerate their impact well and achieve good performance.
+
+194.905241132
+
+====================
+Figure 11: Subjective agreement to: "The post-feedback revisions improved on the pre-feedback review."
+
+194.027392278
+
+====================
+Given the feature vector of a data point d, prediction model M , a set of FEFs E = {e1 , * * * , em }, return the top k FEFs whose responsibility is above a threshold t:  Fp = {fi [?]
+
+193.586432249
+
+====================
+Let minp(d, qij ) return the minimum perturbation p (based on its L2 norm) such that d matches path qij .
+
+189.628520283
+
+====================
+Given d and predicted utility U (M (d)), we retrieve and scan the paths with higher utility.
+
+189.554720375
+
+====================
+4.3  Segment-level Prediction  There are two challenges in training a segment-level prediction model.
+
+187.966861912
+
+====================
+First, the quality measure is continuous (there is no "perfect document") and thus hard to identify a "violation".
+
+187.532290052
+
+====================
+Precog is agnostic to the specific segmentation algorithm, and developers can use their own.
+
+186.024399736
+
+====================
+Second, it is ill-defined and applicationdependent, thus difficult to specify as a constraint.
+
+184.533241242
+
+====================
+Figure 4 summarizes Precog into three levels based on the amount of customization needed by the developer.
+
+184.178506913
+
+====================
+[38] I. Guyon, J. Weston, S. Barnhill, and V. Vapnik.
+
+183.928401609
+
+====================
+For instance, the bottom row of Figure 4 illustrates fine-grained feedback in the form of both highlighted text and text feedback for individual segments that the user has written for reviews.review.
+
+183.287807649
+
+====================
+Argonaut: macrotask crowdsourcing for complex data processing.
+
+183.252514152
+
+====================
+Fminp(d,q) = Fminp(d,q0 ) }  Problem 1 (Prescriptive Explanation).
+
+179.902875678
+
+====================
+Intuitively, the FEF should be executed if its list of features F can take "highly responsibility" for improving the quality score.
+
+176.848063677
+
+====================
+For instance, qualreview seeks to maximize the quality score as defined by qual_udf.
+
+170.10836648
+
+====================
+Thus, it is clear that the emotion should be assigned a greater responsibility because there are more branches for which changing its value will contribute to a better classification.
+
+168.856542902
+
+====================
+The Segment-PredictExplain component has a beige background: Blue arrows depict the offline training and storage process and Green arrows depict the online execution flow when a user submits.
+
+167.930227401
+
+====================
+5.2  Figure 6: Assigning responsibility to perturbations.
+
+167.617971313
+
+====================
+Custom Interface: Fully customizing the interface component is useful in order to directly prevent users from submitting invalid attribute values.
+
+166.649308176
+
+====================
+Their work identified a subset of the Linguistic Inquiry and Word Count (LIWC) features [73] and other features as useful for measuring trustworthiness.
+
+166.22676997
+
+====================
+For each scanned path q, we compute the change in the utility function, discount its value by the minimum perturbation p as well as the path's confidence.
+
+165.681661313
+
+====================
+Dij ), and the output of the random forest M (d) = arg maxv |{1|vij = v}| is the majority vote of its trees.
+
+165.569353959
+
+====================
+Rmxn represent the features bound to each of the m FEFs, where Aji = 1 if feature fi is bound to FEF ej , ~ e otherwise 0.
+
+164.431960809
+
+====================
+4.1  Existing automated writing feedback tools primarily focus on syntactic, simple errors [27, 35, 63].
+
+164.274718502
+
+====================
+Overall Quality is the holistic helpfulness of the review for prospective buyers.
+
+163.039581098
+
+====================
+Subjectivity assesses user bias using a variety of features ranging from sentiment analysis [32, 34, 56] to pronoun usage [73].
+
+162.266153096
+
+====================
+](p)  C can be chosen based on the model--for a random forest, we define C as the percentage of trees that vote for the majority label.
+
+161.678774023
+
+====================
+Estimating the helpfulness and economic impact of product reviews: Mining text and reviewer characteristics.
+
+160.632723796
+
+====================
+They pre-compute the "typical" values of each feature in the high quality corpus, then identify the "atypical" outliers in the test data's feature vector (e.g., a feature whose value is 1.5 standard deviations from the mean).
+
+160.237129354
+
+====================
+Figure 7 depicts the three interfaces that are created--naive with no Precog, customized feedback, and customized interface optimizations.
+
+159.545766035
+
+====================
+Truth discovery and crowdsourcing aggregation: A unified perspective.
+
+159.524980268
+
+====================
+[28] M. J. Franklin, D. Kossmann, T. Kraska, S. Ramesh, and R. Xin.
+
+157.916611032
+
+====================
+Moreover, there have been many successful attempts to use topic distributions to predict quality [55, 57, 57].
+
+155.973602671
+
+====================
+[44] J. C. T. Ji-Wei Wu.
+
+155.324015823
+
+====================
+Purple arrows show the feedback process for hard constraints.
+
+153.864509467
+
+====================
+Figure 7: Worker interfaces to evaluate no optimization, custom feedback Precog, and custom interface Precog for hard constraints.
+
+153.548314539
+
+====================
+The developer then binds an explanation fuction to the appropriate constraint.
+
+152.513379082
+
+====================
+We used a qualification task to ensure participants had ever owned a laptop.
+
+152.322487372
+
+====================
+The green path (p1 ) must at least reduce emotion by -20; the blue path (p2 ) must at least increase length by 10 and at least reduce emotion by -15.  input text.
+
+150.41614291
+
+====================
+Other explanation functions (Topic, Informativeness) suggested specific content for the user to write about, mined from high-quality documents from each corpus (i.e., topics, jargon).
+
+150.405281852
+
+====================
+Consider the perturbations p1 , p2 in Figure 6.
+
+150.056085938
+
+====================
+Participants were told that upon submitting their writing, they may receive feedback and could optionally revise.
+
+149.944637311
+
+====================
+Designing novel review ranking systems: predicting the usefulness and impact of reviews.
+
+147.938491909
+
+====================
+Subjectivity is the extent that the review is fair and balanced but with enough helpful opinions for the buyer to make an informed decision: 1 means the review is an angry rant or lacks any opinions while 7 means it is a fair and balanced opinion.
+
+146.305011524
+
+====================
+It will cause the impact function to converge to 0 as the perturbations become larger.
+
+144.06970729
+
+====================
+Some constraints, such as domain constraints, are registered as syntax errors.
+
+143.404362574
+
+====================
+Challenges in data crowdsourcing.
+
+142.832515867
+
+====================
+TopicTiling outperformed other topic segmenters [44, 65] in terms of their WindowDiff score [74] as compared to a hand-segmented test corpus of 40 documents.
+
+141.350748067
+
+====================
+Rn be a data point (text document or segment) represented as a feature vector, where di corresponds to the value of fi .
+
+140.729021351
+
+====================
+For these, Precog generates default names of the form <table>_<attribute>_<type>.
+
+140.286508416
+
+====================
+On violations, the feedback generator creates custom feedback (if specified in a DDL statement) and the default or customized interface displays the feedback.
+
+138.666016903
+
+====================
+[9] R. Boim, O. Greenshpan, T. Milo, S. Novgorodov, N. Polyzotis, and W. C. Tan.
+
+138.13480338
+
+====================
+The feedback literature suggests that precise, local feedback is effective [68].
+
+137.198382304
+
+====================
+In many cases, such as text attributes, it is desirable to provide feedback for specific segments of the text value.
+
+136.953362673
+
+====================
+The default simply renders feedback generated from database constraint violations on tuple insertion (left column).
+
+136.739746171
+
+====================
+However, Precog is more effective when the threshold increases.
+
+135.252269417
+
+====================
+Such latency difference is relatively small if we compare the end-to-end time of two systems since the majority of the time was spent on worker recruitment.
+
+134.394436525
+
+====================
+User-facing Interface: The custom interface column for the quality score in Figure 4 depicts the Precog interface in action.
+
+133.19545549
+
+====================
+Each measure is the average of the ratings from two coders--if they differed by >= 3, a third expert coder was used as the tie breaker and decided the final value.
+
+133.137211586
+
+====================
+, qik ; each path qij matches a subset of the training dataset Dij [?]
+
+132.954903364
+
+====================
+For the sake of exposition, product_id is the textual name of the product.
+
+132.114558352
+
+====================
+It uses a sliding window to compute the LDA [8] topic distribution within each window and create a new segment when the distribution changes beyond a threshold.
+
+130.565211542
+
+====================
+For the foreign key constraint, we populated a products table with all cell phone product models from the Amazon product corpus and a comprehensive list of phone models [93].
+
+130.398713416
+
+====================
+All trustworthiness factors except friendliness directly corresponded to existing explanation functions.
+
+129.646222886
+
+====================
+For product reviews, Informativity is the extent that the review provides detailed information about the product, where 7 means that the review elaborates on all or almost all of the specifications of a product while 1 means that it states an opinion but fails to provide factual details (e.g., laptop specifications).
+
+129.542014234
+
+====================
+Each defines the three main measures, and provides examples that contribute positively and negatively to each criteria.
+
+128.102967711
+
+====================
+[30] H. Garcia-Molina, M. Joglekar, A. Marcus, A. G. Parameswaran, and V. Verroios.
+
+126.800438274
+
+====================
+This can be directly computed by examining the decision points along the path.
+
+126.603275397
+
+====================
+Usher analyzes an existing corpus of collected data to dynamically learn soft constraints on data values, and focuses on input placement, re-asking, and some interface enhancements.
+
+125.691677173
+
+====================
+In Eighth International AAAI Conference on Weblogs and Social Media, 2014.
+
+122.966237194
+
+====================
+Precog denotes the segment-level TCruise-based system.
+
+122.124252941
+
+====================
+Journal of Language and Social Psychology, 35(4):435-445, 2016.
+
+121.406424496
+
+====================
+[39] D. Haas, J. Ansel, L. Gu, and A. Marcus.
+
+120.421881061
+
+====================
+Precog uses the feature library to transform the input text into a feature vector of (len=10, emotion=30), and is thus classified as low quality.
+
+120.357182896
+
+====================
+The key insight is that the predictive model is robust to noisy labels.
+
+120.115365781
+
+====================
+An overview of current research on automated essay grading.
+
+119.075841376
+
+====================
+The Feedback Generator then constructs feedback explanations for the low quality text, which are returned and displayed in the widget.
+
+118.451662957
+
+====================
+For instance, in a binary classification problem U may return 1 if the input is "high quality" and 0 otherwise; in a regression model, U may be the identity function.
+
+118.012994463
+
+====================
+We describe how Precog automatically generates feedback text for low-quality text.
+
+117.035458246
+
+====================
+Thus, the output of Ti (d) is the vote vij of the path that matches d (e.g., d [?]
+
+115.039864965
+
+====================
+Moreover, Precog also makes it easy for developers to add custom segmentation algorithms.
+
+113.311099754
+
+====================
+Assuming that C() = 1, p1 's impact on the input document is I(d, p1 ) = 1-0 x1= 20 0.05, whereas p2 's impact is I(d, p2 ) = 1021-0 x 1 = 0.055.
+
+111.948320236
+
+====================
+Similarly, Airbnb profiles took an average of 10.2 minutes to complete without Precog and 15.3 minutes to complete with Precog.
+
+110.759453991
+
+====================
+[47] S.-M. Kim, P. Pantel, T. Chklovski, and M. Pennacchiotti.
+
+110.674491732
+
+====================
+A tree Ti is composed of a set of k decision paths qi1 , .
+
+110.650804735
+
+====================
+Since the quality score is not a boolean constraint, feedback is simply not generated for it2 .
+
+110.277804735
+
+====================
+The second challenge is to determine how the available document-level labels can be used for training segment-level quality.
+
+109.238303276
+
+====================
+3 Note that databases automatically generate names for almost all integrity constraints.
+
+109.025140522
+
+====================
+However, we may use a slider if for larger cardinalities.
+
+108.622449321
+
+====================
+[43] P. G. Ipeirotis, F. Provost, and J. Wang.
+
+108.382273044
+
+====================
+Precog uses the models in the Model Store to identify whether the entire document and/or segments generated by the Segmenter are low quality.
+
+108.091301451
+
+====================
+For each feature fi , we compute the responsibility for each low quality text, and aggregate their values to compute the sample mean ufi and standard deviation sfi .
+
+106.041857202
+
+====================
+We used a post-study survey to collect demographic information as well as their subjective experience.
+
+105.863201957
+
+====================
+We now describe the prediction model we use for documentlevel prediction.
+
+105.724619999
+
+====================
+[13] R. Caruana, Y. Lou, J. Gehrke, P. Koch, M. Sturm, and N. Elhadad.
+
+104.6526996
+
+====================
+Reading through their table of features, we also found that writing style and friendliness features were common.
+
+103.415133351
+
+====================
+The Segment-Predict-Explain component consists of offline and online components.
+
+102.850168798
+
+====================
+An FEF e : R|F| - text maps the feature vector for a subset of features F [?]
+
+101.726050334
+
+====================
+In the long term, we envision Precog as an example of automatically applying pre-hoc quality control (e.g., writing feedback) based on downstream application needs (e.g., quality reviews).
+
+101.587408353
+
+====================
+Overall Quality is the holistic trustworthiness of the host for prospective tenants.
+
+101.438886085
+
+====================
+Feedback and interface customization acquire 1.7x and 1.9x more high quality tuples than no Precog optimization.
+
+101.429250022
+
+====================
+Recall the feedback in the custom Precog interface in Figure 4, it identifies that the segment is short on details and suggests new topics.
+
+100.896218442
+
+====================
+[48] A. Kittur, B. Smus, S. Khamkar, and R. E. Kraut.
+
+98.1484277731
+
+====================
+The basic idea is to push data-quality constraints down to the data collection interface and improve data quality before acquisition.
+
+98.1318162608
+
+====================
+html?nodeId=201929730, 2016.
+
+98.053891508
+
+====================
+Feedback and interface customization acquire 1.7x and 1.9x more valid records than no Precog optimization.
+
+97.989152627
+
+====================
+[1] E. Agichtein, C. Castillo, D. Donato, A. Gionis, and G. Mishne.
+
+97.9554601411
+
+====================
+In isolation, existing approaches may find that the length is large and suggest reducing it, and that the emotion is high and suggest reducing it.
+
+95.5801523756
+
+====================
+The confidence C(d) is the fraction of samples in Dij whose labels yk match the path's prediction vij .
+
+95.0241540614
+
+====================
+[11] A. Bosu, C. S. Corley, D. Heaton, D. Chatterji, J. C. Carver, and N. A. Kraft.
+
+94.5236425745
+
+====================
+Ability "refers to the host's domain specific skills or competence."
+
+94.1255296125
+
+====================
+Fan, G. Li, B. C. Ooi, K. Tan, and J. Feng.
+
+93.1101528728
+
+====================
+[57] X. Ma, J. T. Hancock, K. L. Mingjie, and M. Naaman.
+
+92.7932093124
+
+====================
+The following snippet sketches the Not Enough Detail function in our evaluation.
+
+92.6374014518
+
+====================
+[41] J. Hyona, R. F. Lorch Jr, and J. K. Kaakinen.
+
+92.1091369797
+
+====================
+The user writes a product review in the textbox; the content is sent to the Precog backend via getFeedback().
+
+92.0747740642
+
+====================
+Developers can bind the interface to an attribute using a CREATE INTERFACE statement.
+
+91.0407805643
+
+====================
+[32] A. Ghose and P. G. Ipeirotis.
+
+90.6999924387
+
+====================
+REFERENCES  [25] N. Farra, S. Somasundaran, and J. Burstein.
+
+90.3015417646
+
+====================
+For instance, F may be the text features described above, and a data point corresponds to the extracted text feature vector.
+
+90.0930588911
+
+====================
+F as the set of perturbations that only perturbe features in F and have the maximal influence.
+
+89.9350245239
+
+====================
+Clearly, document quality assessment is a well-studied area.
+
+89.1538376957
+
+====================
+[29] J. Gao, Q. Li, B. Zhao, W. Fan, and J. Han.
+
+88.343052785
+
+====================
+: analyzing and predicting youtube comments and comment ratings.
+
+87.3117263475
+
+====================
+In addition, we do not compare paths across trees.
+
+86.8036954292
+
+====================
+Consider a review consisting of a long, angry diatribe about customer service.
+
+86.5436589817
+
+====================
+Moreover, none focus on multi-paragraph text attributes such as product reviews or forum comments.
+
+86.3384112386
+
+====================
+These methods focus more on finding good contributors and lack content-specific feedback (e.g., discuss camera quality for a phone).
+
+86.011995304
+
+====================
+Ultimately, existing feedback and explanation approaches are descriptive of the prediction, rather than prescriptive of the changes that must be made.
+
+85.6304479833
+
+====================
+[31] A. Ghose and P. G. Ipeirotis.
+
+85.1548149942
+
+====================
+Benevolence "refers to the host's domain specific skills or competence."
+
+85.0603306262
+
+====================
+[71] A. G. Parameswaran, H. Park, H. Garcia-Molina, N. Polyzotis, and J. Widom.
+
+83.6587608957
+
+====================
+[8] D. M. Blei, A. Y. Ng, and M. I. Jordan.
+
+82.7756488486
+
+====================
+In contrast, segment level feedback is needed in order to provide specific, actionable suggestions that may not be evident at the document level.
+
+81.7133051945
+
+====================
+]Fe  C(d) =  i  |Fe |  x C(d + minp(d, qij ))  |{dk [?]
+
+81.5867908768
+
+====================
+](p) = |p|2 , the L2 norm of the perturbation vector.
+
+80.847847424
+
+====================
+Feedback systems are typically based on outlier detection [50].
+
+80.3318524621
+
+====================
+A method to automatically choose suggestions to improve perceived quality of peer reviews based on linguistic features.
+
+79.9379605408
+
+====================
+The average task completion time was 11 minutes, and payment was $2.5 (~ $13.6/hr).
+
+79.426277138
+
+====================
+[3] N. Archak, A. Ghose, and P. G. Ipeirotis.
+
+79.1859747767
+
+====================
+We plot CDF curves for the number of high quality documents as the task budget increases.
+
+78.9323088964
+
+====================
+The experiment was run until 100 workers had participated in each condition.
+
+78.6955742272
+
+====================
+Survey on web spam detection: principles and algorithms.
+
+78.6405551996
+
+====================
+We relaxed the foreign key constraint by ignoring case sensitivity of the product names.
+
+78.0054711888
+
+====================
+Precog can automatically control the generated feedback by reallocating responsibility.
+
+77.7999062658
+
+====================
+[69] K. Norman, S. Lee, P. Moore, G. Murry, W. Rivadeneira, B. Smith, and P. Verdines.
+
+76.3109016089
+
+====================
+The average task completion time was 14 minutes, and payment was $2.5 (~ $10/hr).
+
+76.142862792
+
+====================
+D and its vote vij is the majority label in Dij .
+
+75.81541415
+
+====================
+The average host profile took 6.8 minutes to complete without Precog, and 11.1 minutes with the additional feedback from Precog.
+
+75.8151322203
+
+====================
+The paths go from the document's current low quality classification to a high quality classification.
+
+75.2967827996
+
+====================
+Features are individually mapped to pre-written feedback text [7, 10, 49].
+
+74.7354330917
+
+====================
+[53] B. Letham, C. Rudin, T. H. McCormick, D. Madigan, et al.
+
+73.4822796909
+
+====================
+[18] L. Connors, S. M. Mudambi, and D. Schuff.
+
+73.3940757157
+
+====================
+[90] G. Wang, K. Gill, M. Mohanlal, H. Zheng, and B. Y. Zhao.
+
+72.5662815586
+
+====================
+[54] G. Li, J. Wang, Y. Zheng, and M. J. Franklin.
+
+72.5098262817
+
+====================
+F is the set of features bound to an FEF: P Sed =  fi [?
+
+71.7741590709
+
+====================
+Dij |yk = vij }| |Dij |  Qi (d) = {q [?]
+
+71.4219384773
+
+====================
+[49] J. Krause, A. Perer, and K. Ng.
+
+70.9634547049
+
+====================
+Crowdsourced data management: A survey.
+
+70.4238128595
+
+====================
+Texttiling: Segmenting text into multi-paragraph subtopic passages.
+
+70.2255378955
+
+====================
+The change in these measures between pre and post-feedback suggests the utility of the feedback.
+
+69.9584751103
+
+====================
+quora.com/What-percentageof-questions-on-Quora-have-no-answers, 2016.
+
+69.8759979615
+
+====================
+database, which checks that the input satisfies the integrity constraints.
+
+69.3508629792
+
+====================
+A path is the sequence of decisions from the root of a tree to a leaf node.
+
+68.5229783723
+
+====================
+Automatically assessing review helpfulness.
+
+68.457954902
+
+====================
+[15] C. C. Chen and Y.-D. Tseng.
+
+68.4011138603
+
+====================
+When the threshold is low, it is easy to acquire low-quality text and both approaches are the same.
+
+68.2581593409
+
+====================
+In SIGMOD, pages 445-456, 2014.
+
+68.2175997881
+
+====================
+improving data quality and data mining using multiple, noisy labelers.
+
+68.0297554655
+
+====================
+Scoring persuasive essays using opinions and their targets.
+
+67.6577199749
+
+====================
+[14] A. Chalamalla, I. F. Ilyas, M. Ouzzani, and P. Papotti.
+
+67.6089418516
+
+====================
+Although the data cleaning literature has proposed ways to prescribe data cleaning operations [14], they are not applicable for text attributes.
+
+67.0634816769
+
+====================
+The random forest model M = {T1 , .
+
+66.9961866373
+
+====================
+http://www.boomeranggmail.com/respondable/, 2016.
+
+66.750743828
+
+====================
+In SIGMOD, 2015.
+
+66.7005654695
+
+====================
+The coders labeled documents in random order and did not have access to any other information about the documents.
+
+66.3166761316
+
+====================
+]F  Based on these definitions, the total responsibility of a given feature fi [?]
+
+66.1276272458
+
+====================
+Quality management on amazon mechanical turk.
+
+65.6207596759
+
+====================
+Crowdforge: Crowdsourcing complex work.
+
+65.3773168045
+
+====================
+[21] S. Deterding, D. Dixon, R. Khaled, and L. Nacke.
+
+65.2258412829
+
+====================
+[81] V. S. Sheng, F. Provost, and P. G. Ipeirotis.
+
+65.1454347557
+
+====================
+In KDD, 2015.
+
+64.8247154506
+
+====================
+[23] M. Drouin, R. L. Boyd, J. T. Hancock, and A. James.
+
+64.7590946518
+
+====================
+Crowdsourced enumeration queries.
+
+64.7340545161
+
+====================
+These approaches incur additional quality control costs and are complementary to Precog.
+
+64.1444084649
+
+====================
+In HCI, 2016.
+
+63.9781551058
+
+====================
+foxtype.com/, 2016.
+
+63.9781551058
+
+====================
+qij matches d + p p[?
+
+63.6398302579
+
+====================
+How useful are your comments?
+
+63.0243463045
+
+====================
+jury selection for decision making tasks on micro-blog services.
+
+62.9939920393
+
+====================
+What in the hay is a zappos premier reviewer?
+
+62.7089600846
+
+====================
+In ITS, 2016.
+
+62.5918607447
+
+====================
+In Review of educational research, 1988.
+
+62.5183317723
+
+====================
+[16] A. I. Chittilappilly, L. Chen, and S. Amer-Yahia.
+
+62.3676988053
+
+====================
+Pn j Aji is the average i=1 impact score of all features mapped to the jth FEF.
+
+62.1872050618
+
+====================
+There are some works that apply pre-hoc quality control to improving crowd quality [72,87,91].
+
+62.003290522
+
+====================
+We also used document-quality labels to train the segment classifier.
+
+61.7443847089
+
+====================
+In System Sciences (HICSS), 2011 44th Hawaii International Conference on, pages 1-10.
+
+60.6718594966
+
+====================
+[98] Y. Zheng, J. Wang, G. Li, R. Cheng, and J. Feng.
+
+60.1290384141
+
+====================
+http://www.zappos.com/premier-reviewers, 2016.
+
+59.9363713623
+
+====================
+While the idea is easy to achieve for simple data types and constraints, it faces significant challenges for text documents.
+
+59.5535954047
+
+====================
+Incentive mechanisms such as badges, scores [21, 33], status [97], or even money [42, 46] have also been used to keep good contributors.
+
+59.4787847518
+
+====================
+[59] A. Marcus, E. Wu, D. Karger, S. Madden, and R. Miller.
+
+59.4462323613
+
+====================
+[73] J. W. Pennebaker, R. L. Boyd, K. Jordan, and K. Blackburn.
+
+59.2987589465
+
+====================
+F is based on the responsibility of each perturbation that involves the feature.
+
+58.8144068587
+
+====================
+for product reviews, and "The post-feedback revisions are more trustworthy than the prefeedback profile."
+
+56.8867958567
+
+====================
+Due to a small number of explanation functions, study participants found that repeatedly using the system began to provide redundant feedback; simplifying the development of more explanation functions may help the system produce more nuanced feedback.
+
+56.8796858215
+
+====================
+Given a small test corpus of pre-segmented documents, Precog can benchmark the algorithms and recommend the one with the highest WindowDiff score.
+
+55.9783848247
+
+====================
+Human-powered sorts and joins.
+
+55.0942271941
+
+====================
+Rn is a vector that modifies a data point.
+
+54.7489927187
+
+====================
+In ACM SIGKDD workshop on human computation, 2010.
+
+54.684825913
+
+====================
+Existing feedback approaches are not directly applicable for Precog.
+
+54.6141519636
+
+====================
+[60] D. M. Markowitz and J. T. Hancock.
+
+54.5521070473
+
+====================
+[86] J. Tang, X. Hu, and H. Liu.
+
+54.2586197008
+
+====================
+Sections 4 and 5 surveyed work related to text quality prediction and writing feedback.
+
+53.7806962609
+
+====================
+Figure 9 compares Precog against the baseline of not using Precog (naive review collection).
+
+53.4941720284
+
+====================
+Descriptive and prescriptive data cleaning.
+
+53.3544536381
+
+====================
+Readability is the extent that the review facilitates or obfuscates the writer's meaning.
+
+53.3442373742
+
+====================
+An explicit feedback system for preposition errors based on wikipedia revisions.
+
+53.0565553018
+
+====================
+Individual differences in reading to summarize expository text: Evidence from eye fixation patterns.
+
+52.7745770823
+
+====================
+[40] M. A. Hearst.
+
+52.7334713616
+
+====================
+PVLDB, 2015.
+
+52.6452971996
+
+====================
+A perturbation p [?]
+
+52.3421288617
+
+====================
+A. Kulik and C.-L. C. Kulik.
+
+52.0492285828
+
+====================
+Recommending the world's knowledge: Application of recommender systems at quora.
+
+51.9697846647
+
+====================
+https://www.nfcworld.com/nfc-phones-list/, 2016.
+
+51.8294646883
+
+====================
+Packt Publishing Ltd, 2015.
+
+51.5780964402
+
+====================
+In NAACL, 2015.
+
+51.4285647062
+
+====================
+Check spelling and grammar in office 2010 and later.
+
+51.3718835791
+
+====================
+[64] B. L. Minqing Hu.
+
+51.3530435204
+
+====================
+Deriving the pricing power of product features by mining consumer reviews.
+
+51.2551238188
+
+====================
+Finding high-quality content in social media.
+
+51.2036821557
+
+====================
+In Computational Linguistics.
+
+50.844245087
+
+====================
+The interface was the same for all conditions--only the feedback content changed.
+
+50.5164603818
+
+====================
+Social influence bias: A randomized experiment.
+
+50.2849716131
+
+====================
+Note that the quality criteria differ across domains.
+
+49.7870946718
+
+====================
+]Rn  PF (d) = arg max I(d, p) s.t.
+
+49.6470796787
+
+====================
+Figure 9: # of documents where quality >= thresh, for varying thresholds; product reviews (top), host profiles (bottom).
+
+49.5562830841
+
+====================
+iCrowd: an adaptive crowdsourcing framework.
+
+49.5483754115
+
+====================
+Winning arguments: Interaction dynamics and persuasion strategies in good-faith online discussions.
+
+49.210895617
+
+====================
+CrowdFill: collecting structured data from the crowd.
+
+49.1659796624
+
+====================
+[87] B. Trushkowsky, T. Kraska, M. J. Franklin, and P. Sarkar.
+
+49.0321417018
+
+====================
+[82] S. Siersdorfer, S. Chelaru, W. Nejdl, and J. San Pedro.
+
+48.9903884944
+
+====================
+Social influence and the diffusion of user-created content.
+
+48.9596860835
+
+====================
+Interpretable classifiers using rules and bayesian analysis: Building a better stroke prediction model.
+
+48.8417981531
+
+====================
+pi 6= 0 if fi is perturbed, otherwise pi = 0.
+
+48.6512545475
+
+====================
+Note that the baseline does not acquire any high quality reviews when thresh >= 6.
+
+48.1558398767
+
+====================
+[5] E. Bakshy, B. Karrer, and L. A. Adamic.
+
+47.7068954293
+
+====================
+Interacting with predictions: Visual inspection of black-box machine learning models.
+
+47.5785592764
+
+====================
+is assigned 1 as it might require multiple readings to understand.
+
+47.2335936488
+
+====================
+She, Y. Tong, and L. Chen.
+
+47.1355663009
+
+====================
+[91] S. E. Whang, J. McAuley, and H. Garcia-Molina.
+
+46.7215010503
+
+====================
+The primary groups of features related to absence of detail and low topic diversity.
+
+46.3683749344
+
+====================
+[55] J. Liu, Y. Cao, C.-Y.
+
+45.4249702387
+
+====================
+[65] H. Misra, F. Yvon, O. Cappe, and J. Jose.
+
+45.006790011
+
+====================
+[34] C. H. E. Gilbert.
+
+44.9191158317
+
+====================
+In Advances in neural information processing systems, pages 121-128, 2008.
+
+44.6965709979
+
+====================
+81 completed the task.
+
+44.5532300933
+
+====================
+In reality, there is often a long tail of topics without sufficient content for such approaches to be effective [61, 79].
+
+44.5244802427
+
+====================
+[42] P. Ipeirotis.
+
+44.3543774361
+
+====================
+Social computing and user-generated content: a game-theoretic approach.
+
+44.0577094563
+
+====================
+Double data entry: what value, what price?
+
+44.0484494618
+
+====================
+It has been extensively studied in recent years [9,12,24,29,39,80,98].
+
+43.9951323351
+
+====================
+[94] M. N. Xiao Ma, Trishala Neeraj.
+
+43.6522443482
+
+====================
+Vader: A parsimonious rule-based model for sentiment analysis of social media text.
+
+43.3745714585
+
+====================
+[22] P. K. Dick, S. Spielberg, T. Cruise, and S. Morton.
+
+43.2603302735
+
+====================
+[76] M. T. Ribeiro, S. Singh, and C. Guestrin.
+
+42.9169903493
+
+====================
+Intelligible models for healthcare: Predicting pneumonia risk and hospital 30-day readmission.
+
+42.6532712501
+
+====================
+To do so, we draw a sample of text from the corpus that has been labeled as low quality.
+
+42.6135722677
+
+====================
+Survey methodology, volume 561.
+
+42.5549657837
+
+====================
+AngularJS web application development.
+
+42.5495709023
+
+====================
+N, and a utility function U : N - R maps a label to a utility value.
+
+42.4814050389
+
+====================
+The Segmenter first splits each document into segments.
+
+42.4531378996
+
+====================
+, Tt } is composed of a set of trees.
+
+42.4127343055
+
+====================
+[85] C. Tan, V. Niculae, C. Danescu-Niculescu-Mizil, and L. Lee.
+
+42.2776819693
+
+====================
+Rn where ~si = Snormdi , and matrix A [?]
+
+42.2524250878
+
+====================
+Linguistic analysis of chat transcripts from child predator undercover sex stings.
+
+42.072602053
+
+====================
+Figure 8: # records satisfying both constraints vs budget.
+
+42.0529208565
+
+====================
+en.wikipedia.org/wiki/Wikipedia: Policies_and_guidelines, 2016.
+
+41.9973682427
+
+====================
+Check spelling and grammar in google docs.
+
+40.9853711598
+
+====================
+The Annals of Applied Statistics, 2015.
+
+40.857270159
+
+====================
+Inferring networks of substitutable and complementary products.
+
+40.780221729
+
+====================
+Towards globally optimal crowdsourcing quality management: The uniform worker setting.
+
+40.5199907502
+
+====================
+https://www.amazon.com/gp/help/customer/display.
+
+40.1729574121
+
+====================
+VLDB, 2015.
+
+40.1143623105
+
+====================
+Automated essay scoring with R v. 2.0.
+
+39.5387148164
+
+====================
+Gene selection for cancer classification using support vector machines.
+
+39.2221367289
+
+====================
+Both are important because they address different text quality factors.
+
+39.007846004
+
+====================
+For such cases, improving quality during user input process may be more effective.
+
+38.9287974618
+
+====================
+[50] M. Krause.
+
+38.9248133894
+
+====================
+Automated semantic grading of programs.
+
+38.3337008875
+
+====================
+The institutionalization of youtube: From user-generated content to professionally generated content.
+
+38.1817198456
+
+====================
+62% had used AirBnb before.
+
+38.0096511709
+
+====================
+[80] A. D. Sarma, A. G. Parameswaran, and J. Widom.
+
+37.6374182926
+
+====================
+[46] J. Kim.
+
+37.162884965
+
+====================
+https://textblob.readthedocs.io/en/dev, 2014.
+
+37.0923193145
+
+====================
+In SIGMOD, 2011.
+
+36.8160186376
+
+====================
+Fix reviews' grammar, improve sales.
+
+36.644747388
+
+====================
+Further, their analyses are per-feature and don't account for multi-feature interactions.
+
+36.5800956871
+
+====================
+Overall, each explanation function was 3-20 lines of python code.
+
+36.2804592926
+
+====================
+Unanswered quora.
+
+36.2607959452
+
+====================
+Springer, 2015.
+
+36.1885384915
+
+====================
+[19] P. B. Darwin and P. Kozlowski.
+
+36.1114900615
+
+====================
+Wisdom in the social crowd: an analysis of quora.
+
+36.0479926649
+
+====================
+In TKDE, 2011.
+
+35.8780936281
+
+====================
+We defer this to future work.
+
+35.7081945913
+
+====================
+[58] N. Madnani and A. Cahill.
+
+35.6313981457
+
+====================
+These ideas can be viewed as instances of Precog.
+
+35.5747782733
+
+====================
+Social recommender systems.
+
+35.5247445211
+
+====================
+QASCA: A quality-aware task assignment system for crowdsourcing applications.
+
+35.47262852
+
+====================
+Scale-driven automatic hint generation for coding style.
+
+35.310278319
+
+====================
+Textblob: Simplified text processing.
+
+35.2032139592
+
+====================
+A critique and improvement of an evaluation metric for text segmentation.
+
+34.8797029819
+
+====================
+For instance, a review that consists of many ambiguous phrases like "I have never done anything crazy with it and it still works."
+
+34.5746228419
+
+====================
+A model M : Rn - N classifies a data point as M (d) [?]
+
+34.5240968976
+
+====================
+In VLDB, 1994.
+
+34.4899667981
+
+====================
+Justification narratives for individual classifications.
+
+34.4173515359
+
+====================
+We start with the feature library of 47 features and no explanation functions.
+
+34.0819948831
+
+====================
+[17] R. R. Choudhury, H. Yin, and A.
+
+34.0184974865
+
+====================
+a multi-method approach to determine the antecedents of online review helpfulness.
+
+33.8168497514
+
+====================
+[70] O. Nov. What motivates wikipedians?
+
+33.7960483265
+
+====================
+[12] C. C. Cao, J.
+
+33.5223514095
+
+====================
+An efficient linear text segmentation algorithm using hierarchical agglomerative clustering.
+
+33.4494139802
+
+====================
+In HCOMP, 2015.
+
+33.0965189985
+
+====================
+[26] A. Fedosejev.
+
+33.0376682335
+
+====================
+http://www.imdb.com/title/tt0181689/, 2002.
+
+32.8603238081
+
+====================
+[72] H. Park and J. Widom.
+
+32.8566397855
+
+====================
+": Explaining the predictions of any classifier.
+
+32.7740374863
+
+====================
+From game design elements to gamefulness: defining gamification.
+
+32.5936381576
+
+====================
+The nature of feedback: Investigating how different types of feedback affect writing performance.
+
+32.4306427791
+
+====================
+Mining opinion features in customer reviews.
+
+32.3559024484
+
+====================
+[84] N. Spirin and J. Han.
+
+32.326323388
+
+====================
+Compare me maybe: Crowd entity resolution interfaces.
+
+32.2904509725
+
+====================
+Automating hint generation with solution space path construction.
+
+32.2901843413
+
+====================
+PVLDB, 2012.
+
+31.8894467506
+
+====================
+No participant had used Precog before.
+
+31.8732780001
+
+====================
+In SIGMOD, 2014.
+
+31.6106392667
+
+====================
+yelp.com/guidelines, 2016.
+
+31.5776235936
+
+====================
+E * = topk Sed s.t.
+
+31.4963144033
+
+====================
+Precog is more effective than no Precog when the desired quality is high.
+
+31.4729907291
+
+====================
+Lin, Y. Huang, and M. Zhou.
+
+31.4470300689
+
+====================
+Supersparse linear integer models for optimized medical scoring systems.
+
+31.300950166
+
+====================
+Low-quality product review detection in opinion summarization.
+
+31.1416767619
+
+====================
+Is it the review or the reviewer?
+
+31.087417257
+
+====================
+Technical report, Stanford InfoLab, 2012.
+
+30.9463339677
+
+====================
+In ETS Research Report Series.
+
+30.875275243
+
+====================
+[4] Y. Attali and J. Burstein.
+
+30.5676463412
+
+====================
+[7] O. Biran and K. McKeown.
+
+30.5141966159
+
+====================
+These can be integrated as feedback and interface customizations in Precog.
+
+30.4735158301
+
+====================
+Wiley e-rater Online Library, 2004.
+
+30.4647585203
+
+====================
+The document level feedback provides a global quality assessment.
+
+30.4339225978
+
+====================
+In Learning Research and Development Center, 2007.
+
+30.1369230176
+
+====================
+List of nfc phones.
+
+30.1170313088
+
+====================
+[67] S. M. Mudambi and D. Schuff.
+
+29.9081538893
+
+====================
+6  data near the test point [76].
+
+29.8994242098
+
+====================
+A survey of general-purpose crowdsourcing techniques.
+
+29.7873830835
+
+====================
+Amazon: Community guidelines.
+
+29.7858641244
+
+====================
+[61] J. McAuley, R. Pandey, and J. Leskovec.
+
+29.6433234376
+
+====================
+Social recommendation: a review.
+
+29.6375993652
+
+====================
+Editor guidelines.
+
+29.4981820519
+
+====================
+[78] K. Rivers and K. R. Koedinger.
+
+29.2360366973
+
+====================
+[83] R. Singh, S. Gulwani, and A. Solar-Lezama.
+
+29.2152656717
+
+====================
+In Machine learning.
+
+29.0826025231
+
+====================
+John Wiley & Sons, 2011.
+
+29.0296973818
+
+====================
+Precog only marginally increases latency of each worker.
+
+28.962598777
+
+====================
+[52] C. E. Kulkarni, M. S. Bernstein, and S. R. Klemmer.
+
+28.9023453662
+
+====================
+Content guidelines.
+
+28.8157301605
+
+====================
+Technical report, MIT, 2012.
+
+28.8019114978
+
+====================
+In L@S, 2015.
+
+28.5639195054
+
+====================
+In NAACL, 2014.
+
+28.4754896799
+
+====================
+American Association for the Advancement of Science, 2013.
+
+28.0758871056
+
+====================
+In KDD, 2012.
+
+28.0179085706
+
+====================
+Are both Segment and Explain necessary in the SegmentPredict-Explain pattern?
+
+27.593191466
+
+====================
+In SIGKDD, 2016.
+
+27.1955969589
+
+====================
+How much work does it take to add rich feedback support for text in a new domain?
+
+27.1505230775
+
+====================
+INFORMS, 2011.
+
+27.1323254126
+
+====================
+10  7.2.2  Ma et.
+
+27.0778139233
+
+====================
+[95] L. Yang and X. Amatriain.
+
+27.0001161209
+
+====================
+[89] S. Valenti, F. Neri, and R. Cucchiarelli.
+
+26.5661991594
+
+====================
+Controlled clinical trials, 19(1):15-24, 1998.
+
+26.3095796789
+
+====================
+Packt Publ., 2013.
+
+26.2975912809
+
+====================
+[33] A. Ghosh.
+
+26.0201620905
+
+====================
+can be similarly defined in multiple ways.
+
+25.7256637486
+
+====================
+a study of customer reviews on amazon.com.
+
+25.6486153186
+
+====================
+7.2.1  Segment, Explain, or Both?
+
+25.4673348863
+
+====================
+[20] S. Day, P. Fayers, and D. Harvey.
+
+25.3919958381
+
+====================
+In Journal of Information Technology Education, 2003.
+
+25.3201986405
+
+====================
+Soylent: A word processor with a crowd inside.
+
+25.2247341278
+
+====================
+They also assume a large corpus that contains high quality content for every topic (e.g., product or question).
+
+25.176148791
+
+====================
+Self-disclosure and perceived trustworthiness of airbnb host profiles.
+
+25.1482412846
+
+====================
+Online survey design guide, 2003.
+
+25.1254545637
+
+====================
+[45] R. Kelly.
+
+24.3668049441
+
+====================
+Text segmentation: A topic modeling perspective.
+
+24.1206134305
+
+====================
+In WWW, 2013.
+
+23.9950061879
+
+====================
+Linguistic obfuscation in fraudulent science.
+
+23.7491872344
+
+====================
+Timing of feedback and verbal learning.
+
+23.579869066
+
+====================
+[62] J. D. Mcauliffe and D. M. Blei.
+
+23.5374250786
+
+====================
+The development and psychometric properties of liwc2015.
+
+23.4604640375
+
+====================
+Quality evaluation of product reviews using an information quality framework.
+
+23.426432483
+
+====================
+In UIST, 2011.
+
+23.347158739
+
+====================
+]Ti I(d, q) >= I(d, q 0 ) [?]
+
+23.1008856103
+
+====================
+Ti |[?
+
+23.1008856103
+
+====================
+A computational approach to perceived trustworthiness of airbnb host profiles.
+
+23.1005484412
+
+====================
+Respondable: Personal ai assistant for writing better emails.
+
+23.1002112722
+
+====================
+Topictiling: a text segmentation algorithm based on lda.
+
+22.6629974658
+
+====================
+Elsevier, 2011.
+
+22.0656003489
+
+====================
+In ICITS, 2014.
+
+21.6075152709
+
+====================
+In KDD, 2008.
+
+21.4262348386
+
+====================
+rfk/pyenchant, Jan 2011.
+
+21.1171443388
+
+====================
+Building reputation in stackoverflow: an empirical investigation.
+
+20.5711669707
+
+====================
+In WWW, 2010.
+
+20.5292702851
+
+====================
+Asking the right questions in crowd data sourcing.
+
+20.2724075846
+
+====================
+In AutoML, 2014.
+
+19.8475045
+
+====================
+[74] L. Pevzner and M. A. Hearst.
+
+19.4866764378
+
+====================
+American Psychological Association, 2002.
+
+19.3650783507
+
+====================
+preprint maxiao.info, 2017.
+
+19.303202947
+
+====================
+In SIGMOD, 2016.
+
+19.0683229821
+
+====================
+In ACM SIGecom Exchanges.
+
+18.9527095843
+
+====================
+[88] B. Ustun and C. Rudin.
+
+18.8759131387
+
+====================
+In CIS, 2011.
+
+18.8145592458
+
+====================
+Sage Publications, 2012.
+
+18.7508434315
+
+====================
+Fast algorithm for mining association rules.
+
+18.7419987328
+
+====================
+Latent dirichlet allocation.
+
+18.567611779
+
+====================
+Let F be the set of n model features, and fi denote the ith feature.
+
+18.4272918027
+
+====================
+In ACL, 2012.
+
+18.1417793681
+
+====================
+In ICDE, 2012.
+
+18.1417793681
+
+====================
+Sed > t e[?
+
+18.1303979726
+
+====================
+PF (d)  F[?
+
+18.1303979726
+
+====================
+[66] L. Muchnik, S. Aral, and S. J. Taylor.
+
+17.7884302611
+
+====================
+[93] N. World.
+
+17.5653740987
+
+====================
+[77] M. Riedl and C. Biemann.
+
+17.382965153
+
+====================
+In ICDE, 2013.
+
+17.2651821174
+
+====================
+In MSR, 2013.
+
+17.2323922945
+
+====================
+MIT Press, 1997.
+
+17.1793997644
+
+====================
+Springer, 2013.
+
+16.8586758848
+
+====================
+In Management Science.
+
+16.7758523098
+
+====================
+Deco: declarative crowdsourcing.
+
+16.7654941897
+
+====================
+In Recommender Systems Handbook.
+
+16.6423209172
+
+====================
+[79] G. Saito.
+
+16.3103554098
+
+====================
+[75] R. S. Rakesh Agrawal.
+
+16.2999190837
+
+====================
+[96] Yelp.
+
+16.1144538276
+
+====================
+In UIST, 2010.
+
+15.9966707919
+
+====================
+In MIS quarterly, 2010.
+
+15.9966707919
+
+====================
+In CIKM, 2012.
+
+15.8064044523
+
+====================
+ACM, 2012.
+
+15.6682541138
+
+====================
+Minority report.
+
+15.502950636
+
+====================
+In CSCW, 2017.
+
+15.4530553453
+
+====================
+Write smarter emails.
+
+14.5786277325
+
+====================
+[97] Zappos.
+
+14.3433136455
+
+====================
+[68] M. Nelson and C. Schunn.
+
+14.0350122859
+
+====================
+[63] Microsoft.
+
+13.833146133
+
+====================
+](p) and the model's prediction confidence C(d + p) [?]
+
+13.7359488179
+
+====================
+In WWW, 2016.
+
+13.5977984795
+
+====================
+In EC, 2007.
+
+13.459648141
+
+====================
+Thus, Precog segments documents at topic-level units.
+
+13.4268583182
+
+====================
+Rm = A~s.
+
+12.915346588
+
+====================
+MIT Press, 2002.
+
+12.829998357
+
+====================
+, dm } be the training dataset and Y = {y1 , .
+
+12.7374535545
+
+====================
+Technical report, 2015.
+
+12.6760762748
+
+====================
+RELATED WORK  9.
+
+12.2328946966
+
+====================
+[27] FoxType.
+
+12.125469781
+
+====================
+[37] I.
+
+11.8130300574
+
+====================
+VLDB, 2011.
+
+11.5504428051
+
+====================
+[56] S. Loria.
+
+11.4403547721
+
+====================
+In Media, Culture & Society.
+
+11.3995327776
+
+====================
+[92] Wikipedia.
+
+11.3511591933
+
+====================
+In AAAI, 2004.
+
+11.2624235636
+
+====================
+In Communications of the ACM, 2007.
+
+10.9861228867
+
+====================
+The first one is how to split a document into segments.
+
+10.9568234963
+
+====================
+The discount function [?]
+
+10.1852018532
+
+====================
+In EC, 2009.
+
+10.163811275
+
+====================
+In JMLR, 2003.
+
+10.1310214522
+
+====================
+Get another label?
+
+9.75834616687
+
+====================
+What makes a helpful review?
+
+9.12869638294
+
+====================
+js Essentials.
+
+9.06519898631
+
+====================
+support.office.com, 2016.
+
+9.06519898631
+
+====================
+The experiment was IRB approved.
+
+9.06519898631
+
+====================
+In Decision Support Systems.
+
+8.95879734614
+
+====================
+In EMNLP-CoNLL, 2007.
+
+8.92704864783
+
+====================
+[35] Google.
+
+8.92265829952
+
+====================
+Springer, 2002.
+
+8.55333223803
+
+====================
+In Information Processing & Management.
+
+8.38343320124
+
+====================
+For instance, consider [?
+
+8.31776616672
+
+====================
+In ACL, 2006.
+
+8.25426877009
+
+====================
+Let ~s [?]
+
+7.99833539595
+
+====================
+Guy.
+
+7.96658669764
+
+====================
+In WSDM, 2008.
+
+7.82843635916
+
+====================
+]q0 [?
+
+7.70029520342
+
+====================
+Machine Learning, 2016.
+
+7.47533923657
+
+====================
+To the best of our 12  10.
+
+7.16703787691
+
+====================
+Also, let ~e [?]
+
+7.01750614294
+
+====================
+Let D = {d1 , .
+
+6.89972310728
+
+====================
+13  [51] J.
+
+6.47389069635
+
+====================
+[10] Boomerang.
+
+4.53259949315
+
+====================
+, ym } be their labels.
+
+4.53259949315
+
+====================
+In SNAM.
+
+4.53259949315
+
+====================
+React.
+
+4.53259949315
+
+====================
+In MindTrek, 2011.
+
+4.53259949315
+
+====================
+In RecSys, 2016.
+
+4.53259949315
+
+====================
+Whom to ask?
+
+4.53259949315
+
+====================
+Supervised topic models.
+
+3.85014760171
+
+====================
+4.
+
+3.85014760171
+
+====================
+Figure 5: Precog architecture.
+
+3.58351893846
+
+====================
+Fox.
+
+3.43398720449
+
+====================
+3.
+
+2.30258509299
+
+====================
+In Science.
+
+2.07944154168
+
+====================
+2  2.
+
+1.79175946923
+
+====================
+IEEE, 2011.
+
+1.09861228867
+
+====================
+[24] J.
+
+1.09861228867
+
+====================
+"why should I trust you?
+
+0.0
+
+====================
+U (M (d + p)) - U (M (d)) x C(d + p) [?
+
+0.0
+
+====================
+7  [?
+
+0.0
+
+====================
+8.
+
+0.0
+
+====================
+for host profiles.
+
+0.0
+
+====================
+[2] Amazon.
+
+0.0
+
+====================
 14
 
-7.4 Other Uses of PageRank
+0.0
 
-The original goal of PageRank was a way to sort backlinks so if there were a large number of
-backlinks for a document, the \best" backlinks could be displayed rst. We have implemented such
-a system. It turns out this view of the backlinks ordered by PageRank can be very interesting when
-trying to understand your competition. For example, the people who run a news site always want
-to keep track of any signicant backlinks the competition has managed to get. Also, PageRank can
-help the user decide if a site is trustworthy or not. For example, a user might be inclined to trust
-information that is directly cited from the Stanford homepage.
+====================
+", or 0 if the document did not change.
 
-8 Conclusion
-In this paper, we have taken on the audacious task of condensing every page on the World Wide
-Web into a single number, its PageRank. PageRank is a global ranking of all web pages, regardless
-of their content, based solely on their location in the Web's graph structure.
-Using PageRank, we are able to order search results so that more important and central Web
-pages are given preference. In experiments, this turns out to provide higher quality search results to
-users. Th intuition behind PageRank is that it uses information which is exernal to the Web pages
-themselves - their backlinks, which provide a kind of peer review. Furthermore, backlinks from
-\important" pages are more signicant than backlinks from average pages. This is encompassed in
-the recursive denition of PageRank (Section 2.4).
-PageRank could be used to separate out a small set of commonly used documents which can
-answer most queries. The full database only needs to be consulted when the small database is not
-adequate to answer a query. Finally, PageRank may be a good way to help nd representative
-pages to display for a cluster center.
-We have found a number of applications for PageRank in addition to search which include trac
-estimation, and user navigation. Also, we can generate personalized PageRanks which can create
-a view of Web from a particular perspective.
-Overall, our experiments with PageRank suggest that the structure of the Web graph is very
-useful for a variety of information retrieval tasks.
+0.0
 
-References
-[BP]
-Sergey Brin and Larry Page. Google search engine. http://google.stanford.edu.
-[CGMP98] Junghoo Cho, Hector Garcia-Molina, and Lawrence Page. Ecient crawling through
-url ordering. In To Appear: Proceedings of the Seventh International Web Conference
-(WWW 98), 1998.
-[Gar95] Eugene Gareld. New international professional society signals the maturing of scientometrics and informetrics. The Scientist, 9(16), Aug 1995. http://www.the-scientist.
-library.upenn.edu/yr1995/august/issi_950821.ht%ml.
-[Gof71] William Goman. A mathematical method for analyzing the growth of a scientic
-discipline. Journal of the ACM, 18(2):173{185, April 1971.
-[Kle98] Jon Kleinberg. Authoritative sources in a hyperlinked environment. In Proceedings of
-the Nineth Annual ACM-SIAM Symposium on Discrete Algorithms., 1998.
-15
+====================
+F to feedback text.
 
-[Mar97]
+0.0
 
-Massimo Marchiori. The quest for correct information on the web: Hyper search engines.
-In Proceedings of the Sixth International WWW Conference, Santa Claram USA, April,
-1997, 1997. http://www6.nttlabs.com/HyperNews/get/PAPER222.html.
-[MF95] Sougata Mukherjea and James D. Foley. Showing the context of nodes in the worldwide web. In Proceedings of ACM CHI'95 Conference on Human Factors in Computing
-Systems, volume 2 of Short Papers: Web Browsing, pages 326{327, 1995.
-[MFH95] Sougata Mukherjea, James D. Foley, and Scott Hudson. Visualizing complex hypermedia networks through multiple hierarchical views. In Proceedings of ACM CHI'95
-Conference on Human Factors in Computing Systems, volume 1 of Papers: Creating
-Visualizations, pages 331{337, 1995.
-[MR95] R. Motwani and P. Raghavan. Randomized Algorithms. Cambridge University Press,
-1995.
-[NLA]
-NLANR. A distributed testbed for national information provisioning. http://ircache.
-nlanr.net/Cache/.
-[PB98]
-Lawrence Page and Sergey Brin. The anatomy of a large-scale hypertextual web search
-engine. In To Appear: Proceedings of the Seventh International Web Conference (WWW
-98), 1998.
-[Pit97]
-James E. Pitkow. Characterizing World Wide Web Ecologies. PhD thesis, Georgia
-Institue of Technology, June 1997.
-[PPR96] Peter Pirolli, James Pitkow, and Ramana Rao. Silk from a sow's ear: Extracting usable
-structure from the web. In Michael J. Tauber, Victoria Bellotti, Robin Jeries, Jock D.
-Mackinlay, and Jakob Nielsen, editors, Proceedings of the Conference on Human Factors
-in Computing Systems : Common Ground, pages 118{125, New York, 13{18 April 1996.
-ACM Press.
-[San95] Neeraja Sankaran. Speculation in the biomedical community abounds over likely candidates for nobel. The Scientist, 9(19), Oct 1995. http://www.the-scientist.library.
-upenn.edu/yr1995/oct/nobel_951002.html%.
-[Spe97] Ellen Spertus. Parasite: Mining structural information on the web. In Proceedings
-of the Sixth International WWW Conference, Santa Claram USA, April, 1997, 1997.
-http://www6.nttlabs.com/HyperNews/get/PAPER206.html.
-[Til]
-Hope N. Tillman. Evaluating quality on the net. http://www.tiac.net/users/hope/
-findqual.html.
-[WVS+ 96] Ron Weiss, Bienvenido Velez, Mark A. Sheldon, Chanathip Manprempre, Peter Szilagyi, Andrzej Duda, and David K. Giord. HyPursuit: A hierarchical network search
-engine that exploits content-link hypertext clustering. In Proceedings of the 7th ACM
-Conference on Hypertext, pages 180{193, New York, 16{20 March 1996. ACM Press.
+====================
+6.
 
-16
+0.0
 
-Appendix A
-This Appendix contains several sample query results using Google. The rst is a query for \Digital
-Libraries" using a uniform E . The next is a query for \Mitchell" using E consisting just of John
-McCarthy's home page.
+====================
+]fi [?
 
-17
+0.0
 
-
+====================
+.
+
+0.0
+
+====================
+]M q j [?
+
+0.0
+
+====================
+5.
+
+0.0
+
+====================
+[0, 1].
+
+0.0
+
+====================
+]F / (pi = 0) p[?
+
+0.0
+
+====================
+[?
+
+0.0
+
+To this end, we present Precog1 , a crowdsourced data acquisition system that supports pre-hoc quality control for both simple data types and multi-paragraph text attributes. We further show that Precog's unique approach to combining prescriptive explanations and segment-level feedback improves text quality by 14.3%, and over 3x better than a state-of-the-art feedback system [50]. To build high-quality models, we survey and categorize features from the writing analysis literature into 5 categories  1. user input  2. segment by topic  3. estimate quality  4. targeted feedback  Figure 3: The Segment-Predict-Explain pattern: Precog splits user input into coherent segments; estimates the quality of each segment and the text as a whole; and generates and shows suggested improvements to the user. In addition to evaluating Precog for hard constraints and simple data types, we evaluate Precog's text feedback through extensive MTurk experiments on two real application domains--product reviews and rental host profiles. In this paper, we argue for pre-hoc quality control systems. Our experiments and prior work [52] show that this is less effective than a more customized approach. The fourth FEF for product reviews was mapped to Subjectivity features in (Table 1) and the fourth host profiles FEF was mapped to Friendliness LIWC features shown in [94], with each returning text suggesting that the user improves the respective facet of their submission (i.e., "Please make your writing more balanced and neutral"). Experimental Conditions: The purpose of experiments is to both show the Cost Saving benefits of Precog as well as to evaluate the effectiveness of it's two main features (segment-level feedback and TCruise explanation generation). NEW APPLICATION DOMAINS  EXPERIMENTS  We now evaluate how Precog improves high-quality data acquisition using live Mechanical Turk deployments. For explanation functions, prior work showed that 75% of reasons for unhelpful reviews were covered by (in priority order) overly emotional/biased opinions, lack of information/not enough detail, irrelevant comments, and poor writing style [18].
