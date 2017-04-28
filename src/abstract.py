@@ -114,7 +114,7 @@ class Abstract(object):
     def tf_idf(self, word):
 	# Normalize the term frequency for document length.
 	# https://www.cs.bgu.ac.il/%7Eelhadad/nlp16/nenkova-mckeown.pdf
-	term_frequency = self.word_frequencies[word]
+	term_frequency = 1 + math.log(self.word_frequencies[word])
 	#term_frequency = float(self.word_frequencies[word])
 	#term_frequency = term_frequency / self.word_frequencies[self.most_frequent_word]
 	#print term_frequency
@@ -122,7 +122,7 @@ class Abstract(object):
         number_of_documents = self.corpus.numberOfDocuments()
         frequency_in_corpus = self.corpus.wordFrequency(word)
 
-        inverse_document_frequency = number_of_documents / (1 + frequency_in_corpus)
+        inverse_document_frequency = 1 + (number_of_documents / (1 + frequency_in_corpus))
 
         # FIX!!!!
         # The frequency in corpus for any term cannot be greater
@@ -130,7 +130,7 @@ class Abstract(object):
         # during corpus processing. Remove the +1 from argument
         # to math.log().
         try:
-            inverse_document_frequency = math.log(1 + inverse_document_frequency)
+            inverse_document_frequency = math.log(inverse_document_frequency)
         except:
             print "Number of documents: ", number_of_documents
             print "Frequency in corpus: ", frequency_in_corpus
@@ -159,9 +159,6 @@ class Abstract(object):
         self.sorted_word_tf_idf_scores = sorted(word_tf_idf_scores.items(),
                                                 key = operator.itemgetter(1),
                                                 reverse = True)
-
-        for word_score_tuple in self.sorted_word_tf_idf_scores:
-            print word_score_tuple
 
         self.word_tf_idf_scores = dict(self.sorted_word_tf_idf_scores)
 

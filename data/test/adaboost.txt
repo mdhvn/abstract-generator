@@ -1,22 +1,5 @@
-A Scalable and Parallel Implementation of the MultiBoost Library’s
-AdaBoost.MH (Adaptive Boosting) Algorithm
-Darshan Thaker (dbthaker@cs.utexas.edu)
-Prabhat Nagarajan (prabhatn@cs.utexas.edu)
-Abstract
-This report explores a parallel implementation of the C++
-MultiBoost open source library’s AdaBoost.MH (Adaptive
-Boosting) algorithm (D. Benbouzid,2012), and the changes
-in performance as measured on the Texas Advanced Computing Center’s Stampede supercomputer. This parallel implementation is based on the AdaBoost.PL Algorithm (Palit &
-Reddy,2012). The baseline is the AdaBoost.MH algorithm,
-and this algorithm’s performance is contrasted against our
-AdaBoost.PL implementation. This report also explores the
-feasibility and effectiveness of other possibilities for optimization such as vectorization, cache optimizations, and GPU
-optimizations. The best performance increase we get is 2.7x
-speedup from a parallel implementation.
-Keywords: Adaptive boosting; Performance; Parallelization;
-pthreads
+A Scalable and Parallel Implementation of the MultiBoost Library’s AdaBoost.MH (Adaptive Boosting) Algorithm
 
-Background
 The Adaptive Boosting algorithm (AdaBoost) is used for
 training a supervised machine learning classifier. A traditional machine learning classifier extracts hidden relationships between datapoints in a given dataset. Essentially, a
 classifier aims to place these datapoints into specific categories. An example in a dataset consists of a value for each
@@ -41,9 +24,7 @@ weight of each hypothesis function is its error rate.
 Figure 1 below summarizes and shows the high-level description of the AdaBoost.MH algorithm. Note that the way
 the diagram is represented shows the inherent serial nature
 of the algorithm.
-Figure 1: Inherently Sequential AdaBoost.MH algorithm
 
-AdaBoost.MH Algorithm Intuition
 The goal of boosting algorithms such as AdaBoost.MH is to
 maintain a list of weak classifiers and average these weak
 classifiers to get a final strong classifier. A weak classifier
@@ -63,24 +44,11 @@ As an aside, AdaBoost.MH is a multi-class version of the
 regular AdaBoost algorithm, which only works on binary
 classification problems.
 
-AdaBoost.MH Algorithm Mathematics
 We will introduce the AdaBoost.MH algorithm from a formal mathematical standpoint now for the mathematically
 inclined. However, for the purposes of clarity, the previous
 section is enough to gain intuition of the AdaBoost.MH algorithm.
 
-Definitions:
-Xi1 ...Xin = n feature vectors for training set
-yi = True label for example i in training set
-j = Number of training examples
-l = set of labels for training set
-ht (x) : X → Y = Weak hypothesis function on iteration t
-H(x) = Final strong hypothesis function
-Dt (i, l) = Distribution of weights on iteration t
-αt = Learning rate based off the training error rate
-εt = Training error rate
-Zt = normalization factor so Dt+1 will be a distribution
-Y [l] = +1 if l ∈ Y and −1 if l ∈
-/Y
+
 Note that the αt is a learning rate specific to the AdaBoost.MH algorithm. It merely serves to update the distribution of the next iteration. The choice of this learning
 rate can be proven from a statistical method, which is done
 in the initial AdaBoost paper (Schapire & Singer,n.d.).
@@ -97,41 +65,7 @@ Figure 2 describes the partitioning of data to AdaBoost.PL
 in the training phase, and Figure 3 describes the merging of
 weak hypotheses functions in the testing phase.
 
-Figure 2: AdaBoost.PL algorithm
 
-Algorithm 1 AdaBoost.MH algorithm
-Given: (X1,1 ...X1,n , l1 )...(X j,1 ...X j,n , lm )
-Initialize D1 (i, 1) = 1/m
-for t = 1...T do
-Train weak learner using distribution Dt
-Get weak hypothesis ht from this weak learner
-εt =
-
-Dt (i)
-
-∑
-i:ht (xi )6=yi
-
-αt = ln(
-
-1 − εt
-)
-εt
-
-Update:
-Dt+1 =
-
-Dt (i, l)exp(−αt Yi [l]ht (xi , l))
-Zt
-
-end for
-Compute the final hypothesis function:
-T
-
-H(x) = sign( ∑ αt ht (x))
-t=1
-
-AdaBoost.PL Algorithm Intuition
 This section aims to introduce the parallel version of the
 AdaBoost.MH algorithm. This algorithm is titled AdaBoost.PL. The algorithm divides up the training set to m
 worker threads, which generate m ∗t different weak hypotheses functions, put into a matrix P. The rows of this matrix P
@@ -140,79 +74,14 @@ obtain the final hypothesis function, an extra merging step
 is taken. This merging step averages classifications down a
 column of P and takes a majority vote by running classifications for every example in the training set on each weak hypothesis. From a pedagogical perspective to understand this
 
-Figure 3: Merging step for matrix P in AdaBoost.PL
 
-AdaBoost.PL Algorithm Mathematics
-
-• Linux (CentOS 6.3 Distribution)
-• Run using gcc linked with the following libraries:
-multiboost, MultiBoostLib, Bzip2Lib, pthread, m, rt
-
-Definitions:
-M = Number of worker threads
-H P = strong classifier outputted by the AdaBoost.MH function
-αP(t) = weight of weak classifier from the t th iteration in AdaBoost.MH
-H P∗ = List of weak hypotheses functions in H P sorted w.r.t.
-αP(t)
-h(t)= hypothesis function generated by merging the t th classifiers from each of the M H P∗ ’s.
-αt = the α corresponding to the hypothesis function h(t) as in
-the traditional AdaBoost.MH
-H = final strong classifier (result of AdaBoost.PL)
-
-Algorithm 2 AdaBoost.PL(D1n1 , ..., DM
-,T )
-nM
-Input: The training sets of M workers (D1n1 , ..., DM
-)
-nM
-Number of boosting iterations (T )
-Output: The Final Classifier (H)
-Procedure:
-1: for p ← 1 to M do
-2:
-H P ← Adaboost.MH(DPN p , T )
-∗
-3:
-H P ← the weak classifiers in H P sorted w..r.t. αP(t)
-4: end for
-5: for t ← 1 to T do
-6:
-h(t) ← MERGE(h1∗(t) , ..., hM∗(t) )
-P∗(t)
-7:
-αt ← M1 ∑M
-p=1 α
-8: end for
-T
-9: return H = ∑t=1
-αt h(t)
-The merged hypothesis function h(t) is called a ternary classifier, which can yield values of +1, −1, or 0. The function
-h(t) is created by taking a majority vote from the workers’
-weak classifiers. It is defined as follows:
-
-
-
-
-M
-p∗(t) (x)
-p∗(t) (x) 6= 0
-sign
-h
-if
-∑
-∑M
-p=1
-p=1 h
-h(r) =
-
-0
-otherwise
+•\
 
 Experimental Setup
 The baseline optimizations and results are tested on a Stampede compute node in the Texas Advanced Computing Center (TACC). The following descriptions show the experimental setup:
 1. Stampede Compute Node:
-• 16 Intel(R) Xeon(R) CPU E5-2680 - 2.70GHz processor
-• Intel Xeon Phi CoProcessor
+• 16 Intel(R) Xeon(R) CPU E5-2680 - 2.70GHz processor.
+• Intel Xeon Phi CoProcessor.
 
 Running adaptive boosting involves the choice of a weak
 learner (or base learner) for AdaBoost.MH and AdaBoost.PL. Our optimizations are concerned with optimizing
@@ -250,9 +119,7 @@ can be found in the AdaBoost.PL paper.
 One possible cause of experimental error in our timings is
 that the Adaboost.MH serializes throughout its run method.
 Consequently, it is extremely difficult to divorce serialization from the computation without modifying the entire
-library and introducing an I/O component to our measurements. Additionally, while the baseline calls the AdaBoost
-
-run method once, our parallel implementation calls this
+library and introducing an I/O component to our measurements. Additionally, while the baseline calls the AdaBoost run method once, our parallel implementation calls this
 method M times (where M is the number of worker threads).
 As a result, serialization creates a bottleneck since each
 worker thread serializes a weak hypothesis. As the number
@@ -269,63 +136,12 @@ vector types. Additionally, the number of labels influences
 the amount of total computation completed, since the original Adaboost loops through through the labels during both
 testing and training.
 
-Planned/Predicted Optimizations
-Input Data
-
-Parallelization of Training
-
-UCI - Machine Learning Repository: Yeast Data
-Set:
-• Contains data of protein localization sites in yeast bacteria
-• General Goal: identify localization site of protein
-• Number of Instances: 1484
-• Number of Attributes/Features: 8
-• Number of Labels: 10
-
-UCI - Machine Learning Repository: Dexter Data
-Set:
-• Data is a subset of the Reuter’s text categorization benchmark
-• General Goal: filter texts about corporate acquisitions
-• Number of Instances: 2600
-• Number of Attributes/Features: 20000
-• Number of Labels: 2
-
-UCI - Machine Learning Repository: Pendigits
-Data Set:
-•
-•
-•
-•
-•
-
-Samples of handwritten digits from 44 writers
-General Goal: identify digit correctly
-Number of Instances: 10992
-Number of Attributes/Features: 16
-Number of Labels: 10
-
-Baseline Performance
 The following table shows the baseline performance of the
 original Multiboost AdaBoost.MH classifier. It is run on
 various input datasets and the training and testing time is
 recorded. The row titled ”Total” is the total time (training +
 testing) spent by the AdaBoost.MH classifier.
 Yeast
-Training 138.93 ms
-Testing
-169.44 ms
-Total
-1558.79 ms
-
-Pendigits
-15418.76 ms
-1296.06 ms
-16714.82 ms
-
-Dexter
-6615.89 ms
-48.82 ms
-6664.70 ms
 
 As shown, the Yeast dataset has a relatively quick baseline
 training and testing time, due to its to its small number of
@@ -348,7 +164,6 @@ estimate that the upper bound on our speedup, if we max at
 to 13x is more likely. We perform this parallelization using
 pthreads.
 
-Parallelization of Testing
 After implementing the parallel AdaBoost, as we suspected,
 the testing time significantly increased. This is because there
 are 2M times as many computations in the AdaBoost.PL
@@ -362,33 +177,17 @@ hypothesize that as we reach 2M threads, this will not scale,
 and that our AdaBoost.PL testing time can at best match, but
 nor surpass, the testing time of AdaBoost.MH.
 
-Other optimizations
 We aim to reduce cache misses while implementing the parallel algorithm. These should be minor changes, so the overall speedup will not be greatly affected from these additions.
 The output of a gprof profiler shows that the main work being done is in the testing method of the parallel algorithm,
 which is a short method that already exploits locality in C++
-vectors. The code uses C++ vectors, so this takes advantage
-
-of vectorization to perform computations using vector types.
+vectors. The code uses C++ vectors, so this takes advantage of vectorization to perform computations using vector types.
 GPU optimizations could not be explored because that required changing the codebase to support nvcc and modify
 the Cmakefiles completely.
 
-Figure 5: Testing Speedups
-
-Experimental Results
-Confusion Matrix Performance Metrics
 Between AdaBoost.MH and AdaBoost.PL, the comparison of the statistics mentioned in the Experimental Setup
 section fits within an interval of 0.12, with an average difference in percentages of ≈ 0.03. This shows that the AdaBoost.PL classifier performs similarly to the AdaBoost.MH
 classifier, which shows the algorithm’s empirical correctness.
 
-Speedup
-The following graphs show the speedup of the training, testing, and (training + testing) times as the number of threads
-varies from 1 to 16:
-
-Figure 6: Total Speedups (Total = Testing + Training)
-
-Figure 4: Training Speedups
-
-Evaluating Results
 The first major result that can be seen in the graphs is the
 difference between the speedups for different datasets. This
 reiterates that different datasets cause different performance
@@ -418,39 +217,8 @@ the cache line will have to be invalidated so other threads
 don’t read wrong memory. Even though the threads seem
 to be operating on independent data, false sharing causes
 inevitable serialization of the code.
-
-The testing time for the dexter dataset performs much better than the other datasets. A possible explanation for this
+The testing time for the dexter dataset performs much better than the other datasets. A possible explanation for this
 is that the number of labels in the dexter dataset is only 2,
 whereas the other datasets have 10 labels. The merge in the
 testing phase iterates through all these labels for each example. Since we are parallelizing this loop, it is expected that
 the testing phase speedup is high for the dexter dataset.
-
-References
-D. Benbouzid, N. C. F. C. B. K., R. Busa-Fekete. (2012, 3).
-Multiboost: A multi-purpose boosting package. Journal of
-Machine Learning Research(3), 549-553.
-Dexter data set.
-(n.d.).
-https://archive.ics.uci.edu/ml/datasets/Yeast.
-Freund, Y., & Schapire, R. (1999, 9). A short introduction
-to boosting. Journal of Japanese Society for Artificial
-Intelligence, 771-780.
-M. Abualkibash, A. M., A. ElSayed. (2013, 5). Highly
-scalable, parallel and distributed adaboost algorithm using
-light weight threads and web services on a network of
-multi-core machines. International Journal of Distributed
-and Parallel Systems, 4(3), 771-780.
-Palit, I., & Reddy, C. (2012, 10). Scalable and parallel
-boosting with mapreduce. IEEE TRANSACTIONS ON
-KNOWLEDGE AND DATA ENGINEERING, 24(10),
-1904-1916.
-Pendigits data set.
-(n.d.).
-https://archive.ics.uci.edu/ml/datasets/Pen-Based+Recognition+of+Handwritten+Digits.
-Schapire, R. (n.d.). Explaining adaboost.
-Schapire, R., & Singer, Y. (n.d.). Improved boosting algorithms using confidence-rated predictions.
-Yeast data set.
-(n.d.).
-http://web.archive.org/web/20080207010024/http://www.808multimedia.com/winnt/kernel.htm.
-
-
